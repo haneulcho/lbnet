@@ -58,97 +58,88 @@ add_stylesheet('<link rel="stylesheet" href="../css/custom.css" type="text/css" 
 	<!--{: layout == 'boxed'}-->
 	<div class="header-fixed boxed-layout container">
 	<!--{/}-->
-	    <!--{* Header Topbar *}-->
-	    <div class="header-topbar">
-	        <div class="container">
-	            <div class="row">
-	                <div class="col-md-6">
-	                    <ul class="list-unstyled topbar-left">
-	                        <!--{? !C.G5_IS_MOBILE}-->
-							<li>
-								<a id="bookmarkme" href="javascript:void(0);" rel="sidebar" title="bookmark this page">즐겨찾기</a>
-								<script>
-								    $(function() {
-								        $("#bookmarkme").click(function() {
-								            // Mozilla Firefox Bookmark
-								            if ('sidebar' in window && 'addPanel' in window.sidebar) {
-								                window.sidebar.addPanel(location.href,document.title,"");
-								            } else if( /*@cc_on!@*/false) { // IE Favorite
-								                window.external.AddFavorite(location.href,document.title);
-								            } else { // webkit - safari/chrome
-								                alert('단축키 ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command' : 'CTRL') + ' + D를 눌러 즐겨찾기에 추가하세요.');
-								            }
-								        });
-								    });
-								</script>
-							</li>
-	                        <!--{/}-->
-              <!--{? _is_admin //관리자일 경우}-->
-							<li>
-								<a href="{C.G5_BBS_URL}/current_connect_admin.php">접속자 {connect.total_cnt}{? connect.mb_cnt} (<span>{connect.mb_cnt}</span>){/}</a>
-							</li>
-              <li><a href="{C.G5_BBS_URL}/new_admin.php">새글</a></li>
-              <!--{/}-->
-							<li><a href="{C.G5_BBS_URL}/faq.php">FAQ</a></li>
-							<li><a href="{C.G5_BBS_URL}/qalist.php">1:1문의</a></li>
-							<!--{? eyoom.use_tag == 'y'}-->
-                            <li>
-                            	{=eb_tagrecommend(eyoom.tag_skin)}
-                            </li>
-                            <!--{/}-->
-	                    </ul>
-	                </div>
-
-	                <div class="col-md-6">
-	                    <ul class="list-unstyled topbar-right">
-							<!--{? _is_member //회원일 경우}-->
-								<!--{? _is_admin //관리자일 경우}-->
-					            <li><a href="{C.G5_ADMIN_URL}">관리자</a></li>
-					            <!--{/}-->
-					            <li class="hidden-xs"><a href="{C.G5_BBS_URL}/member_confirm.php?url={C.G5_BBS_URL}/register_form.php">정보수정</a></li>
-					            <li><a href="{C.G5_BBS_URL}/logout.php">로그아웃</a></li>
-								<!--{* 쪽지 최신글 *}-->
-								{latest->latest_memo('memo_latest','count=8||cut_subject=20||photo=y')}
-								<!--{* 내글반응 최신글 *}-->
-								{latest->latest_respond('respond_latest','count=8||cut_subject=20||photo=y')}
-							<!--{: //비회원일 경우}-->
-					            <li><a href="{C.G5_BBS_URL}/register.php">회원가입</a></li>
-					            <li><a href="{C.G5_BBS_URL}/login.php">로그인</a></li>
-							<!--{/}-->
-	                    </ul>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	    <!--{* End Header Topbar *}-->
-
-	    <!--{* Header Title *}-->
-	    <div class="header-title">
-	        <div class="container">
-		        <!--{* ------------- Header Logo 영역 시작 ------------- *}-->
-	            <div class="header-logo">
-					<!--{? logo == 'text'}-->
-					<a class="navbar-brand" href="{C.G5_URL}">{config.cf_title}</a>
-					<!--{: logo == 'image'}-->
-					<!--{* 안내: 출력되는 이미지로고 크기는 167 x 40 픽셀입니다. 선명도 최적화를 위해 334 x 80 픽셀 사이즈로 image 폴더에 업로드 하시길 권합니다. *}-->
-					<a class="navbar-brand" href="{C.G5_URL}"><img src="../image/site_logo.png" class="img-responsive" alt="{config.cf_title} LOGO"></a>
-					<!--{/}-->
-	            </div>
-	            <!--{* ------------- Header Logo 영역 끝 ------------- *}-->
-	            <div class="clearfix"></div>
-	        </div>
-	    </div>
-	    <!--{* End Header Title *}-->
-
 	    <!--{* Header Nav *}-->
 		<!--{? color == 'white'}-->
 	    <div class="header-nav nav-background-light header-sticky">
 		<!--{: color == 'black'}-->
 		<div class="header-nav nav-background-dark header-sticky">
 		<!--{/}-->
+    <!--{* Header Topbar *}-->
+    <div class="header-topbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-unstyled topbar-left">
+                        <!--{? !C.G5_IS_MOBILE}-->
+            <li>
+              <a id="bookmarkme" href="javascript:void(0);" rel="sidebar" title="bookmark this page">즐겨찾기</a>
+              <script>
+                  $(function() {
+                      $("#bookmarkme").click(function() {
+                          // Mozilla Firefox Bookmark
+                          if ('sidebar' in window && 'addPanel' in window.sidebar) {
+                              window.sidebar.addPanel(location.href,document.title,"");
+                          } else if( /*@cc_on!@*/false) { // IE Favorite
+                              window.external.AddFavorite(location.href,document.title);
+                          } else { // webkit - safari/chrome
+                              alert('단축키 ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command' : 'CTRL') + ' + D를 눌러 즐겨찾기에 추가하세요.');
+                          }
+                      });
+                  });
+              </script>
+            </li>
+                        <!--{/}-->
+            <!--{? _is_admin //관리자일 경우}-->
+            <li>
+              <a href="{C.G5_BBS_URL}/current_connect_admin.php">접속자 {connect.total_cnt}{? connect.mb_cnt} (<span>{connect.mb_cnt}</span>){/}</a>
+            </li>
+            <li><a href="{C.G5_BBS_URL}/new_admin.php">새글</a></li>
+            <!--{/}-->
+            <li><a href="{C.G5_BBS_URL}/faq.php">FAQ</a></li>
+            <li><a href="{C.G5_BBS_URL}/qalist.php">1:1문의</a></li>
+            <!--{? eyoom.use_tag == 'y'}-->
+                          <li>
+                            {=eb_tagrecommend(eyoom.tag_skin)}
+                          </li>
+                          <!--{/}-->
+                    </ul>
+                </div>
+
+                <div class="col-md-6">
+                    <ul class="list-unstyled topbar-right">
+            <!--{? _is_member //회원일 경우}-->
+              <!--{? _is_admin //관리자일 경우}-->
+                    <li><a href="{C.G5_ADMIN_URL}">관리자</a></li>
+                    <!--{/}-->
+                    <li class="hidden-xs"><a href="{C.G5_BBS_URL}/member_confirm.php?url={C.G5_BBS_URL}/register_form.php">정보수정</a></li>
+                    <li><a href="{C.G5_BBS_URL}/logout.php">로그아웃</a></li>
+              <!--{* 쪽지 최신글 *}-->
+              {latest->latest_memo('memo_latest','count=8||cut_subject=20||photo=y')}
+              <!--{* 내글반응 최신글 *}-->
+              {latest->latest_respond('respond_latest','count=8||cut_subject=20||photo=y')}
+            <!--{: //비회원일 경우}-->
+                    <li><a href="{C.G5_BBS_URL}/register.php">회원가입</a></li>
+                    <li><a href="{C.G5_BBS_URL}/login.php">로그인</a></li>
+            <!--{/}-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--{* End Header Topbar *}-->
 	        <div class="navbar mega-menu" role="navigation">
 	            <div class="container">
 	                <div class="menu-container">
+                    <!--{* ------------- Header Logo 영역 시작 ------------- *}-->
+                      <div class="header-logo">
+                  <!--{? logo == 'text'}-->
+                  <a class="navbar-brand" href="{C.G5_URL}">{config.cf_title}</a>
+                  <!--{: logo == 'image'}-->
+                  <!--{* 안내: 출력되는 이미지로고 크기는 167 x 40 픽셀입니다. 선명도 최적화를 위해 334 x 80 픽셀 사이즈로 image 폴더에 업로드 하시길 권합니다. *}-->
+                  <a class="navbar-brand" href="{C.G5_URL}"><img src="../image/site_logo.png" class="img-responsive" alt="{config.cf_title} LOGO"></a>
+                  <!--{/}-->
+                      </div>
+                      <!--{* ------------- Header Logo 영역 끝 ------------- *}-->
 	                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
 	                        <span class="sr-only">Toggle navigation</span>
 	                        <span class="fa fa-align-justify"></span>
@@ -199,11 +190,6 @@ add_stylesheet('<link rel="stylesheet" href="../css/custom.css" type="text/css" 
 	                <div class="collapse navbar-collapse navbar-responsive-collapse">
 	                    <div class="menu-container">
 	                        <ul class="nav navbar-nav">
-	                            <!--{* Home *}-->
-	                            <li class="{? defined('_INDEX_')}active{/}">
-	                                <a href="{C.G5_URL}{? _is_member && eyoomer.main_index != 'index'}/?home{/}">처음으로</a>
-	                            </li>
-	                            <!--{* End Home *}-->
 
 		                        <!--{* Menu *}-->
 		                        <!--{@ menu}-->
