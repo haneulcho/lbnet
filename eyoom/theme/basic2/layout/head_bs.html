@@ -153,6 +153,7 @@ add_stylesheet('<link rel="stylesheet" href="../css/custom.css" type="text/css" 
 	                        <span class="sr-only">Toggle navigation</span>
 	                        <span class="fa fa-align-justify"></span>
 	                    </button>
+                      <!--{? _is_admin //관리자일 경우}-->
 	                    <div class="nav-in-right">
 	                        <ul class="menu-icons-list">
 	                            <li class="menu-icons">
@@ -160,7 +161,9 @@ add_stylesheet('<link rel="stylesheet" href="../css/custom.css" type="text/css" 
 	                            </li>
 	                        </ul>
 	                    </div>
+                      <!--{/}-->
 	                </div>
+                  <!--{? _is_admin //관리자일 경우}-->
 	                <div class="menu-container">
 	                    <div class="search-open">
 							<form name="fsearchbox" method="get" action="{C.G5_BBS_URL}/search.php" onsubmit="return fsearchbox_submit(this);">
@@ -192,6 +195,7 @@ add_stylesheet('<link rel="stylesheet" href="../css/custom.css" type="text/css" 
 							</script>
 	                    </div>
 	                </div>
+  					      <!--{/}-->
 	                <div class="collapse navbar-collapse navbar-responsive-collapse">
 	                    <div class="menu-container">
 	                        <ul class="nav navbar-nav">
