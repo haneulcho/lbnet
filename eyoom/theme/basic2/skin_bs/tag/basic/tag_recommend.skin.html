@@ -1,0 +1,16 @@
+<?php if (!defined('_GNUBOARD_')) exit;?>
+
+<!--{* 추천태그 시작 *}-->
+<span class="tag-recommend visible-lg">
+	<span class="label label-dark margin-right-5">추천 태그</span>
+	<span>
+		<!--{@ list}-->
+		<a href="{.href}" class="tag-word">{.tag}</a>
+		<!--{/}-->
+	</span>
+</span>
+<!--{* 추천태그 끝 *}-->
+
+<style>
+.tag-recommend .tag-word {font-size:10px;background:#e5e5e5;color:#000;padding:3px 5px}
+</style>

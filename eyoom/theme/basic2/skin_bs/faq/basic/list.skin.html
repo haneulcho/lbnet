@@ -1,0 +1,125 @@
+<?php if (!defined('_GNUBOARD_')) exit;?>
+
+<div class="faq-wrap">
+	<!--{? _himg_src}-->
+	<div id="faq_himg" class="faq_img"><img class="img-responsive" src="{_himg_src}" alt=""></div>
+	<!--{/}-->
+	<div id="faq_hhtml" class="margin-bottom-10">{=stripslashes(fm.fm_head_html)}</div>
+	<div class="tab-e1">
+		<!--{? count(_faq_master_list)}-->
+        <ul class="nav nav-tabs">
+			<!--{@ list}-->
+	        <li {? .fm_id==_fm_id}class="active"{/}><a href="{.category_href}?fm_id={.fm_id}" {.category_option}>{.category_msg}{.fm_subject}</a></li>
+			<!--{/}-->
+        </ul>
+		<!--{/}-->
+        <div class="margin-bottom-10"></div>
+		<div id="faq_wrap" class="faq_{_fm_id}">
+			<!--{? count(_faq_list)}-->
+		    <section id="faq_con">
+		        <h2>{g5.title} 목록</h2>
+		        <ol>
+					<!--{@ _faq_list}-->
+		            <li>
+		                <h5><a href="#none" onclick="return faq_open(this);"><!--{=conv_content(.fa_subject, 1)}--></a></h5>
+		                <div class="con_inner">
+		                    <!--{=conv_content(.fa_content, 1)}-->
+		                    <div class="con_closer"><button type="button" class="closer_btn"><span class="btn-e btn-e-default btn-e-sm">닫기</span></button></div>
+		                </div>
+		            </li>
+		            <!--{/}-->
+		        </ol>
+		    </section>
+			<!--{:}-->
+				<!--{? _stx}-->
+				<p class="empty_list">검색된 게시물이 없습니다.</p>
+				<!--{:}-->
+				<div class="text-center margin-top-30">
+				등록된 FAQ가 없습니다.
+				{? _is_admin}<br><a href="{C.G5_ADMIN_URL}/faqmasterlist.php">FAQ를 새로 등록하시려면 FAQ관리</a> 메뉴를 이용하십시오.{/}
+				</div>
+				<!--{/}-->
+			<!--{/}-->
+		</div>
+    </div>
+
+	{=eb_paging('basic')}
+
+	<div id="faq_thtml" class="margin-top-10">{=stripslashes(fm.fm_tail_html)}</div>
+	<!--{? _timg_src}-->
+	<div id="faq_timg" class="faq_img"><img src="{_timg_src}" alt=""></div>
+	<!--{/}-->
+    <form name="faq_search_form" method="get" class="eyoom-form">
+    <input type="hidden" name="fm_id" value="{_fm_id}">
+	<div class="row">
+		<section class="col col-4"></section>
+	    <section class="col col-4">
+		    <div class="input-group">
+		        <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+		        <label class="input">
+		        	<input type="text" name="stx" value="{_stx}" required id="stx" class="form-control" size="15" maxlength="15" placeholder="FAQ검색">
+		        </label>
+		        <span class="input-group-btn">
+		            <button class="btn btn-default btn-e-group" type="submit" value="검색">검색</button>
+		        </span>
+		    </div>
+	    </section>
+	    <!--{? _admin_href}-->
+	    <section class="col col-4 text-right">
+	        <a href="{_admin_href}" class="btn-e btn-e-red">FAQ 수정</a>
+	    </section>
+	    <!--{/}-->
+	</div>
+    </form>
+</div>
+
+<style>
+.margin-hr-10 {height:1px;border-top:1px dotted #ddd;margin:10px 0}
+.faq-wrap {overflow:hidden}
+#faq_wrap {margin:0;}
+#faq_wrap h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
+#faq_wrap ol {margin:0;padding:0;list-style:none}
+#faq_con {border:1px solid #e5e5e5;border-top:0}
+#faq_con h5 {margin-top:0;margin-bottom:0;font-size:12px}
+#faq_con h5 a {display:block;padding:5px 10px;border-top:1px solid #e5e5e5;background:#f8f8f8;text-decoration:none}
+#faq_con h5 p {margin-bottom:0}
+#faq_con .con_inner {display:none;padding:10px;line-height:1.5;border-top:1px solid #e5e5e5}
+#faq_con .con_closer {margin:10px 0 0;text-align:right}
+#faq_con .closer_btn {margin:0;padding:0;border:0;background:transparent}
+.faq_tolist {padding:0 10px;text-align:right}
+.faq_img {text-align:center}
+</style>
+
+<script src="../../../../../../js/viewimageresize.js"></script>
+<script>
+$(function() {
+    $(".closer_btn").on("click", function() {
+        $(this).closest(".con_inner").slideToggle();
+    });
+	$("#faq_hhtml img").addClass("img-responsive");
+	$("#faq_hhtml img").attr("style",'');
+	$("#faq_thtml img").addClass("img-responsive");
+	$("#faq_thtml img").attr("style",'');
+	$("#faq_con img").addClass("img-responsive");
+	$("#faq_con img").attr("style",'');
+});
+
+function faq_open(el) {
+    var $con = $(el).closest("li").find(".con_inner");
+
+    if($con.is(":visible")) {
+        $con.slideUp();
+    } else {
+        $("#faq_con .con_inner:visible").css("display", "none");
+
+        $con.slideDown(
+            function() {
+                // 이미지 리사이즈
+                $con.viewimageresize2();
+            }
+        );
+    }
+
+    return false;
+}
+</script>

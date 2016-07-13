@@ -1,0 +1,402 @@
+<?php if (!defined('_GNUBOARD_')) exit;
+
+add_stylesheet('<link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css" type="text/css" media="screen">',0);
+add_stylesheet('<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css" type="text/css" media="screen">',0);
+add_stylesheet('<link rel="stylesheet" href="../plugins/eyoom-form/css/eyoom-form.min.css" type="text/css" media="screen">',0);
+add_stylesheet('<link rel="stylesheet" href="../plugins/owl-carousel/owl-carousel/owl.carousel.css" type="text/css" media="screen">',0);
+add_stylesheet('<link rel="stylesheet" href="../css/common.css" type="text/css" media="screen">',0);
+add_stylesheet('<link rel="stylesheet" href="../css/style.css" type="text/css" media="screen">',0);
+add_stylesheet('<link rel="stylesheet" href="../css/custom.css" type="text/css" media="screen">',0);
+
+?>
+
+<?php
+// ------------- 테마 디자인 설정 옵션 시작 ------------- //
+
+/**
+ * Design Layout 종류 : wide or boxed
+ */
+{layout} = 'wide';
+
+/**
+ * Design Color 종류 : white or black
+ */
+{color} = 'white';
+
+/**
+ * Mega Menu 설정 : yes or no
+ */
+{is_megamenu} = 'yes';
+
+/**
+ * Side Sticky 설정 : yes or no
+ */
+{is_side_sticky} = 'yes';
+
+/**
+ * Header Slider 설정 : yes or no
+ */
+{is_slider} = 'yes';
+
+/**
+ * Logo Type 종류 : image or text
+ */
+{logo} = 'text';
+
+/**
+ * Header Banner 종류 : image or text
+ */
+{hbanner} = 'text';
+
+// ------------- 테마 디자인 설정 옵션 끝 ------------- //
+?>
+
+<!--{? !_wmode }-->
+<div class="wrapper">
+	<!--{? layout == 'wide'}-->
+	<div class="header-fixed basic-layout">
+	<!--{: layout == 'boxed'}-->
+	<div class="header-fixed boxed-layout container">
+	<!--{/}-->
+	    <!--{* Header Topbar *}-->
+	    <div class="header-topbar">
+	        <div class="container">
+	            <div class="row">
+	                <div class="col-md-6">
+	                    <ul class="list-unstyled topbar-left">
+	                        <!--{? !C.G5_IS_MOBILE}-->
+							<li>
+								<a id="bookmarkme" href="javascript:void(0);" rel="sidebar" title="bookmark this page">북마크</a>
+								<script>
+								    $(function() {
+								        $("#bookmarkme").click(function() {
+								            // Mozilla Firefox Bookmark
+								            if ('sidebar' in window && 'addPanel' in window.sidebar) {
+								                window.sidebar.addPanel(location.href,document.title,"");
+								            } else if( /*@cc_on!@*/false) { // IE Favorite
+								                window.external.AddFavorite(location.href,document.title);
+								            } else { // webkit - safari/chrome
+								                alert('단축키 ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command' : 'CTRL') + ' + D를 눌러 북마크에 추가하세요.');
+								            }
+								        });
+								    });
+								</script>
+							</li>
+	                        <!--{/}-->
+							<li>
+								<a href="{C.G5_BBS_URL}/current_connect.php">접속자 {connect.total_cnt}{? connect.mb_cnt} (<span>{connect.mb_cnt}</span>){/}</a>
+							</li>
+							<li><a href="{C.G5_BBS_URL}/faq.php">FAQ</a></li>
+							<li><a href="{C.G5_BBS_URL}/qalist.php">1:1문의</a></li>
+							<li><a href="{C.G5_BBS_URL}/new.php">새글</a></li>
+							<!--{? eyoom.use_tag == 'y'}-->
+                            <li>
+                            	{=eb_tagrecommend(eyoom.tag_skin)}
+                            </li>
+                            <!--{/}-->
+	                    </ul>
+	                </div>
+
+	                <div class="col-md-6">
+	                    <ul class="list-unstyled topbar-right">
+							<!--{? _is_member //회원일 경우}-->
+								<!--{? _is_admin //관리자일 경우}-->
+					            <li><a href="{C.G5_ADMIN_URL}">관리자</a></li>
+					            <!--{/}-->
+					            <li class="hidden-xs"><a href="{C.G5_BBS_URL}/member_confirm.php?url={C.G5_BBS_URL}/register_form.php">정보수정</a></li>
+					            <li><a href="{C.G5_BBS_URL}/logout.php">로그아웃</a></li>
+								<!--{* 쪽지 최신글 *}-->
+								{latest->latest_memo('memo_latest','count=8||cut_subject=20||photo=y')}
+								<!--{* 내글반응 최신글 *}-->
+								{latest->latest_respond('respond_latest','count=8||cut_subject=20||photo=y')}
+							<!--{: //비회원일 경우}-->
+					            <li><a href="{C.G5_BBS_URL}/register.php">회원가입</a></li>
+					            <li><a href="{C.G5_BBS_URL}/login.php">로그인</a></li>
+							<!--{/}-->
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    <!--{* End Header Topbar *}-->
+
+	    <!--{* Header Title *}-->
+	    <div class="header-title">
+	        <div class="container">
+		        <!--{* ------------- Header Logo 영역 시작 ------------- *}-->
+	            <div class="header-logo">
+					<!--{? logo == 'text'}-->
+					<a class="navbar-brand" href="{C.G5_URL}">{config.cf_title}</a>
+					<!--{: logo == 'image'}-->
+					<!--{* 안내: 출력되는 이미지로고 크기는 167 x 40 픽셀입니다. 선명도 최적화를 위해 334 x 80 픽셀 사이즈로 image 폴더에 업로드 하시길 권합니다. *}-->
+					<a class="navbar-brand" href="{C.G5_URL}"><img src="../image/site_logo.png" class="img-responsive" alt="{config.cf_title} LOGO"></a>
+					<!--{/}-->
+	            </div>
+	            <!--{* ------------- Header Logo 영역 끝 ------------- *}-->
+
+	            <!--{* ------------- Header Banner 영역 시작 ------------- *}-->
+	            <!--{? !C.G5_IS_MOBILE}-->
+	            <div class="header-banner pull-right hidden-sm hidden-xs">
+		            <div class="header-banner-box">
+						<!--{? hbanner == 'text'}-->
+			            <div class="header-banner-txt">
+		            		<a href="#" target="_blank">Header Banner 468x60 이미지 사이즈</a>
+			            </div>
+			            <!--{: hbanner == 'image' // 테마 image 폴더에 배너이미지 업로드 후 이미지파일명을 설정하세요.}-->
+			            <div class="header-banner-img">
+		            		<a href="#" target="_blank"><img src="../image/이미지파일"></a>
+			            </div>
+			            <!--{/}-->
+		            </div>
+	            </div>
+	            <!--{/}-->
+	            <!--{* ------------- Header Banner 영역 끝 ------------- *}-->
+	            <div class="clearfix"></div>
+	        </div>
+	    </div>
+	    <!--{* End Header Title *}-->
+
+	    <!--{* Header Nav *}-->
+		<!--{? color == 'white'}-->
+	    <div class="header-nav nav-background-light header-sticky">
+		<!--{: color == 'black'}-->
+		<div class="header-nav nav-background-dark header-sticky">
+		<!--{/}-->
+	        <div class="navbar mega-menu" role="navigation">
+	            <div class="container">
+	                <div class="menu-container">
+	                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+	                        <span class="sr-only">Toggle navigation</span>
+	                        <span class="fa fa-align-justify"></span>
+	                    </button>
+	                    <div class="nav-in-right">
+	                        <ul class="menu-icons-list">
+	                            <li class="menu-icons">
+	                                <i class="menu-icons-style search search-close search-btn fa fa-search"></i>
+	                            </li>
+	                        </ul>
+	                    </div>
+	                </div>
+	                <div class="menu-container">
+	                    <div class="search-open">
+							<form name="fsearchbox" method="get" action="{C.G5_BBS_URL}/search.php" onsubmit="return fsearchbox_submit(this);">
+							<input type="hidden" name="sfl" value="wr_subject||wr_content">
+							<input type="hidden" name="sop" value="and">
+							<label for="sch_stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+	                        <input type="text" name="stx" id="sch_stx" maxlength="20" class="form-control" class="form-control" placeholder="전체검색... [검색어를 입력하세요]">
+							</form>
+							<script>
+							function fsearchbox_submit(f) {
+								if (f.stx.value.length < 2 || f.stx.value == $("#sch_stx").attr("placeholder")) {
+									alert("검색어는 두글자 이상 입력하십시오.");
+									f.stx.select();
+									f.stx.focus();
+									return false;
+								}
+								var cnt = 0;
+								for (var i=0; i<f.stx.value.length; i++) {
+									if (f.stx.value.charAt(i) == ' ') cnt++;
+								}
+								if (cnt > 1) {
+									alert("빠른 검색을 위하여 검색어에 공백은 한개만 입력할 수 있습니다.");
+									f.stx.select();
+									f.stx.focus();
+									return false;
+								}
+								return true;
+							}
+							</script>
+	                    </div>
+	                </div>
+	                <div class="collapse navbar-collapse navbar-responsive-collapse">
+	                    <div class="menu-container">
+	                        <ul class="nav navbar-nav">
+	                            <!--{* Home *}-->
+	                            <li class="{? defined('_INDEX_')}active{/}">
+	                                <a href="{C.G5_URL}{? _is_member && eyoomer.main_index != 'index'}/?home{/}">HOME</a>
+	                            </li>
+	                            <!--{* End Home *}-->
+
+		                        <!--{* Menu *}-->
+		                        <!--{@ menu}-->
+	                            <li class="{? .active}active{/} {? menu.submenu}dropdown{/}">
+	                                <a href="{.me_link}" target="_{.me_target}" class="dropdown-toggle" {? C.G5_IS_MOBILE && menu.submenu}data-toggle="dropdown"{:}data-hover="dropdown"{/}>
+	                                    <!--{? .me_icon}--><i class="fa {.me_icon}"></i> <!--{/}-->{.me_name}<!--{? .new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}-->
+	                                </a>
+									<!--{@ submenu}-->
+					                <!--{? ..index_ == 0}-->
+	                                <ul class="dropdown-menu">
+		                            <!--{/}-->
+	                                    <li class="dropdown-submenu {? ..active}active{/}">
+	                                        <a href="{..me_link}" target="_{..me_target}"><!--{? ..me_icon}--><i class="fa {..me_icon}"></i> <!--{/}-->{..me_name}<!--{? ..new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ..sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
+											<!--{@ subsub}-->
+											<!--{? ...index_ == 0}-->
+	                                        <ul class="dropdown-menu {? ...active}active{/}">
+		                                    <!--{/}-->
+	                                            <li class="dropdown-submenu">
+	                                                <a href="{...me_link}" target="_{...me_target}"><!--{? ...me_icon}--><i class="fa {...me_icon}"></i> <!--{/}-->{...me_name}<!--{? ...new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ...sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
+	                                            </li>
+	                                        <!--{? ...index_ == ...size_-1}-->
+	                                        </ul>
+											<!--{/}-->
+											<!--{/}-->
+	                                    </li>
+	                                <!--{? ..index_ == ..size_-1}-->
+	                                </ul>
+		                            <!--{/}-->
+									<!--{/}-->
+	                            </li>
+		                        <!--{/}-->
+		                        <!--{* End Menu *}-->
+
+	                            <!--{* Mega Menu *}-->
+								<!--{? is_megamenu == 'yes'}-->
+	                            <li class="dropdown mega-menu-area">
+	                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+	                                    전체메뉴
+	                                </a>
+	                                <!--{* ------------- 전체메뉴 영역 시작 (전체메뉴는 사이트 상황에 맞게 직접 수정합니다.) ------------- *}-->
+	                                <ul class="dropdown-menu">
+	                                    <li>
+	                                        <div class="mega-menu-content disable-icons">
+	                                            <div class="container">
+	                                                <div class="row mega-height">
+	                                                    <div class="col-md-2 mega-height-in">
+	                                                        <ul class="list-unstyled mega-height-list">
+	                                                            <li><h3>전체메뉴 그룹명</h3></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                        </ul>
+	                                                    </div>
+	                                                    <div class="col-md-2 mega-height-in">
+	                                                        <ul class="list-unstyled mega-height-list">
+	                                                            <li><h3>전체메뉴 그룹명</h3></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                        </ul>
+	                                                    </div>
+	                                                    <div class="col-md-2 mega-height-in">
+	                                                        <ul class="list-unstyled mega-height-list">
+	                                                            <li><h3>전체메뉴 그룹명</h3></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                        </ul>
+	                                                    </div>
+	                                                    <div class="col-md-2 mega-height-in">
+	                                                        <ul class="list-unstyled mega-height-list">
+	                                                            <li><h3>전체메뉴 그룹명</h3></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                        </ul>
+	                                                    </div>
+	                                                    <div class="col-md-2 mega-height-in">
+	                                                        <ul class="list-unstyled mega-height-list">
+	                                                            <li><h3>전체메뉴 그룹명</h3></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                        </ul>
+	                                                    </div>
+	                                                    <div class="col-md-2 mega-height-in">
+	                                                        <ul class="list-unstyled mega-height-list">
+	                                                            <li><h3>전체메뉴 그룹명</h3></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                            <li><a href="#"><i class="fa fa-genderless"></i> 게시판명 설정</a></li>
+	                                                        </ul>
+	                                                    </div>
+	                                                </div>
+	                                            </div>
+	                                        </div>
+	                                    </li>
+	                                </ul>
+	                                <!--{* ------------- 전체메뉴 영역 끝 ------------- *}-->
+	                            </li>
+	                            <!--{/}-->
+	                            <!--{* End Mega Menu *}-->
+	                        </ul>
+	                    </div>
+	                </div><!--{* navbar-collapse *}-->
+	            </div>
+	        </div>
+	        <!--{* End Navbar *}-->
+	    </div>
+	    <!--{* End Header Nav *}-->
+
+	    <div class="header-sticky-space"></div>
+
+	    <!--{? defined('_INDEX_') || defined('_EYOOM_MYPAGE_')}-->
+		<!--{* Header Slider *}-->
+		<!--{? is_slider == 'yes'}-->
+		<div class="header-slider">
+			<div id="owl-header-slider" class="owl-carousel owl-theme">
+				<div class="item header-slider-bg">
+					<!--{* ------------- Header Slider 첫번째 시작 // 이미지와 문구를 수정하세요. ------------- *}-->
+					<img src="../image/header_slider/slider_1.jpg" class="img-responsive">
+					<div class="container">
+						<!--{* 아래 문구를 수정하세요. *}-->
+						<h1>Welcome to {config.cf_title}</h1>
+						<h2>{config.cf_title} 을 방문해 주셔서 감사합니다.</h2>
+						<p>Lorem ipsum dulor sit amet.<br>Consectetur adipisicing elft. Harum dolore, sequi ex quam sunt delectus veniam aut tempore illum, dulor nemo quae nulla.<br>Nam perferendis enim quisquam, culpa.</p>
+
+					</div>
+					<!--{* ------------- Header Slider 첫번째 끝 ------------- *}-->
+				</div>
+				<div class="item header-slider-bg">
+					<!--{* ------------- Header Slider 두번째 시작 // 이미지와 문구를 수정하세요. ------------- *}-->
+					<img src="../image/header_slider/slider_2.jpg" class="img-responsive">
+					<div class="container">
+						<!--{* 아래 문구를 수정하세요. *}-->
+						<h1>Have a good time</h1>
+						<p><br>Lorem ipsum dulor sit amet.<br>Consectetur adipisicing elft. Harum dolore, sequi ex quam sunt delectus veniam aut tempore illum, dulor nemo quae nulla.<br>Nam perferendis enim quisquam, culpa.</p>
+						<div class="text-center margin-top-10">
+							<a href="{C.G5_URL}/page/?pid=aboutus" class="btn-e btn-e-yellow btn-e-lg">About Us</a>
+						</div>
+					</div>
+					<!--{* ------------- Header Slider 두번째 끝 ------------- *}-->
+				</div>
+			</div>
+		</div>
+		<!--{/}-->
+		<!--{* End Header Slider *}-->
+	    <!--{:}-->
+	    <!--{* Page Title *}-->
+	    <div class="board-title">
+	        <div class="container">
+	            <h3 class="pull-left"><i class="fa fa-map-marker"></i> {subinfo.title}</h3>
+	            <ul class="pull-right breadcrumb">
+					{subinfo.path}
+	            </ul>
+	        </div>
+	    </div>
+	    <!--{* End Board Title *}-->
+	    <!--{/}-->
+
+	    <!--{* Basic Body *}-->
+	    <div class="basic-body container">
+	    	<div class="row">
+		    	<!--{? (defined('_INDEX_') && eyoom.use_main_side_layout == 'y') || (!defined('_INDEX_') && eyoom.use_sub_side_layout == 'y' && subinfo.sidemenu != 'n')}-->
+				<!--{? eyoom.pos_side_layout == 'left'}-->
+				{# side_bs}
+				<!--{/}-->
+				<div class="basic-body-main {? eyoom.pos_side_layout == 'left'}right{:}left{/}-main col-md-9">
+				<!--{:}-->
+				<div class="basic-body-main col-md-12">
+				<!--{/}-->
+<!--{/}-->

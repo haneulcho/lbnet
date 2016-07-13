@@ -1,0 +1,456 @@
+<?php if (!defined('_GNUBOARD_')) exit; ?>
+
+<div class="board-list">
+    <!--{* 게시판 페이지 정보 및 버튼 시작 *}-->
+    <div class="board-info margin-bottom-10">
+        <div class="pull-left margin-top-5 font-size-12 color-grey">
+            <span>Total {=number_format(_total_count)}건</span> {_page} 페이지
+        </div>
+		<!--{? _write_href}-->
+		<div class="pull-right">
+	        <!--{?_admin_href}--><a href="{_admin_href}" class="btn-e btn-e-dark margin-right-5" type="button">관리자</a><!--{/}-->
+			<!--{?_eyoom_href}--><a href="{_eyoom_href}" class="btn-e btn-e-dark margin-right-5" type="button">이윰설정</a><!--{/}-->
+	        <!--{?_write_href}--><a href="{_write_href}" class="btn-e btn-e-red" type="button">글쓰기</a><!--{/}-->
+		</div>
+        <!--{/}-->
+        <div class="clearfix"></div>
+    </div>
+    <!--{* 게시판 페이지 정보 및 버튼 끝 *}-->
+
+    <!--{* 게시판 카테고리 시작 *}-->
+    <!--{?_is_category}-->
+	<script>
+	// 카테고리 이동
+	function category_view(sca) {
+		if(sca)	var url = "{_category_href}&sca="+sca;
+		else var url = "{_category_href}";
+		$(location).attr('href',url);
+		return false;
+	}
+	</script>
+
+    <nav class="margin-bottom-20 margin-top-15">
+        <div class="eyoom-form row">
+	        <div class="col-sm-4">
+	            <label class="select">
+					<select name="ca_name" id="ca_name" required onchange="return category_view(this.value);">
+						<option value="">전체 ({_ca_total})</option>
+						<!--{@ _bocate}-->
+						<option value="{.ca_sca}" {? _decode_sca == .ca_name}selected{/}>{.ca_name} ({.ca_count})</option>
+						<!--{/}-->
+					</select>
+					<i></i>
+				</label>
+	        </div>
+        </div>
+    </nav>
+    <!--{/}-->
+    <!--{* 게시판 카테고리 끝 *}-->
+
+	<!--{? _is_admin}-->
+    <form name="fboardlist" id="fboardlist" action="./board_list_update.php" onsubmit="return fboardlist_submit(this);" method="post" class="eyoom-form">
+    <input type="hidden" name="bo_table" value="{_bo_table}">
+    <input type="hidden" name="sfl" value="{_sfl}">
+    <input type="hidden" name="stx" value="{_stx}">
+    <input type="hidden" name="spt" value="{_spt}">
+    <input type="hidden" name="sca" value="{_sca}">
+    <input type="hidden" name="page" value="{_page}">
+    <input type="hidden" name="sw" value="">
+	<!--{/}-->
+
+	<div class="margin-bottom-20">
+        <!--{? _is_checkbox}-->
+        <ul class="list-unstyled board-btn-adm pull-left">
+            <li><button class="btn-e btn-e-light-grey" type="submit" name="btn_submit" value="선택삭제" onclick="document.pressed=this.value">선택삭제</button></li>
+            <li><button class="btn-e btn-e-light-grey" type="submit" name="btn_submit" value="선택복사" onclick="document.pressed=this.value">선택복사</button></li>
+            <li><button class="btn-e btn-e-light-grey" type="submit" name="btn_submit" value="선택이동" onclick="document.pressed=this.value">선택이동</button></li>
+        </ul>
+        <!--{/}-->
+        <span class="pull-left">
+        	<!--{?_rss_href}--><a href="{_rss_href}" class="btn-e btn-e-yellow" type="button"><i class="fa fa-rss"></i></a><!--{/}-->
+			<a href="javascript:;" class="btn-e btn-e-dark" type="button" data-toggle="modal" data-target=".search-modal"><i class="fa fa-search"></i></a>
+        </span>
+	    <div class="clearfix"></div>
+	</div>
+
+	<div class="board-webzine margin-bottom-20">
+        <!--{? _is_checkbox}-->
+        <div class="margin-bottom-15">
+            <label for="chkall">현재 페이지 게시물 전체선택</label>
+            <label class="checkbox" style="display: inline-block;">
+            	<input type="checkbox" id="chkall" onclick="if (this.checked) all_checked(true); else all_checked(false);"><i></i>
+            </label>
+        </div>
+        <!--{/}-->
+        <div class="webzine-boxes">
+		<!--{@ list}-->
+			<!--{? .is_notice}-->
+			<div class="webzine-boxes-in webzine-boxes-notice">
+				<div class="ellipsis" style="padding:7px 10px">
+					<span class="label label-dark color-white">공지</span> <a href="{.href}" {? wmode}onclick="eb_modal(this.href); return false;"{/}>{.subject}</a>
+				</div>
+			</div>
+			<!--{:}-->
+	        <div id="list-item-{.wr_id}" class="board-webzine-wrap webzine-boxes-in">
+		        <div class="row">
+		            <div class="col-sm-3 sm-margin-bottom-20">
+		                <a class="zoomer" href="{.href}" {? wmode}onclick="eb_modal(this.href); return false;"{/}>
+		                    <span class="overlay-zoom board-webzine-img">
+								<!--{? .img_content && !preg_match('/no image/',.img_content)}-->
+								{.img_content}
+								<!--{? .is_video}--><strong class="movie-icon"><i class="fa fa-play-circle-o"></i></strong><!--{/}-->
+								<span class="zoom-icon"><i class="fa fa-search"></i></span>
+								<!--{:}-->
+								<p class="no-image">No Image</p>
+								<span class="zoom-icon"><i class="fa fa-search"></i></span>
+								<!--{/}-->
+		                    </span>
+		                </a>
+		            </div>
+		            <div class="col-sm-9 sm-margin-bottom-10">
+	                    <h6>
+							<!--{? _wr_id == .wr_id}-->
+							<strong><span class="color-red">열람중&nbsp;</span> <a href="{.href}" {? wmode}onclick="eb_modal(this.href); return false;"{/}>{.subject}</a></strong>
+							<!--{:}-->
+			                <a href="{.href}" {? wmode}onclick="eb_modal(this.href); return false;"{/}><strong>{.subject}</strong></a>
+			                <!--{/}-->
+	                    </h6>
+
+		                <ul class="list-inline webzine-boxes-info">
+			                <li>
+				            	<!--{? eyoom_board.bo_use_profile_photo == 1}-->
+					            <span class="webzine-boxes-info-photo">
+									<!--{? .mb_photo}-->{.mb_photo}<!--{:}--><span class="info-user-icon"><i class="fa fa-user"></i></span><!--{/}-->
+								</span>
+								<!--{/}-->
+								<!--{? .gnu_icon}-->
+								<span style="display:inline-block;margin-right:2px"><img src="{.gnu_icon}" align="absmiddle"></span>
+								<!--{/}-->
+								<!--{? .eyoom_icon}-->
+								<span style="display:inline-block;margin-right:2px"><img src="{.eyoom_icon}" align="absmiddle"></span>
+								<!--{/}-->
+								<span>{=eb_nameview('basic', .mb_id, .wr_name, .email, .homepage)}</span>
+			                </li>
+							<!--{? eyoom_board.bo_sel_date_type == '1'}-->
+							<li><i class="fa fa-clock-o"></i> {eb->date_time('Y.m.d',.wr_datetime)}</li>
+							<!--{: eyoom_board.bo_sel_date_type == '2'}-->
+							<li><i class="fa fa-clock-o"></i> {eb->date_format('Y.m.d',.wr_datetime)}</li>
+							<!--{/}-->
+		                    <!--{? .wr_comment}-->
+		                    <li><i class="fa fa-comments"></i> <span class="color-red">{=number_format(.wr_comment)}</span></li>
+		                    <!--{/}-->
+							<!--{? _is_category && .ca_name}-->
+			                <li><i class="fa fa-tags"></i> <a href="{.ca_name_href}">{.ca_name}</a></li>
+			                <!--{/}-->
+			                <li><i class="fa fa-eye"></i> {=number_format(.wr_hit)}</li>
+				            <!--{?_is_good}--><li><i class="fa fa-thumbs-up"></i> {=number_format(.wr_good)}</li><!--{/}-->
+				            <!--{?_is_nogood}--><li><i class="fa fa-thumbs-down"></i> {=number_format(.wr_nogood)}</li><!--{/}-->
+
+							<!--{? eyoom_board.bo_use_rating == '1' && eyoom_board.bo_use_rating_list == '1'}-->
+							<li>
+					            <ul class="list-unstyled list-inline star-ratings-list">
+					                <li><i class="rating{? .star > 0}-selected{/} fa fa-star"></i></li>
+					                <li><i class="rating{? .star > 1}-selected{/} fa fa-star"></i></li>
+					                <li><i class="rating{? .star > 2}-selected{/} fa fa-star"></i></li>
+					                <li><i class="rating{? .star > 3}-selected{/} fa fa-star"></i></li>
+					                <li><i class="rating{? .star > 4}-selected{/} fa fa-star"></i></li>
+					            </ul>
+							</li>
+				            <!--{/}-->
+		                </ul>
+		                <p class="color-grey">
+							<!--{? _is_checkbox}-->
+							<span class="pull-left">
+				                <label for="chk_wr_id_{.key_}" class="sound_only">{.subject}</label>
+				                <label class="checkbox">
+				                	<input type="checkbox" name="chk_wr_id[]" value="{.wr_id}" id="chk_wr_id_{.key_}"><i></i>
+				                </label>
+							</span>
+				            <!--{/}-->
+			                {.content}
+			                <div class="clearfix"></div>
+			            </p>
+		            </div>
+		        </div>
+	        </div>
+	        <!--{/}-->
+		<!--{/}-->
+        </div>
+    </div>
+
+    <div class="board-list-footer">
+	    <div class="pull-left">
+	        <!--{? _is_checkbox}-->
+	        <ul class="list-unstyled board-btn-adm pull-left">
+	            <li><button class="btn-e btn-e-light-grey" type="submit" name="btn_submit" value="선택삭제" onclick="document.pressed=this.value">선택삭제</button></li>
+	            <li><button class="btn-e btn-e-light-grey" type="submit" name="btn_submit" value="선택복사" onclick="document.pressed=this.value">선택복사</button></li>
+	            <li><button class="btn-e btn-e-light-grey" type="submit" name="btn_submit" value="선택이동" onclick="document.pressed=this.value">선택이동</button></li>
+	        </ul>
+	        <!--{/}-->
+	        <span class="pull-left">
+	        	<!--{?_rss_href}--><a href="{_rss_href}" class="btn-e btn-e-yellow" type="button"><i class="fa fa-rss"></i></a><!--{/}-->
+				<a href="javascript:;" class="btn-e btn-e-dark" type="button" data-toggle="modal" data-target=".search-modal"><i class="fa fa-search"></i></a>
+	        </span>
+	    </div>
+	    <div class="pull-right">
+	        <!--{? _list_href || _write_href}-->
+	        <ul class="list-unstyled">
+	            <!--{? _write_href}--><li><a href="{_write_href}" class="btn-e btn-e-red" type="button">글쓰기</a></li><!--{/}-->
+	        </ul>
+	        <!--{/}-->
+	    </div>
+	    <div class="clearfix"></div>
+	</div>
+    <!--{? _is_admin}--></form><!--{/}-->
+</div>
+
+<!--{* Small modal *}-->
+<div class="modal fade search-modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+				<h5 id="myLargeModalLabel" class="modal-title"><strong>{board.bo_subject} 검색</strong></h5>
+			</div>
+			<div class="modal-body">
+				<!--{* 게시판 검색 시작 *}-->
+				<fieldset id="bo_sch" class="eyoom-form">
+					<!--legend>게시물 검색</legend-->
+				    <form name="fsearch" method="get">
+				    <input type="hidden" name="bo_table" value="{_bo_table}">
+				    <input type="hidden" name="sca" value="{_sca}">
+				    <input type="hidden" name="sop" value="and">
+				    <label for="sfl" class="sound_only">검색대상</label>
+				    <section class="margin-top-10">
+					    <label class="select">
+						    <select name="sfl" id="sfl" class="form-control">
+						        <option value="wr_subject"{=get_selected(_sfl, 'wr_subject', true)}>제목</option>
+						        <option value="wr_content"{=get_selected(_sfl, 'wr_content')}>내용</option>
+						        <option value="wr_subject||wr_content"{=get_selected(_sfl, 'wr_subject||wr_content')}>제목+내용</option>
+						        <option value="mb_id,1"{=get_selected(_sfl, 'mb_id,1')}>회원아이디</option>
+						        <option value="mb_id,0"{=get_selected(_sfl, 'mb_id,0')}>회원아이디(코)</option>
+						        <option value="wr_name,1"{=get_selected(_sfl, 'wr_name,1')}>글쓴이</option>
+						        <option value="wr_name,0"{=get_selected(_sfl, 'wr_name,0')}>글쓴이(코)</option>
+						    </select>
+						    <i></i>
+					    </label>
+				    </section>
+				    <section>
+					    <div class="input-group">
+					        <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+					        <label class="input">
+					        	<input type="text" name="stx" value="{=stripslashes(_stx)}" required id="stx" class="form-control">
+					        </label>
+					        <span class="input-group-btn">
+					            <button class="btn btn-default btn-e-group" type="submit" value="검색">검색</button>
+					        </span>
+					    </div>
+				    </section>
+				    </form>
+				</fieldset>
+				<!--{* 게시판 검색 끝 *}-->
+			</div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn-e btn-e-dark" type="button">닫기</button>
+            </div>
+		</div>
+	</div>
+</div>
+<iframe name="photoframe" id="photoframe" style="display:none;"></iframe>
+<!--{* End Small Modal *}-->
+
+<!--{? wmode }-->
+<div class="modal fade view-iframe-modal" tabindex="-1" role="dialog" aria-labelledby="boardlistModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 id="myLargeModalLabel" class="modal-title"><strong><i class="fa fa-search"></i> View Details</strong></h4>
+            </div>
+            <div class="modal-body">
+                <iframe id="view-iframe" width="100%" frameborder="0"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn-e btn-e-dark" type="button">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--{/}-->
+
+<!--{?_is_checkbox}-->
+<noscript>
+<p>자바스크립트를 사용하지 않는 경우<br>별도의 확인 절차 없이 바로 선택삭제 처리하므로 주의하시기 바랍니다.</p>
+</noscript>
+<!--{/}-->
+
+<!--{* 페이지 버튼 *}-->
+<!--{? eyoom_board.bo_use_infinite_scroll != '1'}-->
+{=eb_paging('basic')}
+<!--{:}-->
+<div id="infinite_pagination">
+	<a class="next" href="{C.G5_BBS_URL}/board.php?bo_table={_bo_table}&sca={_sca}&page={page+1}"></a>
+</div>
+<!--{/}-->
+
+<div class="margin-bottom-30"></div>
+
+<style>
+.margin-hr-10{height:1px;border-top:1px dotted #ddd;margin:10px 0;clear:both}
+.board-list .eyoom-form .radio i, .board-list .eyoom-form .checkbox i {top:0}
+.board-webzine .bo_current {color:#ff2a00}
+.board-btn-adm li {float:left;margin-right:5px}
+.board-webzine {font-size:12px}
+.board-webzine .webzine-boxes-notice {position:relative;overflow:hidden;width:100% !important;margin-bottom:20px;border:solid 1px #e5e5e5;background:#fff;margin-top:-10px}
+.board-webzine .webzine-boxes-notice:hover {background:#fff;border:solid 1px #e5e5e5;box-shadow:none}
+.board-webzine .webzine-boxes-notice:first-child {margin-top:0}
+.board-webzine .board-webzine-wrap {padding-top:15px;padding-bottom:15px;-webkit-transition:all 0.1s ease-in-out;-moz-transition:all 0.1s ease-in-out;-o-transition:all 0.1s ease-in-out;-ms-transition:all 0.1s ease-in-out;transition:all 0.1s ease-in-out;border-top:1px solid #e5e5e5}
+.board-webzine .board-webzine-wrap .col-sm-3, .board-webzine-wrap .col-sm-9 {padding-left:15px;padding-right:15px;box-sizing:border-box}
+.board-webzine .webzine-boxes-in .board-webzine-img img {max-height:290px}
+.board-webzine .webzine-boxes-in .board-webzine-img .movie-icon {position:absolute;top:8px;right:8px;color:#e5e5e5 !important;font-size:26px;line-height:26px}
+.board-webzine .webzine-boxes-in .board-webzine-img .no-image {background:#000;height:130px;color:#fff;text-align:center;line-height:130px}
+@media (min-width: 768px) {
+	.board-webzine .board-webzine-wrap:hover .board-webzine-img {-webkit-transform:rotate(-3.5deg);-moz-transform:rotate(-3.5deg);-o-transform:rotate(-3.5deg);-ms-transform:rotate(-3.5deg);transform:rotate(-3.5deg)}
+}
+.board-webzine .zoomer:hover .overlay-zoom .zoom-icon {opacity:0.4;-webkit-transform:scale(1);-moz-transform:scale(1);-o-transform:scale(1);-ms-transform:scale(1);transform:scale(1);filter:alpha(opacity = 50)}
+.board-webzine .overlay-zoom {width:100%;height:100%;display:block;cursor:pointer;position:relative;-webkit-transition:all 0.3s ease-in-out;-moz-transition:all 0.3s ease-in-out;-o-transition:all 0.3s ease-in-out;-ms-transition:all 0.3s ease-in-out;transition:all 0.3s ease-in-out}
+.board-webzine .overlay-zoom .zoom-icon {top:0;opacity:0;width:100%;height:inherit;position:absolute;background-color:#000;background-position:50%;filter:alpha(opacity = 0);-webkit-backface-visibility:hidden;-webkit-transition:all 0.4s ease-in-out;-moz-transition:all 0.4s ease-in-out;-o-transition:all 0.4s ease-in-out;-ms-transition:all 0.4s ease-in-out;transition:all 0.4s ease-in-out;-webkit-transform:scale(0);-moz-transform:scale(0);-o-transform:scale(0);-ms-transform:scale(0);transform:scale(0)}
+.board-webzine .overlay-zoom .zoom-icon i{color:#fff;text-align:center;font-weight:bold;font-size:30px;position:absolute;top:50%;left:50%;margin-top:-15px;margin-left:-15px}
+.board-webzine .webzine-boxes-in h6 {font-size:14px;color:#000;margin-bottom:7px}
+.board-webzine .webzine-boxes-in h6 a:hover {color:#000;text-decoration:underline}
+.board-webzine ul.webzine-boxes-info {margin-bottom:10px;border-top:1px dotted #ddd;border-bottom:1px dotted #ddd;padding:3px 0;line-height:20px}
+.board-webzine ul.webzine-boxes-info li {font-size:11px;padding-left:0;padding-right:5px}
+.board-webzine ul.webzine-boxes-info li {color:#777}
+.board-webzine ul.webzine-boxes-info li a {color:#000}
+.board-webzine ul.webzine-boxes-info li i {color:#bbb}
+.board-webzine .webzine-boxes-info-photo img {width:20px;height:20px;margin-right:2px}
+.board-webzine .webzine-boxes-info-photo .info-user-icon {width:20px;height:20px;font-size:14px;line-height:20px;text-align:center;background:#84848a;color:#fff;margin-right:2px;display:inline-block;white-space:nowrap;vertical-align:baseline}
+.board-webzine .star-ratings-list {margin-left:10px}
+.board-webzine .star-ratings-list li {padding:0;margin-right:-7px}
+.board-webzine .star-ratings-list li .rating {color:#ccc;font-size:11px;line-height:normal}
+.board-webzine .star-ratings-list li .rating-selected {color:#ff2a00;font-size:11px}
+#infscr-loading {text-align:center;z-index:100;position:absolute;left:50%;bottom:0;width:200px;margin-left:-100px;padding:10px;background:#000;opacity:0.6;color:#fff}
+</style>
+
+<!--{? wmode }-->
+<script type="text/javascript" src="../../../plugins/masonry/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="../../../plugins/infinite-scroll/jquery.infinitescroll.min.js"></script>
+
+<script>
+function eb_modal(href) {
+    $('.view-iframe-modal').modal('show').on('hidden.bs.modal', function () {
+        $("#view-iframe").attr("src", "");
+    });
+    $('.view-iframe-modal').modal('show').on('shown.bs.modal', function () {
+        $("#view-iframe").attr("src", href);
+        $('#view-iframe').height(parseInt($(window).height() * 0.7));
+    });
+    return false;
+}
+$(document).ready(function () {
+    $(window).resize(function () {
+        $('#view-iframe').height(parseInt($(window).height() * 0.7));
+    });
+    window.closeModal = function(wr_id){
+        $('.view-iframe-modal').modal('hide');
+        if(wr_id) {
+            var w_id = wr_id.split('|');
+            for(var i=0;i<w_id.length;i++) {
+                $("#list-item-"+w_id[i]).hide();
+            }
+        }
+    };
+});
+
+$(document).ready(function(){
+    var $container = $('.webzine-boxes');
+
+	$container.infinitescroll({
+		navSelector  : "#infinite_pagination",
+		nextSelector : "#infinite_pagination .next",
+		itemSelector : ".webzine-boxes-in",
+		loading: {
+			finishedMsg: 'END',
+			img: '../../../image/loading.gif'
+		}
+	},
+
+	function( newElements ) {
+		var $newElems = $( newElements ).css({ opacity: 0 });
+		$newElems.imagesLoaded(function(){
+			$newElems.animate({ opacity: 1 });
+		});
+	});
+
+});
+</script>
+<!--{/}-->
+
+<!--{* Hot 게시글 *}-->
+<!--{? eyoom_board.bo_use_hotgul == 1}-->
+{latest->latest_hot('basic', 'title=HOT5||count=5||cut_subject=20||cut_content=50||photo=y||content=y')}
+<!--{/}-->
+
+<!--{?_is_checkbox}-->
+<script>
+function all_checked(sw) {
+    var f = document.fboardlist;
+
+    for (var i=0; i<f.length; i++) {
+        if (f.elements[i].name == "chk_wr_id[]")
+            f.elements[i].checked = sw;
+    }
+}
+
+function fboardlist_submit(f) {
+    var chk_count = 0;
+
+    for (var i=0; i<f.length; i++) {
+        if (f.elements[i].name == "chk_wr_id[]" && f.elements[i].checked)
+            chk_count++;
+    }
+
+    if (!chk_count) {
+        alert(document.pressed + "할 게시물을 하나 이상 선택하세요.");
+        return false;
+    }
+
+    if(document.pressed == "선택복사") {
+        select_copy("copy");
+        return;
+    }
+
+    if(document.pressed == "선택이동") {
+        select_copy("move");
+        return;
+    }
+
+    if(document.pressed == "선택삭제") {
+        if (!confirm("선택한 게시물을 정말 삭제하시겠습니까?\n\n한번 삭제한 자료는 복구할 수 없습니다\n\n답변글이 있는 게시글을 선택하신 경우\n답변글도 선택하셔야 게시글이 삭제됩니다."))
+            return false;
+
+        f.removeAttribute("target");
+        f.action = "./board_list_update.php";
+    }
+
+    return true;
+}
+
+// 선택한 게시물 복사 및 이동
+function select_copy(sw) {
+    var f = document.fboardlist;
+
+    if (sw == "copy")
+        str = "복사";
+    else
+        str = "이동";
+
+    var sub_win = window.open("", "move", "left=50, top=50, width=500, height=550, scrollbars=1");
+
+    f.sw.value = sw;
+    f.target = "move";
+    f.action = "./move.php";
+    f.submit();
+}
+</script>
+<!--{/}-->

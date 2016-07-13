@@ -1,0 +1,203 @@
+<?php if (!defined('_GNUBOARD_')) exit; ?>
+
+<div class="board-list">
+    <!-- 게시판 페이지 정보 및 버튼 시작 -->
+    <div class="board-info margin-bottom-10">
+        <div class="pull-left margin-top-5 font-size-12 color-grey">
+            <span>Total {=number_format(_total_count)}건</span> {_page} 페이지
+        </div>
+		<!--{? _admin_href || write_href}-->
+		<div class="pull-right">
+	        <!--{?_admin_href}--><a href="{_admin_href}" class="btn-e btn-e-dark margin-right-5" type="button">관리자</a><!--{/}-->
+	        <!--{?_write_href}--><a href="{_write_href}" class="btn-e btn-e-red" type="button">문의등록</a><!--{/}-->
+		</div>
+        <!--{/}-->
+        <div class="clearfix"></div>
+    </div>
+    <!-- 게시판 페이지 정보 및 버튼 끝 -->
+
+	<div class="tab-e2">
+		<!--{? _category_option}-->
+		<!--{* 카테고리 시작 *}-->
+        <ul class="nav nav-tabs">
+			<li {? _sca == ''}class="active"{/}><a href="{_category_href}">전체</a></li>
+	        <!--{@ _category_tab}-->
+			<li {? .category == _sca}class="active"{/}>
+				<a href="{.href}">
+				<!--{? .category == _sca}--><span class="sound_only">열린 분류 </span><!--{/}-->
+				{.category}
+				</a>
+			</li>
+	        <!--{/}-->
+        </ul>
+        <!--{* 카테고리 끝 *}-->
+		<!--{/}-->
+        <div class="tab-content">
+		    <form name="fqalist" id="fqalist" action="./qadelete.php" onsubmit="return fqalist_submit(this);" method="post" class="eyoom-form">
+		    <input type="hidden" name="stx" value="{_stx}">
+		    <input type="hidden" name="sca" value="{_sca}">
+		    <input type="hidden" name="page" value="{_page}">
+
+			<div class="table-list-eb margin-bottom-20">
+			    <div class="board-list-body">
+			        <table class="table table-hover">
+				        <thead>
+					        <tr>
+					            <th class="hidden-xs">번호</th>
+								<!--{? _is_checkbox}-->
+					            <th>
+					                <label for="chkall" class="sound_only">현재 페이지 게시물 전체</label>
+					                <label class="checkbox">
+					                	<input type="checkbox" id="chkall" onclick="if (this.checked) all_checked(true); else all_checked(false);"><i></i>
+					                </label>
+					            </th>
+					            <!--{/}-->
+					            <th>제목</th>
+					            <th class="hidden-xs">글쓴이</th>
+					            <th class="hidden-xs">상태</th>
+					            <th class="hidden-xs">등록일</th>
+					        </tr>
+				        </thead>
+				        <tbody>
+							<!--{@ list}-->
+					        <tr>
+					            <td class="text-center hidden-xs">{.num}</td>
+								<!--{? _is_checkbox}-->
+					            <td>
+					                <label for="chk_qa_id_{.key_}" class="sound_only">{.subject}</label>
+					                <label class="checkbox">
+					                	<input type="checkbox" name="chk_qa_id[]" value="{.qa_id}" id="chk_qa_id_{.key_}"><i></i>
+					                </label>
+					            </td>
+					            <!--{/}-->
+					            <td class="td-width">
+						            <div class="td-subject ellipsis">
+							            <span class="color-grey">[{.category}]</span>&nbsp;
+						                <a href="{.view_href}">
+						                    {.subject}
+						                </a>
+						                <!--{? .icon_file}-->
+										<i class="fa fa-floppy-o margin-left-5 color-grey"></i>
+						                <!--{/}-->
+						            </div>
+					            </td>
+					            <td class="hidden-xs">{.name}</td>
+					            <td class="{? .qa_status}txt_done{:}txt_rdy{/} text-center hidden-xs">{? .qa_status}답변완료{:}답변대기{/}</td>
+					            <td class="text-center hidden-xs">{.date}</td>
+					        </tr>
+					        <tr class="td-mobile visible-xs"><!--{* 767px 이하에서만 보임 *}-->
+						        <td colspan="{colspan}">
+							        <span><i class="fa fa-user"></i> {.name}</span>
+							        <span><i class="fa fa-clock-o"></i> {.date}</span>
+							        <span class="{? .qa_status}txt_done{:}txt_rdy{/}">{? .qa_status}답변완료{:}답변대기{/}</span>
+						        </td>
+					        </tr>
+					        <!--{:}-->
+							<tr><td colspan="{colspan}" class="text-center">게시물이 없습니다.</td></tr>
+					        <!--{/}-->
+				        </tbody>
+				    </table>
+			    </div>
+		    </div>
+		    <div class="pull-left">
+		        <!--{? _is_checkbox}-->
+		        <input type="submit" name="btn_submit" value="선택삭제" onclick="document.pressed=this.value" class="btn-e btn-e-light-grey">
+		        <!--{/}-->
+		    </div>
+			<div class="pull-right">
+	            <!--{? _list_href}--><a href="{_list_href}" class="btn-e btn-e-default">목록</a><!--{/}-->
+	            <!--{? _write_href}--><a href="{_write_href}" class="btn-e btn-e-red margin-left-5">문의등록</a><!--{/}-->
+		    </div>
+		    <div class="clearfix"></div>
+
+		    </form>
+        </div>
+	</div>
+</div>
+
+<!--{? _is_checkbox}-->
+<noscript>
+<p>자바스크립트를 사용하지 않는 경우<br>별도의 확인 절차 없이 바로 선택삭제 처리하므로 주의하시기 바랍니다.</p>
+</noscript>
+<!--{/}-->
+
+<!-- 페이지 -->
+{=eb_paging('basic')}
+
+<!--{* 게시판 검색 시작 *}-->
+<div class="row margin-bottom-20">
+	<div class="col-sm-4 col-sm-offset-4">
+	    <form name="fsearch" method="get" class="eyoom-form">
+	    <input type="hidden" name="sca" value="{_sca}">
+	    <div class="input-group">
+	        <label for="stx" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+	        <label class="input">
+	        	<input type="text" name="stx" value="{=stripslashes(_stx)}" required id="stx" class="form-control" size="15" maxlength="15" placeholder="1:1검색">
+	        </label>
+	        <span class="input-group-btn">
+	            <button class="btn btn-default btn-e-group" type="submit" value="검색">검색</button>
+	        </span>
+	    </div>
+	    </form>
+	</div>
+</div>
+<!--{* 게시판 검색 끝 *}-->
+
+<style>
+.board-list .eyoom-form .radio i,.board-list .eyoom-form .checkbox i {top:2px}
+.board-list .bo_current {color:#ff2a00}
+.board-list .txt_done {color:#aaa}
+.board-list .txt_rdy {color:#000;font-weight:bold}
+.board-list .sch_word {color:#ff2a00}
+.board-list .tab-e2 .nav-tabs li.active a {border:1px solid #000;border-top:1px solid #ff2a00}
+.board-list .tab-e2 .tab-content {padding:0;border:0}
+.table-list-eb .table thead > tr > th {border-bottom:1px solid #000}
+.table-list-eb .table tbody > tr > td {padding:8px 5px}
+.table-list-eb .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {background:#fafafa}
+.table-list-eb thead {border-top:1px solid #000;border-bottom:1px solid #000;background:#fff}
+.table-list-eb th {color:#000;font-weight:bold;white-space:nowrap}
+.table-list-eb .td-subject {width:300px}
+@media (max-width: 1199px) {
+	.table-list-eb .td-subject {width:260px}
+}
+@media (max-width: 767px) {
+	.table-list-eb .td-width {width:inherit}
+	.table-list-eb .td-subject {width:280px}
+}
+.table-list-eb .td-mobile td {border-top:1px solid #f0f0f0;padding:4px 5px !important;font-size:10px;color:#999;background:#fafafa}
+.table-list-eb .td-mobile td span {margin-right:5px}
+</style>
+
+<!--{? _is_checkbox}-->
+<script>
+function all_checked(sw) {
+    var f = document.fqalist;
+
+    for (var i=0; i<f.length; i++) {
+        if (f.elements[i].name == "chk_qa_id[]")
+            f.elements[i].checked = sw;
+    }
+}
+
+function fqalist_submit(f) {
+    var chk_count = 0;
+
+    for (var i=0; i<f.length; i++) {
+        if (f.elements[i].name == "chk_qa_id[]" && f.elements[i].checked)
+            chk_count++;
+    }
+
+    if (!chk_count) {
+        alert(document.pressed + "할 게시물을 하나 이상 선택하세요.");
+        return false;
+    }
+
+    if(document.pressed == "선택삭제") {
+        if (!confirm("선택한 게시물을 정말 삭제하시겠습니까?\n\n한번 삭제한 자료는 복구할 수 없습니다"))
+            return false;
+    }
+
+    return true;
+}
+</script>
+<!--{/}-->

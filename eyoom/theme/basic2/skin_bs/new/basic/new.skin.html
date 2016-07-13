@@ -1,0 +1,194 @@
+<?php if (!defined('_GNUBOARD_')) exit; ?>
+
+<div class="new-list">
+	<!--{* 전체게시물 검색 시작 *}-->
+    <form name="fnew" method="get" class="eyoom-form">
+	<div class="row">
+		<section class="col col-12">
+			<div class="eb-alert margin-top-10"><strong>Note:</strong> 회원 아이디만 검색 가능</div>
+		</section>
+		<div class="clear"></div>
+	    <section class="col col-3">
+		    <label for="gr_id" class="sound_only">그룹</label>
+			<label class="select">
+				<select name="gr_id" id="gr_id" class="form-control">
+					<option value="">전체그룹</option>
+					<!--{@ _sel_group}-->
+					<option value='{.gr_id}'>{.gr_subject}</option>
+					<!--{/}-->
+				</select>
+				<i></i>
+			</label>
+	    </section>
+	    <section class="col col-3">
+		    <label for="view" class="sound_only">검색대상</label>
+			<label class="select">
+				<select name="view" id="view" class="form-control">
+			        <option value="">전체게시물</option>
+			        <option value="w">원글만</option>
+			        <option value="c">코멘트만</option>
+				</select>
+				<i></i>
+			</label>
+	    </section>
+	    <section class="col col-6">
+		    <div class="input-group">
+		        <label for="mb_id" class="sound_only">검색어<strong class="sound_only"> 필수</strong></label>
+		        <label class="input">
+		        	<input type="text" name="mb_id" value="{_mb_id}" id="mb_id" required class="form-control" placeholder="회원아이디 입력">
+		        </label>
+		        <span class="input-group-btn">
+		            <button class="btn btn-default btn-e-group" type="submit" value="검색">검색</button>
+		        </span>
+		    </div>
+	    </section>
+	</div>
+    </form>
+    <script>
+    /* 셀렉트 박스에서 자동 이동 해제
+    function select_change()
+    {
+        document.fnew.submit();
+    }
+    */
+    document.getElementById("gr_id").value = "{_gr_id}";
+    document.getElementById("view").value = "{_view}";
+    </script>
+	<!--{* 전체게시물 검색 끝 *}-->
+
+	<div class="margin-bottom-10"></div>
+
+	<!--{* 전체게시물 목록 시작 *}-->
+	<form name="fnewlist" method="post" action="#" onsubmit="return fnew_submit(this);" class="eyoom-form">
+	<input type="hidden" name="sw"       value="move">
+	<input type="hidden" name="view"     value="{_view}">
+	<input type="hidden" name="sfl"      value="{_sfl}">
+	<input type="hidden" name="stx"      value="{_stx}">
+	<input type="hidden" name="srows"    value="{_srows}">
+	<input type="hidden" name="bo_table" value="{_bo_table}">
+	<input type="hidden" name="page"     value="{_page}">
+	<input type="hidden" name="pressed"  value="">
+
+	<div class="table-list-eb margin-bottom-20">
+	    <div class="board-list-body">
+	        <table class="table table-hover">
+			    <thead>
+				    <tr>
+						<!--{? _is_admin}-->
+				        <th>
+				            <label for="all_chk" class="sound_only">목록 전체</label>
+				            <label class="checkbox">
+				            	<input type="checkbox" id="all_chk"><i></i>
+				            </label>
+				        </th>
+				        <!--{/}-->
+				        <th>제목</th>
+				        <th class="hidden-xs">그룹</th>
+				        <th class="hidden-xs">게시판</th>
+				        <th class="hidden-xs">이름</th>
+				        <th class="hidden-xs">일시</th>
+				    </tr>
+			    </thead>
+			    <tbody>
+					<!--{@ list}-->
+				    <tr>
+						<!--{? _is_admin}-->
+				        <td>
+				            <label for="chk_bn_id_{.key_}" class="sound_only">{.num}번</label>
+				            <label class="checkbox">
+				            	<input type="checkbox" name="chk_bn_id[]" value="{.key_}" id="chk_bn_id_{.key_}"><i></i>
+				            </label>
+				            <input type="hidden" name="bo_table[{.key_}]" value="{.bo_table}">
+				            <input type="hidden" name="wr_id[{.key_}]" value="{.wr_id}">
+				        </td>
+				        <!--{/}-->
+				        <td class="td-width">
+					        <div class="td-subject ellipsis">
+					        	<a href="{.href}">{.comment} {.wr_subject}</a>
+					        </div>
+					    </td>
+				        <td class="text-center hidden-xs"><a href="./new.php?gr_id={.gr_id}">{.gr_subject}</a></td>
+				        <td class="text-center hidden-xs"><a href="./board.php?bo_table={.bo_table}">{.bo_subject}</a></td>
+				        <td class="hidden-xs"><div>{.name}</div></td>
+				        <td class="text-center hidden-xs">{.datetime2}</td>
+				    </tr>
+			        <tr class="td-mobile visible-xs"><!--{* 767px 이하에서만 보임 *}-->
+				        <td colspan="{colspan}">
+					        <span><a href="./new.php?gr_id={.gr_id}">[{.gr_subject}]</a></span>
+					        <span><a href="./board.php?bo_table={.bo_table}">[{.bo_subject}]</a></span>
+					        <span><i class="fa fa-user"></i> {.name}</span>
+					        <span><i class="fa fa-clock-o"></i> {.datetime2}</span>
+				        </td>
+			        </tr>
+				    <!--{:}-->
+					<tr><td colspan="{colspan}" class="text-center">게시물이 없습니다.</td></tr>
+				    <!--{/}-->
+			    </tbody>
+	    	</table>
+	    </div>
+	</div>
+
+	<!--{? _is_admin}-->
+	<input type="submit" onclick="document.pressed=this.value" value="선택삭제" class="btn-e btn-e-light-grey">
+	<!--{/}-->
+	</form>
+</div>
+
+<style>
+.new-list {font-size:12px}
+.new-list .eyoom-form .radio i, .new-list .eyoom-form .checkbox i {top:2px}
+.new-list .eyoom-form .radio, .new-list .eyoom-form .checkbox {margin-bottom:0}
+.table-list-eb .table thead > tr > th {border-bottom:1px solid #000}
+.table-list-eb .table tbody > tr > td {padding:8px 5px}
+.table-list-eb .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {background:#fafafa}
+.table-list-eb thead {border-top:1px solid #000;border-bottom:1px solid #000;background:#fff}
+.table-list-eb th {color:#000;font-weight:bold;white-space:nowrap}
+.table-list-eb .td-subject {width:300px}
+.table-list-eb .td-subject .fa {color:#ff2a00}
+@media (max-width: 1199px) {
+	.table-list-eb .td-subject {width:260px}
+}
+@media (max-width: 767px) {
+	.table-list-eb .td-width {width:inherit}
+	.table-list-eb .td-subject {width:280px}
+}
+.table-list-eb .td-mobile td {border-top:1px solid #f0f0f0;padding:4px 5px !important;font-size:10px;color:#999;background:#fafafa}
+.table-list-eb .td-mobile td span {margin-right:5px}
+</style>
+
+<!--{? _is_admin}-->
+<script>
+$(function(){
+    $('#all_chk').click(function(){
+        $('[name="chk_bn_id[]"]').attr('checked', this.checked);
+    });
+});
+
+function fnew_submit(f)
+{
+    f.pressed.value = document.pressed;
+
+    var cnt = 0;
+    for (var i=0; i<f.length; i++) {
+        if (f.elements[i].name == "chk_bn_id[]" && f.elements[i].checked)
+            cnt++;
+    }
+
+    if (!cnt) {
+        alert(document.pressed+"할 게시물을 하나 이상 선택하세요.");
+        return false;
+    }
+
+    if (!confirm("선택한 게시물을 정말 "+document.pressed+" 하시겠습니까?\n\n한번 삭제한 자료는 복구할 수 없습니다")) {
+        return false;
+    }
+
+    f.action = "./new_delete.php";
+
+    return true;
+}
+</script>
+<!--{/}-->
+
+{=eb_paging('basic')}
+<!--{* 전체게시물 목록 끝 *}-->

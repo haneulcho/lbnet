@@ -1,0 +1,227 @@
+<?php if (!defined('_GNUBOARD_')) exit; ?>
+
+<section class="board-write">
+	<!--{* 게시물 작성/수정 시작 *}-->
+	<form name="fwrite" id="fwrite" action="{_action_url}" onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form">
+    <input type="hidden" name="w" value="{_w}">
+    <input type="hidden" name="qa_id" value="{_qa_id}">
+    <input type="hidden" name="sca" value="{_sca}">
+    <input type="hidden" name="stx" value="{_stx}">
+    <input type="hidden" name="page" value="{_page}">
+    <!--{?_is_dhtml_editor}-->
+	<input type="hidden" name="qa_html" value="1">
+	<!--{/}-->
+    <div class="tbl_frm01 tbl_wrp">
+        <!--{? _category_option}-->
+        <section class="row">
+	        <div class="col col-4">
+		        <label class="select">
+					<select name="qa_category" id="qa_category" required class="form-control">
+						<option value="">선택하세요 - 필수</option>
+						{_category_option}
+					</select>
+					<i></i>
+		        </label>
+	        </div>
+        </section>
+        <div class="margin-hr-10"></div>
+        <!--{/}-->
+        <!--{? _is_email}-->
+		<section>
+			<div class="row">
+				<div class="col col-6">
+					<label class="input">
+						<i class="icon-append fa fa-envelope"></i>
+	                	<input type="text" name="qa_email" value="{write.qa_email}" id="qa_email" {_req_email} size="50" maxlength="100" placeholder="{? write.qa_email}{write.qa_email}{:}이메일{/}">
+					</label>
+				</div>
+				<div class="col col-6">
+	                <label for="qa_email_recv" class="checkbox"><input type="checkbox" name="qa_email_recv" id="qa_email_recv" value="1" {? write.qa_email_recv}checked="checked"{/}><i></i>답변받기</label>
+				</div>
+			</div>
+		</section>
+		<div class="margin-hr-10"></div>
+		<!--{/}-->
+		<!--{? _is_hp}-->
+		<section>
+			<div class="row">
+				<div class="col col-6">
+					<label class="input">
+						<i class="icon-append fa fa-tablet"></i>
+	                	<input type="text" name="qa_hp" value="{write.qa_hp}" id="qa_hp" {_req_hp} size="30" placeholder="{? write.qa_hp}{write.qa_hp}{:}휴대폰{/}">
+					</label>
+				</div>
+				<!--{? qaconfig.qa_use_sms}-->
+				<div class="col col-6">
+	                <label class="checkbox"><input type="checkbox" name="qa_sms_recv" value="1" {? write.qa_sms_recv}checked="checked"{/}><i></i>답변등록 SMS알림 수신</label>
+				</div>
+				<!--{/}-->
+			</div>
+		</section>
+		<div class="margin-hr-10"></div>
+        <!--{/}-->
+        <section>
+	        <div class="row">
+		        <div class="col col-6">
+			        <label for="qa_subject" class="sound_only">제목 <strong>필수</strong></label>
+			        <label class="input">
+			        	<i class="icon-append fa fa-edit"></i>
+		            	<input type="text" name="qa_subject" value="{write.qa_subject}" id="qa_subject" required class="form-control" size="50" maxlength="255">
+		            	<b class="tooltip tooltip-top-right">제목을 입력 해 주세요.</b>
+			        </label>
+		        </div>
+	        </div>
+        </section>
+		<div class="margin-hr-10"></div>
+		<!--{? !_is_dhtml_editor}-->
+        <section>
+			<div class="row">
+	            <div class="col col-4">
+		            <label for="qa_html" class="checkbox"><input type="checkbox" id="qa_html" name="qa_html" onclick="html_auto_br(this);" value="{_html_value}" {_html_checked}><i></i>HTML</label>
+	            </div>
+			</div>
+        </section>
+		<div class="margin-hr-10"></div>
+        <!--{/}-->
+        <section>
+		    {_editor_html}
+        </section>
+		<div class="margin-hr-10"></div>
+		<section>
+			<div class="row">
+				<div class="col col-12">
+                    <label for="file" class="input input-file">
+                        <div class="button bg-color-light-grey"><input type="file" name="bf_file[1]" title="파일첨부 1 :  용량 {_upload_max_filesize} 이하만 업로드 가능" onchange="this.parentNode.nextSibling.value = this.value">파일 1 선택</div><input type="text" readonly>
+                    </label>
+				</div>
+				<div class="col col-12">
+					<!--{? _w=='u' && write.qa_file1}-->
+					<label for="bf_file_del1" class="checkbox"><input type="checkbox" id="bf_file_del1" name="bf_file_del[1]" value="1"><i></i>{write.qa_source1} 파일 삭제</label>
+	                <!--{/}-->
+				</div>
+			</div>
+		</section>
+		<div class="margin-hr-10"></div>
+		<section>
+			<div class="row">
+				<div class="col col-12">
+                    <label for="file" class="input input-file">
+                        <div class="button bg-color-light-grey"><input type="file" name="bf_file[2]" title="파일첨부 2 :  용량 {_upload_max_filesize} 이하만 업로드 가능" onchange="this.parentNode.nextSibling.value = this.value">파일 2 선택</div><input type="text" readonly>
+                    </label>
+				</div>
+				<div class="col col-12">
+					<!--{? _w=='u' && write.qa_file2}-->
+					<label for="bf_file_del2" class="checkbox"><input type="checkbox" id="bf_file_del2" name="bf_file_del[2]" value="1"><i></i>{write.qa_source2} 파일 삭제</label>
+	                <!--{/}-->
+				</div>
+			</div>
+		</section>
+		<div class="margin-hr-10"></div>
+    </div>
+    <div class="text-center">
+        <input type="submit" value="작성완료" id="btn_submit" accesskey="s" class="btn-e btn-e-lg btn-e-yellow margin-top-m-2">
+        <a href="{_list_href}" class="btn-e btn-e-lg btn-e-dark">목록</a>
+    </div>
+	</form>
+
+    <script>
+    function html_auto_br(obj) {
+        if (obj.checked) {
+            result = confirm("자동 줄바꿈을 하시겠습니까?\n\n자동 줄바꿈은 게시물 내용중 줄바뀐 곳을<br>태그로 변환하는 기능입니다.");
+            if (result)
+                obj.value = "2";
+            else
+                obj.value = "1";
+        }
+        else
+            obj.value = "";
+    }
+
+    function fwrite_submit(f) {
+        <!--{_editor_js}-->
+
+        var subject = "";
+        var content = "";
+        $.ajax({
+            url: g5_bbs_url+"/ajax.filter.php",
+            type: "POST",
+            data: {
+                "subject": f.qa_subject.value,
+                "content": f.qa_content.value
+            },
+            dataType: "json",
+            async: false,
+            cache: false,
+            success: function(data, textStatus) {
+                subject = data.subject;
+                content = data.content;
+            }
+        });
+
+        if (subject) {
+            alert("제목에 금지단어('"+subject+"')가 포함되어있습니다");
+            f.qa_subject.focus();
+            return false;
+        }
+
+        if (content) {
+            alert("내용에 금지단어('"+content+"')가 포함되어있습니다");
+            if (typeof(ed_qa_content) != "undefined")
+                ed_qa_content.returnFalse();
+            else
+                f.qa_content.focus();
+            return false;
+        }
+
+		<!--{? _is_hp}-->
+        var hp = f.qa_hp.value.replace(/[0-9\-]/g, "");
+        if(hp.length > 0) {
+            alert("휴대폰번호는 숫자, - 으로만 입력해 주십시오.");
+            return false;
+        }
+        <!--{/}-->
+
+        document.getElementById("btn_submit").disabled = "disabled";
+
+        return true;
+    }
+    </script>
+	<!--{* 게시물 작성/수정 끝 *}-->
+</section>
+
+<style>
+.margin-hr-10 {height:1px;border-top:1px dotted #ddd;margin:10px 0}
+.margin-top-m-2 {margin-top:-2px}
+.board-write .board-write-title {border-bottom:1px solid #e5e5e5;padding-bottom:10px}
+.board-write .tbl_frm01 textarea {width:97% !important;height:200px;border:1px solid #ddd;background:#fafafa;padding:10px;line-height:1.5}
+@media (max-width: 767px) {
+	.board-write .tbl_frm01 textarea {width:94% !important}
+}
+/* Smart Editor Style */
+.cke_sc {margin-bottom:10px}
+.btn_cke_sc {padding:0 10px}
+.cke_sc_def {padding:10px;margin-bottom:10px;margin-top:10px}
+.cke_sc_def button {padding:3px 15px;background:#53535a;color:#fff;border:none}
+/* CK Editor Style */
+.cke_chrome {border:1px solid #ddd !important;box-shadow:none !important}
+.cke_top {background:#fafafa !important;border-bottom:1px solid #ddd !important;box-shadow:none !important}
+.cke_bottom {background:#fafafa !important;border-top:1px solid #ddd !important;box-shadow:none !important}
+.cke_toolgroup {border:1px solid #c5c5c5 !important;border-bottom-color:#c5c5c5 !important;box-shadow:none !important;background:#fff !important;background-image:none !important}
+.cke_combo_button {border:1px solid #c5c5c5 !important;border-bottom-color:#c5c5c5 !important;box-shadow:none !important;background:#fff !important;background-image:none !important}
+/* Summernote Style*/
+.board-write .panel-default > .panel-heading {background:#f5f5f5;padding:0 0 5px 5px}
+.board-write .note-editor {overflow:inherit}
+.board-write .note-editor .note-toolbar .btn-group {display:inline-block;position:relative;vertical-align:middle;}
+.board-write .note-editor .note-toolbar .btn-group .btn {padding:5px 10px !important;background-color:#fff;border:1px solid #ccc;margin-left:-1px}
+.board-write .note-editor .note-toolbar .btn-group .btn:hover {background-color:#e6e6e6;border-color:#adadad}
+.board-write .note-editor .panel-heading.note-toolbar .note-color-palette div .note-color-btn {width:18px;height:18px;padding:0;margin:0;border:1px solid #fff}
+.note-dialog .btn {display:inline-block;padding:6px 12px;margin-bottom:0;font-size:12px;font-weight:400;line-height:1.42857143;text-align:center;white-space:nowrap;vertical-align:middle;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-image:none;border:1px solid transparent}
+.note-dialog .form-group {margin-bottom:15px;margin-right:0;margin-left:0}
+.note-dialog .btn-primary {color: #fff;background-color:#428bca;border-color:#357ebd}
+.note-dialog .btn.disabled, .note-dialog .btn[disabled] {pointer-events:none;cursor:not-allowed;filter:alpha(opacity=65);-webkit-box-shadow:none;box-shadow:none;opacity:.65}
+.note-dialog .btn-primary.disabled, .note-dialog .btn-primary[disabled] {background-color:#428bca;border-color:#357ebd}
+.note-dialog label {display:block;max-width:100%;margin-bottom:5px;font-weight:700}
+.note-dialog .input {margin:0;font:inherit;color:inherit}
+.note-dialog .form-control {display:block;width:100%;padding:6px 12px;font-size:14px;line-height:1.42857143;color:#555;background-color:#fff;background-image:none;border:1px solid #ccc;-webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}
+.board-write .note-editor .table-bordered>thead>tr>th, .board-write .note-editor .table-bordered>tbody>tr>th, .board-write .note-editor .table-bordered>tfoot>tr>th, .board-write .note-editor .table-bordered>thead>tr>td, .board-write .note-editor .table-bordered>tbody>tr>td, .board-write .note-editor .table-bordered>tfoot>tr>td {border:1px solid #ddd}
+</style>

@@ -1,0 +1,80 @@
+<?php if (!defined('_GNUBOARD_')) exit; ?>
+
+<div class="notice-balloon">
+	<div class="owl-slider-notice-balloon">
+		<!--{@ loop}-->
+		<div class="item">
+			<p class="notice-balloon-subj"><a href="{.href}"><span class="label label-e">알림</span> {.wr_subject}</a></p>
+			<div class="notice-balloon-info">
+				<div class="pull-left">
+					<div class="notice-photo">
+						<!--{? .mb_photo}-->{.mb_photo}<!--{:}--><span class="notice-user-icon"><i class="fa fa-user"></i></span><!--{/}-->
+					</div>
+				</div>
+				<div class="pull-left">
+					<span class="notice-balloon-author">
+						<strong>{.mb_nick}</strong>
+						<span class="notice-time"><i class="fa fa-clock-o"></i> {eb->date_time('Y.m.d',.datetime)}</span>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!--{:}-->
+		<div class="item active">
+			<p class="notice-balloon-subj"><a href="#">최신글이 없습니다.</a></p>
+			<div class="notice-balloon-info">
+				<div class="pull-left">
+					<span class="notice-user-icon"><i class="fa fa-user"></i></span>
+				</div>
+				<div class="pull-left">
+					<span class="notice-balloon-author">
+						<strong>닉네임</strong>
+						<span class="notice-time"><i class="fa fa-clock-o"></i> 0000.00.00</span>
+					</span>
+				</div>
+			</div>
+		</div>
+		<!--{/}-->
+	</div>
+	<div class="owl-navi">
+        <a class="owl-btn prev-notice-balloon"><i class="fa fa-angle-left"></i></a>
+        <a class="owl-btn next-notice-balloon"><i class="fa fa-angle-right"></i></a>
+	</div>
+</div>
+
+<script>
+$(document).ready(function() {
+	var owl = jQuery(".owl-slider-notice-balloon");
+    owl.owlCarousel({
+        autoPlay : 8000,
+	    singleItem : true,
+	    slideSpeed: 300,
+        pagination: false
+    });
+    jQuery(".next-notice-balloon").click(function(){
+        owl.trigger('owl.next');
+    })
+    jQuery(".prev-notice-balloon").click(function(){
+        owl.trigger('owl.prev');
+    })
+});
+</script>
+
+<style>
+.notice-balloon {position:relative;overflow:hidden;height:83px;margin-bottom:10px}
+.notice-balloon .item p {position:relative;padding:7px;font-size:12px;background:#e5e5e5;color:#000}
+.notice-balloon .item p a {color:#000;display:block;text-overflow:ellipsis;white-space:nowrap;word-wrap:normal;overflow:hidden}
+.notice-balloon .item p:after,.notice-balloon .item p:before {left:47px;bottom:-10px}
+.notice-balloon .item p:after {border-top:10px solid;border-left:0 solid transparent;border-right:10px solid transparent}
+.notice-balloon .item p:after {width:0;height:0;content:" ";display:block;position:absolute;border-top-color:#e5e5e5;border-left-style:inset;border-right-style:inset}
+.notice-balloon .notice-balloon-info {position:relative;overflow:hidden;color:#000;font-size:12px;margin-top:14px}
+.notice-balloon .notice-balloon-info .notice-time {color:#888;font-size:11px;display:block}
+.notice-balloon .notice-balloon-info .notice-photo {position:relative;overflow:hidden;width:36px;height:36px;margin-right:10px;float:left}
+.notice-balloon .notice-balloon-info img {-webkit-border-radius:50% !important;-moz-border-radius:50% !important;border-radius:50% !important;width:36px;height:36px;float:left}
+.notice-balloon .notice-balloon-info .notice-user-icon {-webkit-border-radius:50% !important;-moz-border-radius:50% !important;border-radius:50% !important;width:36px;height:36px;float:left;font-size:20px;line-height:36px;text-align:center;background:#84848a;color:#fff;margin-right:10px}
+.notice-balloon .owl-navi {top:-37px;position:relative}
+.notice-balloon .owl-navi a.owl-btn {color:#fff;cursor:pointer;width:25px;height:16px;line-height:16px;font-size:12px;text-align:center;background:#b5b5b5}
+.notice-balloon .owl-navi a.owl-btn:hover {color:#fff;background:#ff2a00;-webkit-transition:all 0.2s ease-in-out;-moz-transition:all 0.2s ease-in-out;-o-transition:all 0.2s ease-in-out;transition:all 0.2s ease-in-out}
+.notice-balloon .owl-navi a.owl-btn.prev-notice-balloon {position:absolute;right:27px;z-index:1}
+.notice-balloon .owl-navi a.owl-btn.next-notice-balloon {position:absolute;right:0;z-index:1}
+</style>

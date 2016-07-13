@@ -1,0 +1,76 @@
+<?php if (!defined('_GNUBOARD_')) exit; ?>
+
+<div class="hot-post">
+	<div class="headline"><h6><strong>월간베스트</strong></h6></div>
+	<div class="table-list-eb">
+	    <div class="board-list-body">
+	        <table class="table table-striped">
+	            <thead>
+	                <tr>
+	                    <th>랭킹</th>
+						<th>제목</th>
+	                    <th class="hidden-xs">글쓴이</th>
+	                    <th class="hidden-xs">뷰</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+		            <!--{@ loop}-->
+	                <tr>
+		                <td class="td-num">
+			                <strong>{.key_+1}</strong>
+		                </td>
+	                    <td class="td-width">
+		                    <div class="td-subject ellipsis">
+		                    <a href="{.href}">
+			                    <!--{? .wr_comment}--><span class="sound_only">댓글</span><span class="td-comment">+{.wr_comment}</span><span class="sound_only">개</span><!--{/}-->
+		                        {.wr_subject}
+		                    </a>
+		                    </div>
+	                    </td>
+			            <td class="td-name hidden-xs">
+			            	<!--{? eyoom_board.bo_use_profile_photo == 1}-->
+				            <span class="td-photo">
+								<!--{? .mb_photo}-->{.mb_photo}<!--{:}--><span class="td-user-icon"><i class="fa fa-user"></i></span><!--{/}-->
+							</span>
+							<!--{/}-->
+							<!--{? .gnu_icon}-->
+							<span style="display:inline-block;margin-right:2px"><img src="{.gnu_icon}" align="absmiddle"></span>
+							<!--{/}-->
+							<!--{? .eyoom_icon}-->
+							<span style="display:inline-block;margin-right:2px"><img src="{.eyoom_icon}" align="absmiddle"></span>
+							<!--{/}-->
+							<span class="td-name-in">{.mb_nick}</span>
+						</td>
+	                    <td class="text-center hidden-xs">
+	                        {=number_format(.wr_hit)}
+	                    </td>
+	                </tr>
+	                <!--{/}-->
+	            </tbody>
+	        </table>
+	    </div>
+	</div>
+</div>
+
+<style>
+.hot-post .table-list-eb .table thead > tr > th {border-bottom:1px solid #000}
+.hot-post .table-list-eb .table tbody > tr > td {padding:8px 5px}
+.hot-post .table-list-eb .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {background:#fafafa}
+.hot-post .table-list-eb thead {border-top:1px solid #000;border-bottom:1px solid #000;background:#fff}
+.hot-post .table-list-eb th {color:#000;font-weight:bold;white-space:nowrap}
+.hot-post .table-list-eb .td-comment {display: inline-block;min-width:35px;padding:0px 0px;font-size:10px;font-weight:300;line-height:13px;color:#fff;text-align:center;white-space:nowrap;vertical-align:baseline;background-color:#74747a;margin-right:5px}
+.hot-post .table-list-eb .td-comment .cnt_cmt {font-weight:300}
+.hot-post .table-list-eb .td-subject {width:300px}
+@media (max-width: 1199px) {
+	.hot-post .table-list-eb .td-subject {width:260px}
+}
+@media (max-width: 767px) {
+	.hot-post .table-list-eb .td-width {width:inherit}
+	.hot-post .table-list-eb .td-subject {width:280px}
+}
+.hot-post .table-list-eb .td-photo img {width:20px;height:20px;margin-right:2px}
+.hot-post .table-list-eb .td-photo .td-user-icon {width:20px;height:20px;font-size:14px;line-height:20px;text-align:center;background:#84848a;color:#fff;margin-right:2px;display:inline-block;white-space:nowrap;vertical-align:baseline}
+.hot-post .table-list-eb .td-name b {font-weight:normal}
+.hot-post .table-list-eb .td-date {text-align:center}
+.hot-post .table-list-eb .td-num {text-align:center}
+</style>

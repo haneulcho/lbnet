@@ -1,0 +1,89 @@
+<?php if (!defined('_GNUBOARD_')) exit;
+add_stylesheet('<link rel="stylesheet" href="../../../plugins/scrollbar/src/perfect-scrollbar.css" id="style_color" type="text/css" media="screen">',0);
+?>
+
+<!--{* 회원가입약관 동의 시작 *}-->
+<div class="member-skin">
+    <form name="fregister" id="fregister" action="{_register_action_url}" onsubmit="return fregister_submit(this);" method="POST" autocomplete="off" class="eyoom-form">
+
+	<blockquote class="hero hero-dark padding-all-10 margin-bottom-30">
+		<p><i class="fa fa-quote-left"></i> 회원가입약관 및 개인정보처리방침안내의 내용에 동의하셔야 회원가입 하실 수 있습니다.</p>
+	</blockquote>
+
+    <section id="fregister_term" class="member-box">
+        <header><h5><strong>회원가입약관</strong></h5></header>
+        <div class="member-agree">
+	        <div id="scrollbar" class="panel-body contentHolder ps-container">
+	        	<!--{# provision //theme/your theme/page/provision.html 파일}-->
+	        </div>
+        </div>
+        <footer>
+	        <div class="fregister-agree">
+	            <label class="checkbox" for="agree11">
+	            	<input type="checkbox" name="agree" value="1" id="agree11"><i></i>회원가입약관의 내용에 동의합니다.
+	            </label>
+	        </div>
+        </footer>
+    </section>
+
+    <section id="fregister_private" class="member-box">
+        <header><h5><strong>개인정보처리방침안내</strong></h5></header>
+        <div class="member-agree">
+	        <div id="scrollbar" class="panel-body contentHolder ps-container">
+	        	<!--{# privacy //theme/your theme/page/privacy.html 파일}-->
+	        </div>
+        </div>
+        <footer>
+	        <div class="fregister-agree">
+	            <label class="checkbox" for="agree21">
+	            	<input type="checkbox" name="agree2" value="1" id="agree21"><i></i>개인정보처리방침안내의 내용에 동의합니다.
+	            </label>
+	        </div>
+        </footer>
+    </section>
+
+    <div class="btn_confirm">
+        <button class="btn-e btn-e-lg btn-e-red" type="submit" value="회원가입"><i class="fa fa-sign-in"></i> 회원가입</button>
+    </div>
+
+    </form>
+
+    <script>
+    function fregister_submit(f) {
+        if (!f.agree.checked) {
+            alert("회원가입약관의 내용에 동의하셔야 회원가입 하실 수 있습니다.");
+            f.agree.focus();
+            return false;
+        }
+
+        if (!f.agree2.checked) {
+            alert("개인정보처리방침안내의 내용에 동의하셔야 회원가입 하실 수 있습니다.");
+            f.agree2.focus();
+            return false;
+        }
+
+        return true;
+    }
+    </script>
+</div>
+
+<style>
+.margin-hr-10 {height:1px;border-top:1px dotted #ddd;margin:10px 0}
+.member-skin {font-size:12px}
+.member-skin .member-box {border:1px solid #ddd;margin-bottom:30px}
+.member-skin .eyoom-form header {padding:10px 20px;background:#fafafa}
+.member-skin .eyoom-form footer {padding:10px 20px;text-align:right}
+.member-skin .member-agree {padding:15px}
+.member-skin .contentHolder {height:178px}
+.member-skin .fregister-agree label {display:inline-block;margin-right:5px}
+</style>
+
+<script type="text/javascript" src="../../../plugins/scrollbar/src/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="../../../plugins/scrollbar/src/perfect-scrollbar.js"></script>
+<script>
+    jQuery(document).ready(function ($) {
+        "use strict";
+        $('.contentHolder').perfectScrollbar();
+    });
+</script>
+<!--{* 회원가입 약관 동의 끝 *}-->

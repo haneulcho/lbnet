@@ -1,0 +1,59 @@
+<?php if (!defined('_GNUBOARD_')) exit; ?>
+
+<div class="member-signature col-sm-5 col-sm-offset-7">
+	<div class="width-30 pull-left">
+		<div class="signature-member">
+			<div class="signature-photo">
+				<!--{? view.mb_photo}-->{view.mb_photo}<!--{:}--><span class="signature-user-icon"><i class="fa fa-user"></i></span><!--{/}-->
+			</div>
+		</div>
+	</div>
+	<div class="width-70 pull-right">
+		<div class="signature-info">
+			<span>- {=eb_nameview('basic', view.mb_id, view.wr_name, view.wr_email, view.wr_homepage)}</span>
+			<!--{? lv.gnu_icon}-->
+			<span style="display:inline-block;margin-right:2px"><img src="{lv.gnu_icon}" align="absmiddle"></span>
+			<!--{/}-->
+			<!--{? lv.eyoom_icon}-->
+			<span style="display:inline-block;margin-right:2px"><img src="{lv.eyoom_icon}" align="absmiddle"></span>
+			<!--{/}-->
+	        <span class="display-block font-size-11">- 회원등급 : <!--{? user.mb_level == 10}-->최고관리자<!--{:}-->{lvuser.gnu_name}/{lvuser.name}<!--{/}--></span>
+	        <span class="display-block font-size-11">- {levelset.gnu_name} : {=number_format(user.mb_point)}</span>
+	    </div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="signature-statistics">
+		<div class="pull-left">
+			<span>레벨</span> <strong>{lvuser.level}</strong>
+		</div>
+		<div class="pull-right text-right">
+			<span>{levelset.eyoom_name}</span> <strong>{=number_format(user.level_point)}</strong>
+		</div>
+		<div class="clearfix"></div>
+		<div class="margin-top-5">
+			<p class="font-size-11">Progress Bar <span class="pull-right">{lvuser.ratio}%</span></p>
+			<div class="progress progress-e progress-xxs margin-bottom-5">
+				<div style="width: {lvuser.ratio}%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{lvuser.ratio}" role="progressbar" class="progress-bar progress-bar-red">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="signature-profile">
+		- <strong>가입일</strong> : {user.mb_datetime}
+		<div class="margin-hr-3"></div>
+		- <strong>서명</strong> : {user.mb_signature}
+		<div class="margin-hr-3"></div>
+		- <strong>자기소개</strong> : {user.mb_profile}
+	</div>
+</div>
+
+<style>
+.member-signature {margin-bottom:30px;border:1px solid #ddd;padding:10px;font-size:12px}
+.member-signature .margin-hr-3 {height:1px;border-top:1px dotted #ddd;margin:3px 0;clear:both}
+.member-signature .signature-photo {position:relative;height:52px;width:52px;padding:3px;box-shadow:0 0 0 1px rgba(0, 0, 0, 0.1);background:#fff}
+.member-signature .signature-photo img {height:46px;width:46px;background-color:#fff;background-size:cover}
+.member-signature .signature-photo .signature-user-icon {height:46px;width:46px;text-align:center;line-height:46px;background:#84848a;color:#fff;font-size:28px;text-align:center;display:inline-block}
+.member-signature .signature-info {position:relative;border-left:1px dotted #ddd;padding-left:15px}
+.member-signature .signature-statistics {position:relative;border-top:1px solid #e5e5e5;border-bottom:1px solid #e5e5e5;margin:10px -10px;padding:10px;background:#fafafa}
+.member-signature .signature-profile {position:relative;font-size:11px}
+</style>

@@ -1,0 +1,99 @@
+<?php if (!defined('_GNUBOARD_')) exit;?>
+
+<div class="latest-ranking-w">
+	<div class="tab-e1">
+		<div class="headline">
+			<h6><strong>Ranking</strong></h6>
+		</div>
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#rank-1" data-toggle="tab">오늘{levelset.gnu_name}</a></li>
+			<li class=""><a href="#rank-2" data-toggle="tab">전체{levelset.gnu_name}</a></li>
+			<li class=""><a href="#rank-3" data-toggle="tab">{levelset.eyoom_name}</a></li>
+		</ul>
+		<div class="tab-content bg-color-white">
+			<div class="tab-pane fade active in" id="rank-1">
+				<div class="latest-ranking-e1">
+					<ul class="list-unstyled">
+					<!--{@ rank_today}-->
+						<li>
+							<div class="width-60 pull-left ellipsis">
+								<span class="ranking-num {? .index_ <= 2}ranking-num-{.index_+1}{/}"><!--{? .index_<9}-->0<!--{/}-->{.index_+1}</span>
+								<!--{? .eyoom_icon}-->
+								<span style='display:inline-block;margin-right:2px;'><img src="{.eyoom_icon}"></span>
+								<!--{/}-->
+								{.mb_nick}
+							</div>
+							<div class="width-40 pull-right">
+								{=number_format(.point)}
+							</div>
+							<div class="clearfix"></div>
+						</li>
+					<!--{:}-->
+						<p class="text-center">출력할 랭킹이 없습니다.</p>
+					<!--{/}-->
+					</ul>
+				</div>
+			</div>
+			<div class="tab-pane fade in" id="rank-2">
+				<div class="latest-ranking-e1">
+					<ul class="list-unstyled">
+					<!--{@ rank_total}-->
+						<li>
+							<div class="width-60 pull-left ellipsis">
+								<span class="ranking-num {? .index_ <= 2}ranking-num-{.index_+1}{/}"><!--{? .index_<9}-->0<!--{/}-->{.index_+1}</span>
+								<!--{? .eyoom_icon}-->
+								<span style='display:inline-block;margin-right:2px;'><img src="{.eyoom_icon}"></span>
+								<!--{/}-->
+								{.mb_nick}
+							</div>
+							<div class="width-40 pull-right">
+								{=number_format(.point)}
+							</div>
+							<div class="clearfix"></div>
+						</li>
+					<!--{:}-->
+						<p class="text-center">출력할 랭킹이 없습니다.</p>
+					<!--{/}-->
+					</ul>
+				</div>
+			</div>
+			<div class="tab-pane fade in" id="rank-3">
+				<div class="latest-ranking-e1">
+					<ul class="list-unstyled">
+					<!--{@ rank_level}-->
+						<li>
+							<div class="width-60 pull-left ellipsis">
+								<span class="ranking-num {? .index_ <= 2}ranking-num-{.index_+1}{/}"><!--{? .index_<9}-->0<!--{/}-->{.index_+1}</span>
+								<!--{? .eyoom_icon}-->
+								<span style='display:inline-block;margin-right:2px;'><img src="{.eyoom_icon}"></span>
+								<!--{/}-->
+								{.mb_nick}
+							</div>
+							<div class="width-40 pull-right">
+								{=number_format(.point)}
+							</div>
+							<div class="clearfix"></div>
+						</li>
+					<!--{:}-->
+						<p class="text-center">출력할 랭킹이 없습니다.</p>
+					<!--{/}-->
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+.latest-ranking-e1 ul {margin-bottom:0}
+.latest-ranking-e1 li {padding:4px 0;border-bottom:1px dotted #e5e5e5}
+.latest-ranking-e1 li:last-child {border-bottom:0}
+.latest-ranking-e1 .ranking-num {background:#555;padding:3px 3px;color:#fff;margin-right:5px;font-size:11px}
+.latest-ranking-e1 .ranking-num-1 {background:#ff2a00}
+.latest-ranking-e1 .ranking-num-2 {background:#ff9500}
+.latest-ranking-e1 .ranking-num-3 {background:#ff9500}
+.latest-ranking-e1 .pull-left {padding-right:0;padding-left:0;font-size:12px;color:#333}
+.latest-ranking-e1 .pull-right {padding-right:0;padding-left:0;text-align:right;color:#ff2a00;font-size:11px;margin-top:4px}
+.latest-ranking-w .tab-e1 .tab-content img {margin-top:0;margin-bottom:0}
+.latest-ranking-w .tab-e1 .nav-tabs a {padding:5px 10px}
+</style>

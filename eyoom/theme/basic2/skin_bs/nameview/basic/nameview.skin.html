@@ -1,0 +1,50 @@
+<?php if (!defined('_GNUBOARD_')) exit; ?>
+
+<span class="sv_wrap">
+	<!--{? !is_anonymous}-->
+	<a href="{head.link}" class="sv_member" title="{head.title}" target="_blank" onclick="return false;"> <b>{head.name}</b></a>
+	<!--{:}-->
+	<b>{head.name}</b>
+	<!--{/}-->
+<?php  ob_start(); ?>
+	<!--{? !is_anonymous}-->
+	<span class="sv dropdown-menu" role="menu">
+	<!--{? mb_id && member.mb_id}-->
+		<a href="{C.G5_BBS_URL}/memo_form.php?me_recv_mb_id={mb_id}" class="win_memo" id="ol_after_memo">쪽지보내기</a>
+		<a href="{link.profile}" onclick="win_profile(this.href); return false;">자기소개</a>
+		<a href="{link.article}">전체게시물</a>
+	<!--{/}-->
+
+	<!--{? email}-->
+		<a href="{link.email}" onclick="win_email(this.href); return false;">메일보내기</a>
+	<!--{/}-->
+
+	<!--{? home}-->
+		<a href="{link.home}" target="_blank">홈페이지</a>
+	<!--{/}-->
+
+	<!--{? bo_table}-->
+		<!--{? mb_id}-->
+		<a href="{link.sid}">아이디로 검색</a>
+		<!--{:}-->
+		<a href="{link.sname}">이름으로 검색</a>
+		<!--{/}-->
+	<!--{/}-->
+	<!--{? g5.sms5_use_sideview}-->
+		<a href="{link.sms}" class="win_sms5" target="_blank">문자보내기</a>
+	<!--{/}-->
+	<!--{? is_admin}-->
+		<a href="{link.info}" target="_blank">회원정보변경</a>
+		<a href="{link.point}" target="_blank">{levelset.gnu_name}내역</a>
+	<!--{/}-->
+	</span>
+	<!--{/}-->
+<?php
+    $mb_name = ob_get_contents();
+    ob_end_clean();
+?>
+<?php echo $mb_name; ?>
+<!--{? !is_anonymous}-->
+<noscript class="sv_nojs"><?php echo $noscript;?></noscript>
+<!--{/}-->
+</span>

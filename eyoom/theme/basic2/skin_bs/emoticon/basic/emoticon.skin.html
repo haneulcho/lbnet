@@ -1,0 +1,31 @@
+<?php if (!defined('_GNUBOARD_')) exit;  ?>
+<div class="emoticon-list">
+<h4>
+	Emoticons : 
+	<select name="eom" id="emo" onchange="change_emoticon(this.value);">
+	<!--{@ _emo_type}-->
+		<option value="{.value_}" {? _emo == .value_}selected{/}>{.value_}</option>
+	<!--{/}-->
+	</select>
+</h4>
+
+<ul class="emoticons">
+	<!--{@ _emoticon}-->
+	<li><a href='javascript:;' onclick="set_emoticon('{.emoticon}');"><img src="{.url}" width="40"></a></li>
+	<!--{/}-->
+</ul>
+</div>
+<style>
+.emoticons li{float:left;list-style-type:none;min-height:65px;	margin:5px 16px;}
+</style>
+<script>
+function change_emoticon(emo) {
+	var url = './emoticon.php?emo='+emo;
+	$(location).attr('href',url);
+}
+function set_emoticon(emoticon) {
+	parent.set_emoticon(emoticon);
+	parent.jQuery('.vbox-close, .vbox-overlay').trigger('click');
+}
+</script>
+<!--{# tail_sub}-->

@@ -1,0 +1,36 @@
+<?php if (!defined('_GNUBOARD_')) exit; ?>
+
+<section class="board-view-ans">
+	<div class="row">
+		<div class="col-sm-10">
+			<h5><strong><span class="color-red">답변</span>: {=get_text(answer.qa_subject)}</strong></h5>
+		</div>
+		<div class="col-sm-2 text-right">
+			<a href="{_rewrite_href}" class="btn-e btn-e-light-grey"><i class="fa fa-question-circle"></i> 추가질문</a>
+		</div>
+	</div>
+
+	<div class="ans-datetime">
+		<i class="fa fa-clock-o"></i> {answer.qa_datetime}
+	</div>
+
+	<div class="ans-con">
+		{=conv_content(answer.qa_content, answer.qa_html)}
+	</div>
+
+	<div class="ans-add">
+		<!--{? _answer_update_href}-->
+		<a href="{_answer_update_href}" class="btn-e btn-e-default">답변수정</a>
+		<!--{/}-->
+		<!--{? _answer_delete_href}-->
+		<a href="{_answer_delete_href}" class="btn-e btn-e-default" onclick="del(this.href); return false;">답변삭제</a>
+		<!--{/}-->
+	</div>
+</section>
+
+<style>
+.board-view-ans {margin:0 0 20px;padding:20px 0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;font-size:12px}
+.board-view-ans .ans-datetime {margin:10px 0;padding:5px 0;border-top:1px dotted #ddd;border-bottom:1px dotted #ddd;color:#888}
+.board-view-ans .ans-con {margin:10px 0;line-height:1.7}
+.board-view-ans .ans-add {text-align:right}
+</style>

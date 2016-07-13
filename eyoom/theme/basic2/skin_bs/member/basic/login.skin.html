@@ -1,0 +1,185 @@
+<?php if (!defined('_GNUBOARD_')) exit;
+add_stylesheet('<link rel="stylesheet" href="../../../plugins/bootstrap/css/bootstrap.min.css" type="text/css" media="screen">',0);
+add_stylesheet('<link rel="stylesheet" href="../../../plugins/font-awesome/css/font-awesome.min.css" type="text/css" media="screen">',0);
+add_stylesheet('<link rel="stylesheet" href="../../../plugins/eyoom-form/css/eyoom-form.min.css" type="text/css" media="screen">',0);
+add_stylesheet('<link rel="stylesheet" href="../../../plugins/scrollbar/src/perfect-scrollbar.css" id="style_color" type="text/css" media="screen">',0);
+add_stylesheet('<link rel="stylesheet" href="../../../css/common.css" type="text/css" media="screen">',0);
+add_stylesheet('<link rel="stylesheet" href="../../../css/style.css" type="text/css" media="screen">',0);
+add_stylesheet('<link rel="stylesheet" href="../../../css/custom.css" type="text/css" media="screen">',0);
+?>
+
+<!--{* 로그인 시작 *}-->
+<div class="eb-login">
+	<div class="container">
+	    <div class="member-login">
+	        <div class="member-login-header">
+	            <h4><strong>로그인</strong></h4>
+	            <a href="{C.G5_BBS_URL}/password_lost.php" target="_blank">아이디/비밀번호찾기</a>
+	            <a href="./register.php" class="pull-right">회원가입</a>
+	            <div class="clearfix"></div>
+	        </div>
+		    <form name="flogin" action="{_login_action_url}" onsubmit="return flogin_submit(this);" method="post" class="eyoom-form">
+		    <input type="hidden" name="url" value='{_login_url}'>
+
+		    <fieldset>
+				<section>
+                    <label class="input">
+                        <i class="icon-prepend fa fa-user"></i>
+                        <input type="text" class="form-control" placeholder="아이디" name="mb_id" required class="frm_input required" size="20" maxLength="20">
+                    </label>
+                </section>
+				<section>
+                    <label class="input">
+                        <i class="icon-prepend fa fa-lock"></i>
+                        <input type="password" class="form-control" placeholder="비밀번호" name="mb_password" required class="frm_input required" size="20" maxLength="20">
+                    </label>
+                </section>
+		        <label class="checkbox">
+		            <input type="checkbox" name="auto_login" id="login_auto_login"><i></i>자동로그인
+		        </label>
+		        <div class="margin-bottom-20"></div>
+	            <div class="text-center">
+	                <button type="submit" value="로그인" class="btn-e btn-e-red"><i class="fa fa-sign-in"></i> 로그인</button>
+	            </div>
+		    </fieldset>
+			</form>
+	    </div>
+	</div>
+
+    <!--{* 쇼핑몰 사용시 여기부터 *}-->
+	<!--{? default.de_level_sell == 1 ///#1}-->
+
+    <!--{? preg_match('/orderform.php/',_url) ///#2}-->
+    <section class="member-login-notmb">
+        <div class="headline"><h4>비회원 구매</h4></div>
+
+        <p class="font-size-12">
+            비회원으로 주문하시는 경우 포인트는 지급하지 않습니다.
+        </p>
+
+		<div class="panel panel-basic-bs no-bg">
+	        <div id="scrollbar" class="panel-body contentHolder">
+				<!--{default.de_guest_privacy}-->
+	        </div>
+		</div>
+
+		<div class="eyoom-form">
+			<label class="checkbox" for="agree">
+				<input type="checkbox" id="agree" value="1"><i></i><span class="font-size-12">개인정보수집에 대한 내용을 읽었으며 이에 동의합니다.</span>
+			</label>
+		</div>
+
+        <div class="margin-top-15 text-center">
+            <a href="javascript:guest_submit(document.flogin);" class="btn-e btn-e-dark">비회원으로 구매하기</a>
+        </div>
+
+        <script>
+        function guest_submit(f) {
+            if (document.getElementById('agree')) {
+                if (!document.getElementById('agree').checked) {
+                    alert("개인정보수집에 대한 내용을 읽고 이에 동의하셔야 합니다.");
+                    return;
+                }
+            }
+
+            f.url.value = "{_url}";
+            f.action = "{_url}";
+            f.submit();
+        }
+        </script>
+    </section>
+	<!--{: preg_match('/orderinquiry.php$/',_url) ///#2}-->
+    <section class="member-login-order">
+        <form name="forderinquiry" method="post" action="{=urldecode(_url)}" autocomplete="off" class="eyoom-form">
+		<section>
+			<label for="od_id" class="label">주문서번호<strong class="sound_only"> 필수</strong></label>
+            <label class="input">
+                <i class="icon-prepend fa fa-shopping-cart"></i>
+                <input type="text" class="form-control" placeholder="주문서번호" name="od_id" value="{_od_id}" id="od_id" required size="20">
+            </label>
+        </section>
+		<section>
+			<label for="id_pwd" class="label">비밀번호<strong class="sound_only"> 필수</strong></label>
+            <label class="input">
+                <i class="icon-prepend fa fa-lock"></i>
+                <input type="password" class="form-control" placeholder="비밀번호" name="od_pwd" size="20" id="od_pwd" required>
+            </label>
+        </section>
+        <div class="text-center">
+	        <input class="btn-e btn-e-dark" type="submit" value="확인">
+        </div>
+        </form>
+        <h5 class="margin-top-20 color-black"><i class="fa fa-exclamation-circle"></i> 비회원 주문조회 안내</h5>
+        <p class="font-size-12">메일로 발송해드린 주문서의 <strong>주문번호</strong> 및 주문 시 입력하신 <strong>비밀번호</strong>를 정확히 입력해주십시오.</p>
+    </section>
+    <!--{///#2}-->
+
+    <!--{///#1}-->
+    <!--{* 쇼핑몰 사용시 여기까지 반드시 복사해 넣으세요 *}-->
+
+    <div class="main-comeback margin-bottom-30">
+        <a href="{C.G5_URL}">메인으로 돌아가기</a>
+    </div>
+</div>
+
+<style>
+.member-login {width:380px;padding:20px;margin:40px auto 20px;background:#fff;border-top:solid 1px #ff2a00}
+.member-login .eyoom-form {border:0}
+.member-login .eyoom-form fieldset {padding:0}
+.member-login h4, .member-login p, .member-login p a {color:#333}
+.member-login-header {padding-bottom:5px;margin-bottom:20px;border-bottom:solid 1px #eee}
+.member-login-header h4 {padding-bottom:15px;text-align:center;margin-bottom:15px}
+.main-comeback {text-align: center;margin-top:0}
+.main-comeback a {color:#fff}
+.member-login-notmb {width:380px;padding:20px;margin:0px auto 20px;background:#fff}
+.member-login-notmb .eyoom-form {border:0}
+.member-login-notmb .panel {padding:10px;border:1px solid #eee;box-shadow: none;margin-bottom:10px}
+.member-login-notmb .contentHolder {height:120px}
+.member-login-order {width:380px;padding:20px;margin:0px auto 20px;background:#fff}
+.member-login-order .eyoom-form {border:0}
+.member-login-order .btn {font-size: 14px;}
+@media (max-width: 767px) {
+	.member-login {width:280px}
+	.member-login-notmb {width:280px}
+	.member-login-order {width:280px}
+}
+</style>
+
+<script type="text/javascript" src="../../../plugins/backstretch/jquery.backstretch.min.js"></script>
+<script type="text/javascript" src="../../../plugins/eyoom-form/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../../../plugins/eyoom-form/plugins/jquery-form/jquery.form.min.js"></script>
+<script type="text/javascript" src="../../../plugins/scrollbar/src/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="../../../plugins/scrollbar/src/perfect-scrollbar.js"></script>
+<script type="text/javascript">
+    $.backstretch([
+      "img/login_bg_2.jpg",
+      "img/login_bg_1.jpg",
+      ], {
+        fade: 1000,
+        duration: 7000
+    });
+
+    jQuery(document).ready(function ($) {
+        "use strict";
+        $('.contentHolder').perfectScrollbar();
+    });
+</script>
+<!--[if lt IE 9]>
+    <script src="../../../js/respond.js"></script>
+    <script src="../../../js/html5shiv.js"></script>
+    <script src="../../../plugins/eyoom-form/js/eyoom-form-ie8.js"></script>
+<![endif]-->
+<script>
+$(function(){
+    $("#login_auto_login").click(function(){
+        if (this.checked) {
+            this.checked = confirm("자동로그인을 사용하시면 다음부터 회원아이디와 비밀번호를 입력하실 필요가 없습니다.\n\n공공장소에서는 개인정보가 유출될 수 있으니 사용을 자제하여 주십시오.\n\n자동로그인을 사용하시겠습니까?");
+        }
+    });
+});
+
+function flogin_submit(f) {
+    return true;
+}
+</script>
+<!--{* 로그인 끝 *}-->

@@ -1,0 +1,63 @@
+<?php if (!defined('_GNUBOARD_')) exit; ?>
+
+<!--{* 현재접속자 목록 시작 *}-->
+<div class="table-list-eb margin-bottom-20">
+    <div class="board-list-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+			        <th class="th-num">번호</th>
+			        <th>이름</th>
+			        <th class="hidden-xs">위치</th>
+                </tr>
+            </thead>
+            <tbody>
+		    	<!--{@ list}-->
+		        <tr>
+		            <td class="text-left">{.num}</td>
+		            <td><!--{? .mb_id}-->{=eb_nameview('basic', .mb_id, .mb_nick, .mb_email, .mb_homepage)}<!--{:}-->{.name}<!--{/}--></td>
+		            <td class="td-width hidden-xs">
+			            <div class="td-location">
+							<!--{? .lo_url && _is_admin=='super'}-->
+							<a href="{.lo_url}">{.lo_location}</a>
+							<!--{:}-->
+							{.lo_location}
+							<!--{/}-->
+			            </div>
+					</td>
+		        </tr>
+		        <tr class="td-mobile visible-xs"><!--{* 767px 이하에서만 보임 *}-->
+			        <td colspan="2">
+						<!--{? .lo_url && _is_admin=='super'}-->
+						<a href="{.lo_url}">{.lo_location}</a>
+						<!--{:}-->
+						{.lo_location}
+						<!--{/}-->
+			        </td>
+		        </tr>
+				<!--{:}-->
+				<tr><td colspan="3" class="text-center">현재 접속자가 없습니다.</td></tr>
+				<!--{/}-->
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--{* 현재접속자 목록 끝 *}-->
+
+<style>
+.table-list-eb .table thead > tr > th {border-bottom:1px solid #000}
+.table-list-eb .table tbody > tr > td {padding:8px 5px}
+.table-list-eb .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {background:#fafafa}
+.table-list-eb thead {border-top:1px solid #000;border-bottom:1px solid #000;background:#fff}
+.table-list-eb th {color:#000;font-weight:bold;white-space:nowrap}
+.table-list-eb .th-num {text-align:left !important;padding:8px 5px}
+.table-list-eb .td-location {width:300px}
+@media (max-width: 1199px) {
+	.table-list-eb .td-location {width:260px}
+}
+@media (max-width: 767px) {
+	.table-list-eb .td-width {width:inherit}
+	.table-list-eb .td-location {width:280px}
+}
+.table-list-eb .td-mobile td {border-top:1px solid #f0f0f0;padding:4px 5px !important;font-size:10px;color:#999;background:#fafafa}
+</style>

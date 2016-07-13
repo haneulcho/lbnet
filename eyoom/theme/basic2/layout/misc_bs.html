@@ -1,0 +1,368 @@
+<?php if (!defined('_GNUBOARD_')) exit;
+add_stylesheet('<link rel="stylesheet" href="../plugins/scrollbar/src/perfect-scrollbar.css" type="text/css" media="screen">',0);
+?>
+
+<div class="sidebars">
+	<!--{? eyoom.use_board_control == 'y' && _bo_table}-->
+    <div class="sidebar {? eyoom.board_control_position}{eyoom.board_control_position}{:}left{/}" style="right:-270px">
+	    <a href="#" class="btn" data-action="toggle" data-side="{? eyoom.board_control_position}{eyoom.board_control_position}{:}left{/}"><span><i class="fa fa-caret-left"></i> <i class="fa fa-caret-right"></i> 게시판<br>간편 설정</span></a>
+	    <div class="contentHolder" style="height:100%">
+	    	<form name="config_form" method="post" action="{C.G5_ADMIN_URL}/eyoom_admin/board_form_update.php" class="eyoom-form" target="boardHiddenfrm">
+		    <input type="hidden" name="theme" id="theme" value="{_theme}">
+		    <input type="hidden" name="bo_table" id="bo_table" value="{_bo_table}">
+		    <input type="hidden" name="wmode" id="wmode" value="1">
+		    <input type="hidden" name="bo_use_summernote_mo" id="bo_use_summernote_mo" value="{eyoom_board.bo_use_summernote_mo}">
+		    	<div class="sidebar-title-wrap">
+		    		<h3 class="sidebar-title">[{board.bo_subject}] 게시판기능 설정</h3>
+		    	</div>
+		    	<div class="sidebar-config-wrap">
+			    	<h5 class="color-black margin-bottom-15"><strong>01. 공통 설정</strong></h5>
+			    	<section>
+				    	<!--{? preg_match('/shop/i', _theme) }-->
+						<label class="label"><strong>레이아웃 디자인</strong></label>
+						<label class="toggle small-toggle red-toggle"><input type="radio" name="use_shop_skin" id="use_shop_skin_1" value="n" {? eyoom_board.use_shop_skin=='n' || !eyoom_board.use_shop_skin}checked{/}><i></i>- 커뮤니티 레이아웃</label>
+						<label class="toggle small-toggle red-toggle"><input type="radio" name="use_shop_skin" id="use_shop_skin_2" value="y" {? eyoom_board.use_shop_skin=='y'}checked{/}><i></i>- 쇼핑몰 레이아웃</label>
+
+						<div class="margin-hr-10"></div>
+						<!--{/}-->
+
+						<label class="label"><strong>날짜표현</strong></label>
+						<label class="toggle small-toggle red-toggle"><input type="radio" name="bo_sel_date_type" value="1" id="bo_sel_date_type1" {? eyoom_board.bo_sel_date_type == '1'}checked{/}><i></i>- 시분초 형식</label>
+						<label class="toggle small-toggle red-toggle"><input type="radio" name="bo_sel_date_type" value="2" id="bo_sel_date_type2" {? eyoom_board.bo_sel_date_type == '2'}checked{/}><i></i>- 날짜 형식</label>
+
+						<div class="margin-hr-10"></div>
+
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_profile_photo" value="1" id="bo_use_profile_photo" {? eyoom_board.bo_use_profile_photo}checked{/}><i></i>- 프로필사진</label>
+
+				    	<div class="margin-hr-10"></div>
+
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_hotgul" value="1" id="bo_use_hotgul" {? eyoom_board.bo_use_hotgul}checked{/}><i></i>- 월간 베스트</label>
+
+				    	<div class="margin-hr-10"></div>
+
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_anonymous" value="1" id="bo_use_anonymous" {? eyoom_board.bo_use_anonymous}checked{/}><i></i>- 익명글쓰기</label>
+
+				    	<div class="margin-hr-10"></div>
+
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_infinite_scroll" value="1" id="bo_use_infinite_scroll" {? eyoom_board.bo_use_infinite_scroll}checked{/}><i></i>- 목록 무한스크롤</label>
+
+				    	<div class="margin-hr-10"></div>
+
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_cmt_infinite" value="1" id="bo_use_cmt_infinite" {? eyoom_board.bo_use_cmt_infinite}checked{/}><i></i>- 댓글 무한스크롤</label>
+
+				    	<div class="margin-hr-10"></div>
+
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_list_image" value="1" id="bo_use_list_image" {? eyoom_board.bo_use_list_image}checked{/}><i></i>- 목록 이미지</label>
+
+				    	<div class="margin-hr-10"></div>
+
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_video_photo" value="1" id="bo_use_video_photo" {? eyoom_board.bo_use_video_photo}checked{/}><i></i>- 목록 동영상이미지</label>
+
+				    	<div class="margin-hr-10"></div>
+
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_extimg" value="1" id="bo_use_extimg" {? eyoom_board.bo_use_extimg}checked{/}><i></i>- 외부이미지 썸네일</label>
+
+				    	<div class="margin-hr-10"></div>
+
+						<label class="label"><strong>다운로드 수수료율</strong></label>
+						<label class="input">
+							<i class="icon-append fa fa-percent"></i>
+							<input type="text" name="download_fee_ratio" value="{eyoom_board.download_fee_ratio}" id="download_fee_ratio" size="5">
+						</label>
+			    	</section>
+
+			    	<h5 class="color-black margin-top-20 margin-bottom-15"><strong>02. 게시물 신고/블라인드</strong></h5>
+			    	<section>
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_yellow_card" value="1" id="bo_use_yellow_card" {? eyoom_board.bo_use_yellow_card}checked{/}><i></i>- 신고/블라인드 기능</label>
+
+				    	<div class="margin-hr-10"></div>
+
+				    	<label class="label"><strong>블라인드 조건</strong></label>
+						<div class="row">
+							<div class="col col-6">
+								<label class="input">
+									<input type="text" name="bo_blind_limit" value="{eyoom_board.bo_blind_limit}" id="bo_blind_limit" size="5">
+								</label>
+							</div>
+							<div class="col col-6" style="line-height:30px">
+								명 이상 신고 시
+							</div>
+						</div>
+
+						<div class="margin-hr-10"></div>
+
+						<label class="label"><strong>블라인드 보기권한</strong></label>
+						<div class="row">
+							<div class="col col-6">
+								<label class="select">
+									<select name="bo_blind_view" id="bo_blind_view">
+										<option value="">선택</option>
+										<!--{@ range(1,10) }-->
+										<option value="{.key_+1}" {? eyoom_board.bo_blind_view == .key_+1}selected{/}>{.key_+1}</option>
+										<!--{/}-->
+									</select>
+									<i></i>
+								</label>
+							</div>
+							<div class="col col-6" style="line-height:30px">
+								레벨 이상
+							</div>
+						</div>
+
+						<div class="margin-hr-10"></div>
+
+						<label class="label"><strong>블라인드 설정권한</strong></label>
+						<div class="row">
+							<div class="col col-6">
+								<label class="select">
+									<select name="bo_blind_direct" id="bo_blind_direct">
+										<option value="">선택</option>
+										<!--{@ range(1,10) }-->
+										<option value="{.key_+1}" {? eyoom_board.bo_blind_direct == .key_+1}selected{/}>{.key_+1}</option>
+										<!--{/}-->
+									</select>
+									<i></i>
+								</label>
+							</div>
+							<div class="col col-6" style="line-height:30px">
+								레벨 이상
+							</div>
+						</div>
+			    	</section>
+
+			    	<h5 class="color-black margin-top-20 margin-bottom-15"><strong>03. 게시물 별점 기능</strong></h5>
+			    	<section>
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_rating" value="1" id="bo_use_rating" {? eyoom_board.bo_use_rating}checked{/}><i></i>- 게시물 별점 기능</label>
+
+				    	<div class="margin-hr-10"></div>
+
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_rating_list" value="1" id="bo_use_rating_list" {? eyoom_board.bo_use_rating_list}checked{/}><i></i>- 목록 별점 표시</label>
+			    	</section>
+
+			    	<h5 class="color-black margin-top-20 margin-bottom-15"><strong>04. 게시물 태그 기능</strong></h5>
+			    	<section>
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_tag" value="1" id="bo_use_tag" {? eyoom_board.bo_use_tag}checked{/}><i></i>- 게시물 태그 기능</label>
+
+				    	<div class="margin-hr-10"></div>
+
+						<label class="label"><strong>태그 작성 권한</strong></label>
+						<div class="row">
+							<div class="col col-6">
+								<label class="select">
+									<select name="bo_tag_level" id="bo_tag_level">
+										<option value="">선택</option>
+										<!--{@ range(1,10) }-->
+										<option value="{.key_+1}" {? eyoom_board.bo_tag_level == .key_+1}selected{/}>{.key_+1}</option>
+										<!--{/}-->
+									</select>
+									<i></i>
+								</label>
+							</div>
+							<div class="col col-6" style="line-height:30px">
+								레벨 이상
+							</div>
+						</div>
+
+						<div class="margin-hr-10"></div>
+
+						<label class="label"><strong>입력가능한 태그수</strong></label>
+						<label class="input">
+							<i class="icon-append" style="font-style:normal">개</i>
+							<input type="text" name="bo_tag_limit" id="bo_tag_limit" value="{eyoom_board.bo_tag_limit}" size="5">
+						</label>
+			    	</section>
+
+			    	<h5 class="color-black margin-top-20 margin-bottom-15"><strong>05. 게시물 자동 이동/복사</strong></h5>
+			    	<section>
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_automove" value="1" id="bo_use_automove" {? eyoom_board.bo_use_automove}checked{/}><i></i>- 자동 이동/복사</label>
+
+				    	<div class="margin-hr-10"></div>
+
+				    	<label class="label"><strong>이동/복사 조건</strong></label>
+				    	<section>
+							<div class="row">
+								<div class="col col-5">
+									<label class="select">
+										<select name="bo_automove[type]" id="bo_automove_type">
+											<option value="hit" {? _bo_automove.type == 'hit'}selected{/}>조회수</option>
+											<option value="good" {? _bo_automove.type == 'good'}selected{/}>추천수</option>
+											<option value="nogood" {? _bo_automove.type == 'nogood'}selected{/}>비추천수</option>
+										</select>
+										<i></i>
+									</label>
+								</div>
+								<div class="col col-1" style="line-height:30px">
+									가
+								</div>
+								<div class="col col-3">
+									<label class="input">
+										<input type="text" name="bo_automove[count]" value="{? _bo_automove.count}{_bo_automove.count}{:}100{/}" size="5">
+									</label>
+								</div>
+								<div class="col col-3" style="line-height:30px">
+									이상이면
+								</div>
+							</div>
+				    	</section>
+				    	<section>
+							<div class="row">
+								<div class="col col-6">
+									<label class="select">
+										<select name="bo_automove[target]" id="bo_automove_target">
+											<option value="">::게시판선택::</option>
+											<!--{@_binfo}-->
+											<option value="{.bo_table}" {? _bo_automove.target == .bo_table}selected{/}>{.bo_subject}</option>
+											<!--{/}-->
+										</select>
+										<i></i>
+									</label>
+								</div>
+								<div class="col col-6" style="line-height:30px">
+									게시판으로
+								</div>
+							</div>
+				    	</section>
+						<div class="row">
+							<div class="col col-6">
+								<label class="select">
+									<select name="bo_automove[action]" id="bo_automove_action">
+										<option value="move" {? _bo_automove.action == 'move'}selected{/}>이동</option>
+										<option value="copy" {? _bo_automove.action == 'copy'}selected{/}>복사</option>
+									</select>
+									<i></i>
+								</label>
+							</div>
+							<div class="col col-6" style="line-height:30px">
+								합니다.
+							</div>
+						</div>
+			    	</section>
+
+			    	<h5 class="color-black margin-top-20 margin-bottom-15"><strong>06. 애드온 기능</strong></h5>
+			    	<section>
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_addon_emoticon" value="1" id="bo_use_addon_emoticon" {? eyoom_board.bo_use_addon_emoticon}checked{/}><i></i>- 이모티콘 입력</label>
+
+				    	<div class="margin-hr-10"></div>
+
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_addon_video" value="1" id="bo_use_addon_video" {? eyoom_board.bo_use_addon_video}checked{/}><i></i>- 동영상 입력</label>
+
+				    	<div class="margin-hr-10"></div>
+
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_addon_coding" value="1" id="bo_use_addon_coding" {? eyoom_board.bo_use_addon_coding}checked{/}><i></i>- 코드 표시</label>
+
+				    	<div class="margin-hr-10"></div>
+
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_addon_soundcloud" value="1" id="bo_use_addon_soundcloud" {? eyoom_board.bo_use_addon_soundcloud}checked{/}><i></i>- 사운드클라우드 입력</label>
+
+				    	<div class="margin-hr-10"></div>
+
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_addon_map" value="1" id="bo_use_addon_map" {? eyoom_board.bo_use_addon_map}checked{/}><i></i>- 지도 입력</label>
+
+				    	<div class="margin-hr-10"></div>
+
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_addon_cmtimg" value="1" id="bo_use_addon_cmtimg" {? eyoom_board.bo_use_addon_cmtimg}checked{/}><i></i>- 댓글에서 이미지</label>
+			    	</section>
+
+			    	<h5 class="color-black margin-top-20 margin-bottom-15"><strong>07. 댓글 베스트 기능</strong></h5>
+			    	<section>
+						<label class="toggle small-toggle"><input type="checkbox" name="bo_use_cmt_best" value="1" id="bo_use_cmt_best" {? eyoom_board.bo_use_cmt_best}checked{/}><i></i>- 댓글 베스트 기능</label>
+
+				    	<div class="margin-hr-10"></div>
+
+				    	<label class="label"><strong>베스트글 조건</strong></label>
+						<div class="row">
+							<div class="col col-6">
+								<label class="input">
+									<input type="text" name="bo_cmt_best_min" value="{eyoom_board.bo_cmt_best_min}" id="bo_cmt_best_min" size="5">
+								</label>
+							</div>
+							<div class="col col-6" style="line-height:30px">
+								명 이상 추천
+							</div>
+						</div>
+
+						<div class="margin-hr-10"></div>
+
+				    	<label class="label"><strong>노출 베스트 댓글수</strong></label>
+						<div class="row">
+							<div class="col col-6">
+								<label class="input">
+									<input type="text" name="bo_cmt_best_limit" value="{eyoom_board.bo_cmt_best_limit}" id="bo_cmt_best_limit" size="5">
+								</label>
+							</div>
+							<div class="col col-6" style="line-height:30px">
+								순위까지 노출
+							</div>
+						</div>
+			    	</section>
+		    	</div>
+		    	<div class="sidebar-btn-wrap">
+					<div class="btn_confirm01 btn_confirm">
+					    <input type="submit" value="설정저장" class="btn-e btn-e-red btn-e-lg" accesskey="s">
+					</div>
+		    	</div>
+	    	</form>
+	    </div>
+	    <iframe name="boardHiddenfrm" id="boardHiddenfrm" style="visibility: hidden; display: none;"></iframe>
+	</div>
+	<!--{/}-->
+
+	<!--{? eyoom.use_theme_info == 'y'}-->
+    <div class="sidebar {? eyoom.theme_info_position}{eyoom.theme_info_position}{:}bottom{/}">
+	    <a href="#" class="btn" data-action="toggle" data-side="{? eyoom.theme_info_position}{eyoom.theme_info_position}{:}bottom{/}"><span>관리자용 테마정보</span></a>
+	    <div class="sidebar-info-wrap">
+			<ul class="list-inline">
+				<li><i class="fa fa-circle"></i> 사용중 테마명 [오픈된 홈테마] : <a href="{C.G5_URL}/?theme={_eyoom_basic.theme}"><strong>{_eyoom_basic.theme}</strong></a></li>
+				<li><i class="fa fa-circle"></i> 작업중 테마명 [현재 테마]: <a href="{C.G5_URL}/?theme={_theme}"><strong>{_theme}</strong></a></li>
+				<li><i class="fa fa-circle"></i> 설치된 {? C.G5_YOUNGCART_VER}영카트{:}그누보드{/} 버전 : <strong>{? C.G5_YOUNGCART_VER}영카트 {C.G5_YOUNGCART_VER}{:}그누보드 {C.G5_GNUBOARD_VER}{/}</strong></li>
+				<li><i class="fa fa-circle"></i> 설치된 이윰빌더 버전 : <strong>{C._EYOOM_VESION_}</strong></li>
+			</ul>
+	    </div>
+	</div>
+	<!--{/}-->
+</div>
+
+<!--{? eyoom.use_board_control == 'y' || eyoom.use_theme_info == 'y'}-->
+<style>
+.sidebars > .sidebar {position:fixed;z-index:9999}
+.sidebars .eyoom-form .toggle {font-size:12px}
+.sidebar .margin-hr-10 {position:relative;height:1px;border-top:1px dotted #d5d5d5;clear:both;margin:10px 0}
+<!--{? eyoom.use_board_control == 'y' && _bo_table}-->
+.sidebar.left {top:0;left:0;bottom:0;width:270px;background:#fff;border-right:3px solid #474A5E;z-index:10000;left:-270px}
+.sidebar.left .btn {position:absolute;top:36px;right:-67px;width:64px;height:auto;color:#fff;background:#474A5E;text-align:center;padding:5px 0;font-size:10px}
+.sidebar.left .btn:hover {background:#2E3340}
+.sidebar.right {top:0;right:0;bottom:0;width:270px;background:#fff;border-left:3px solid #474A5E;z-index:10000;right:-270px}
+.sidebar.right .btn {position:absolute;top:36px;left:-67px;width:64px;height:auto;color:#fff;background:#474A5E;text-align:center;padding:5px 0;font-size:10px}
+.sidebar.right .btn:hover {background:#2E3340}
+.sidebar .sidebar-title-wrap {position:fixed;top:0;width:270px;z-index:1}
+.sidebar .sidebar-title {background:#474A5E;padding:5px 10px;font-size:14px;color:#fff}
+.sidebar .sidebar-config-wrap {position:relative;padding:50px 10px 60px;background:#fbfbfb}
+.sidebar .sidebar-btn-wrap {position:fixed;bottom:0;width:270px;background:#e5e5e5;z-index:1}
+.sidebar .btn_confirm {position:relative;overflow:hidden;padding:10px;border-top:1px solid #474A5E}
+.sidebar .btn_confirm .btn-e-lg {width:100%;padding:7px 0}
+.sidebar.left .sidebar-btn-wrap {margin-left:-3px}
+.sidebar.left .btn_confirm {padding-left:13px}
+<!--{/}-->
+<!--{? eyoom.use_theme_info == 'y'}-->
+.sidebar.bottom {left:0;right:0;bottom:0;height:44px;background:#fff;border-top:3px solid #474A5E;bottom:-44px}
+.sidebar.bottom .btn {position:absolute;top:-27px;right:10px;width:110px;height:27px;line-height:23px;color:#000;background:#f2f2f2;border:2px solid #474A5E;border-bottom:0;text-align:center;padding:0;font-size:10px}
+.sidebar.top {left:0;right:0;top:0;height:47px;background:#fff;border-bottom:3px solid #474A5E;top:-47px}
+.sidebar.top .btn {position:absolute;bottom:-27px;right:10px;width:110px;height:27px;line-height:27px;color:#000;background:#f2f2f2;border:2px solid #474A5E;border-top:0;text-align:center;padding:0;font-size:10px}
+.sidebar .sidebar-info-wrap {position:relative;padding:10px;background:#f2f2f2;text-align:center}
+.sidebar .sidebar-info-wrap ul {margin-bottom:0}
+.sidebar .sidebar-info-wrap ul li {height:24px;line-height:24px;font-size:12px}
+<!--{/}-->
+@media (max-width:991px){
+	.sidebar {display:none}
+}
+</style>
+<!--{/}-->
+
+<script type="text/javascript" src="../plugins/scrollbar/src/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="../plugins/scrollbar/src/perfect-scrollbar.js"></script>
+<script>
+    jQuery(document).ready(function ($) {
+        "use strict";
+        $('.contentHolder').perfectScrollbar();
+    });
+</script>
