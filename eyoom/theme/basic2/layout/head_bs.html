@@ -66,7 +66,7 @@ add_stylesheet('<link rel="stylesheet" href="../css/custom.css" type="text/css" 
 	                    <ul class="list-unstyled topbar-left">
 	                        <!--{? !C.G5_IS_MOBILE}-->
 							<li>
-								<a id="bookmarkme" href="javascript:void(0);" rel="sidebar" title="bookmark this page">북마크</a>
+								<a id="bookmarkme" href="javascript:void(0);" rel="sidebar" title="bookmark this page">즐겨찾기</a>
 								<script>
 								    $(function() {
 								        $("#bookmarkme").click(function() {
@@ -76,19 +76,21 @@ add_stylesheet('<link rel="stylesheet" href="../css/custom.css" type="text/css" 
 								            } else if( /*@cc_on!@*/false) { // IE Favorite
 								                window.external.AddFavorite(location.href,document.title);
 								            } else { // webkit - safari/chrome
-								                alert('단축키 ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command' : 'CTRL') + ' + D를 눌러 북마크에 추가하세요.');
+								                alert('단축키 ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command' : 'CTRL') + ' + D를 눌러 즐겨찾기에 추가하세요.');
 								            }
 								        });
 								    });
 								</script>
 							</li>
 	                        <!--{/}-->
+              <!--{? _is_admin //관리자일 경우}-->
 							<li>
-								<a href="{C.G5_BBS_URL}/current_connect.php">접속자 {connect.total_cnt}{? connect.mb_cnt} (<span>{connect.mb_cnt}</span>){/}</a>
+								<a href="{C.G5_BBS_URL}/current_connect_admin.php">접속자 {connect.total_cnt}{? connect.mb_cnt} (<span>{connect.mb_cnt}</span>){/}</a>
 							</li>
+              <li><a href="{C.G5_BBS_URL}/new_admin.php">새글</a></li>
+              <!--{/}-->
 							<li><a href="{C.G5_BBS_URL}/faq.php">FAQ</a></li>
 							<li><a href="{C.G5_BBS_URL}/qalist.php">1:1문의</a></li>
-							<li><a href="{C.G5_BBS_URL}/new.php">새글</a></li>
 							<!--{? eyoom.use_tag == 'y'}-->
                             <li>
                             	{=eb_tagrecommend(eyoom.tag_skin)}
