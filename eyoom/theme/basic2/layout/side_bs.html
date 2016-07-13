@@ -1,12 +1,6 @@
 <?php if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가 ?>
 
 <div class="basic-body-side {? eyoom.pos_side_layout == 'left'}left{:}right{/}-side col-md-3">
-	<!--{* ------------- Notice Balloon 최신글 영역 시작 ------------- *}-->
-	<div class="margin-bottom-20">
-		<!--{* 아래 bo_table=게시판id 설정 *}-->
-		{latest->latest_eyoom('notice_balloon','bo_table=notice||count=5||cut_subject=50')}
-	</div>
-	<!--{* ------------- Notice Balloon 최신글 영역 끝 ------------- *}-->
 
 	<!--{? !C.G5_IS_MOBILE}-->
 	<div class="margin-bottom-20">
@@ -18,7 +12,6 @@
 	<!--{* ------------- Side Nab 영역 시작 ------------- *}-->
 	<!--{? !defined('_INDEX_')}-->
 	<div class="margin-bottom-20">
-		<div class="headline"><h6><strong>사이드 메뉴</strong></h6></div>
 		<ul class="list-group sidebar-nav-e1" id="sidebar-nav">
 			<!--{@ sidemenu}-->
 		    <li class="list-group-item list-toggle {? .active}active{/}">
