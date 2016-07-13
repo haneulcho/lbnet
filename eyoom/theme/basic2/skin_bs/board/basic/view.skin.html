@@ -54,27 +54,6 @@
     <!--{* 첨부파일 끝 *}-->
     <!--{/}-->
 
-    <!--{? implode('',view.link)}-->
-    <!--{* 관련링크 시작 *}-->
-    <section class="board-view-link">
-        <h2>관련링크</h2>
-        <ul class="list-unstyled">
-        <!--{@ view_link}-->
-            <li>
-                <div class="pull-left">
-                    - 관련링크: <a href="{.href}" target="_blank"><strong>{.link}</strong></a>
-                </div>
-                <div class="pull-right text-right">
-                    <span>{.hit}회 연결</span>
-                </div>
-                <div class="clearfix"></div>
-            </li>
-        <!--{/}-->
-        </ul>
-    </section>
-    <!--{* 관련링크 끝 *}-->
-    <!--{/}-->
-
     <!--{? eyoom_board.bo_use_rating == '1'}-->
     <section class="board-view-star">
         <h2>별점</h2>
@@ -90,40 +69,6 @@
         <div class="clearfix"></div>
     </section>
     <!--{/}-->
-
-    <section class="board-view-short-url">
-        <h2>짧은주소</h2>
-        <ul class="list-unstyled">
-            <li>
-                - 짧은주소:
-                <a href="{short_url}" target="_blank">{short_url}</a>
-                <a href="javascript:void(0);" type="button" data-toggle="modal" data-target=".short-url-modal" class="copy_short_url btn-e btn-e-xs btn-e-light-grey"><span>주소복사</span></a>
-            </li>
-        </ul>
-    </section>
-    <!--{* 짧은주소 Modal *}-->
-    <div class="modal fade short-url-modal" tabindex="-1" role="dialog" aria-labelledby="shorturlhModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                    <h4 id="shorturlModalLabel" class="modal-title">짧은 글주소 복사</h4>
-                </div>
-                <div class="modal-body">
-                    <form name="short_url_form" class="eyoom-form">
-                        <section>
-                            <label class="input">
-                                <input type="text" name="short_url" id="short_url" value="{short_url}" onclick="select_text();">
-                            </label>
-                        </section>
-                        <div class="clearfix"></div>
-                        <div class="note"><strong>Note!</strong> 위 주소를 드래그, 복사(Ctrl+C)하여 사용하세요.</div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--{* End 짧은주소 Modal *}-->
 
     <!--{* 게시물 상단 버튼 시작 *}-->
     <div class="view-top-btn">
@@ -232,9 +177,8 @@
         <!--{/}-->
 
 		<!--{* 스크랩 신고 블라인드 시작 *}-->
-        <!--{? _scrap_href || eyoom_board.bo_use_yellow_card == '1' }-->
+        <!--{? eyoom_board.bo_use_yellow_card == '1' }-->
         <div class="board-view-btn">
-            <!--{? _scrap_href}--><a href="{_scrap_href}" target="_blank" class="btn btn-default" type="button" onclick="win_scrap(this.href); return false;">스크랩</a><!--{/}-->
             <!--{? eyoom_board.bo_use_yellow_card == '1' && _is_member }-->
                 <!--{? !mb_ycard.mb_id }-->
             <button id="yellow_card" class="btn btn-default" data-toggle="modal" data-target=".yellowcard-modal">신고 <span>{=number_format(ycard.yc_count)}</span></button>
