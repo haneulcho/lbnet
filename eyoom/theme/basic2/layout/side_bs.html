@@ -8,10 +8,12 @@
 	</div>
 	<!--{* ------------- Notice Balloon 최신글 영역 끝 ------------- *}-->
 
+	<!--{? !C.G5_IS_MOBILE}-->
 	<div class="margin-bottom-20">
 		<!--{* 아웃로그인 *}-->
 		<!--{? eyoom.use_gnu_outlogin == 'y'}-->{=outlogin('basic')}<!--{:}-->{=eb_outlogin(eyoom.outlogin_skin)}<!--{/}-->
 	</div>
+	<!--{/}-->
 
 	<!--{* ------------- Side Nab 영역 시작 ------------- *}-->
 	<!--{? !defined('_INDEX_')}-->
