@@ -21,33 +21,9 @@
 	<input type="hidden" name="wmode" id="wmode" value="{_wmode}">
 	{_option_hidden}
 	<div class="tbl_frm01 tbl_wrap">
-		<section>
-			<div class="row">
-				<!--{? _is_name}-->
-				<div class="col col-3">
-					<label for="wr_name" class="label">이름<strong class="sound_only">필수</strong></label>
-					<label class="input margin-bottom-10">
-						<i class="icon-append fa fa-user"></i>
-						<input type="text" name="wr_name" value="{_name}" id="wr_name" required size="10" maxlength="20">
-					</label>
-				</div>
-				<!--{/}-->
-				<!--{? _is_password && !_is_admin}-->
-				<div class="col col-3">
-					<label for="wr_password" class="label">비밀번호<strong class="sound_only">필수</strong></label>
-					<label class="input margin-bottom-10">
-						<i class="icon-append fa fa-lock"></i>
-						<input type="password" name="wr_password" id="wr_password" required maxlength="20">
-					</label>
-				</div>
-				<!--{/}-->
-			</div>
-		</section>
-		<div class="clearfix"></div>
-		<section>
-			<div class="row">
-				<div class="col col-8">
-				<!--{? _is_notice || _is_html || _is_secret || _is_mail || _is_anonymous}-->
+		<div class="row">
+			<div class="col col-12 md-margin-bottom-10">
+        <!--{? _is_notice || _is_html || _is_secret || _is_mail || _is_anonymous}-->
 					<!--{? _is_notice}-->
 					<label for="notice" class="checkbox"><input type="checkbox" id="notice" name="notice" value="1" {_notice_checked}><i></i>공지</label>
 					<!--{/}-->
@@ -60,78 +36,45 @@
 					<!--{/}-->
 					<!--{/}-->
 
-					<!--{? _is_anonymous}-->
-					<label for="anonymous" class="checkbox"><input type="checkbox" id="anonymous" name="anonymous" value="y" checked><i></i>익명글</label>
-					<!--{/}-->
-
 				<!--{/}-->
-				</div>
+        <!--{? _is_anonymous}-->
+        <label for="anonymous" style="float:left;margin-right:20px;" class="checkbox"><input type="checkbox" id="anonymous" name="anonymous" value="y" checked><i></i>익명글</label>
+        <!--{/}-->
+				<label for="wr_subject" class="sound_only">제목<strong class="sound_only"> 필수</strong></label>
+				<label class="input" style="float:left;width:80%;">
+                      <i class="icon-prepend fa fa-edit"></i>
+                      <input type="text" name="wr_subject" value="{_subject}" id="wr_subject" required class="form-control" size="50" maxlength="255" placeholder="간편 글쓰기 제목을 입력해 주세요.">
+                      <b class="tooltip tooltip-top-left">제목을 입력해 주세요.</b>
+                  </label>
 			</div>
-		</section>
-		<div class="margin-hr-10"></div>
-		<section>
-			<div class="row">
-				<div class="col col-8 md-margin-bottom-10">
-					<label for="wr_subject" class="sound_only">제목<strong class="sound_only"> 필수</strong></label>
-					<label class="input">
-                        <i class="icon-prepend fa fa-edit"></i>
-                        <input type="text" name="wr_subject" value="{_subject}" id="wr_subject" required class="form-control" size="50" maxlength="255" placeholder="간편 글쓰기 제목을 입력해 주세요.">
-                        <b class="tooltip tooltip-top-left">제목을 입력해 주세요.</b>
-                    </label>
-				</div>
-			</div>
-		</section>
-		<div class="margin-hr-10"></div>
-		<section>
 			<div class="wr_content">
 				<!--{* 에디터 사용시는 에디터로, 아니면 textarea 로 노출 *}-->
-				<textarea id="wr_content" name="wr_content" class="" maxlength="65536" style="width:100%;height:16px">내용을 입력해 주세요.</textarea>
+				<textarea id="wr_content" name="wr_content" class="" maxlength="65536" style="width:100%;height:22px">내용을 입력해 주세요.</textarea>
 			</div>
-		</section>
+      <div style="float:right;margin-top:10px;">
+    		<button type="submit" id="btn_submit" accesskey="s" class="btn-e btn-e-lg btn-e-yellow margin-top-m-2"><i class="fa fa-paper-plane" aria-hidden="true"></i> 작성완료</button>
+    	</div>
+    </div>
 		<div class="margin-hr-10"></div>
-
-		<section>
-			<!--{@ wr_file}-->
-			<div class="row">
-				<div class="col col-12">
-					<label for="file" class="input input-file">
-						<div class="button bg-color-light-grey"><input type="file" id="file" name="bf_file[]" value="사진선택" title="파일첨부 {.key_+1} : 용량 {_upload_max_filesize} 이하만 업로드 가능" onchange="this.parentNode.nextSibling.value = this.value">파일{.key_+1} 선택</div><input type="text" readonly>
-					</label>
-				</div>
-				<!--{? _w=='u' && .file}-->
-				<div class="col col-6">
-					<label for="bf_file_del{.key_}" class="checkbox"><input type="checkbox" id="bf_file_del{.key_}" name="bf_file_del[{.key_}]" value="1"><i></i>{.source} ({.size}) 파일삭제</label>
-				</div>
-				<!--{/}-->
-			</div>
-			<div class="margin-hr-10"></div>
-			<!--{/}-->
-		</section>
-		<!--{? !_is_member}-->
-		<section>
-			<label class="label">자동등록방지</label>
-			<div class="vc-captcha">{_captcha_html}</div>
-			<div class="margin-bottom-20"></div>
-		</section>
-		<!--{/}-->
-	</div>
-
-	<div class="text-center">
-		<input type="submit" value="작성완료" id="btn_submit" accesskey="s" class="btn-e btn-e-lg btn-e-yellow margin-top-m-2">
 	</div>
 	</form>
 </section>
 <!--{/}-->
 
 <script>
-$("#wr_content").one('click', function() {
-  $(this).val('');
-}).click(function(){
+$save_val = $("#wr_content").val();
+$("#wr_content").click(function(){
   if(!$(this).hasClass('txt_active')) {
     $(this).addClass('txt_active');
   }
+  if($(this).val() == $save_val) {
+    $(this).val('');
+  }
 }).focusout(function(){
-  $(this).removeClass('txt_active');
+  if($(this).val() == '') {
+    $(this).removeClass('txt_active');
+    $(this).val($save_val);
+  }
 });
 function fwrite_submit(f)
 {
@@ -284,48 +227,6 @@ html.no-overflowscrolling #autosave_pop {height:auto;max-height:10000px !importa
     </div>
     <!--{* 게시판 페이지 정보 및 버튼 끝 *}-->
 
-    <!--{* 게시판 카테고리 시작 *}-->
-    <!--{?_is_category}-->
-	<script>
-	// 카테고리 이동
-	function category_view(sca) {
-		if(sca)	var url = "{_category_href}&sca="+sca;
-		else var url = "{_category_href}";
-		$(location).attr('href',url);
-		return false;
-	}
-	</script>
-    <!--{? !C.G5_IS_MOBILE // PC의 경우}-->
-    <div class="tab-e2">
-        <ul class="nav nav-tabs">
-            <li class="{?!_decode_sca}active{/}">
-                <a href="{_category_href}">전체</a>
-            </li>
-            <!--{@ _bocate}-->
-            <li class="{? _decode_sca == .ca_name}active{/}">
-                <a href="{_category_href}&sca={.ca_sca}">{.ca_name}</a>
-            </li>
-            <!--{/}-->
-        </ul>
-    </div>
-    <!--{: // 모바일의 경우}-->
-    <nav class="margin-bottom-20 margin-top-15">
-        <div class="eyoom-form">
-            <label class="select">
-				<select name="ca_name" id="ca_name" required onchange="return category_view(this.value);">
-					<option value="">전체 ({_ca_total})</option>
-					<!--{@ _bocate}-->
-					<option value="{.ca_sca}" {? _decode_sca == .ca_name}selected{/}>{.ca_name} ({.ca_count})</option>
-					<!--{/}-->
-				</select>
-				<i></i>
-			</label>
-        </div>
-    </nav>
-    <!--{/}-->
-    <!--{/}-->
-    <!--{* 게시판 카테고리 끝 *}-->
-
 	<!--{? _is_admin}-->
     <form name="fboardlist" id="fboardlist" action="./board_list_update.php" onsubmit="return fboardlist_submit(this);" method="post" class="eyoom-form">
     <input type="hidden" name="bo_table" value="{_bo_table}">
@@ -340,7 +241,7 @@ html.no-overflowscrolling #autosave_pop {height:auto;max-height:10000px !importa
 	    <div class="board-list-body">
         <!--{@ list}-->
         <ul id="lboard">
-        <!--{? .is_notice}--><li class="notice"><!--{: _wr_id == .wr_id}--><li class="active"><li><!--{:}--><li><!--{/}-->
+        <!--{? .is_notice}--><li class="notice"><!--{: _wr_id == .wr_id}--><li class="active"><!--{:}--><li><!--{/}-->
           <div class="subject">
             <!--{? _is_checkbox}-->
             <span class="lst_chk">
@@ -357,7 +258,7 @@ html.no-overflowscrolling #autosave_pop {height:auto;max-height:10000px !importa
               <!--{?.icon_new}--><i class="fa fa-circle"></i>&nbsp;<!--{/}-->
               <!--{?.icon_secret}--><i class="fa fa-lock"></i>&nbsp;<!--{/}-->
               <div class="lcontents">
-              <?=cut_str({.wr_content}, 100)?>
+              <?=cut_str(strip_tags({.wr_content}), 100)?>
               </div>
               <!--{? .gnu_icon}-->
               <span style="display:inline-block;margin-right:2px"><img src="{.gnu_icon}" align="absmiddle"></span>
