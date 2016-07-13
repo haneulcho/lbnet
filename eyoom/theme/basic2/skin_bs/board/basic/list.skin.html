@@ -2,8 +2,8 @@
 
 <!--{? (_list_href || _write_href) && !_wr_id }-->
 <section class="board-write">
-	<form name="fwrite" id="fwrite" action="http://lebolution.net/bbs/write_update.php" onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form">
-	<input type="hidden" name="uid" value="{_uid}">
+	<form name="fwrite" id="fwrite" action="./write_update.php" onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form">
+	<input type="hidden" name="uid" value="<?php echo get_uniqid(); ?>">
 	<input type="hidden" name="w" value="{_w}">
 	<input type="hidden" name="bo_table" value="{_bo_table}">
 	<input type="hidden" name="wr_id" value="{_wr_id}">
@@ -11,14 +11,12 @@
 	<input type="hidden" name="sfl" value="{_sfl}">
 	<input type="hidden" name="stx" value="{_stx}">
 	<input type="hidden" name="spt" value="{_spt}">
-	<input type="hidden" name="sst" value="{_sst}">
 	<input type="hidden" name="sod" value="{_sod}">
-	<input type="hidden" name="page" value="{_page}">
 	<input type="hidden" name="board_skin_path" value="{C.EYOOM_CORE_PATH}/board">
 	<input type="hidden" name="wr_1" id="wr_1" value="{_wr_1}">
 	<input type="hidden" name="wr_2" id="wr_2" value="{_wr_2}">
 	<input type="hidden" name="wr_3" id="wr_3" value="{_wr_3}">
-	<input type="hidden" name="wr_4" id="wr_4" value="{_wr_4}">
+  <input type="hidden" name="wr_3" id="wr_4" value="{_wr_4}">
 	<input type="hidden" name="wr_5" id="wr_5" value="{_wr_5}">
 	<input type="hidden" name="wmode" id="wmode" value="{_wmode}">
 	{_option_hidden}
@@ -43,31 +41,11 @@
 					</label>
 				</div>
 				<!--{/}-->
-				<!--{? _is_email}-->
-				<div class="col col-3">
-					<label for="wr_email" class="label">이메일</label>
-					<label class="input margin-bottom-10">
-						<i class="icon-append fa fa-envelope-o"></i>
-						<input type="text" name="wr_email" value="{_email}" id="wr_email" size="50" maxlength="100">
-					</label>
-				</div>
-				<!--{/}-->
 			</div>
 		</section>
 		<div class="clearfix"></div>
 		<section>
 			<div class="row">
-				<!--{? _is_category}-->
-				<div class="col col-4">
-					<label class="select">
-						<select name="ca_name" id="ca_name" required class="form-control">
-							<option value="">선택하세요 - 필수</option>
-							{_category_option}
-						</select>
-						<i></i>
-					</label>
-				</div>
-				<!--{/}-->
 				<div class="col col-8">
 				<!--{? _is_notice || _is_html || _is_secret || _is_mail || _is_anonymous}-->
 					<!--{? _is_notice}-->
@@ -97,8 +75,8 @@
 					<label for="wr_subject" class="sound_only">제목<strong class="sound_only"> 필수</strong></label>
 					<label class="input">
                         <i class="icon-prepend fa fa-edit"></i>
-                        <input type="text" name="wr_subject" value="{_subject}" id="wr_subject" required class="form-control" size="50" maxlength="255">
-                        <b class="tooltip tooltip-top-left">제목을 입력 해 주세요.</b>
+                        <input type="text" name="wr_subject" value="{_subject}" id="wr_subject" required class="form-control" size="50" maxlength="255" placeholder="간편 글쓰기 제목을 입력해 주세요.">
+                        <b class="tooltip tooltip-top-left">제목을 입력해 주세요.</b>
                     </label>
 				</div>
 			</div>
@@ -107,7 +85,7 @@
 		<section>
 			<div class="wr_content">
 				<!--{* 에디터 사용시는 에디터로, 아니면 textarea 로 노출 *}-->
-				<textarea id="wr_content" name="wr_content" class="" maxlength="65536" style="width:100%;height:150px"></textarea>
+				<textarea id="wr_content" name="wr_content" class="" maxlength="65536" style="width:100%;height:16px">내용을 입력해 주세요.</textarea>
 			</div>
 		</section>
 		<div class="margin-hr-10"></div>
@@ -146,10 +124,19 @@
 <!--{/}-->
 
 <script>
+$("#wr_content").one('click', function() {
+  $(this).val('');
+}).click(function(){
+  if(!$(this).hasClass('txt_active')) {
+    $(this).addClass('txt_active');
+  }
+}).focusout(function(){
+  $(this).removeClass('txt_active');
+});
 function fwrite_submit(f)
 {
 	<!--{? _is_anonymous}-->
-	var wr_1 = '{_wr_1}';
+  var wr_1 = '{_wr_1}';
 	if($("#anonymous").is(':checked')) {
 		wr_1 = wr_1+'|y';
 		$("#wr_1").val(wr_1);
@@ -252,6 +239,8 @@ html.no-overflowscrolling #autosave_pop {height:auto;max-height:10000px !importa
 .note-dialog .input {margin:0;font:inherit;color:inherit}
 .note-dialog .form-control {display:block;width:100%;padding:6px 12px;font-size:14px;line-height:1.42857143;color:#555;background-color:#fff;background-image:none;border:1px solid #ccc;-webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}
 .board-write .note-editor .table-bordered>thead>tr>th, .board-write .note-editor .table-bordered>tbody>tr>th, .board-write .note-editor .table-bordered>tfoot>tr>th, .board-write .note-editor .table-bordered>thead>tr>td, .board-write .note-editor .table-bordered>tbody>tr>td, .board-write .note-editor .table-bordered>tfoot>tr>td {border:1px solid #ddd}
+#wr_content {-webkit-transition:height ease-in-out .2s;-moz-transition:height ease-in-out .2s;-o-transition:height ease-in-out .2s;transition:height ease-in-out .2s;}
+#wr_content.txt_active{height:110px !important;}
 </style>
 
 
@@ -349,147 +338,60 @@ html.no-overflowscrolling #autosave_pop {height:auto;max-height:10000px !importa
 	<!--{/}-->
 	<div class="table-list-eb margin-bottom-20">
 	    <div class="board-list-body">
-	        <table class="table table-hover">
-	            <thead>
-	                <tr>
-			            <th class="hidden-md hidden-sm">번호</th>
-			            <!--{? _is_checkbox}-->
-			            <th>
-			                <label for="chkall" class="sound_only">현재 페이지 게시물 전체</label>
-			                <label class="checkbox">
-			                	<input type="checkbox" id="chkall" onclick="if (this.checked) all_checked(true); else all_checked(false);"><i></i>
-			                </label>
-			            </th>
-			            <!--{/}-->
-			            <th>제목</th>
-			            <th class="hidden-xs">글쓴이</th>
-			            <th class="hidden-xs"><!--{=subject_sort_link('wr_datetime', _qstr2, 1)}-->날짜</a></th>
-			            <th class="hidden-xs"><!--{=subject_sort_link('wr_hit', _qstr2, 1)}-->뷰</i></a></th>
-			            <!--{?_is_good}--><th class="hidden-xs"><!--{=subject_sort_link('wr_good', _qstr2, 1)}-->추천</a></th><!--{/}-->
-			            <!--{?_is_nogood}--><th class="hidden-xs"><!--{=subject_sort_link('wr_nogood', _qstr2, 1)}-->비추</a></th><!--{/}-->
-			            <!--{? eyoom_board.bo_use_rating == '1' && eyoom_board.bo_use_rating_list == '1'}--><th class="hidden-xs">별점</th><!--{/}-->
-	                </tr>
-	            </thead>
-	            <tbody>
-			        <!--{@ list}-->
-			        <tr class="{? .is_notice}board-notice{/}">
-			            <td class="td-num hidden-md hidden-sm">
-							<!--{? .is_notice}-->
-							<strong class="color-red">공지</strong>
-							<!--{: _wr_id == .wr_id}-->
-							<strong class="color-red">열람</strong>
-							<!--{:}-->
-							{=number_format(.num)}
-							<!--{/}-->
-			            </td>
-						<!--{? _is_checkbox}-->
-			            <td>
-			                <label for="chk_wr_id_{.key_}" class="sound_only">{.subject}</label>
-			                <label class="checkbox">
-			                	<input type="checkbox" name="chk_wr_id[]" value="{.wr_id}" id="chk_wr_id_{.key_}"><i></i>
-			                </label>
-			            </td>
-			            <!--{/}-->
-			            <td class="td-width">
-				            <div class="td-subject ellipsis">
-								<!--{? .icon_reply}-->
-								<i class="fa fa-reply fa-rotate-180" style="margin-left:{.reply}px;"></i>
-								<!--{/}-->
-								<!--{? _is_category && .ca_name}-->
-				                <a href="{.ca_name_href}"><span class="color-grey">[{.ca_name}]</span></a>&nbsp;
-				                <!--{/}-->
-				                <a href="{.href}">
-					                <!--{? .comment_cnt}--><span class="sound_only">댓글</span><span class="td-comment">+{.comment_cnt}</span><span class="sound_only">개</span><!--{/}-->
-									<!--{?.icon_new}--><i class="fa fa-circle"></i>&nbsp;<!--{/}-->
-									<!--{?.icon_secret}--><i class="fa fa-lock"></i>&nbsp;<!--{/}-->
-									<!--{? .is_notice}-->
-									<strong>{.subject}</strong>
-									<!--{: _wr_id == .wr_id}-->
-									<strong>{.subject}</strong>
-									<!--{:}-->
-					                {.subject}
-					                <!--{/}-->
-				                </a>
-				            </div>
-			            </td>
-			            <td class="td-name hidden-xs">
-			            	<!--{? eyoom_board.bo_use_profile_photo == 1}-->
-				            <span class="td-photo">
-								<!--{? .mb_photo}-->{.mb_photo}<!--{:}--><span class="td-user-icon"><i class="fa fa-user"></i></span><!--{/}-->
-							</span>
-							<!--{/}-->
-							<!--{? .gnu_icon}-->
-							<span style="display:inline-block;margin-right:2px"><img src="{.gnu_icon}" align="absmiddle"></span>
-							<!--{/}-->
-							<!--{? .eyoom_icon}-->
-							<span style="display:inline-block;margin-right:2px"><img src="{.eyoom_icon}" align="absmiddle"></span>
-							<!--{/}-->
-							<span class="td-name-in">{=eb_nameview('basic', .mb_id, .wr_name, .email, .homepage)}</span>
-						</td>
-			            <td class="td-date hidden-xs">
-							<!--{? eyoom_board.bo_sel_date_type == '1'}-->
-							{eb->date_time('Y.m.d',.wr_datetime)}
-							<!--{: eyoom_board.bo_sel_date_type == '2'}-->
-							{eb->date_format('Y.m.d',.wr_datetime)}
-							<!--{/}-->
-						</td>
-			            <td class="td-num hidden-xs">{=number_format(.wr_hit)}</td>
-			            <!--{?_is_good}--><td class="td-num hidden-xs">{=number_format(.wr_good)}</td><!--{/}-->
-			            <!--{?_is_nogood}--><td class="td-num hidden-xs">{=number_format(.wr_nogood)}</td><!--{/}-->
-			            <!--{? eyoom_board.bo_use_rating == '1' && eyoom_board.bo_use_rating_list == '1'}-->
-			            <td class="hidden-xs">
-				            <ul class="list-unstyled star-ratings-list">
-				                <li><i class="rating{? .star > 0}-selected{/} fa fa-star"></i></li>
-				                <li><i class="rating{? .star > 1}-selected{/} fa fa-star"></i></li>
-				                <li><i class="rating{? .star > 2}-selected{/} fa fa-star"></i></li>
-				                <li><i class="rating{? .star > 3}-selected{/} fa fa-star"></i></li>
-				                <li><i class="rating{? .star > 4}-selected{/} fa fa-star"></i></li>
-				            </ul>
-			            </td>
-			            <!--{/}-->
-			        </tr>
-			        <tr class="td-mobile visible-xs"><!--{* 767px 이하에서만 보임 *}-->
-				        <td colspan="{colspan}">
-			            	<!--{? eyoom_board.bo_use_profile_photo == 1}-->
-				            <span class="td-photo">
-								<!--{? .mb_photo}-->{.mb_photo}<!--{:}--><span class="td-user-icon"><i class="fa fa-user"></i></span><!--{/}-->
-							</span>
-							<!--{/}-->
-							<!--{? .gnu_icon}-->
-							<span style="display:inline-block;margin-right:2px"><img src="{.gnu_icon}" align="absmiddle"></span>
-							<!--{/}-->
-							<!--{? .eyoom_icon}-->
-							<span style="display:inline-block;margin-right:2px"><img src="{.eyoom_icon}" align="absmiddle"></span>
-							<!--{/}-->
-							<span class="td-mobile-name">{=eb_nameview('basic', .mb_id, .wr_name, .email, .homepage)}</span>
-							<!--{? eyoom_board.bo_sel_date_type == '1'}-->
-							<span><i class="fa fa-clock-o"></i> {eb->date_time('Y.m.d',.wr_datetime)}</span>
-							<!--{: eyoom_board.bo_sel_date_type == '2'}-->
-							<span><i class="fa fa-clock-o"></i> {eb->date_format('Y.m.d',.wr_datetime)}</span>
-							<!--{/}-->
-				            <span><i class="fa fa-eye"></i> {=number_format(.wr_hit)}</span>
-				            <!--{?_is_good}--><span><i class="fa fa-thumbs-up"></i> {=number_format(.wr_good)}</span><!--{/}-->
-				            <!--{?_is_nogood}--><span><i class="fa fa-thumbs-down"></i> {=number_format(.wr_nogood)}</span><!--{/}-->
-				            <!--{? eyoom_board.bo_use_rating == '1' && eyoom_board.bo_use_rating_list == '1'}-->
-				            <span style="display:inline-block;margin-left:5px;margin-bottom:-3px">
-					            <ul class="list-unstyled star-ratings-list">
-					                <li><i class="rating{? .star > 0}-selected{/} fa fa-star"></i></li>
-					                <li><i class="rating{? .star > 1}-selected{/} fa fa-star"></i></li>
-					                <li><i class="rating{? .star > 2}-selected{/} fa fa-star"></i></li>
-					                <li><i class="rating{? .star > 3}-selected{/} fa fa-star"></i></li>
-					                <li><i class="rating{? .star > 4}-selected{/} fa fa-star"></i></li>
-					            </ul>
-				            </span>
-				            <!--{/}-->
-				        </td>
-			        </tr>
+        <!--{@ list}-->
+        <ul id="lboard">
+        <!--{? .is_notice}--><li class="notice"><!--{: _wr_id == .wr_id}--><li class="active"><li><!--{:}--><li><!--{/}-->
+          <div class="subject">
+            <!--{? _is_checkbox}-->
+            <span class="lst_chk">
+              <label for="chk_wr_id_{.key_}" class="sound_only">{.subject}</label>
+              <label class="checkbox">
+                <input type="checkbox" name="chk_wr_id[]" value="{.wr_id}" id="chk_wr_id_{.key_}"><i></i>
+              </label>
+            </span>
+            <span class="board-num">{=number_format(.num)}</span>
+            <!--{/}-->
+            <a href="{.href}">
+              <span class="td-name-in">{.wr_name}</span>
+              {.subject}
+              <!--{?.icon_new}--><i class="fa fa-circle"></i>&nbsp;<!--{/}-->
+              <!--{?.icon_secret}--><i class="fa fa-lock"></i>&nbsp;<!--{/}-->
+              <div class="lcontents">
+              <?=cut_str({.wr_content}, 100)?>
+              </div>
+              <!--{? .gnu_icon}-->
+              <span style="display:inline-block;margin-right:2px"><img src="{.gnu_icon}" align="absmiddle"></span>
+              <!--{/}-->
+              <!--{? .eyoom_icon}-->
+              <span style="display:inline-block;margin-right:2px"><img src="{.eyoom_icon}" align="absmiddle"></span>
+              <!--{/}-->
+            </a>
+          </div>
+          <div class="ldes">
+            <span class="lcomment">
+            <!--{? .comment_cnt}--><span class="sound_only">댓글</span><span class="td-comment">+{.comment_cnt}</span><!--{/}-->
+            </span>
+            <span class="lhit">
+            {=number_format(.wr_hit)}
+            </span>
+            <span class="lvote">
+            <!--{?_is_good}-->{=number_format(.wr_good)}<!--{/}-->
+            <!--{?_is_nogood}-->{=number_format(.wr_nogood)}<!--{/}-->
+            </span>
+            <span class="ldate">
+            <!--{? eyoom_board.bo_sel_date_type == '1'}-->
+            {eb->date_time('Y.m.d',.wr_datetime)}
+            <!--{: eyoom_board.bo_sel_date_type == '2'}-->
+            {eb->date_format('Y.m.d',.wr_datetime)}
+            <!--{/}-->
+            </span>
+          </div>
+        </li>
+      </ul>
 			        <!--{:}-->
-					<tr>
-						<td colspan="{colspan}" class="text-center">게시물이 없습니다.</td>
-					</tr>
+
+					<span class="text-center">게시물이 없습니다.</span>
 					<!--{/}-->
-	            </tbody>
-	        </table>
 	    </div>
 	</div>
     <div class="board-list-footer">
