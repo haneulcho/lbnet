@@ -44,12 +44,12 @@
 		        <div class="tab-content">
 		            <div class="tab-pane fade active in" id="side-tn-1">
 		                <div class="tab-content-wrap">
-		                    {latest->latest_newpost('tab_newpost', 'count=5||cut_subject=30||photo=y')}
+		                    {latest->latest_newpost('tab_newpost', 'count=6||cut_subject=30||photo=n')}
 		                </div>
 		            </div>
 		            <div class="tab-pane fade in" id="side-tn-2">
 		                <div class="tab-content-wrap">
-			                {latest->latest_newpost('tab_newcomment', 'count=5||cut_subject=30||photo=y')}
+			                {latest->latest_newpost('tab_newcomment', 'count=6||cut_subject=30||photo=n')}
 		                </div>
 		            </div>
 		        </div>
@@ -64,11 +64,7 @@
 	</div>
 	<div class="margin-bottom-20">
 		<!--{* 랭킹 *}-->
-		{latest->latest_rankset('basic','10')}
-	</div>
-	<div class="margin-bottom-20">
-		<!--{* 인기검색어 *}-->
-		<!--{? eyoom.use_gnu_popular == 'y'}-->{=popular('basic')}<!--{:}-->{=eb_popular(eyoom.popular_skin)}<!--{/}-->
+		{latest->latest_rankset('basic','5')}
 	</div>
 	<!--{? eyoom.use_tag == 'y'}-->
 	<!--{* 태그메뉴 *}-->
