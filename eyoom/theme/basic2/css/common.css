@@ -152,7 +152,7 @@ h3.heading-xs {font-size:14px;margin-bottom:0}
 
 /*Tabs e3*/
 .tab-e3 .nav-pills li a {font-size:12px;color:#75757A;font-size:14px;padding:4px 8px;margin-bottom:3px;background:#fafafa;border:solid 1px #eee}
-.tab-e3 .nav-pills li a:hover,.tab-e3 .nav-pills li.active a {color:#fff;background:#f44455;border:solid 1px #DF2700}
+.tab-e3 .nav-pills li a:hover,.tab-e3 .nav-pills li.active a {color:#fff;background:#f44455;border:solid 1px #00bcd4}
 .tab-e3 .nav-pills li i {width:1.25em;margin-right:5px;text-align:center;display:inline-block}
 .tab-e3 .tab-content {padding:15px;background:#fafafa;border:solid 1px #eee}
 
@@ -173,7 +173,7 @@ h3.heading-xs {font-size:14px;margin-bottom:0}
 .pagination-no-space .pagination {margin:0}
 
 /*Pager*/
-.pager li > a:hover,.pager li > a:focus {color:#fff;background:#DF2700;border-color:#DF2700}
+.pager li > a:hover,.pager li > a:focus {color:#fff;background:#00bcd4;border-color:#00bcd4}
 
 /*---------- Sidebar Menu ----------*/
 /*Sidebar Menu e1*/
@@ -232,14 +232,14 @@ h3.heading-xs {font-size:14px;margin-bottom:0}
 
 /*Buttons Color*/
 a.btn-e,a.btn-e:hover,a.btn-e:focus,a.btn-e:active,a.btn-e.active {color:#fff}
-.btn-e:hover,.btn-e:focus,.btn-e:active,.btn-e.active,.open .dropdown-toggle.btn-e {background:#DF2700}
-.btn-e-split.dropdown-toggle {border-left:solid 1px #DF2700}
+.btn-e:hover,.btn-e:focus,.btn-e:active,.btn-e.active,.open .dropdown-toggle.btn-e {background:#00bcd4}
+.btn-e-split.dropdown-toggle {border-left:solid 1px #00bcd4}
 .btn-e.btn-e-default {background:#95959A}
 .btn-e.btn-e-default:hover,.btn-e.btn-e-default:focus,.btn-e.btn-e-default:active,.btn-e.btn-e-default.active,.open .dropdown-toggle.btn-e.btn-e-default {background:#75757A}
 .btn-e.btn-e-split-default.dropdown-toggle {border-left:solid 1px #75757A}
 .btn-e.btn-e-red {background:#f44455}
-.btn-e.btn-e-red:hover,.btn-e.btn-e-red:focus,.btn-e.btn-e-red:active,.btn-e.btn-e-red.active,.open .dropdown-toggle.btn-e.btn-e-red {background:#DF2700}
-.btn-e.btn-e-split-red.dropdown-toggle {border-left:solid 1px #DF2700}
+.btn-e.btn-e-red:hover,.btn-e.btn-e-red:focus,.btn-e.btn-e-red:active,.btn-e.btn-e-red.active,.open .dropdown-toggle.btn-e.btn-e-red {background:#00bcd4}
+.btn-e.btn-e-split-red.dropdown-toggle {border-left:solid 1px #00bcd4}
 .btn-e.btn-e-blue {background:#007AFF}
 .btn-e.btn-e-blue:hover,.btn-e.btn-e-blue:focus,.btn-e.btn-e-blue:active,.btn-e.btn-e-blue.active,.open .dropdown-toggle.btn-e.btn-e-blue {background:#0061D7}
 .btn-e.btn-e-split-blue.dropdown-toggle {border-left:solid 1px #0061D7}
@@ -283,14 +283,14 @@ a.btn-e,a.btn-e:hover,a.btn-e:focus,a.btn-e:active,a.btn-e.active {color:#fff}
 .btn-e.btn-brd:focus {background:none}
 .btn-e.btn-brd.btn-brd-hover:hover {color:#fff !important}
 .btn-e.btn-brd {border-color:#f44455}
-.btn-e.btn-brd:hover {color:#DF2700;border-color:#DF2700}
-.btn-e.btn-brd.btn-brd-hover:hover {background:#DF2700}
+.btn-e.btn-brd:hover {color:#00bcd4;border-color:#00bcd4}
+.btn-e.btn-brd.btn-brd-hover:hover {background:#00bcd4}
 .btn-e.btn-brd.btn-e-default {border-color:#95959A}
 .btn-e.btn-brd.btn-e-default:hover {color:#75757A;border-color:#75757A}
 .btn-e.btn-brd.btn-e-default.btn-brd-hover:hover {background:#75757A}
 .btn-e.btn-brd.btn-e-red {border-color:#f44455}
-.btn-e.btn-brd.btn-e-red:hover {color:#DF2700;border-color:#DF2700}
-.btn-e.btn-brd.btn-e-red.btn-brd-hover:hover {background:#DF2700}
+.btn-e.btn-brd.btn-e-red:hover {color:#00bcd4;border-color:#00bcd4}
+.btn-e.btn-brd.btn-e-red.btn-brd-hover:hover {background:#00bcd4}
 .btn-e.btn-brd.btn-e-blue {border-color:#007AFF}
 .btn-e.btn-brd.btn-e-blue:hover {color:#0061D7;border-color:#0061D7}
 .btn-e.btn-brd.btn-e-blue.btn-brd-hover:hover {background:#0061D7}
@@ -545,7 +545,7 @@ blockquote.hero.hero-dark,blockquote.hero.hero-default {border:none}
 blockquote.hero.hero-dark {background:#444}
 blockquote.hero.hero-dark:hover {background:#55555A}
 blockquote.hero.hero-default {background:#f44455}
-blockquote.hero.hero-default:hover {background:#DF2700}
+blockquote.hero.hero-default:hover {background:#00bcd4}
 blockquote.hero.hero-dark p,blockquote.hero.hero-dark h2,blockquote.hero.hero-dark small,blockquote.hero.hero-default p,blockquote.hero.hero-default h2,blockquote.hero.hero-default small {color:#fff;font-weight:200}
 
 /*---------- Tag Boxes ----------*/

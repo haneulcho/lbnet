@@ -3,44 +3,6 @@
 <!--{* 로그인 후 아웃로그인 시작 *}-->
 <section class="ol-after">
 	<div class="ol-member-box">
-		<div class="member-photo">
-			<div class="photo">
-			  <a href="#" class="member-img" data-toggle="modal" data-target=".profile-modal"><!--{? profile_photo}-->{profile_photo}<!--{:}--><span class="ol-user-icon"><i class="fa fa-user"></i></span><!--{/}--></a>
-			  <!--{? 0}-->
-			  <a href="{C.G5_BBS_URL}/respond.php"><span class="badge rounded-2x badge-red tooltips" data-placement="top" data-toggle="tooltip" data-original-title="내글반응"><i class="fa fa-commenting"></i> {respond}</span></a>
-			  <!--{/}-->
-			</div>
-		</div>
-		<!-- Small modal -->
-		<div class="modal fade profile-modal" tabindex="-1" role="dialog" aria-labelledby="profilelModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form name="profile_photo" method="post" action="{C.EYOOM_CORE_URL}/member/photo_update.php" enctype="multipart/form-data" class="eyoom-form">
-					<input type="hidden" name="old_photo" value="{eyoomer.photo}">
-					<input type="hidden" name="back_url" value="{_SERVER.REQUEST_URI}">
-					<div class="modal-header">
-						<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-						<h5 id="profilelModalLabel" class="modal-title"><strong>프로필 사진변경</strong></h5>
-					</div>
-					<div class="modal-body">
-						<div class="profile-photo">{profile_photo}</div>
-						<div class="profile-txt">프로필 사진은 이미지(gif/jpg/png) 파일만 등록가능하며 자동으로 가로x세로 80x80픽셀로 썸네일화 합니다.</div>
-                        <label class="label">사진 선택</label>
-                        <label for="file" class="input input-file">
-                            <div class="button bg-color-light-grey"><input type="file" id="file" name="photo" value="사진선택" onchange="this.parentNode.nextSibling.value = this.value">파일선택</div><input type="text" readonly>
-                        </label>
-						<!--{? eyoomer.photo}--><label class="checkbox"><input type="checkbox" name="del_photo" value="1"><i></i>프로필사진 삭제</label><!--{/}-->
-					</div>
-                    <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn-e btn-e-dark" type="button">닫기</button>
-                        <button class="btn-e" type="submit" value="저장하기">저장하기</button>
-                    </div>
-					</form>
-				</div>
-			</div>
-		</div>
-		<iframe name="photoframe" id="photoframe" style="display:none;"></iframe>
-		<!-- End Small Modal -->
 		<div class="member-info">
 			<div class="member-name">
 				<h6>
@@ -96,11 +58,6 @@
                     	쪽지 <span class="badge badge-red rounded-2x">{memo_not_read}</span>
                     </a>
                 </li>
-                <li>
-					<a href="{C.G5_BBS_URL}/scrap.php" target="_blank" id="ol_after_scrap" class="win_scrap">
-                    	스크랩
-                    </a>
-                </li>
                 <!--{? _is_admin == 'super' || _is_auth}-->
                 <li class="divider"></li>
                 <li><a href="{C.G5_ADMIN_URL}">관리자페이지</a></li>
@@ -115,17 +72,10 @@
 </section>
 
 <style>
-.ol-after {position:relative;display:block;border:1px solid #e5e5e5;background:#fff;padding:0;margin-top:50px;font-size:12px}
+.ol-after {position:relative;display:block;border:1px solid #e5e5e5;background:#fff;padding:0;margin-top:-2px;font-size:12px}
 .ol-after-bottom {position:relative;display:block;border:1px solid #e5e5e5;border-top:0;background:#fff;padding:10px;font-size:12px}
-.ol-after .member-photo .member-img {z-index:1;position:absolute;top:-30px;left:50%;margin-left:-30px;height:60px;width:60px;padding:3px;-webkit-border-radius:50% !important;-moz-border-radius:50% !important;border-radius:50% !important;box-shadow:0 0 0 1px rgba(0, 0, 0, 0.12);background-color:#fff}
-.ol-after .member-photo .member-img img {height:54px;width:54px;-webkit-border-radius:50% !important;-moz-border-radius:50% !important;border-radius:50% !important;background-color:#fff;background-size:cover}
-.ol-after .member-photo .member-img i {height:54px;width:54px;-webkit-border-radius:50% !important;-moz-border-radius:50% !important;border-radius:50% !important;background-color:#a4a4aa;color:#fff;font-size:34px;text-align:center;line-height:54px}
-.ol-after .member-photo .photo .badge {position:absolute;top:-30px;left:50%;margin-left:30px;font-size:11px}
-.ol-after .profile-photo {position:relative;display:block;text-align:center;margin:10px auto 20px;height:80px;width:80px;padding:4px;-webkit-border-radius:50% !important;-moz-border-radius:50% !important;border-radius:50% !important;box-shadow:0 0 0 1px rgba(0, 0, 0, 0.12);background-color:#fff}
-.ol-after .profile-photo i {height:80px;width:80px;color:#84848a;font-size:50px;text-align:center;-webkit-border-radius:50% !important;-moz-border-radius:50% !important;border-radius:50% !important;background-color:#fff;line-height:72px}
-.ol-after .profile-photo img {height:80px;width:80px;-webkit-border-radius:50% !important;-moz-border-radius:50% !important;border-radius:50% !important;background-color:#fff;background-size:cover}
 .ol-after .profile-txt {margin-bottom:20px;font-size:12px}
-.ol-after .member-info {position:relative;overflow:hidden;padding:30px 10px 0}
+.ol-after .member-info {position:relative;overflow:hidden;padding:7px 15px 0}
 .ol-after .member-name {border-bottom:1px dotted #e5e5e5;margin-bottom:5px}
 .ol-after .member-point {border-bottom:1px dotted #e5e5e5;padding-bottom:5px;margin-bottom:5px}
 .ol-after .member-point i {font-size:20px;color:#ff9501}
