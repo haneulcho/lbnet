@@ -3,14 +3,13 @@
 <!--{* 설문조사 시작 *}-->
 <div class="poll">
 	<div class="headline">
-		<h6><strong>설문조사</strong></h6>
-		<span class="pull-right"><!--{? _is_admin == "super"}--><a href="{C.G5_ADMIN_URL}/poll_form.php?w=u&amp;po_id={po_id}">설문설정</a><!--{/}--></span>
+		<h6><i class="fa fa-check-square-o"></i><strong>설문조사</strong>		<!--{? _is_admin == "super"}--><span class="pull-right"><a href="{C.G5_ADMIN_URL}/poll_form.php?w=u&amp;po_id={po_id}">설문설정</a></span><!--{/}--></h6>
 	</div>
 	<form name="fpoll" action="{C.G5_BBS_URL}/poll_update.php" onsubmit="return fpoll_submit(this);" method="post" class="eyoom-form">
 	<input type="hidden" name="po_id" value="{po_id}">
 	<input type="hidden" name="skin_dir" value="{skin_dir}">
 	<section class="poll-box">
-	    <h6><i class="fa fa-tasks"></i> {po.po_subject}</h6>
+	    <h6><span class="qq">Q.</span> {po.po_subject}</h6>
 	    <div class="margin-hr-5"></div>
 	    <ul class="list-unstyled">
 	        <!--{@ poll}-->
@@ -30,8 +29,12 @@
 </div>
 
 <style>
+.poll {border:1px solid #e5e5e5;background-color:#fff;}
+.poll h6 {font-size:12px;}
+.poll-box h6 {position:relative;padding-left:20px;}
+.poll .qq {position:absolute;top:0;left:0;color:#818a91;font-size:15px;}
 .poll .headline span {padding-top:6px;font-size:11px}
-.poll .poll-box {border:1px solid #e5e5e5;background:#fff;padding:10px}
+.poll .poll-box {background:#fff;padding:11px 15px;margin-bottom:0;}
 .poll .margin-hr-5 {height:1px;border-top:1px dotted #ddd;margin:5px 0}
 .poll .margin-top-1 {margin-top:-1px}
 </style>
