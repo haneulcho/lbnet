@@ -52,7 +52,6 @@
 	</div>
 	</form>
 </section>
-<!--{/}-->
 
 <script>
 $save_val = $("#wr_content").val();
@@ -137,9 +136,10 @@ function fwrite_submit(f)
 #wr_content {
 	box-sizing:border-box;
 	width:100% !important;
-	-webkit-transition:height ease-in-out .2s;-moz-transition:height ease-in-out .2s;-o-transition:height ease-in-out .2s;transition:height ease-in-out .2s;}
+	-webkit-transition:height ease-in-out .2s;-moz-transition:height ease-in-out .2s;-o-transition:height ease-in-out .2s;transition:height ease-in-out .2s;font-size:12px;line-height:1.35;}
 #wr_content.txt_active{height:120px !important;}
 </style>
+<!--{/}-->
 <div class="board-list">
     <!--{* 게시판 페이지 정보 및 버튼 시작 *}-->
     <div class="board-info margin-bottom-10">
@@ -182,12 +182,17 @@ function fwrite_submit(f)
 								<span class="lbcomment"><i class="fa fa-comment-o"></i>{=number_format(.wr_comment)}</span><!--{/}-->
 							</div>
 							<!--{? !.is_notice}-->
-              <div class="lbcontents">
+							<div class="lbcontents">
 							<?php
-								$t = str_replace('<p>','',{.wr_content});
-								$t = str_replace('</p>','<br>',$t);
+								$s = {.subject};
+								if(strpos($s, '블라인드') !== false){
+									$is_blind = 'y';
+								} else {
+									$t = str_replace('<p>','',{.wr_content});
+									$t = str_replace('</p>','<br>',$t);
+									echo cut_str(strip_tags($t, '<br>'), 100);
+								}
 							?>
-              <?=cut_str(strip_tags($t, '<br>'), 100)?>
               </div>
 							<div class="lbdes">
 								<span class="lbnick"><i class="fa fa-user"></i>{.wr_name}</span>
