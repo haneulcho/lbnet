@@ -1,6 +1,7 @@
 <?php if (!defined('_GNUBOARD_')) exit; ?>
 
-<!--{? (_list_href || _write_href) && !_wr_id }-->
+<div class="board-area">
+<!--{? !_wr_id }-->
 <section class="board-write">
 	<form name="fwrite" id="fwrite" action="./write_update.php" onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form">
 	<input type="hidden" name="uid" value="<?php echo get_uniqid(); ?>">
@@ -21,25 +22,31 @@
 	<input type="hidden" name="wmode" id="wmode" value="{_wmode}">
 	<input type="hidden" value="html1" name="html">
 	<div class="tbl_frm01 tbl_wrap">
-		<div class="row">
-			<div class="col col-12 md-margin-bottom-10">
-        <!--{? _is_anonymous}-->
-        <label for="anonymous" style="float:left;margin-right:20px;" class="checkbox"><input type="checkbox" id="anonymous" name="anonymous" value="y" checked><i></i>익명글</label>
-        <!--{/}-->
-				<label for="wr_subject" class="sound_only">제목<strong class="sound_only"> 필수</strong></label>
-				<label class="input" style="float:left;width:80%;">
-                      <i class="icon-prepend fa fa-edit"></i>
-                      <input type="text" name="wr_subject" value="{_subject}" id="wr_subject" required class="form-control" size="50" maxlength="255" placeholder="제목을 입력해 주세요.">
-                      <b class="tooltip tooltip-top-left">제목을 입력해 주세요.</b>
-                  </label>
+		<div class="lbrow">
+			<div class="lbtop">
+				<div class="lbsubject">
+					<div class="lbanonymous">
+						<!--{? _is_anonymous}-->
+						<label for="anonymous" class="checkbox"><input type="checkbox" id="anonymous" name="anonymous" value="y" checked><i></i>익명글</label>
+						<!--{/}-->
+					</div>
+					<label for="wr_subject" class="sound_only">제목<strong class="sound_only"> 필수</strong></label>
+					<label class="input">
+	            <i class="icon-prepend fa fa-edit"></i>
+	            <input type="text" name="wr_subject" value="{_subject}" id="wr_subject" required class="form-control" size="50" maxlength="255" placeholder="제목을 입력해 주세요.">
+	            <b class="tooltip tooltip-top-left">제목을 입력해 주세요.</b>
+	        </label>
+				</div>
 			</div>
-			<div class="wr_content">
-				<!--{* 에디터 사용시는 에디터로, 아니면 textarea 로 노출 *}-->
-				<textarea id="wr_content" name="wr_content" class="" maxlength="65536" style="width:100%;height:22px">내용을 입력해 주세요.</textarea>
+			<div class="lbbottom">
+				<div class="wr_content">
+					<!--{* 에디터 사용시는 에디터로, 아니면 textarea 로 노출 *}-->
+					<textarea id="wr_content" name="wr_content" style="height:36px;" maxlength="65536">내용을 입력해 주세요.</textarea>
+				</div>
+				<div class="lbsubmit">
+					<button type="submit" id="btn_submit" accesskey="s" class="btn-e btn-e-lg btn-e-yellow margin-top-m-2"><i class="fa fa-paper-plane" aria-hidden="true"></i> 입력</button>
+				</div>
 			</div>
-      <div style="float:right;margin-top:10px;">
-    		<button type="submit" id="btn_submit" accesskey="s" class="btn-e btn-e-lg btn-e-yellow margin-top-m-2"><i class="fa fa-paper-plane" aria-hidden="true"></i> 작성완료</button>
-    	</div>
     </div>
 		<div class="margin-hr-10"></div>
 	</div>
@@ -50,6 +57,13 @@
 <script>
 $save_val = $("#wr_content").val();
 $("#wr_content").click(function(){
+  if(!$(this).hasClass('txt_active')) {
+    $(this).addClass('txt_active');
+  }
+  if($(this).val() == $save_val) {
+    $(this).val('');
+  }
+}).focusin(function(){
   if(!$(this).hasClass('txt_active')) {
     $(this).addClass('txt_active');
   }
@@ -117,106 +131,18 @@ function fwrite_submit(f)
 	return true;
 }
 </script>
-
 <style>
-.margin-hr-0 {height:1px;border-top:1px dotted #ddd;margin:0 0 10px;clear:both}
-.margin-hr-10 {height:1px;border-top:1px dotted #ddd;margin:10px 0;clear:both}
-.margin-top-m-2 {margin-top:-2px}
 .board-write .board-write-title {border-bottom:1px solid #e5e5e5;padding-bottom:10px}
-.board-write .tbl_frm01 textarea {width:97% !important;height:200px;border:1px solid #ddd;background:#fafafa;padding:10px;line-height:1.5}
-@media (max-width: 767px) {
-	.board-write .tbl_frm01 textarea {width:94% !important}
-}
-.board-write .input-group-btn .btn {cursor:inherit}
-.board-write .write-function-box {margin-top:10px;border:1px solid #e5e5e5;padding:15px 10px}
-#char_count_desc {display:block;margin:0 0 5px;padding:0}
-#char_count_wrap {margin:5px 0 0;text-align:right}
-#char_count {font-weight:bold}
-#autosave_wrapper {position:relative}
-#autosave_pop {display:none;z-index:10;position:absolute;top:10px;right:10px;padding:8px;width:320px;height:auto !important;height:180px;max-height:180px;border:1px solid #565656;background:#fff;overflow-y:scroll}
-html.no-overflowscrolling #autosave_pop {height:auto;max-height:10000px !important}
-#autosave_pop strong {position:absolute;font-size:0;line-height:0;overflow:hidden}
-#autosave_pop div {text-align:right}
-#autosave_pop button {margin:0;padding:0;border:0;background:transparent;margin-left:10px}
-#autosave_pop ul {margin:10px 0;padding:0;border-top:1px solid #e9e9e9;list-style:none}
-#autosave_pop li {padding:8px 5px;border-bottom:1px solid #e9e9e9;zoom:1}
-#autosave_pop li:after {display:block;visibility:hidden;clear:both;content:""}
-#autosave_pop a {display:block;float:left}
-#autosave_pop span {display:block;float:right}
-.autosave_close {cursor:pointer}
-.autosave_content {display:none}
-/* Tag Style */
-#tag-box {border:1px dashed #ddd;min-height:20px;padding:5px;background:#fff;margin-top:10px}
-#tag-cloud div {border:1px solid #c38c8c;background:#f2dede;padding:1px 5px;display:inline-block;margin:2px 3px;font-size:11px;color:#000}
-.blind {position:absolute;top:-10px;left:-100000px;display:none;}
-/* Smart Editor Style */
-.cke_sc {margin-bottom:10px}
-.btn_cke_sc {padding:0 10px}
-.cke_sc_def {padding:10px;margin-bottom:10px;margin-top:10px}
-.cke_sc_def button {padding:3px 15px;background:#53535a;color:#fff;border:none}
-/* CK Editor Style */
-.cke_chrome {border:1px solid #ddd !important;box-shadow:none !important}
-.cke_top {background:#fafafa !important;border-bottom:1px solid #ddd !important;box-shadow:none !important}
-.cke_bottom {background:#fafafa !important;border-top:1px solid #ddd !important;box-shadow:none !important}
-.cke_toolgroup {border:1px solid #c5c5c5 !important;border-bottom-color:#c5c5c5 !important;box-shadow:none !important;background:#fff !important;background-image:none !important}
-.cke_combo_button {border:1px solid #c5c5c5 !important;border-bottom-color:#c5c5c5 !important;box-shadow:none !important;background:#fff !important;background-image:none !important}
-/* Summernote Style */
-.board-write .panel-default > .panel-heading {background:#f5f5f5;padding:0 0 5px 5px}
-.board-write .note-editor {overflow:inherit}
-.board-write .note-editor .note-toolbar .btn-group {display:inline-block;position:relative;vertical-align:middle;}
-.board-write .note-editor .note-toolbar .btn-group .btn {padding:5px 10px !important;background-color:#fff;border:1px solid #ccc;margin-left:-1px}
-.board-write .note-editor .note-toolbar .btn-group .btn:hover {background-color:#e6e6e6;border-color:#adadad}
-.board-write .note-editor .panel-heading.note-toolbar .note-color-palette div .note-color-btn {width:18px;height:18px;padding:0;margin:0;border:1px solid #fff}
-.note-dialog .btn {display:inline-block;padding:6px 12px;margin-bottom:0;font-size:12px;font-weight:400;line-height:1.42857143;text-align:center;white-space:nowrap;vertical-align:middle;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-image:none;border:1px solid transparent}
-.note-dialog .form-group {margin-bottom:15px;margin-right:0;margin-left:0}
-.note-dialog .btn-primary {color: #fff;background-color:#428bca;border-color:#357ebd}
-.note-dialog .btn.disabled, .note-dialog .btn[disabled] {pointer-events:none;cursor:not-allowed;filter:alpha(opacity=65);-webkit-box-shadow:none;box-shadow:none;opacity:.65}
-.note-dialog .btn-primary.disabled, .note-dialog .btn-primary[disabled] {background-color:#428bca;border-color:#357ebd}
-.note-dialog label {display:block;max-width:100%;margin-bottom:5px;font-weight:700}
-.note-dialog .input {margin:0;font:inherit;color:inherit}
-.note-dialog .form-control {display:block;width:100%;padding:6px 12px;font-size:14px;line-height:1.42857143;color:#555;background-color:#fff;background-image:none;border:1px solid #ccc;-webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;-o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s}
-.board-write .note-editor .table-bordered>thead>tr>th, .board-write .note-editor .table-bordered>tbody>tr>th, .board-write .note-editor .table-bordered>tfoot>tr>th, .board-write .note-editor .table-bordered>thead>tr>td, .board-write .note-editor .table-bordered>tbody>tr>td, .board-write .note-editor .table-bordered>tfoot>tr>td {border:1px solid #ddd}
-#wr_content {-webkit-transition:height ease-in-out .2s;-moz-transition:height ease-in-out .2s;-o-transition:height ease-in-out .2s;transition:height ease-in-out .2s;}
-#wr_content.txt_active{height:110px !important;}
+.wr_content {padding-right:70px;}
+#wr_content {
+	box-sizing:border-box;
+	width:100% !important;
+	-webkit-transition:height ease-in-out .2s;-moz-transition:height ease-in-out .2s;-o-transition:height ease-in-out .2s;transition:height ease-in-out .2s;}
+#wr_content.txt_active{height:120px !important;}
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="board-list">
     <!--{* 게시판 페이지 정보 및 버튼 시작 *}-->
     <div class="board-info margin-bottom-10">
-        <div class="pull-left margin-top-5 font-size-12 color-grey">
-            <span>Total {=number_format(_total_count)}건</span> {_page} 페이지
-        </div>
-		<!--{? _write_href}-->
-		<div class="pull-right">
-	        <!--{?_admin_href}--><a href="{_admin_href}" class="btn-e btn-e-dark margin-right-5" type="button">관리자</a><!--{/}-->
-			<!--{?_eyoom_href}--><a href="{_eyoom_href}" class="btn-e btn-e-dark margin-right-5" type="button">이윰설정</a><!--{/}-->
-	        <!--{?_write_href}--><a href="{_write_href}" class="btn-e btn-e-red" type="button">글쓰기</a><!--{/}-->
-		</div>
-        <!--{/}-->
         <div class="clearfix"></div>
     </div>
     <!--{* 게시판 페이지 정보 및 버튼 끝 *}-->
@@ -247,12 +173,16 @@ html.no-overflowscrolling #autosave_pop {height:auto;max-height:10000px !importa
 						</div>
 						<!--{/}-->
             <a class="lblink<!--{? _is_admin}--> admin<!--{/}-->" href="{.href}">
-							<div class="lbtitle">
+							<div class="lbtitle<!--{? .wr_comment > 10}--> lbhot<!--{: .wr_comment > 30}--> lbbest<!--{/}-->">
+								<!--{? .is_notice }--><i class="fa fa-smile-o"></i> <!--{/}-->
 								{.subject}
 	              <!--{?.icon_new}--><i class="fa fa-circle"></i>&nbsp;<!--{/}-->
 	              <!--{?.icon_secret}--><i class="fa fa-lock"></i>&nbsp;<!--{/}-->
+								<!--{? .comment_cnt}-->
+								<span class="lbcomment"><i class="fa fa-comment-o"></i>{=number_format(.wr_comment)}</span><!--{/}-->
 							</div>
-              <div class="lcontents">
+							<!--{? !.is_notice}-->
+              <div class="lbcontents">
 							<?php
 								$t = str_replace('<p>','',{.wr_content});
 								$t = str_replace('</p>','<br>',$t);
@@ -261,12 +191,10 @@ html.no-overflowscrolling #autosave_pop {height:auto;max-height:10000px !importa
               </div>
 							<div class="lbdes">
 								<span class="lbnick"><i class="fa fa-user"></i>{.wr_name}</span>
-								<span class="lbcomment"><i class="fa fa fa-comments-o"></i><!--{? .comment_cnt}-->{.comment_cnt}<!--{:}-->0<!--{/}--></span>
 		            <span class="lbhit"><i class="fa fa-eye"></i>
 		            {=number_format(.wr_hit)}
 		            </span>
 		            <!--{?_is_good}--><span class="lbup"><i class="fa fa-thumbs-up"></i>{=number_format(.wr_good)}</span><!--{/}-->
-		            <!--{?_is_nogood}--><span class="lbdown"><i class="fa fa-thumbs-down"></i>{=number_format(.wr_nogood)}</span><!--{/}-->
 		            <span class="lbtime"><i class="fa fa-clock-o"></i>
 		            <!--{? eyoom_board.bo_sel_date_type == '1'}-->
 		            {eb->date_time('m.d',.wr_datetime)}
@@ -275,6 +203,7 @@ html.no-overflowscrolling #autosave_pop {height:auto;max-height:10000px !importa
 		            <!--{/}-->
 		            </span>
 		          </div>
+							<!--{/}-->
             </a>
         </li>
 			        <!--{:}-->
@@ -285,13 +214,15 @@ html.no-overflowscrolling #autosave_pop {height:auto;max-height:10000px !importa
 	</div>
     <div class="board-list-footer">
 	    <div class="pull-left">
-	        <!--{? _is_checkbox}-->
 	        <ul class="list-unstyled board-btn-adm pull-left">
+			        <!--{? _is_checkbox}-->
 	            <li><button class="btn-e btn-e-light-grey" type="submit" name="btn_submit" value="선택삭제" onclick="document.pressed=this.value">선택삭제</button></li>
 	            <li><button class="btn-e btn-e-light-grey" type="submit" name="btn_submit" value="선택복사" onclick="document.pressed=this.value">선택복사</button></li>
 	            <li><button class="btn-e btn-e-light-grey" type="submit" name="btn_submit" value="선택이동" onclick="document.pressed=this.value">선택이동</button></li>
+	        		<!--{/}-->
+							<!--{?_admin_href}--><li><a href="{_admin_href}" class="btn-e btn-e-dark margin-right-5" type="button">관리자</a></li><!--{/}-->
+					<!--{?_eyoom_href}--><li><a href="{_eyoom_href}" class="btn-e btn-e-dark margin-right-5" type="button">이윰설정</a></li><!--{/}-->
 	        </ul>
-	        <!--{/}-->
 	        <span class="pull-left">
 	        	<!--{?_rss_href}--><a href="{_rss_href}" class="btn-e btn-e-yellow" type="button"><i class="fa fa-rss"></i></a><!--{/}-->
 				<a href="javascript:;" class="btn-e btn-e-dark" type="button" data-toggle="modal" data-target=".search-modal"><i class="fa fa-search"></i></a>
@@ -299,7 +230,7 @@ html.no-overflowscrolling #autosave_pop {height:auto;max-height:10000px !importa
 	    </div>
 	    <div class="pull-right">
 	        <!--{? _list_href || _write_href}-->
-	        <ul class="list-unstyled">
+	        <ul class="list-unstyled pull-right">
 	            <!--{? _write_href}--><li><a href="{_write_href}" class="btn-e btn-e-red" type="button">글쓰기</a></li><!--{/}-->
 	        </ul>
 	        <!--{/}-->
@@ -369,37 +300,9 @@ html.no-overflowscrolling #autosave_pop {height:auto;max-height:10000px !importa
 <!--{* 페이지 *}-->
 {=eb_paging('basic')}
 
-<div class="margin-bottom-30"></div>
-
 <style>
 .board-list .eyoom-form .radio i, .board-list .eyoom-form .checkbox i {top:2px}
 .board-list .bo_current {color:#f44455}
-.board-list .tab-e2 .nav-tabs li.active a {border:1px solid #000;border-top:1px solid #f44455}
-.table-list-eb .table thead > tr > th {border-bottom:1px solid #000}
-.table-list-eb .table tbody > tr > td {padding:8px 5px}
-.table-list-eb .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {background:#fafafa}
-.table-list-eb thead {border-top:1px solid #000;border-bottom:1px solid #000;background:#fff}
-.table-list-eb th {color:#000;font-weight:bold;white-space:nowrap}
-.table-list-eb .td-comment {display: inline-block;min-width:35px;padding:0px 0px;font-size:10px;font-weight:300;line-height:13px;color:#fff;text-align:center;white-space:nowrap;vertical-align:baseline;background-color:#74747a;margin-right:5px}
-.table-list-eb .td-comment .cnt_cmt {font-weight:300}
-.table-list-eb .td-subject {width:300px}
-.table-list-eb .td-subject .fa {color:#f44455}
-@media (max-width: 1199px) {
-	.table-list-eb .td-subject {width:260px}
-}
-@media (max-width: 767px) {
-	.table-list-eb .td-width {width:inherit}
-	.table-list-eb .td-subject {width:280px}
-}
-.table-list-eb .td-photo img {width:20px;height:20px;margin-right:2px}
-.table-list-eb .td-photo .td-user-icon {width:20px;height:20px;font-size:14px;line-height:20px;text-align:center;background:#84848a;color:#fff;margin-right:2px;display:inline-block;white-space:nowrap;vertical-align:baseline}
-.table-list-eb .td-name b {font-weight:normal}
-.table-list-eb .td-date {text-align:center}
-.table-list-eb .td-num {text-align:center}
-.table-list-eb .td-mobile td {border-top:1px solid #f0f0f0;padding:4px 5px !important;font-size:10px;color:#999;background:#fcfcfc}
-.table-list-eb .td-mobile td span {margin-right:5px}
-.table-list-eb .td-mobile td span.td-photo {margin-right:0}
-.table-list-eb .td-mobile td .td-mobile-name b {font-weight:normal}
 .board-notice {background:#fffcea}
 .board-btn-adm li {float:left;margin-right:5px}
 .board-list .star-ratings-list li {padding:0;float:left;margin-right:0px}
@@ -460,3 +363,4 @@ function select_copy(sw) {
 }
 </script>
 <!--{/}-->
+</div>

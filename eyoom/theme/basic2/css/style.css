@@ -203,9 +203,9 @@ body {color:rgba(0,0,0,.87);min-width:330px;}
 	.header-nav .mega-menu .mega-height-list li a:hover {color:#f44455;text-decoration:none}
 }
 /*Header Nav Fixed*/
+.header-fixed .header-nav.header-fixed-trans {border-bottom:none;position:fixed;top:0;left:0}
+.header-fixed .header-nav.header-sticky {width:100%;height:auto;z-index:999;}
 @media (min-width: 701px) {
-	.header-fixed .header-nav.header-sticky {width:100%;height:auto;z-index:999;position:relative}
-	.header-fixed .header-nav.header-fixed-trans {border-bottom:none;position:fixed;top:0;left:0}
 	.header-fixed .header-nav.header-fixed-trans .navbar {background:#fff;border:0}
 	.header-fixed .header-nav.header-fixed-trans .navbar-nav > li > a {color:#555}
 	.header-fixed .header-nav.header-fixed-trans .navbar-nav .active > a, .header-fixed .header-nav.header-fixed-trans .navbar-nav li > a:hover {color:#f44455}
@@ -220,7 +220,7 @@ body {color:rgba(0,0,0,.87);min-width:330px;}
 	.header-fixed .header-sticky-space.header-fixed-space-trans {clear:both;margin-bottom:50px}
 }
 @media (max-width: 991px) {
-	.header-fixed .header-nav, .header-fixed .header-nav.header-fixed-trans {height:inherit;position:relative}
+	.header-fixed .header-nav, .header-fixed .header-nav.header-fixed-trans {height:inherit;}
 	.header-fixed .header-nav.header-fixed-trans .nav-in-right, .header-fixed .header-nav.header-fixed-trans .menu-icons-list {margin-left:0;margin-right:20px}
 	.header-nav li.menu-icons i.menu-icons-style {color:#555}
 }
@@ -298,7 +298,7 @@ body {color:rgba(0,0,0,.87);min-width:330px;}
 .footer.footer-light .contactus li a {color:#777}
 .footer.footer-light .contactus li a:hover {color:#000}
 .footer.footer-light .copyright {margin-top:10px;padding:15px 0;background:#fff;border-top:1px solid #e5e5e5}
-.footer.footer-light .copyright p {font-size:12px;margin:0;color:#000}
+.footer.footer-light .copyright p {font-size:12px;margin:0;}
 
 /*----- Back To Top -----*/
 .eb-top {z-index:9999;width:34px;height:34px;text-align:center;line-height:32px;color:#fff;background:rgba(0, 0, 0, 0.5);-webkit-border-radius:50% !important;-moz-border-radius:50% !important;border-radius:50% !important}

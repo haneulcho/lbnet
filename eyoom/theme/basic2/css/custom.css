@@ -1,20 +1,52 @@
 /* 여기에 작업 또는 수정할 당신의 css style을 설정하세요. (customizations) */
 .navbar-brand {height:auto;padding:13px 15px;margin-right:5px;}
 .lbbox {box-shadow:0 0 1px rgba(0,0,0,.15);background-color:#fff;border-radius:3px;}
-
 .basic-latest {position:relative;overflow:hidden;min-height:262px}
 .basic-latest ul {margin-bottom:0}
 .basic-latest li {position:relative;overflow:hidden;border-top:1px solid rgba(120,130,140,.13);}
 .basic-latest li:first-child {border-top:none;}
+@media (min-width:991px) {
+.board-area {padding:0 20px}
+}
+#lbboard {margin:0;padding:0;}
+#lbboard li {clear:both;position:relative;list-style:none;border:1px solid rgba(120,130,140,.1);margin:8px 0 0 0;}
+#lbboard .lbcheck {float:left;padding:0;margin-top:8px;}
+#lbboard .lblink.admin {margin-left:25px;}
+#lbboard .lblink {-webkit-box-sizing:border-box;box-sizing:border-box;box-shadow:0 0 1px rgba(0,0,0,.15);background-color:#fff;padding:16px 16px 14px;}
+#lbboard li.notice {margin-top:-2px;}
+#lbboard li.notice .lbtitle {color:#f44455}
+#lbboard li.notice,
+#lbboard li:hover {border-color:#a9e1e8;}
+#lbboard .lbtitle {display:block;margin-bottom:0;}
+.lbcontents, .lbbottom textarea {font-size:12px;line-height:1.35;}
 .lblink {display:block;padding:11px 20px;font-weight:normal;}
 .lblink:hover {background-color:#f4f4f4}
 .lbtitle {text-overflow:ellipsis;white-space:nowrap;word-wrap:normal;font-size:13px;line-height:1;margin-bottom:7px;}
+.lbtitle .lbcomment {margin-left:8px;vertical-align:1px;}
+.lbtitle.lbhot, .lbtitle .lbcomment {color:#00bcd4 !important}
+.lbtitle .lbbest, .lbtitle .lbbest .lbcomment {color:#f44455 !important;}
+.lbcontents {margin-top:6px;margin-bottom:12px;color:#777}
+.lbtitle .lbcomment,
 .lbdes {font-size:11px;color:#818a91;line-height:1;}
+.lbtitle .lbcomment i,
 .lbdes i {margin-right:3px;}
 .lbdes span {margin-right:7px;}
 .lbnick {}
 .lbtime {}
 .lbcomment {}
+/* list.skin.html 글쓰기 영역 */
+.lbrow, .lbtop, .lbbottom {overflow:hidden;}
+.lbtop {margin-bottom:5px;}
+.lbsubject {position:relative;width:100%;padding-right:70px;box-sizing:border-box;}
+.lbanonymous {position:absolute;top:0;right:0;}
+.lbbottom {position:relative;}
+.lbsubmit {position:absolute;top:0;right:0;width:70px;height:36px;}
+.lbsubmit button {display:block;text-align:center;width:100%;height:100%;box-sizing:border-box;}
+@media (min-width:700px) {
+	.lbsubject {width:76%}
+}
+.lbbottom textarea {border:1px solid #ddd;background:#fafafa;padding:10px;}
+.lbbottom textarea:focus {background:#fff}
 
 .basic-latest a:hover .basic-subj {text-decoration:underline}
 .basic-latest a:hover .basic-nick {color:#000}
