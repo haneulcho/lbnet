@@ -102,7 +102,7 @@
         <!--{? ycard.yc_blind == 'y'}-->
             <p class='text-center'>-- 블라인드 처리된 글입니다. --</p>
         <!--{/}-->
-        <div class="board-view-con view-content">{_view_content}</div>
+        <div class="board-view-con view-content"><?php $t = {_view_content}; str_replace('줄바꿈','', $t); echo $t; ?></div>
         <!--{* 본문 내용 끝 *}-->
 
         <!--{? eyoom.use_tag == 'y' && eyoom_board.bo_use_tag == '1' && view_tags.size_ > 0}-->

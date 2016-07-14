@@ -19,31 +19,17 @@
   <input type="hidden" name="wr_3" id="wr_4" value="{_wr_4}">
 	<input type="hidden" name="wr_5" id="wr_5" value="{_wr_5}">
 	<input type="hidden" name="wmode" id="wmode" value="{_wmode}">
-	{_option_hidden}
+	<input type="hidden" value="html1" name="html">
 	<div class="tbl_frm01 tbl_wrap">
 		<div class="row">
 			<div class="col col-12 md-margin-bottom-10">
-        <!--{? _is_notice || _is_html || _is_secret || _is_mail || _is_anonymous}-->
-					<!--{? _is_notice}-->
-					<label for="notice" class="checkbox"><input type="checkbox" id="notice" name="notice" value="1" {_notice_checked}><i></i>공지</label>
-					<!--{/}-->
-
-					<!--{? _is_html}-->
-					<!--{? _is_dhtml_editor}-->
-					<input type="hidden" value="html1" name="html">
-					<!--{:}-->
-					<label for="html" class="checkbox"><input type="checkbox" id="html" name="html" onclick="html_auto_br(this);" value="{_html_value}" {_html_checked}><i></i>HTML</label>
-					<!--{/}-->
-					<!--{/}-->
-
-				<!--{/}-->
         <!--{? _is_anonymous}-->
         <label for="anonymous" style="float:left;margin-right:20px;" class="checkbox"><input type="checkbox" id="anonymous" name="anonymous" value="y" checked><i></i>익명글</label>
         <!--{/}-->
 				<label for="wr_subject" class="sound_only">제목<strong class="sound_only"> 필수</strong></label>
 				<label class="input" style="float:left;width:80%;">
                       <i class="icon-prepend fa fa-edit"></i>
-                      <input type="text" name="wr_subject" value="{_subject}" id="wr_subject" required class="form-control" size="50" maxlength="255" placeholder="간편 글쓰기 제목을 입력해 주세요.">
+                      <input type="text" name="wr_subject" value="{_subject}" id="wr_subject" required class="form-control" size="50" maxlength="255" placeholder="제목을 입력해 주세요.">
                       <b class="tooltip tooltip-top-left">제목을 입력해 주세요.</b>
                   </label>
 			</div>
@@ -85,6 +71,14 @@ function fwrite_submit(f)
 		$("#wr_1").val(wr_1);
 	}
 	<!--{/}-->
+
+	function nl2br (str, is_xhtml) {
+	    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
+	    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
+	}
+
+	f.wr_content.value = nl2br(f.wr_content.value);
+	console.log(f.wr_content.value);
 
 	var subject = "";
 	var content = "";
@@ -239,61 +233,55 @@ html.no-overflowscrolling #autosave_pop {height:auto;max-height:10000px !importa
 	<!--{/}-->
 	<div class="table-list-eb margin-bottom-20">
 	    <div class="board-list-body">
+        <ul id="lbboard">
         <!--{@ list}-->
-        <ul id="lboard">
         <!--{? .is_notice}--><li class="notice"><!--{: _wr_id == .wr_id}--><li class="active"><!--{:}--><li><!--{/}-->
-          <div class="subject">
-            <!--{? _is_checkbox}-->
+            <!--{? _is_checkbox && _is_admin }-->
+						<div class="lbcheck">
             <span class="lst_chk">
               <label for="chk_wr_id_{.key_}" class="sound_only">{.subject}</label>
               <label class="checkbox">
                 <input type="checkbox" name="chk_wr_id[]" value="{.wr_id}" id="chk_wr_id_{.key_}"><i></i>
               </label>
             </span>
-            <span class="board-num">{=number_format(.num)}</span>
-            <!--{/}-->
-            <a href="{.href}">
-              <span class="td-name-in">{.wr_name}</span>
-              {.subject}
-              <!--{?.icon_new}--><i class="fa fa-circle"></i>&nbsp;<!--{/}-->
-              <!--{?.icon_secret}--><i class="fa fa-lock"></i>&nbsp;<!--{/}-->
+						</div>
+						<!--{/}-->
+            <a class="lblink<!--{? _is_admin}--> admin<!--{/}-->" href="{.href}">
+							<div class="lbtitle">
+								{.subject}
+	              <!--{?.icon_new}--><i class="fa fa-circle"></i>&nbsp;<!--{/}-->
+	              <!--{?.icon_secret}--><i class="fa fa-lock"></i>&nbsp;<!--{/}-->
+							</div>
               <div class="lcontents">
-              <?=cut_str(strip_tags({.wr_content}), 100)?>
+							<?php
+								$t = str_replace('<p>','',{.wr_content});
+								$t = str_replace('</p>','<br>',$t);
+							?>
+              <?=cut_str(strip_tags($t, '<br>'), 100)?>
               </div>
-              <!--{? .gnu_icon}-->
-              <span style="display:inline-block;margin-right:2px"><img src="{.gnu_icon}" align="absmiddle"></span>
-              <!--{/}-->
-              <!--{? .eyoom_icon}-->
-              <span style="display:inline-block;margin-right:2px"><img src="{.eyoom_icon}" align="absmiddle"></span>
-              <!--{/}-->
+							<div class="lbdes">
+								<span class="lbnick"><i class="fa fa-user"></i>{.wr_name}</span>
+								<span class="lbcomment"><i class="fa fa fa-comments-o"></i><!--{? .comment_cnt}-->{.comment_cnt}<!--{:}-->0<!--{/}--></span>
+		            <span class="lbhit"><i class="fa fa-eye"></i>
+		            {=number_format(.wr_hit)}
+		            </span>
+		            <!--{?_is_good}--><span class="lbup"><i class="fa fa-thumbs-up"></i>{=number_format(.wr_good)}</span><!--{/}-->
+		            <!--{?_is_nogood}--><span class="lbdown"><i class="fa fa-thumbs-down"></i>{=number_format(.wr_nogood)}</span><!--{/}-->
+		            <span class="lbtime"><i class="fa fa-clock-o"></i>
+		            <!--{? eyoom_board.bo_sel_date_type == '1'}-->
+		            {eb->date_time('m.d',.wr_datetime)}
+		            <!--{: eyoom_board.bo_sel_date_type == '2'}-->
+		            {eb->date_format('Y.m.d',.wr_datetime)}
+		            <!--{/}-->
+		            </span>
+		          </div>
             </a>
-          </div>
-          <div class="ldes">
-            <span class="lcomment">
-            <!--{? .comment_cnt}--><span class="sound_only">댓글</span><span class="td-comment">+{.comment_cnt}</span><!--{/}-->
-            </span>
-            <span class="lhit">
-            {=number_format(.wr_hit)}
-            </span>
-            <span class="lvote">
-            <!--{?_is_good}-->{=number_format(.wr_good)}<!--{/}-->
-            <!--{?_is_nogood}-->{=number_format(.wr_nogood)}<!--{/}-->
-            </span>
-            <span class="ldate">
-            <!--{? eyoom_board.bo_sel_date_type == '1'}-->
-            {eb->date_time('Y.m.d',.wr_datetime)}
-            <!--{: eyoom_board.bo_sel_date_type == '2'}-->
-            {eb->date_format('Y.m.d',.wr_datetime)}
-            <!--{/}-->
-            </span>
-          </div>
         </li>
-      </ul>
 			        <!--{:}-->
-
-					<span class="text-center">게시물이 없습니다.</span>
+					<li><span class="text-center">게시물이 없습니다.</span></li>
 					<!--{/}-->
-	    </div>
+			</ul>
+	  </div>
 	</div>
     <div class="board-list-footer">
 	    <div class="pull-left">
