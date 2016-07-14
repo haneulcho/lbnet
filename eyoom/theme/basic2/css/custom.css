@@ -1,2 +1,21 @@
 /* 여기에 작업 또는 수정할 당신의 css style을 설정하세요. (customizations) */
 .navbar-brand {height:auto;padding:13px 15px;margin-right:5px;}
+.lbbox {box-shadow:0 0 1px rgba(0,0,0,.15);background-color:#fff;border-radius:3px;}
+
+.basic-latest {position:relative;overflow:hidden;min-height:262px}
+.basic-latest ul {margin-bottom:0}
+.basic-latest li {position:relative;overflow:hidden;border-top:1px solid rgba(120,130,140,.13);}
+.basic-latest li:first-child {border-top:none;}
+.lblink {display:block;padding:11px 20px;font-weight:normal;}
+.lblink:hover {background-color:#f4f4f4}
+.lbtitle {text-overflow:ellipsis;white-space:nowrap;word-wrap:normal;font-size:13px;line-height:1;margin-bottom:7px;}
+.lbdes {font-size:11px;color:#818a91;line-height:1;}
+.lbdes i {margin-right:3px;}
+.lbdes span {margin-right:7px;}
+.lbnick {}
+.lbtime {}
+.lbcomment {}
+
+.basic-latest a:hover .basic-subj {text-decoration:underline}
+.basic-latest a:hover .basic-nick {color:#000}
+.basic-latest a:hover .basic-time i {color:#f44455}

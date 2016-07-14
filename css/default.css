@@ -19,15 +19,15 @@ select {margin:0}
 p {margin:0;padding:0;word-break:break-all}
 hr {display:none}
 pre {overflow-x:scroll;font-size:1.1em}
-a:link, a:visited {color:#000;text-decoration:none}
-a:hover, a:focus, a:active {color:#000;text-decoration:underline}
+a:link, a:visited {color:rgba(0,0,0,.87);text-decoration:none}
+a:hover, a:focus, a:active {color:rgba(0,0,0,.87);text-decoration:underline}
 
 /* 팝업레이어 */
 #hd_pop {z-index:1000;position:relative;margin:0 auto;width:970px;height:0}
 #hd_pop h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
 .hd_pops {position:absolute;border:1px solid #e9e9e9;background:#fff}
 .hd_pops_con {}
-.hd_pops_footer {padding:10px 0;background:#000;color:#fff;text-align:right}
+.hd_pops_footer {padding:10px 0;background:rgba(0,0,0,.87);color:#fff;text-align:right}
 .hd_pops_footer button {margin-right:5px;padding:5px 10px;border:0;background:#393939;color:#fff}
 
 /* 상단 레이아웃 */
@@ -140,7 +140,7 @@ a:hover, a:focus, a:active {color:#000;text-decoration:underline}
 
 /* ckeditor 단축키 */
 .cke_sc {margin:0 0 5px;text-align:right}
-.btn_cke_sc{display:inline-block;padding:0 10px;height:23px;border:1px solid #ccc;background:#fafafa;color:#000;text-decoration:none;line-height:1.9em;vertical-align:middle;cursor:pointer}
+.btn_cke_sc{display:inline-block;padding:0 10px;height:23px;border:1px solid #ccc;background:#fafafa;color:rgba(0,0,0,.87);text-decoration:none;line-height:1.9em;vertical-align:middle;cursor:pointer}
 .cke_sc_def {margin:0 0 5px;padding:10px;border:1px solid #ccc;background:#f7f7f7;text-align:center}
 .cke_sc_def dl{margin:0 0 5px;text-align:left;zoom:1}
 .cke_sc_def dl:after {display:block;visibility:hidden;clear:both;content:""}
@@ -149,9 +149,9 @@ a:hover, a:focus, a:active {color:#000;text-decoration:underline}
 .cke_sc_def dd {width:30%}
 
 /* 버튼 */
-a.btn01 {display:inline-block;padding:7px;border:1px solid #ccc;background:#fafafa;color:#000;text-decoration:none;vertical-align:middle}
+a.btn01 {display:inline-block;padding:7px;border:1px solid #ccc;background:#fafafa;color:rgba(0,0,0,.87);text-decoration:none;vertical-align:middle}
 a.btn01:focus, a.btn01:hover {text-decoration:none}
-button.btn01 {display:inline-block;margin:0;padding:7px;border:1px solid #ccc;background:#fafafa;color:#000;text-decoration:none}
+button.btn01 {display:inline-block;margin:0;padding:7px;border:1px solid #ccc;background:#fafafa;color:rgba(0,0,0,.87);text-decoration:none}
 a.btn02 {display:inline-block;padding:7px;border:1px solid #3b3c3f;background:#4b545e;color:#fff;text-decoration:none;vertical-align:middle}
 a.btn02:focus, .btn02:hover {text-decoration:none}
 button.btn02 {display:inline-block;margin:0;padding:7px;border:1px solid #3b3c3f;background:#4b545e;color:#fff;text-decoration:none}
@@ -161,15 +161,15 @@ button.btn02 {display:inline-block;margin:0;padding:7px;border:1px solid #3b3c3f
 .btn_submit {padding:8px;border:0;background:#ff3061;color:#fff;letter-spacing:-0.1em;cursor:pointer}
 fieldset .btn_submit {padding:0 7px;height:24px;line-height:1em}
 
-a.btn_cancel {display:inline-block;padding:7px;border:1px solid #ccc;background:#fafafa;color:#000;text-decoration:none;vertical-align:middle}
-button.btn_cancel {display:inline-block;padding:7px;border:1px solid #ccc;background:#fafafa;color:#000;vertical-align:top;text-decoration:none}
+a.btn_cancel {display:inline-block;padding:7px;border:1px solid #ccc;background:#fafafa;color:rgba(0,0,0,.87);text-decoration:none;vertical-align:middle}
+button.btn_cancel {display:inline-block;padding:7px;border:1px solid #ccc;background:#fafafa;color:rgba(0,0,0,.87);vertical-align:top;text-decoration:none}
 
 a.btn_frmline, button.btn_frmline {display:inline-block;padding:0 5px;height:24px;border:0;background:#333;color:#fff;letter-spacing:-0.1em;text-decoration:none;vertical-align:top} /* 우편번호검색버튼 등 */
 a.btn_frmline {line-height:24px}
 button.btn_frmline {font-size:1em}
 
 /* 게시판용 버튼 */
-a.btn_b01 {display:inline-block;padding:7px;border:1px solid #d9ded9;background:#f2f5f9;color:#000;text-decoration:none;vertical-align:middle}
+a.btn_b01 {display:inline-block;padding:7px;border:1px solid #d9ded9;background:#f2f5f9;color:rgba(0,0,0,.87);text-decoration:none;vertical-align:middle}
 a.btn_b01:focus, .btn_b01:hover {text-decoration:none}
 a.btn_b02 {display:inline-block;padding:7px 7px;border:1px solid #3b3c3f;background:#4b545e;color:#fff;text-decoration:none;vertical-align:middle}
 a.btn_b02:focus, .btn_b02:hover {text-decoration:none}
@@ -208,7 +208,7 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none}
 .tbl_frm01 table {width:100%;border-collapse:collapse;border-spacing:0}
 .tbl_frm01 th {width:70px;padding:7px 13px;border:1px solid #e9e9e9;border-left:0;background:#f5f8f9;text-align:left}
 .tbl_frm01 td {padding:7px 10px;border-top:1px solid #e9e9e9;border-bottom:1px solid #e9e9e9;background:transparent}
-.tbl_frm01 textarea, .frm_input {border:1px solid #e4eaec;background:#f7f7f7;color:#000;vertical-align:middle;line-height:2em}
+.tbl_frm01 textarea, .frm_input {border:1px solid #e4eaec;background:#f7f7f7;color:rgba(0,0,0,.87);vertical-align:middle;line-height:2em}
 .tbl_frm01 textarea {padding:2px 2px 3px}
 .frm_input {height:22px}
 .tbl_frm01 textarea {width:98%;height:100px}
@@ -279,7 +279,7 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none}
 /* 페이징 */
 .pg_wrap {clear:both;margin:0 0 20px;padding:20px 0 0;text-align:center}
 .pg {}
-.pg_page, .pg_current {display:inline-block;padding:0 8px;height:25px;color:#000;letter-spacing:0;line-height:2.2em;vertical-align:middle}
+.pg_page, .pg_current {display:inline-block;padding:0 8px;height:25px;color:rgba(0,0,0,.87);letter-spacing:0;line-height:2.2em;vertical-align:middle}
 .pg a:focus, .pg a:hover {text-decoration:none}
 .pg_page {background:#e4eaec;text-decoration:none}
 .pg_start, .pg_prev {/* 이전 */}
@@ -287,7 +287,7 @@ a.btn_admin:focus, a.btn_admin:hover {text-decoration:none}
 .pg_current {display:inline-block;margin:0 4px 0 0;background:#333;color:#fff;font-weight:normal}
 
 /* Mobile화면으로 */
-#device_change {display:block;margin:0.3em;padding:0.5em 0;border:1px solid #eee;border-radius:2em;background:#fff;color:#000;font-size:2em;text-decoration:none;text-align:center}
+#device_change {display:block;margin:0.3em;padding:0.5em 0;border:1px solid #eee;border-radius:2em;background:#fff;color:rgba(0,0,0,.87);font-size:2em;text-decoration:none;text-align:center}
 
 /*메일인증*/
 .rg_em{margin-top:5px}

@@ -4,12 +4,12 @@
 
 /*---------- Reset Styles ----------*/
 * {border-radius:0 !important;font-family:"Helvetica",Dotum,Arial,Verdana,sans-serif}
-body {color:#35353A;font-size:13px;line-height:1.6;overflow-x:hidden}
-p,li,li a {color:#35353A}
-a {color:#000;text-decoration:none}
+body {color:rgba(0,0,0,.87);font-size:13px;line-height:1.6;overflow-x:hidden}
+p,li,li a {color:rgba(0,0,0,.87)}
+a {color:rgba(0,0,0,.87);text-decoration:none}
 a,a:focus,a:hover,a:active {outline:0 !important}
 a:focus {color:#FF9500;text-decoration:none}
-a:hover {color:#FF2A00;text-decoration:none}
+a:hover {color:#f44455;text-decoration:none}
 hr {display:inherit;margin:10px 0}
 hr.hr-md {margin:10px 0}
 
@@ -20,7 +20,7 @@ h3 {font-size:20px;line-height:26px}
 h4 {font-size:18px;line-height:24px}
 h5 {font-size:16px;line-height:22px}
 h6 {font-size:13px;line-height:19px}
-h1,h2,h3,h4,h5,h6 {color:#35353A;margin-top:5px;text-shadow:none;font-weight:normal}
+h1,h2,h3,h4,h5,h6 {color:rgba(0,0,0,.87);margin-top:5px;text-shadow:none;font-weight:normal}
 h1 i,h2 i,h3 i,h4 i,h5 i,h6 i {margin-right:5px}
 
 /*Font Size*/
@@ -64,9 +64,9 @@ h1 i,h2 i,h3 i,h4 i,h5 i,h6 i {margin-right:5px}
 .display-inline-block {display:inline-block}
 
 /*Block Headline*/
-.headline {display:block;margin:0 0 15px;border-top:1px dotted #ddd;border-bottom:1px dotted #ddd}
-.headline h1,.headline h2,.headline h3,.headline h4,.headline h5,.headline h6 {margin:-1px 0 -1px;padding:5px 2px;display:inline-block;border-bottom:1px solid #FF2A00;border-top:1px solid #FF2A00}
-
+.headline {display:block;margin:0;border-bottom:1px solid rgba(120,130,140,.13)}
+.headline h1,.headline h2,.headline h3,.headline h4,.headline h5,.headline h6 {margin:-1px 0 -1px;padding:10px 15px;display:block;color:#f44455}
+.headline a {color:#f44455}
 /*Heading Options*/
 .heading {text-align:center}
 .heading h2,.heading h4 {padding:0 12px;position:relative;display:inline-block;line-height:34px !important}
@@ -129,7 +129,7 @@ h3.heading-xs {font-size:14px;margin-bottom:0}
 .carousel-e1 .carousel-caption p {color:#fff;margin-bottom:0}
 .carousel-e1 .carousel-arrow a.carousel-control {opacity:1;font-size:16px;height:inherit;width:inherit;background:none;text-shadow:none;position:inherit}
 .carousel-e1 .carousel-arrow a i {top:50%;opacity:0.6;background:#000;margin-top:-15px;position:absolute;color:#fff;padding:7px 12px;text-align:center;margin-left:3px;margin-right:3px}
-.carousel-e1 .carousel-arrow a i:hover {opacity:0.8;color:#FF2A00}
+.carousel-e1 .carousel-arrow a i:hover {opacity:0.8;color:#f44455}
 .carousel-e1 .carousel-arrow a.left i {left:0}
 .carousel-e1 .carousel-arrow a.right i {right:0}
 
@@ -147,12 +147,12 @@ h3.heading-xs {font-size:14px;margin-bottom:0}
 /*Tabs e2*/
 .tab-e2 .nav-tabs {border-bottom:none}
 .tab-e2 .nav-tabs li a {font-size:12px;padding:7px 15px;background:none;border:none}
-.tab-e2 .nav-tabs li.active a {background:#fff;padding:6px 13px 7px;border:solid 1px #e5e5e5;border-top:solid 1px #FF2A00;border-bottom:none !important;color:#000}
+.tab-e2 .nav-tabs li.active a {background:#fff;padding:6px 13px 7px;border:solid 1px #e5e5e5;border-top:solid 1px #f44455;border-bottom:none !important;color:#000}
 .tab-e2 .tab-content {padding:10px 15px;border:solid 1px #e5e5e5}
 
 /*Tabs e3*/
 .tab-e3 .nav-pills li a {font-size:12px;color:#75757A;font-size:14px;padding:4px 8px;margin-bottom:3px;background:#fafafa;border:solid 1px #eee}
-.tab-e3 .nav-pills li a:hover,.tab-e3 .nav-pills li.active a {color:#fff;background:#FF2A00;border:solid 1px #DF2700}
+.tab-e3 .nav-pills li a:hover,.tab-e3 .nav-pills li.active a {color:#fff;background:#f44455;border:solid 1px #DF2700}
 .tab-e3 .nav-pills li i {width:1.25em;margin-right:5px;text-align:center;display:inline-block}
 .tab-e3 .tab-content {padding:15px;background:#fafafa;border:solid 1px #eee}
 
@@ -197,7 +197,7 @@ h3.heading-xs {font-size:14px;margin-bottom:0}
 
 /*Sidebar List Toggle*/
 .list-toggle:after {top:7px;right:10px;color:#75757A;font-size:12px;content:"\f105";position:absolute;font-weight:normal;display:inline-block;font-family:FontAwesome}
-.list-toggle.active:after {color:#FF2A00;content:"\f105"}
+.list-toggle.active:after {color:#f44455;content:"\f105"}
 
 /*---------- Button Styles ----------*/
 .btn {box-shadow:none;font-size:12px}
@@ -207,7 +207,7 @@ h3.heading-xs {font-size:14px;margin-bottom:0}
 .btn-info {font-size:12px;cursor:pointer;font-weight:300;padding:3px 12px}
 .btn-warning {font-size:12px;cursor:pointer;font-weight:300;padding:3px 12px}
 .btn-danger {font-size:12px;cursor:pointer;font-weight:300;padding:3px 12px}
-.btn-e {white-space:nowrap;border:0;color:#fff;font-size:12px;cursor:pointer;font-weight:300;padding:3px 12px;position:relative;background:#FF2A00;display:inline-block;text-decoration:none}
+.btn-e {white-space:nowrap;border:0;color:#fff;font-size:12px;cursor:pointer;font-weight:300;padding:3px 12px;position:relative;background:#f44455;display:inline-block;text-decoration:none}
 .btn-e:hover {color:#fff;text-decoration:none;-webkit-transition:all 0.2s ease-in-out;-moz-transition:all 0.2s ease-in-out;-o-transition:all 0.2s ease-in-out;transition:all 0.2s ease-in-out}a.btn-e {/*padding: 4px 13px;*//*vertical-align: middle;*/}
 .btn-e-sm,a.btn-e-sm {padding:2px 10px}
 .btn-e-lg,a.btn-e-lg {font-size:14px;padding:6px 16px}
@@ -237,7 +237,7 @@ a.btn-e,a.btn-e:hover,a.btn-e:focus,a.btn-e:active,a.btn-e.active {color:#fff}
 .btn-e.btn-e-default {background:#95959A}
 .btn-e.btn-e-default:hover,.btn-e.btn-e-default:focus,.btn-e.btn-e-default:active,.btn-e.btn-e-default.active,.open .dropdown-toggle.btn-e.btn-e-default {background:#75757A}
 .btn-e.btn-e-split-default.dropdown-toggle {border-left:solid 1px #75757A}
-.btn-e.btn-e-red {background:#FF2A00}
+.btn-e.btn-e-red {background:#f44455}
 .btn-e.btn-e-red:hover,.btn-e.btn-e-red:focus,.btn-e.btn-e-red:active,.btn-e.btn-e-red.active,.open .dropdown-toggle.btn-e.btn-e-red {background:#DF2700}
 .btn-e.btn-e-split-red.dropdown-toggle {border-left:solid 1px #DF2700}
 .btn-e.btn-e-blue {background:#007AFF}
@@ -282,13 +282,13 @@ a.btn-e,a.btn-e:hover,a.btn-e:focus,a.btn-e:active,a.btn-e.active {color:#fff}
 .btn-e.btn-brd:hover {background:none;border:solid 1px #eee}
 .btn-e.btn-brd:focus {background:none}
 .btn-e.btn-brd.btn-brd-hover:hover {color:#fff !important}
-.btn-e.btn-brd {border-color:#FF2A00}
+.btn-e.btn-brd {border-color:#f44455}
 .btn-e.btn-brd:hover {color:#DF2700;border-color:#DF2700}
 .btn-e.btn-brd.btn-brd-hover:hover {background:#DF2700}
 .btn-e.btn-brd.btn-e-default {border-color:#95959A}
 .btn-e.btn-brd.btn-e-default:hover {color:#75757A;border-color:#75757A}
 .btn-e.btn-brd.btn-e-default.btn-brd-hover:hover {background:#75757A}
-.btn-e.btn-brd.btn-e-red {border-color:#FF2A00}
+.btn-e.btn-brd.btn-e-red {border-color:#f44455}
 .btn-e.btn-brd.btn-e-red:hover {color:#DF2700;border-color:#DF2700}
 .btn-e.btn-brd.btn-e-red.btn-brd-hover:hover {background:#DF2700}
 .btn-e.btn-brd.btn-e-blue {border-color:#007AFF}
@@ -337,9 +337,9 @@ span.label {font-size:11px;font-weight:300;padding:3px 6px}
 /*Badges*/
 span.badge {font-size:11px;font-weight:300;padding:3px 6px}
 
-span.label-e,span.badge-e {background:#FF2A00}
+span.label-e,span.badge-e {background:#f44455}
 span.label-blue,span.badge-blue {background:#007AFF}
-span.label-red,span.badge-red {background:#FF2A00}
+span.label-red,span.badge-red {background:#f44455}
 span.label-green,span.badge-green {background:#88BA00}
 span.label-sea,span.badge-sea {background:#4A98FC}
 span.label-orange,span.badge-orange {background:#FF5500}
@@ -409,9 +409,9 @@ i.icon-4x {font-size:50px}
 i.icon-color-e,i.icon-color-red,i.icon-color-sea,i.icon-color-dark,i.icon-color-grey,i.icon-color-blue,i.icon-color-green,i.icon-color-yellow,i.icon-color-orange,i.icon-color-purple,i.icon-color-aqua,i.icon-color-brown,i.icon-color-dark-blue,i.icon-color-light-grey,i.icon-color-light-green {background:none}
 
 /*Icons Color*/
-i.icon-color-e {color:#FF2A00;border:solid 1px #FF2A00}
+i.icon-color-e {color:#f44455;border:solid 1px #f44455}
 i.icon-color-blue {color:#007AFF;border:solid 1px #007AFF}
-i.icon-color-red {color:#FF2A00;border:solid 1px #FF2A00}
+i.icon-color-red {color:#f44455;border:solid 1px #f44455}
 i.icon-color-sea {color:#4A98FC;border:solid 1px #4A98FC}
 i.icon-color-green {color:#88BA00;border:solid 1px #88BA00}
 i.icon-color-yellow {color:#FF9500;border:solid 1px #FF9500}
@@ -427,9 +427,9 @@ i.icon-color-light-grey {color:#BABABB;border:solid 1px #BABABB}
 
 /*Icons Backgroun Color*/
 i.icon-bg-e,i.icon-bg-red,i.icon-bg-sea,i.icon-bg-dark,i.icon-bg-grey,i.icon-bg-blue,i.icon-bg-green,i.icon-bg-yellow,i.icon-bg-orange,i.icon-bg-purple,i.icon-bg-aqua,i.icon-bg-brown,i.icon-bg-dark-blue,i.icon-bg-light-grey,i.icon-bg-light-green {color:#fff;border-color:transparent}
-i.icon-bg-e {background:#FF2A00}
+i.icon-bg-e {background:#f44455}
 i.icon-bg-blue {background:#007AFF}
-i.icon-bg-red {background:#FF2A00}
+i.icon-bg-red {background:#f44455}
 i.icon-bg-sea {background:#4A98FC}
 i.icon-bg-green {background:#88BA00}
 i.icon-bg-yellow {background:#FF9500}
@@ -471,9 +471,9 @@ i.icon-bg-light-grey {background:#BABABB;border-color:transparent}
 .service-box-light,.service-box-default {background:#fafafa;border:solid 1px #eee}
 .service-box-default:hover {box-shadow:0 0 12px #eee}
 .service-box-light p,.service-box-light h2,.service-box-default p,.service-box-default h2 {color:#55555A}
-.service-box-e {background:#FF2A00}
+.service-box-e {background:#f44455}
 .service-box-blue {background:#007AFF}
-.service-box-red {background:#FF2A00}
+.service-box-red {background:#f44455}
 .service-box-sea {background:#4A98FC}
 .service-box-grey {background:#95959A}
 .service-box-yellow {background:#FF9500}
@@ -489,14 +489,14 @@ i.icon-bg-light-grey {background:#BABABB;border-color:transparent}
 
 /*---------- Typography ----------*/
 /*Text Big*/
-.text-big {float:left;color:#FF2A00;padding:5px 0;font-size:45px;font-weight:600;line-height:30px;margin:0 5px 0 0}
-.text-big-bg {float:left;color:#fff;padding:7px 0;min-width:50px;font-size:35px;font-weight:600;line-height:35px;text-align:center;background:#FF2A00;margin:4px 10px 0 0}
+.text-big {float:left;color:#f44455;padding:5px 0;font-size:45px;font-weight:600;line-height:30px;margin:0 5px 0 0}
+.text-big-bg {float:left;color:#fff;padding:7px 0;min-width:50px;font-size:35px;font-weight:600;line-height:35px;text-align:center;background:#f44455;margin:4px 10px 0 0}
 
 /*Text Highlights*/
 .text-highlights {color:#fff;font-weight:200;padding:0 5px;background:#55555A}
 .text-highlights-green {background:#88BA00}
 .text-highlights-blue {background:#007AFF}
-.text-highlights-red {background:#FF2A00}
+.text-highlights-red {background:#f44455}
 .text-highlights-sea {background:#4A98FC}
 .text-highlights-orange {background:#FF5500}
 .text-highlights-yellow {background:#FF9500}
@@ -511,7 +511,7 @@ i.icon-bg-light-grey {background:#BABABB;border-color:transparent}
 .text-border-default {border-color:#95959A}
 .text-border-green {border-color:#88BA00}
 .text-border-blue {border-color:#007AFF}
-.text-border-red {border-color:#FF2A00}
+.text-border-red {border-color:#f44455}
 .text-border-yellow {border-color:#FF9500}
 .text-border-purple {border-color:#855AED}
 
@@ -535,7 +535,7 @@ blockquote.hero.text-right,blockquote.hero.text-right:hover {border-color:#55555
 blockquote:hover,blockquote.text-right:hover {-webkit-transition:all 0.4s ease-in-out;-moz-transition:all 0.4s ease-in-out;-o-transition:all 0.4s ease-in-out;transition:all 0.4s ease-in-out}
 blockquote.bq-dark,blockquote.bq-dark:hover {border-color:#55555A}
 blockquote.bq-green {border-color:#88BA00}
-blockquote.bq-red {border-color:#FF2A00}
+blockquote.bq-red {border-color:#f44455}
 blockquote.bq-yellow {border-color:#FF9500}
 
 /*Blockquote Hero Styles*/
@@ -544,7 +544,7 @@ blockquote.hero:hover {background:#eee;border-left-color:#666}
 blockquote.hero.hero-dark,blockquote.hero.hero-default {border:none}
 blockquote.hero.hero-dark {background:#444}
 blockquote.hero.hero-dark:hover {background:#55555A}
-blockquote.hero.hero-default {background:#FF2A00}
+blockquote.hero.hero-default {background:#f44455}
 blockquote.hero.hero-default:hover {background:#DF2700}
 blockquote.hero.hero-dark p,blockquote.hero.hero-dark h2,blockquote.hero.hero-dark small,blockquote.hero.hero-default p,blockquote.hero.hero-default h2,blockquote.hero.hero-default small {color:#fff;font-weight:200}
 
@@ -555,10 +555,10 @@ blockquote.hero.hero-dark p,blockquote.hero.hero-dark h2,blockquote.hero.hero-da
 .tag-box.tag-text-space p {margin-bottom:10px}
 
 /*Tag Boxes e1*/
-.tag-box-e1 {border:solid 1px #eee;border-top:solid 2px #FF2A00}
-.tag-box-e1-center {border:solid 1px #eee;border-top:solid 2px #FF2A00;text-align:center}
+.tag-box-e1 {border:solid 1px #eee;border-top:solid 2px #f44455}
+.tag-box-e1-center {border:solid 1px #eee;border-top:solid 2px #f44455;text-align:center}
 /*Tag Boxes e2*/
-.tag-box-e2-r {background:#fafafa;border:solid 1px #eee;border-left:solid 2px #FF2A00}
+.tag-box-e2-r {background:#fafafa;border:solid 1px #eee;border-left:solid 2px #f44455}
 .tag-box-e2-g {background:#fafafa;border:solid 1px #eee;border-left:solid 2px #88BA00}
 .tag-box-e2-y {background:#fafafa;border:solid 1px #eee;border-left:solid 2px #FF9500}
 .tag-box-e2-d {background:#fafafa;border:solid 1px #eee;border-left:solid 2px #55555A}
@@ -575,7 +575,7 @@ blockquote.hero.hero-dark p,blockquote.hero.hero-dark h2,blockquote.hero.hero-da
 /*Tag Boxes e6*/
 .tag-box-e6 {background:#fafafa;border:solid 1px #eee}
 /*Tag Boxes e7*/
-.tag-box-e7 {border:solid 1px #eee;border-bottom:solid 2px #FF2A00}
+.tag-box-e7 {border:solid 1px #eee;border-bottom:solid 2px #f44455}
 
 /*---------- Color Content Boxes ----------*/
 .color-content-box {padding:15px;text-align:center}
@@ -588,9 +588,9 @@ blockquote.hero.hero-dark p,blockquote.hero.hero-dark h2,blockquote.hero.hero-da
 .color-box-bg {width:250px;padding:60px;position:absolute;top:-10px;right:-100px;background:#fff;-ms-filter:"progid: DXImageTransform.Microsoft.Alpha(Opacity=10)";filter:alpha(opacity=10);opacity:0.1;transform:rotate(57deg);-o-transform:rotate(57deg);-ms-transform:rotate(57deg);-moz-transform:rotate(57deg);-webkit-transform:rotate(57deg)}
 .color-box-bg2 {width:250px;padding:60px;position:absolute;top:-10px;right:-100px;background:#000;-ms-filter:"progid: DXImageTransform.Microsoft.Alpha(Opacity=2)";filter:alpha(opacity=2);opacity:0.02;transform:rotate(57deg);-o-transform:rotate(57deg);-ms-transform:rotate(57deg);-moz-transform:rotate(57deg);-webkit-transform:rotate(57deg)}
 .color-content-box-light p,.color-content-box-light h2,.color-content-box-default p,.color-content-box-default h2 {color:#55555A}
-.color-content-box-e {background:#FF2A00}
+.color-content-box-e {background:#f44455}
 .color-content-box-blue {background:#007AFF}
-.color-content-box-red {background:#FF2A00}
+.color-content-box-red {background:#f44455}
 .color-content-box-grey {background:#95959A}
 .color-content-box-yellow {background:#FF9500}
 .color-content-box-orange {background:#FF5500}
@@ -609,14 +609,14 @@ Panels (Portlets) ----------*/
 /*Panel Table*/
 .panel .table {margin-bottom:0}
 /*Panel Eyoom*/
-.panel-e {border-color:#FF2A00}
-.panel-e > .panel-heading {background:#FF2A00}
+.panel-e {border-color:#f44455}
+.panel-e > .panel-heading {background:#f44455}
 /*Panel Blue*/
 .panel-blue {border-color:#007AFF}
 .panel-blue > .panel-heading {background:#007AFF}
 /*Panel Red*/
-.panel-red {border-color:#FF2A00}
-.panel-red > .panel-heading {background:#FF2A00}
+.panel-red {border-color:#f44455}
+.panel-red > .panel-heading {background:#f44455}
 /*Panel Green*/
 .panel-green {border-color:#88BA00}
 .panel-green > .panel-heading {background:#88BA00}
@@ -667,10 +667,10 @@ Panels (Portlets) ----------*/
 
 /*progress-bar (colors)*/
 .progress {background:#e5e5e5}
-.progress-bar-e {background:#FF2A00}
+.progress-bar-e {background:#f44455}
 .progress-bar-blue {background:#007AFF}
 .progress-bar-orange {background:#FF5500}
-.progress-bar-red {background:#FF2A00}
+.progress-bar-red {background:#f44455}
 .progress-bar-purple {background:#855AED}
 .progress-bar-green {background:#88BA00}
 .progress-bar-brown {background:#B57F45}
@@ -680,7 +680,7 @@ Panels (Portlets) ----------*/
 .progress-bar-dark {background:#55555A}
 
 /*---------- Count Stars ----------*/
-.stars-existing {color:#FF2A00;cursor:pointer}
+.stars-existing {color:#f44455;cursor:pointer}
 .star-lg {font-size:30px}
 .star-sm {font-size:25px}
 .star-xs {font-size:20px}
@@ -784,7 +784,7 @@ img.img-circle {border-radius:50% !important}
 .color-black {color:#000}
 .color-grey {color:#888}
 .color-dark {color:#55555A}
-.color-red {color:#FF2A00}
+.color-red {color:#f44455}
 .color-green {color:#88BA00}
 .color-yellow {color:#FF9500}
 .color-blue {color:#007AFF}
@@ -801,7 +801,7 @@ img.img-circle {border-radius:50% !important}
 /*---------- Background Colors ----------*/
 .bg-color-dark,.bg-color-sea,.bg-color-red,.bg-color-aqua,.bg-color-blue,.bg-color-grey,.bg-color-green,.bg-color-brown,.bg-color-orange,.bg-color-green1,.bg-color-purple,.bg-color-dark-blue,.bg-color-light-grey,.bg-color-light-green {color:#fff}
 .bg-color-dark {background-color:#55555A !important}
-.bg-color-red {background-color:#FF2A00 !important}
+.bg-color-red {background-color:#f44455 !important}
 .bg-color-blue {background-color:#007AFF !important}
 .bg-color-grey {background-color:#95959A !important}
 .bg-color-green {background-color:#88BA00 !important}
