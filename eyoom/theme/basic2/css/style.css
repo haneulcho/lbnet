@@ -269,11 +269,13 @@ body {color:rgba(0,0,0,.87);min-width:330px;}
 .side-tab .nav-tabs > li > a {margin-right:0}
 .side-tab .tab-e2 .nav-tabs {border-bottom:1px solid #e5e5e5;background:#f8f8f8}
 .side-tab .tab-e2 .nav-tabs li {width:50%}
-.side-tab .tab-e2 .nav-tabs li a {padding:7px;background:none;border:1px solid #e5e5e5;border-bottom:none;border-right:none;font-weight:bold;font-size:12px;color:#555;text-align:center;display:block;overflow:hidden;white-space:nowrap;word-wrap:normal;text-overflow:ellipsis}
-.side-tab .tab-e2 .nav-tabs li.active a {background:#fff;color:#000;padding:7px;border-bottom:0;border-top:1px solid #f44455}
+.side-tab .tab-e2 .nav-tabs li a {padding:9px 7px 7px 7px;background:none;border:1px solid #e5e5e5;border-bottom:none;border-right:none;font-weight:bold;font-size:12px;color:#555;text-align:center;display:block;overflow:hidden;white-space:nowrap;word-wrap:normal;text-overflow:ellipsis}
+.side-tab .tab-e2 .nav-tabs li a i {margin-right:5px;}
+.side-tab .tab-e2 .nav-tabs li.active a {background:#fff;color:#f44455;border-bottom:0;border-top:1px solid #f44455}
 .side-tab .tab-e2 .nav-tabs li.last {border-right:1px solid #e5e5e5}
 .side-tab .tab-e2 .tab-content {position:relative;overflow:hidden;margin-bottom:0;padding:0;border:1px solid #e5e5e5;border-top:0}
-.side-tab .tab-e2 .tab-content-wrap {position:relative;display:block;overflow:hidden;padding:10px}
+.side-tab .tab-e2 .tab-content-wrap {position:relative;display:block;overflow:hidden;padding:0;background-color:#fff}
+.side-tab .tab-e2 .tab-content-wrap article a {display:block;padding:11px 15px;}
 
 /*---------- Footer ----------*/
 .footer {position:relative;z-index:1}

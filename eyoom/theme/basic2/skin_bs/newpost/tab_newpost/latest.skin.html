@@ -4,12 +4,14 @@
 	<!--{@ write}-->
     <article class="new-post">
 		<a href="{.href}">
-			<div class="post-subject">
-				<!--{? .wr_comment}--><span class="post-comment">+{=number_format(.wr_comment)}</span> <!--{/}-->{.wr_subject}
-			</div>
-			<span class="post-photo"><!--{? .mb_photo}-->{.mb_photo}<!--{:}--><span class="post-user-icon"><i class="fa fa-user"></i></span><!--{/}--></span>
-			<span class="post-nick">{.mb_nick}</span>
-			<span class="post-time"><i class="fa fa-clock-o {? .new}color-red{:}i-color{/}"></i> {eb->date_time('Y-m-d',.datetime)}</span>
+      <div class="lbtitle">
+        {.wr_subject}
+      </div>
+      <div class="lbdes">
+        <span class="lbnick"><i class="fa fa-user"></i>{.mb_nick}</span>
+        <span class="lbcomment"><i class="fa fa-comment-o"></i><!--{? .wr_comment}-->{=number_format(.wr_comment)}<!--{:}-->0<!--{/}--></span>
+        <span class="lbtime"><i class="fa fa-clock-o {? .new}color-red{:}i-color{/}"></i> {eb->date_time('m.d',.datetime)}</span>
+      </div>
 		</a>
     </article>
     <!--{:}-->
@@ -18,15 +20,8 @@
 </div>
 
 <style>
-.new-post{position:relative;overflow:hidden;padding:8px 0;border-top:1px solid #eee}
+.new-post{position:relative;overflow:hidden;padding:0;border-top:1px solid rgba(120,130,140,.13)}
 .new-post:first-child{border-top:none}
 .new-post .margin-hr-5 {height:1px;border-top:1px dotted #eee;margin:5px 0}
-.new-post .post-subject {display:block;text-overflow:ellipsis;white-space:nowrap;word-wrap:normal;overflow:hidden;font-size:12px}
-.new-post a:hover .post-subject {text-decoration:underline}
-.new-post .post-comment {display:inline-block;min-width:35px;padding:0px 3px;font-size:10px;font-weight:300;line-height:13px;color:#fff;text-align:center;white-space:nowrap;vertical-align:baseline;background-color:#74747a}
-.new-post .post-photo img {width:20px;height:20px;margin-right:2px}
-.new-post .post-photo .post-user-icon {width:20px;height:20px;font-size:14px;line-height:20px;text-align:center;background:#84848a;color:#fff;margin-right:2px;display:inline-block;white-space:nowrap;vertical-align:baseline}
-.new-post .post-nick {font-size:11px;color:#777}
-.new-post .post-time {font-size:11px;color:#777;margin-left:5px}
-.new-post .post-time .i-color {color:#bbb}
+.new-post .lbtitle {display:block;overflow:hidden;font-size:12px;line-height:1.1}
 </style>
