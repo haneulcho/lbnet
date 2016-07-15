@@ -45,7 +45,7 @@
 		$cmt_file = unserialize($list[$i]['wr_link2']);
 		if(is_array($cmt_file)) {
 			foreach($cmt_file as $k => $_file) {
-				if(preg_match('/(gif|jpg|png)/',strtolower($_file['source']))) {
+				if(preg_match('/(gif|jpg|jpeg|png)/',strtolower($_file['source']))) {
 					$comment[$i]['imgsrc'] = G5_DATA_URL . '/file/'.$bo_table.'/'.$_file['file'];
 					$comment[$i]['imgname'] = $_file['file'];
 				}
