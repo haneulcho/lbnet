@@ -125,7 +125,6 @@ function set_textarea_contents(type,value) {
 
 <div id="map_canvas" style="width:1000px;height:400px;display:none"></div>
 <section class="board-write">
-	<h4 class="board-write-title"><strong><!--{_g5.title}--></strong></h4>
 	<form name="fwrite" id="fwrite" action="{_action_url}" onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form">
 	<input type="hidden" name="uid" value="{_uid}">
 	<input type="hidden" name="w" value="{_w}">
@@ -146,47 +145,7 @@ function set_textarea_contents(type,value) {
 	<input type="hidden" name="wr_5" id="wr_5" value="{_wr_5}">
 	<input type="hidden" name="wmode" id="wmode" value="{_wmode}">
 	{_option_hidden}
-	<div class="tbl_frm01 tbl_wrap">
-		<section>
-			<div class="row">
-				<!--{? _is_name}-->
-				<div class="col col-3">
-					<label for="wr_name" class="label">이름<strong class="sound_only">필수</strong></label>
-					<label class="input margin-bottom-10">
-						<i class="icon-append fa fa-user"></i>
-						<input type="text" name="wr_name" value="{_name}" id="wr_name" required size="10" maxlength="20">
-					</label>
-				</div>
-				<!--{/}-->
-				<!--{? _is_password && !_is_admin}-->
-				<div class="col col-3">
-					<label for="wr_password" class="label">비밀번호<strong class="sound_only">필수</strong></label>
-					<label class="input margin-bottom-10">
-						<i class="icon-append fa fa-lock"></i>
-						<input type="password" name="wr_password" id="wr_password" required maxlength="20">
-					</label>
-				</div>
-				<!--{/}-->
-				<!--{? _is_email}-->
-				<div class="col col-3">
-					<label for="wr_email" class="label">이메일</label>
-					<label class="input margin-bottom-10">
-						<i class="icon-append fa fa-envelope-o"></i>
-						<input type="text" name="wr_email" value="{_email}" id="wr_email" size="50" maxlength="100">
-					</label>
-				</div>
-				<!--{/}-->
-				<!--{? _is_homepage}-->
-				<div class="col col-3">
-					<label for="wr_homepage" class="label">홈페이지</label>
-					<label class="input margin-bottom-10">
-						<i class="icon-append fa fa-home"></i>
-						<input type="text" name="wr_homepage" value="{_homepage}" id="wr_homepage" size="50">
-					</label>
-				</div>
-				<!--{/}-->
-			</div>
-		</section>
+	<div class="tbl_frm01 tbl_wrap" style="margin-top:-10px;">
 		<div class="clearfix"></div>
 		<section>
 			<div class="row">
@@ -201,7 +160,7 @@ function set_textarea_contents(type,value) {
 					</label>
 				</div>
 				<!--{/}-->
-				<div class="col col-8">
+				<div class="col col-8" style="margin-bottom:0">
 				<!--{? _is_notice || _is_html || _is_secret || _is_mail || _is_anonymous}-->
 					<!--{? _is_notice}-->
 					<label for="notice" class="checkbox"><input type="checkbox" id="notice" name="notice" value="1" {_notice_checked}><i></i>공지</label>
@@ -234,10 +193,9 @@ function set_textarea_contents(type,value) {
 				</div>
 			</div>
 		</section>
-		<div class="margin-hr-10"></div>
 		<section>
 			<div class="row">
-				<div class="col col-8 md-margin-bottom-10">
+				<div class="col col-8" style="margin-bottom:0;">
 					<label for="wr_subject" class="sound_only">제목<strong class="sound_only"> 필수</strong></label>
 					<label class="input">
                         <i class="icon-prepend fa fa-edit"></i>
@@ -245,22 +203,8 @@ function set_textarea_contents(type,value) {
                         <b class="tooltip tooltip-top-left">제목을 입력해 주세요.</b>
                     </label>
 				</div>
-				<!--{? _is_member //임시 저장된 글 기능}-->
-				<div class="col col-4 text-right">
-					<script src="../../../../../../js/autosave.js"></script>
-					<button type="button" id="btn_autosave" class="btn-e btn-e-red">임시 저장된 글 (<span id="autosave_count">{_autosave_count}</span>)</button>
-					<div id="autosave_pop">
-						<strong>임시 저장된 글 목록</strong>
-						<div><span class="autosave_close"><i class="fa fa-times"></i></span></div>
-						<div class="clearfix"></div>
-						<ul></ul>
-						<div><span class="autosave_close btn-e btn-e-dark btn-e-sm">닫기</span></div>
-					</div>
-				</div>
-				<!--{/}-->
 			</div>
 		</section>
-		<div class="margin-hr-10"></div>
 		<!--{? eyoom.use_tag == 'y' && eyoom_board.bo_use_tag == '1' && member.mb_level >= eyoom_board.bo_tag_level}-->
 		<section>
 			<div class="row">
@@ -418,7 +362,6 @@ function set_textarea_contents(type,value) {
 						<!--{/}-->
 					</div>
 				</div>
-				<div class="margin-bottom-10"></div>
 				<!--{? _write_min || _write_max}-->
 				<!--{* 최소/최대 글자 수 사용 시 *}-->
 				<p id="char_count_desc">이 게시판은 최소 <strong>{_write_min}</strong>글자 이상, 최대 <strong>{_write_max}</strong>글자 이하까지 글을 쓰실 수 있습니다.</p>
@@ -438,7 +381,7 @@ function set_textarea_contents(type,value) {
 		<section>
 			<!--{@ wr_file}-->
 			<div class="row">
-				<div class="col col-12">
+				<div class="col col-12" style="margin-bottom:7px;">
 					<label for="file" class="input input-file">
 						<div class="button bg-color-light-grey"><input type="file" id="file" name="bf_file[]" value="사진선택" title="파일첨부 {.key_+1} : 용량 {_upload_max_filesize} 이하만 업로드 가능" onchange="this.parentNode.nextSibling.value = this.value">파일{.key_+1} 선택</div><input type="text" readonly>
 					</label>
@@ -459,7 +402,6 @@ function set_textarea_contents(type,value) {
 				</div>
 				<!--{/}-->
 			</div>
-			<div class="margin-hr-10"></div>
 			<!--{/}-->
 		</section>
 		<!--{? !_is_member}-->
@@ -471,9 +413,9 @@ function set_textarea_contents(type,value) {
 		<!--{/}-->
 	</div>
 
-	<div class="text-center">
-		<input type="submit" value="작성완료" id="btn_submit" accesskey="s" class="btn-e btn-e-lg btn-e-yellow margin-top-m-2">
-		<a href="{? _wmode}javascript:history.go(-1){:}./board.php?bo_table={_bo_table}{/}" class="btn-e btn-e-lg btn-e-dark">취소</a>
+	<div class="text-center wwbtn">
+		<a href="{? _wmode}javascript:history.go(-1){:}./board.php?bo_table={_bo_table}{/}">취소</a>
+		<button type="submit" id="btn_submit"><i class="fa fa-paper-plane"></i>작성완료</button>
 	</div>
 	</form>
 </section>
@@ -641,11 +583,19 @@ function del_tags(tag, num) {
 </script>
 
 <style>
+.wwbtn {height:40px;overflow:hidden;}
+.wwbtn button, .wwbtn a {display:inline-block;box-sizing:border-box;height:40px;line-height:1;outline:0;border:0;color:#fff}
+.wwbtn button {background-color:#00bcd4;font-size:14px;padding:10px 15px;}
+.wwbtn button i {margin-right:6px;}
+.wwbtn button:hover, .wwbtn button:focus {background-color:#09a7bb;}
+.wwbtn a {vertical-align: -1px;background-color:#e0e0e0;color:#bbb;font-size:12px;padding:14px 10px 10px;}
+.wwbtn a:hover {color:#999;background-color:#eee;}
 .margin-hr-0 {height:1px;border-top:1px dotted #ddd;margin:0 0 10px;clear:both}
 .margin-hr-10 {height:1px;border-top:1px dotted #ddd;margin:10px 0;clear:both}
 .margin-top-m-2 {margin-top:-2px}
 .board-write .board-write-title {border-bottom:1px solid #e5e5e5;padding-bottom:10px}
-.board-write .tbl_frm01 textarea {width:97% !important;height:200px;border:1px solid #ddd;background:#fafafa;padding:10px;line-height:1.5}
+.board-write .tbl_frm01 textarea {width:97% !important;height:170px !important;border:1px solid #ddd;background:#fafafa;padding:10px;    font-size: 13px;
+    line-height: 1.35;}
 @media (max-width: 767px) {
 	.board-write .tbl_frm01 textarea {width:94% !important}
 }
@@ -682,6 +632,7 @@ html.no-overflowscrolling #autosave_pop {height:auto;max-height:10000px !importa
 .cke_bottom {background:#fafafa !important;border-top:1px solid #ddd !important;box-shadow:none !important}
 .cke_toolgroup {border:1px solid #c5c5c5 !important;border-bottom-color:#c5c5c5 !important;box-shadow:none !important;background:#fff !important;background-image:none !important}
 .cke_combo_button {border:1px solid #c5c5c5 !important;border-bottom-color:#c5c5c5 !important;box-shadow:none !important;background:#fff !important;background-image:none !important}
+.cke_sc {display:none}
 /* Summernote Style */
 .board-write .panel-default > .panel-heading {background:#f5f5f5;padding:0 0 5px 5px}
 .board-write .note-editor {overflow:inherit}
