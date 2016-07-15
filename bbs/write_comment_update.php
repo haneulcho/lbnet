@@ -295,7 +295,7 @@ else if ($w == 'cu') // 댓글 수정
                 and wr_is_comment = 1 ";
     $row = sql_fetch($sql);
     if ($row['cnt'] && !$is_admin)
-        alert('이 댓글와 관련된 답변댓글이 존재하므로 수정 할 수 없습니다.');
+        //alert('이 댓글와 관련된 답변댓글이 존재하므로 수정 할 수 없습니다.');
 
     $sql_ip = "";
     if (!$is_admin)

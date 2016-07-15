@@ -100,7 +100,11 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
             $tmp_comment_reply = substr($row['wr_comment_reply'], 0, strlen($row['wr_comment_reply']) - 1);
             if ($tmp_comment_reply == $list[$i-1]['wr_comment_reply'])
             {
-                $list[$i-1]['is_edit'] = false;
+                if ($list[$i-1]['mb_id'] == $member['mb_id']) {
+                  $list[$i-1]['is_edit'] = true;  // 루루아빠 수정 / 회원 본인의 댓글은 수정하기
+                } else {
+                  $list[$i-1]['is_edit'] = false;  // 루루아빠 수정 / 회원 본인의 댓글은 수정하기
+                }
                 $list[$i-1]['is_del'] = false;
             }
         }
