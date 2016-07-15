@@ -221,7 +221,6 @@ body {color:rgba(0,0,0,.87);min-width:330px;}
 }
 @media (max-width: 991px) {
 	.header-fixed .header-nav, .header-fixed .header-nav.header-fixed-trans {height:inherit;}
-	.header-fixed .header-nav.header-fixed-trans .nav-in-right, .header-fixed .header-nav.header-fixed-trans .menu-icons-list {margin-left:0;margin-right:20px}
 	.header-nav li.menu-icons i.menu-icons-style {color:#555}
 }
 /*Fixed Boxed*/
