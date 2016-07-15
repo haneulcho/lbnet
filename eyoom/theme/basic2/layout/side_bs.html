@@ -7,6 +7,13 @@
 		<!--{* 아웃로그인 *}-->
 		<!--{? eyoom.use_gnu_outlogin == 'y'}-->{=outlogin('basic')}<!--{:}-->{=eb_outlogin(eyoom.outlogin_skin)}<!--{/}-->
 	</div>
+	<!--{:}-->
+		<!--{? member.mb_id && member.mb_level > 1}-->
+			<div class="margin-bottom-20">
+				<!--{* 아웃로그인 모바일에서는 회원 로그인 시에만 아웃로그인 스킨을 보여준다 *}-->
+				<!--{? eyoom.use_gnu_outlogin == 'y'}-->{=outlogin('basic')}<!--{:}-->{=eb_outlogin(eyoom.outlogin_skin)}<!--{/}-->
+			</div>
+		<!--{/}-->
 	<!--{/}-->
 
 	<!--{* ------------- Side Nab 영역 시작 ------------- *}-->
