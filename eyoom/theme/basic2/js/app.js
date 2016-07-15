@@ -79,10 +79,12 @@ var App = function () {
 	        if (jQuery(window).scrollTop()>121){
 	            jQuery(".header-fixed .header-sticky").addClass("header-fixed-trans");
 	            jQuery(".header-fixed .header-sticky-space").addClass("header-fixed-space-trans");
+              jQuery(".basic-body .basic-body-side.right-side").addClass('scrolled');
 	        }
 	        else {
 	            jQuery(".header-fixed .header-sticky").removeClass("header-fixed-trans");
 	            jQuery(".header-fixed .header-sticky-space").removeClass("header-fixed-space-trans");
+              jQuery(".basic-body .basic-body-side.right-side").removeClass('scrolled');
 	        }
 	    });
 	}

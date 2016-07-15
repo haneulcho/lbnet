@@ -239,6 +239,7 @@ body {color:rgba(0,0,0,.87);min-width:330px;}
 .basic-body .basic-body-side {padding-top:25px;padding-bottom:25px}
 .basic-body .basic-body-side.left-side {margin-right:-1px;border-right:1px solid #e5e5e5}
 .basic-body .basic-body-side.right-side {margin-left:-1px;background-color:#f8f8f8;}
+.basic-body .basic-body-side.right-side.scrolled {padding-top:100px;}
 @media (max-width: 991px){
 	.basic-body .basic-body-main.left-main {border-right:0}
 	.basic-body .basic-body-main.right-main {border-left:0}
