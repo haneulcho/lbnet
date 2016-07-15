@@ -191,7 +191,7 @@ function fwrite_submit(f)
 							?>
               </div>
 							<div class="lbdes">
-								<span class="lbnick"><i class="fa fa-user"></i>{.wr_name}</span>
+								<span class="lbnick"><i class="fa fa-user"></i><!--{?.is_mine}-->{.wr_name}<b class="color-red">*</b><!--{:}-->{.wr_name}<!--{/}--></span>
 		            <span class="lbhit"><i class="fa fa-eye"></i>
 		            {=number_format(.wr_hit)}
 		            </span>

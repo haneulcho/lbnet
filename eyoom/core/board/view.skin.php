@@ -8,7 +8,7 @@
 	if(!$mb) $mb = get_member($view['mb_id']);
 	$user = $eb->get_user_info($mb['mb_id'])+$mb;
 	$lvuser = $eb->user_level_info($user);
-	
+
 	// wr_4 unserialize
 	$wr_4 = unserialize($view['wr_4']);
 	if(!$wr_4) $wr_4 = array();
@@ -25,13 +25,13 @@
 				}
 			}
 		}
-		
+
 		// 바로 블라인드 처리할 수 있는 권한인지 체크
 		if($is_admin || $member['mb_level'] >= $eyoom_board['bo_blind_direct'] ) {
 			$blind_direct = true;
 		}
 	}
-	
+
 	// 별점기능 사용여부
 	if($eyoom_board['bo_use_rating'] == '1') {
 		$mb_rating = $eb->mb_rating($member['mb_id'],$bo_table, $wr_id);
@@ -91,8 +91,8 @@
 		$file_conts .= "</div>\n";
 	}
 	$view_content = $eb->eyoom_content($view['content']);
-	
-	// 작성자 레벨정보 가져오기	
+
+	// 작성자 레벨정보 가져오기
 	if($view['wr_1']) {
 		$lv = $eb->level_info($view['wr_1']);
 	} else {
@@ -109,6 +109,9 @@
 		$view['mb_photo'] = $eb->mb_photo($view['mb_id']);
 	} else {
 		$view['mb_photo'] = '';
+		if ($member['mb_id'] == $view['mb_id']) {
+			$view['is_mine'] = true; // 내가 쓴 글 여부 변수에 담기
+		}
 		$view['mb_id'] = 'anonymous';
 		$view['wr_name'] = '익명';
 		$view['wr_email'] = '';
@@ -155,7 +158,7 @@
 
 	// wr_1에 작성자의 레벨정보 입력
 	if($is_member) $wr_1 = $member['mb_level']."|".$eyoomer['level'];
-	
+
 	// 태그 정보
 	if ($eyoom['use_tag'] == 'y' && $eyoom_board['bo_use_tag'] == '1') {
 		$tag_info = $eb->get_tag_info($bo_table, $wr_id);

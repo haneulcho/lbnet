@@ -49,6 +49,9 @@
 				$list[$key]['gnu_icon'] = $level['gnu_icon'];
 				$list[$key]['eyoom_icon'] = $level['eyoom_icon'];
 			} else {
+        if ($member['mb_id'] == $list[$key]['mb_id']) {
+          $list[$key]['is_mine'] = true; // 내가 쓴 글 여부 변수에 담기
+        }
 				$list[$key]['mb_id'] = 'anonymous';
 				$list[$key]['wr_name'] = '익명';
 				$list[$key]['email'] = '';

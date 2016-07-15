@@ -4,7 +4,7 @@
   <section class="board-view-info">
       <div class="pull-left">
         <div class="lbdes">
-          <span class="lbnick"><i class="fa fa-user"></i>{view.wr_name}</span>
+          <span class="lbnick"><i class="fa fa-user"></i><!--{?view.is_mine}-->{view.wr_name}<b class="color-red">*</b><!--{:}-->{view.wr_name}<!--{/}--></span>
           <span class="lbhit"><i class="fa fa-eye"></i>
           {=number_format(view.wr_hit)}
           </span>
