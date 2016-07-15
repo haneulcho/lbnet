@@ -69,6 +69,9 @@
 				if ($member['mb_id'] == $comment[$i]['mb_id']) {
           $comment[$i]['is_mine'] = true; // 내가 쓴 댓글 여부 변수에 담기
         }
+				if ($view['lb_id'] == $comment[$i]['mb_id']) {
+					$comment[$i]['is_origin'] = true; // 글쓴이와 댓글쓴이 일치 여부 변수에 담기
+				}
 				$comment[$i]['mb_id'] = 'anonymous';
 				$comment[$i]['wr_name'] = '익명';
 				$comment[$i]['email'] = '';

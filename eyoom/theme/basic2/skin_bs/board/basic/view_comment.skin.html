@@ -73,7 +73,7 @@ var char_max = parseInt({_comment_max}); // 최대
 			<div class="comment-item-body-pn">
 				<div style="padding:10px 12px 6px">
 				<div class="comment-item-info" style="{? .cmt_depth && !.is_cmt_best}padding-left:{.cmt_depth}px;{/}">
-					<span class="comment-name{? .cmt_depth && !.is_cmt_best} lbdepth{/}"><!--{?.is_mine}-->{.wr_name}<b class="color-red">*</b><!--{:}-->{.wr_name}<!--{/}--></span> <!--{? .is_cmt_best}--><span class="badge badge-purple">BEST {.index_+1}</span><!--{/}--><!--{? _is_ip_view && _is-admin}--> <span class="comment-ip">{.ip}</span><!--{/}-->
+					<span class="comment-name{? .cmt_depth && !.is_cmt_best} lbdepth{/}"><!--{?.is_origin}--><b style="color-blue">{.wr_name}</b><!--{:}-->{.wr_name}<!--{/}--><!--{?.is_mine}--><b class="color-red">*</b><!--{/}--></span> <!--{? .is_cmt_best}--><span class="badge badge-purple">BEST {.index_+1}</span><!--{/}--><!--{? _is_ip_view && _is-admin}--> <span class="comment-ip">{.ip}</span><!--{/}-->
 					<span class="lbctime lbdes">
 					<!--{? eyoom_board.bo_sel_date_type == '1'}-->
 					<i class="fa fa-clock-o color-grey"></i> {eb->date_time('m.d H:i',.datetime)}
