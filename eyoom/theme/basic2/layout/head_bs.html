@@ -138,6 +138,14 @@ add_stylesheet('<link rel="stylesheet" href="../css/custom.css" type="text/css" 
                   <!--{* 안내: 출력되는 이미지로고 크기는 167 x 40 픽셀입니다. 선명도 최적화를 위해 334 x 80 픽셀 사이즈로 image 폴더에 업로드 하시길 권합니다. *}-->
                   <a class="navbar-brand" href="{C.G5_URL}"><img src="../image/site_logo.png" class="img-responsive" alt="{config.cf_title} LOGO"></a>
                   <!--{/}-->
+
+                  <!--{? defined('_INDEX_') || defined('_EYOOM_MYPAGE_')}-->
+            	    <!--{:}-->
+                    <!--{? C.G5_IS_MOBILE}-->
+              	            <span class="lbbread"><i class="fa fa-map-marker"></i> {subinfo.title}</span>
+                    <!--{/}-->
+            	    <!--{/}-->
+
                       </div>
                       <!--{* ------------- Header Logo 영역 끝 ------------- *}-->
 	                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -236,14 +244,13 @@ add_stylesheet('<link rel="stylesheet" href="../css/custom.css" type="text/css" 
 	    <!--{? defined('_INDEX_') || defined('_EYOOM_MYPAGE_')}-->
 	    <!--{:}-->
 	    <!--{* Page Title *}-->
-	    <div class="board-title">
-	        <div class="container">
-	            <h3 class="pull-left"><i class="fa fa-map-marker"></i> {subinfo.title}</h3>
-	            <ul class="pull-right breadcrumb">
-					{subinfo.path}
-	            </ul>
-	        </div>
-	    </div>
+        <!--{? !C.G5_IS_MOBILE}-->
+  	    <div class="board-title">
+  	        <div class="container">
+  	            <h3 class="pull-left"><i class="fa fa-map-marker"></i> {subinfo.title}</h3>
+  	        </div>
+  	    </div>
+        <!--{/}-->
 	    <!--{* End Board Title *}-->
 	    <!--{/}-->
 

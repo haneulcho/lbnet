@@ -28,20 +28,52 @@
 .lbcontents {margin-top:6px;margin-bottom:12px;color:#777}
 .lbtitle .lbcomment,
 .lbdes {font-size:11px;color:#818a91;line-height:1;}
+.board-view-info .lbdes {color:#666;}
 .lbtitle .lbcomment i,
-.lbdes i {margin-right:3px;}
+.lbdes i {margin-right:1px;}
 .lbdes span {margin-right:7px;}
-.lbnick {}
-.lbtime {}
-.lbcomment {}
+.lbcbtn li {float:left;display:inline-block;}
+.lbcbtn li a {display:inline-block;padding:5px;font-size:12px;color:#818a91;line-height:1;}
+.lbcbtn li i {margin-right:1px;}
+.lbcbtn li a:hover,
+.lbcbtn li:last-child a:hover {color:#f44455}
+.lbcbtn li:last-child a{color:#00bcd4;}
+.lbcbtn li:last-child a i {margin-right:2px;}
+.lbbread {display:inline-block;position:relative;float:left;margin-left:8px;color:#00bcd4 !important;font-weight:bold;font-size:15px;margin-top:11px;}
+.lbbread:before {
+  content:'';
+  position:absolute;
+  width:1px;
+  height:12px;
+  top:6px;left:-14px;
+  background-color:#00bcd4;
+}
+/* view.skin.html */
+.board-view {background-color:#fff;box-shadow:0 1px 1px rgba(90,90,90,0.1);}
+.lbvtitle {margin:0;padding:18px 2px 10px;line-height:1.35;font-size:18px}
 /* list.skin.html 글쓰기 영역 */
 .lbrow, .lbtop, .lbbottom {overflow:hidden;}
 .lbtop {margin-bottom:5px;}
 .lbsubject {position:relative;width:100%;padding-right:70px;box-sizing:border-box;}
 .lbanonymous {position:absolute;top:0;right:0;}
+.lbdepth:before {
+  content:'\f061';
+  font-family:'FontAwesome';
+  position:absolute;
+  top:0;
+  left: -15px;
+  font-size: 11px;
+  color: #adb6bd;
+}
+.lbbtn_light {outline:0;color:#818a91;line-height:1;font-size:11px;display:inline-block;padding:6px 8px;background-color:#f5f5f5;border:0;}
+.lbbtn_light i {font-size:13px;margin-right:3px;}
+.lbimage {display:inline-block;margin-left:15px;padding:4px 0;}
+.lbimage a {display:inline-block;color:#474A5E;}
+.lbimage a i {font-size:14px;margin-right:5px;}
 .lbbottom {position:relative;}
 .lbsubmit {position:absolute;top:0;right:0;width:70px;height:36px;}
 .lbsubmit button {display:block;text-align:center;width:100%;height:100%;box-sizing:border-box;}
+.lbwoption {margin-bottom:0 !important;}
 @media (min-width:700px) {
 	.lbsubject {width:76%}
 }

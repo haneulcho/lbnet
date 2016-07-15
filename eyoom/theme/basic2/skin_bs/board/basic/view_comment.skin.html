@@ -4,10 +4,22 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.cs
 
 <style>
 .comment-area {font-size:12px}
+.comment-write-wrap textarea#wr_content {height:90px !important;border: 1px solid #ddd;background: #fafafa;
+	box-sizing: border-box;
+width: 100% !important;
+-webkit-transition: all ease-in-out .2s;
+-moz-transition: all ease-in-out .2s;
+-o-transition: all ease-in-out .2s;
+transition: all ease-in-out .2s;
+font-size: 12px;
+line-height: 1.35;
+}
+.comment-write-wrap textarea#wr_content:focus {background:#fff;}
+.comment-area .eyoom-form .checkbox {padding-left:22px;}
 .comment-area .margin-hr-15 {height:1px;border-top:1px solid #ccc;margin:15px 0;clear:both}
-.view-comment {position:relative;font-size:12px;position:relative}
+.view-comment {position:relative;font-size:12px;padding:0;border-top:1px solid rgba(120,130,140,.13);}
 .view-comment h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
-.view-comment-item {position:relative;padding:10px 0;border-top:1px solid #e5e5e5}
+.view-comment-item {position:relative;}
 .view-comment-item .no-comment {text-align:center;padding:10px 0 20px;border-bottom:1px solid #e5e5e5}
 .view-comment-no-item {position:relative;padding:10px 0;border-top:1px solid #e5e5e5}
 .view-comment-no-item .no-comment {text-align:center;padding:10px 0 20px;border-bottom:1px solid #e5e5e5}
@@ -22,15 +34,24 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.cs
 	.view-comment .view-comment-photo img {width:30px;height:30px}
 	.view-comment .comment-item-body {padding-left:40px}
 }
-.view-comment .comment-item-body-pn {padding-left:0}
+.view-comment .comment-item-body-pn {padding:0;}
 .view-comment .comment-item-info {position:relative;margin-bottom:5px}
 .view-comment .comment-item-info span {margin-right:3px}
+.view-comment .comment-item-info .comment-name {position:relative;}
 .view-comment .comment-ip {font-size:11px;color:#aaa}
-.view-comment .comment-time {float:right;font-size:11px}
-.view-comment .comment-btn .list-inline > li {padding-left:1px;padding-right:1px}
-.comment-area .comment-write-wrap {position:relative; border-top:1px solid #e5e5e5;margin-top:10px;padding:10px 0 0}
+.view-comment .comment-time {float:right;margin-right:-5px !important;margin-top:-3px;}
+.view-comment .comment-btn,
+.view-comment .comment-btn .list-inline {overflow:hidden;}
+.view-comment .comment-btn .list-inline {margin:0;}
+.view-comment .comment-btn .list-inline > li {padding-left:1px;padding-right:1px;margin-left:5px;}
+.view-comment .comment-btn .list-inline > li a strong {font-weight:normal}
+.view-comment .comment-btn .list-inline > li a {color:#bbb;}
+.view-comment .comment-btn .list-inline > li a:hover,
+.view-comment .comment-btn .list-inline > li a span.wow {color:#f44455}
+
+.comment-area .comment-write-wrap {position:relative; border-top:1px solid #e5e5e5;margin-top:0px;padding:15px}
 .comment-area .comment-write-submit {position:relative;text-align:right}
-.comment-area .comment-function-box {margin-top:10px;border:1px solid #e5e5e5;padding:15px 10px}
+.comment-area .comment-function-box {margin-bottom:5px;}
 #bo_vc_send_sns ul{padding:0;margin:-5px 0 20px;overflow:hidden}
 #bo_vc_send_sns li{float:left;margin-right:10px;list-style:none}
 #bo_vc_send_sns li input{margin:10px 25px 10px 5px}
@@ -46,42 +67,35 @@ var char_max = parseInt({_comment_max}); // 최대
 
 <div class="comment-area">
 	<!--{* 댓글 시작 *}-->
+	<!--{@ cmt_list}-->
 	<div class="view-comment">
-		<h5><strong>댓글목록</strong></h5>
-		<!--{@ cmt_list}-->
-		<h2>{.wr_name}님의 댓글</h2>
-		<div id="c_{.comment_id}" class="view-comment-item {? .is_cmt_best}cmt-best{/}" style="{? .cmt_depth && !.is_cmt_best}margin-left:{.cmt_depth}px;{/}">
-			<!--{? eyoom_board.bo_use_profile_photo}-->
-			<div class="media-photo">
-				<span class="view-comment-photo"><!--{? .mb_photo}-->{.mb_photo}<!--{:}--><span class="comment-user-icon"><i class="fa fa-user"></i></span><!--{/}--></span>
-			</div>
-			<div class="comment-item-body">
-			<!--{:}-->
+		<div id="c_{.comment_id}" class="view-comment-item {? .is_cmt_best}cmt-best{/}">
 			<div class="comment-item-body-pn">
-			<!--{/}-->
-				<div class="comment-item-info">
-					<!--{? .gnu_icon}-->
-					<span style="display:inline-block;margin-right:2px"><img src="{.gnu_icon}" align="absmiddle"></span>
+				<div style="padding:10px 12px 6px">
+				<div class="comment-item-info" style="{? .cmt_depth && !.is_cmt_best}padding-left:{.cmt_depth}px;{/}">
+					<span class="comment-name{? .cmt_depth && !.is_cmt_best} lbdepth{/}">{.wr_name}</span> <!--{? .is_cmt_best}--><span class="badge badge-purple">BEST {.index_+1}</span><!--{/}--><!--{? _is_ip_view && _is-admin}--> <span class="comment-ip">{.ip}</span><!--{/}-->
+					<span class="lbctime lbdes">
+					<!--{? eyoom_board.bo_sel_date_type == '1'}-->
+					<i class="fa fa-clock-o color-grey"></i> {eb->date_time('m.d H:i',.datetime)}
+					<!--{: eyoom_board.bo_sel_date_type == '2'}-->
+					<i class="fa fa-clock-o color-grey"></i> {eb->date_format('m.d H:i',.datetime)}</span>
 					<!--{/}-->
-					<!--{? .eyoom_icon}-->
-					<span style="display:inline-block;margin-right:2px"><img src="{.eyoom_icon}" align="absmiddle"></span>
-					<!--{/}-->
-					<span class="comment-name">{=eb_nameview('basic', .mb_id, .wr_name, .wr_email, .wr_homepage)}</span> <!--{? .is_cmt_best}--><span class="badge badge-purple">BEST {.index_+1}</span><!--{/}--><!--{? _is_ip_view}--> <span class="comment-ip">{.ip}</span><!--{/}-->
 					<span class="comment-time">
-						<!--{? eyoom_board.bo_sel_date_type == '1'}-->
-						<i class="fa fa-clock-o color-grey"></i> {eb->date_time('Y.m.d H:i',.datetime)}
-						<!--{: eyoom_board.bo_sel_date_type == '2'}-->
-						<i class="fa fa-clock-o color-grey"></i> {eb->date_format('Y.m.d H:i',.datetime)}
-						<!--{/}-->
+						<ul class="lbcbtn">
+						<!--{? .is_edit}--><li><a href="{.c_edit_href}" onclick="comment_box('{.comment_id}', 'cu'); return false;"><i class="fa fa-pencil"></i></a></li><!--{/}-->
+						<!--{? .is_del}--><li><a href="{.del_link}" onclick="return comment_delete();"><i class="fa fa-trash-o"></i></a></li><!--{/}-->
+						<!--{? .is_reply}--><li><a href="{.c_reply_href}" onclick="comment_box('{.comment_id}', 'c'); return false;"><i class="fa fa-comment-o"></i>댓글</a></li><!--{/}-->
+						</ul>
 					</span>
 				</div>
 
+				<div class="comment-item-contents" style="{? .cmt_depth && !.is_cmt_best}padding-left:{.cmt_depth}px;{/}">
 				<!--{? .yc_blind && .yc_cannotsee}-->
-				<p class="text-center">-- 이글은 블라인드 처리된 댓글입니다. --</p>
+				<p>이글은 블라인드 처리된 댓글입니다.</p>
 				<!--{:}-->
 				<p>
 					<!--{? .yc_blind}-->
-					<p class="text-center">-- 이글은 블라인드 처리된 댓글입니다. --</p>
+					<p>이글은 블라인드 처리된 댓글입니다.</p>
 					<!--{/}-->
 					<!--{? strstr(.wr_option, 'secret')}--><i class="fa fa-lock color-red"></i> <!--{/}-->
 					<!--{? .imgsrc}-->
@@ -90,37 +104,21 @@ var char_max = parseInt({_comment_max}); // 최대
 					{.comment}
 				</p>
 				<!--{/}-->
+				</div>
 
 				<div class="comment-btn">
 					<!--{? .is_reply || .is_edit || .is_del || .c_good_href || .c_nogood_href}-->
 					<ul class="list-inline reply-list pull-right">
-						<!--{? .is_reply}--><li><a href="{.c_reply_href}" onclick="comment_box('{.comment_id}', 'c'); return false;" class="btn-e btn-e-xs btn-e-red">댓글</a></li><!--{/}-->
-						<!--{? .is_edit}--><li><a href="{.c_edit_href}" onclick="comment_box('{.comment_id}', 'cu'); return false;" class="btn-e btn-e-xs btn-e-light-grey">수정</a></li><!--{/}-->
-						<!--{? .is_del}--><li><a href="{.del_link}" onclick="return comment_delete();" class="btn-e btn-e-xs btn-e-light-grey">삭제</a></li><!--{/}-->
 						<!--{? .c_good_href}-->
-						<li class="margin-left-5"><a href="{.c_good_href}" id="goodcmt_button_{.comment_id}" class="goodcmt_button btn-e btn-e-dark btn-e-xs" type="button" title="공감"><i class="fa fa-thumbs-up color-light-grey"></i> <strong class="board-cmt-act-good">{? .good}<span class="color-yellow">{.good}</span>{:}<span class="color-light-grey">0</span>{/}</strong></a></li>
+						<li class="margin-left-5"><a href="{.c_good_href}" id="goodcmt_button_{.comment_id}" class="goodcmt_button" type="button" title="공감"><i class="fa fa-thumbs-up"></i> <strong class="board-cmt-act-good">{? .good}<span class="wow">{.good}</span>{:}<span>0</span>{/}</strong></a></li>
 						<!--{/}-->
 						<!--{? .c_nogood_href}-->
-						<li><a href="{.c_nogood_href}" id="nogoodcmt_button_{.comment_id}" class="nogoodcmt_button btn-e btn-e-dark btn-e-xs" type="button" title="비공감"><i class="fa fa-thumbs-down color-light-grey"></i> <strong class="board-cmt-act-nogood">{? .nogood}<span class="color-red">{.nogood}</span>{:}<span class="color-light-grey">0</span>{/}</strong></a></li>
+						<li><a href="{.c_nogood_href}" id="nogoodcmt_button_{.comment_id}" class="nogoodcmt_button" type="button" title="비공감"><i class="fa fa-thumbs-down"></i> <strong class="board-cmt-act-nogood">{? .nogood}<span>{.nogood}</span>{:}<span>0</span>{/}</strong></a></li>
 						<!--{/}-->
-						<!--{? eyoom_board.bo_use_yellow_card == '1' }-->
-			            	<!--{? !.mb_ycard.mb_id }-->
-			            <li id="cmt_yellow_card_li_{.comment_id}" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="신고"><button id="cmt_yellow_card_{.comment_id}" class="btn-e btn-e-light-grey btn-e-xs cmt_yellow_card" data-toggle="modal" data-target=".yellowcard-modal" data-cmt-id="{.comment_id}"><i class="fa fa-trash"></i> <span>{=number_format(.yc_count)}</span></button></li>
-			            	<!--{:}-->
-			            <li id="cancel_cmt_yellow_card_li_{.comment_id}" data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="신고취소"><button id="cancel_cmt_yellow_card_{.comment_id}" class="btn-e btn-e-dark btn-e-xs cancel_cmt_yellow_card" data-cmt-id="{.comment_id}"><i class="fa fa-trash"></i> <span>{=number_format(.yc_count)}</span></button></li>
-							<!--{/}-->
-
-			                <!--{? _blind_direct}-->
-			                	<!--{? .yc_blind != 'y'}-->
-			            <li data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Blind"><button id="direct_cmt_blind_li_{.comment_id}" class="btn-e btn-e-light-grey btn-e-xs btn-cmt-blind" data-cmt-id="{.comment_id}"><i class="fa fa-eye-slash"></i></button></li>
-			            		<!--{: .yc_blind == 'y'}-->
-			            <li data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Cancel"><button id="cancel_cmt_blind_li_{.comment_id}" class="btn-e btn-e-dark btn-e-xs btn-cmt-blind" data-cmt-id="{.comment_id}"><i class="fa fa-eye"></i></button></li>
-			            		<!--{/}-->
-			                <!--{/}-->
-
-			            <!--{/}-->
 					</ul>
 					<!--{/}-->
+				</div>
+
 				</div>
 				<div class="clearfix"></div>
 
@@ -134,12 +132,8 @@ var char_max = parseInt({_comment_max}); // 최대
 				<div class="clearfix"></div>
 			</div>
 		</div>
-		<!--{:}-->
-		<div class="view-comment-no-item">
-			<p id="bo_vc_empty" class="no-comment"><i class="fa fa-exclamation-circle"></i> 등록된 댓글이 없습니다.</p>
-		</div>
-		<!--{/}-->
 	</div>
+		<!--{/}-->
 	<!--{? eyoom_board.bo_use_cmt_infinite == '1'}-->
 	<div id="infinite_pagination">
 	    <a class="next" href="{C.G5_BBS_URL}/board.php?bo_table={_bo_table}&wr_id={_wr_id}&sca={_sca}&cpage={cpage+1}"></a>
@@ -152,7 +146,7 @@ var char_max = parseInt({_comment_max}); // 최대
 	<!--{/}-->
 	<!--{* 댓글 끝 *}-->
 
-	<div class="margin-hr-15"></div>
+
 
 	<!--{* 댓글 쓰기 시작 *}-->
 	<!--{? _is_comment_write}-->
@@ -173,7 +167,7 @@ var char_max = parseInt({_comment_max}); // 최대
 			<input type="hidden" name="cmt_amt" value="{_cmt_amt}">
 			<input type="hidden" name="wmode" value="{_wmode}">
 
-			<h5><strong>댓글쓰기</strong></h5>
+<!-- 댓글 쓰기 영역 -->
 			<div class="comment-write-wrap">
 				<div class="row">
 					<!--{? !_is_member}-->
@@ -192,10 +186,15 @@ var char_max = parseInt({_comment_max}); // 최대
 						</label>
 					</section>
 					<!--{/}-->
-					<section class="col col-4">
-						<label class="checkbox pull-left"><input type="checkbox" name="wr_secret" value="secret" id="wr_secret"><i></i>비밀글 사용</label>
+					<section class="col lbwoption">
 						<!--{? _is_anonymous}-->
-						<label class="checkbox pull-left margin-left-10"><input type="checkbox" name="anonymous" value="y" id="anonymous"><i></i>익명글 사용</label>
+						<label class="checkbox pull-left"><input type="checkbox" name="anonymous" value="y" id="anonymous" checked><i></i>익명글</label>
+						<!--{/}-->
+						<label class="checkbox pull-left" style="margin-left:15px;"><input type="checkbox" name="wr_secret" value="secret" id="wr_secret"><i></i>비밀글</label>
+						<!--{? eyoom_board.bo_use_addon_cmtimg == '1'}-->
+						<span class="lbimage">
+						<a data-toggle="collapse" data-parent="#comment-option" href="#collapse-image-cm"><i class="fa fa-picture-o"></i>이미지 첨부</a>
+						</span>
 						<!--{/}-->
 						<div class="clearfix"></div>
 					</section>
@@ -210,23 +209,11 @@ var char_max = parseInt({_comment_max}); // 최대
 				<section>
 					<div id="comment-option">
 						<div class="panel panel-default" style="border:0;margin-bottom:0;box-shadow:none">
-							<!--{? eyoom_board.bo_use_addon_cmtimg == '1'}-->
-							<a class="btn-e btn-e-xs btn-e-default" data-toggle="collapse" data-parent="#comment-option" href="#collapse-image-cm">이미지첨부</a>
-							<!--{/}-->
 							<!--{? eyoom_board.bo_use_addon_video == '1'}-->
 							<a class="btn-e btn-e-xs btn-e-default" data-toggle="collapse" data-parent="#comment-option" href="#collapse-video-cm">동영상</a>
 							<!--{/}-->
 							<!--{? eyoom_board.bo_use_addon_soundcloud== '1'}-->
 							<a class="btn-e btn-e-xs btn-e-default" data-toggle="collapse" data-parent="#comment-option" href="#collapse-sound-cm">사운드클라우드</a>
-							<!--{/}-->
-							<!--{? eyoom_board.bo_use_addon_coding== '1'}-->
-							<a class="btn-e btn-e-xs btn-e-default" data-toggle="collapse" data-parent="#comment-option" href="#collapse-code-cm">코드</a>
-							<!--{/}-->
-							<!--{? eyoom_board.bo_use_addon_map== '1'}-->
-							<a class="btn-e btn-e-xs btn-e-default" data-toggle="collapse" data-parent="#comment-option" href="#collapse-map-cm">지도</a>
-							<!--{/}-->
-							<!--{? eyoom_board.bo_use_addon_emoticon== '1'}-->
-							<a class="btn-e btn-e-xs btn-e-dark pull-right emoticon" data-type="iframe" title="이모티콘" href="{C.EYOOM_CORE_URL}/board/emoticon.php">이모티콘</a>
 							<!--{/}-->
 							<div class="clearfix"></div>
 							<div id="collapse-image-cm" class="panel-collapse collapse">
@@ -265,83 +252,9 @@ var char_max = parseInt({_comment_max}); // 최대
 								</div>
 							</div>
 							<!--{/}-->
-							<!--{? eyoom_board.bo_use_addon_map == '1'}-->
-							<div id="collapse-map-cm" class="panel-collapse collapse">
-								<div class="comment-function-box">
-									<div class="row">
-					                    <div class="col col-2 md-margin-bottom-10">
-											<label class="input">
-												<i class="icon-append fa fa-question-circle"></i>
-					                        	<input type="text" name="map_zip" id="map_zip" size="5" maxlength="6">
-					                        	<b class="tooltip tooltip-top-right">우편번호</b>
-											</label>
-					                    </div>
-					                    <div class="col col-2 text-right md-margin-bottom-10">
-					                    	<button type="button" onclick="win_zip('fviewcomment', 'map_zip', 'map_addr1', 'map_addr2', 'map_addr3', 'map_addr_jibeon');" class="btn-e btn-e-dark">주소 검색</button>
-					                    </div>
-					                    <div class="col col-6 inline-group">
-							                <label class="radio" for="map_type_1">
-							                	<input type="radio" name="map_type" id="map_type_1" value="1" checked="checked"><i class="rounded-x"></i> Google지도
-							                </label>
-							                <label class="radio" for="map_type_2">
-							                	<input type="radio" name="map_type" id="map_type_2" value="2"><i class="rounded-x"></i> 네이버지도
-							                </label>
-							                <label class="radio" for="map_type_3">
-							                	<input type="radio" name="map_type" id="map_type_3" value="3"><i class="rounded-x"></i> 다음지도
-							                </label>
-					                    </div>
-				                    </div>
-				                    <div class="margin-bottom-10"></div>
-				                    <div class="row">
-					                    <div class="col col-10">
-							                <label class="input">
-							                	<input type="text" name="map_addr1" id="map_addr1" size="50">
-							                </label>
-							                <div class="note margin-bottom-10"><strong>Note:</strong> 기본주소</div>
-					                    </div>
-				                    </div>
-				                    <div class="row">
-					                    <div class="col col-5">
-							                <label class="input">
-							                	<input type="text" name="map_addr2" id="map_addr2" size="50">
-							                </label>
-							                <div class="note margin-bottom-10"><strong>Note:</strong> 상세주소</div>
-					                    </div>
-					                    <div class="col col-5">
-							                <label class="input">
-							                	<input type="text" name="map_name" id="map_name" size="50">
-							                </label>
-							                <div class="note margin-bottom-10"><strong>Note:</strong> 장소명</div>
-					                    </div>
-					                    <input type="hidden" name="map_addr3" id="map_addr3" value="">
-					                    <input type="hidden" name="map_addr_jibeon" value="">
-					                    <div class="col col-2 text-right">
-						                    <a href="javascript:;" class="btn-e btn-e-yellow" style="width:60px;padding:5px 12px;text-align: center;" id="btn_map" onclick="return false;">적용</a>
-					                    </div>
-				                    </div>
-								</div>
-							</div>
-							<!--{/}-->
-							<!--{? eyoom_board.bo_use_addon_coding == '1'}-->
-							<div id="collapse-code-cm" class="panel-collapse collapse">
-								<div class="comment-function-box">
-									<a href="javascript:;" class="ch_code btn-e-xs" onclick="return false;">HTML</a>
-									<a href="javascript:;" class="ch_code btn-e-xs" onclick="return false;">PHP</a>
-									<a href="javascript:;" class="ch_code btn-e-xs" onclick="return false;">CSS</a>
-									<a href="javascript:;" class="ch_code btn-e-xs" onclick="return false;">JS</a>
-									<a href="javascript:;" class="ch_code btn-e-xs" onclick="return false;">JAVA</a>
-									<a href="javascript:;" class="ch_code btn-e-xs" onclick="return false;">XML</a>
-									<a href="javascript:;" class="ch_code btn-e-xs" onclick="return false;">PYTHON</a>
-									<a href="javascript:;" class="ch_code btn-e-xs" onclick="return false;">RUBY</a>
-									<a href="javascript:;" class="ch_code btn-e-xs" onclick="return false;">SASS</a>
-									<a href="javascript:;" class="ch_code btn-e-xs" onclick="return false;">SCALA</a>
-									<a href="javascript:;" class="ch_code btn-e-xs" onclick="return false;">SQL</a>
-								</div>
-							</div>
-							<!--{/}-->
+
 						</div>
 					</div>
-					<div class="margin-bottom-10"></div>
 					<label class="textarea textarea-resizable">
 						<!--{? _comment_min || _comment_max}--><strong id="char_cnt"><span id="char_count"></span>글자</strong><!--{/}-->
 						<textarea rows="7" id="wr_content" name="wr_content" maxlength="10000" required title="내용" {? _comment_min || _comment_max}onkeyup="check_byte('wr_content', 'char_count');"{/}>{_c_wr_content}</textarea>
@@ -357,7 +270,6 @@ var char_max = parseInt({_comment_max}); // 최대
 						});
 						</script>
 					</label>
-					<div class="note"><strong>Note:</strong> 댓글은 자신을 나타내는 얼굴입니다. 무분별한 댓글, 욕설, 비방 등을 삼가하여 주세요.</div>
 				</section>
 
 				<!--{? !_is_member}-->
@@ -366,22 +278,16 @@ var char_max = parseInt({_comment_max}); // 최대
 					<div class="vc-captcha">{_captcha_html}</div>
 				</section>
 				<!--{/}-->
+				<div class="comment-write-submit">
+					<button type="submit" id="btn_submit" class="btn-e btn-e-lg btn-e-yellow" value="댓글등록"><i class="fa fa-paper-plane" aria-hidden="true"></i> 입력</button>
+				</div>
 			</div>
 
-			<div class="comment-write-submit">
-				<button type="submit" id="btn_submit" class="btn-e btn-e-lg btn-e-yellow" value="댓글등록">댓글등록</button>
-			</div>
 		</form>
 	</div>
 	<!--{/}-->
 	<!--{* 댓글 쓰기 끝 *}-->
-	<div class="margin-hr-15"></div>
 </div><!--{* End comment-area *}-->
-
-<!--{? eyoom_board.bo_use_addon_map == '1'}-->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-<!--{/}-->
-<div id="map_canvas" style="width:1000px;height:400px;display:none"></div>
 
 <!--{? eyoom_board.bo_use_cmt_infinite == '1'}-->
 <script type="text/javascript" src="../../../plugins/masonry/jquery.masonry.min.js"></script>
@@ -391,38 +297,6 @@ var char_max = parseInt({_comment_max}); // 최대
 <script>
 var save_before = '';
 var save_html = document.getElementById('view-comment-write').innerHTML;
-
-<!--{? eyoom_board.bo_use_addon_emoticon == '1'}-->
-function set_emoticon(emoticon) {
-	var type='emoticon';
-	set_textarea_contents(type,emoticon);
-}
-<!--{/}-->
-
-<!--{? eyoom_board.bo_use_addon_map == '1'}-->
-function set_map_address(map_type, map_addr1, map_addr2, map_name) {
-	geocoder = new google.maps.Geocoder();
-	var subgps;
-	var latlng = new google.maps.LatLng('');
-	var myOptions = {
-		zoom: 16,
-		center: latlng,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	};
-	gmap = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-	var address = map_addr1 + " " + map_addr2;
-	geocoder.geocode( { 'address': address}, function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-			gmap.setCenter(results[0].geometry.location);
-			subgps = gmap.getCenter();
-			set_textarea_contents('map', map_type+'^|^'+address+'^|^'+map_name+'^|^'+subgps);
-		} else {
-			alert("잘못된 주소입니다.");
-		}
-	});
-}
-<!--{/}-->
 
 function set_textarea_contents(type,value) {
 	var type_text = '';
@@ -596,7 +470,7 @@ function comment_box(comment_id, work)
 
 		document.getElementById('comment_id').value = comment_id;
 		document.getElementById('w').value = work;
-		
+
 		<!--{? eyoom_board.bo_use_addon_emoticon == '1'}-->
 		$(".emoticon").venobox({border:'3px'});
 		<!--{/}-->
@@ -627,18 +501,6 @@ function comment_box(comment_id, work)
 			if(!s_url) alert('사운드크라우드 주소를 입력해 주세요.');
 			else set_textarea_contents('sound',s_url);
 			$("#scloud_url").val('');
-		});
-		<!--{/}-->
-
-		<!--{? eyoom_board.bo_use_addon_map == '1'}-->
-		//지도 추가
-		$("#btn_map").click(function(){
-			var map_type = $("input[name='map_type']:checked").val();
-			var map_addr1 = $("#map_addr1").val();
-			var map_addr2 = $("#map_addr2").val();
-			var map_name = $("#map_name").val();
-	
-			set_map_address(map_type, map_addr1, map_addr2, map_name);
 		});
 		<!--{/}-->
 
@@ -739,9 +601,9 @@ $(document).ready(function(){
 			$container.append($newElems);
 		});
 	});
-	
+
 	$(window).unbind('.infscr');
-	
+
 	$('#view-comment-more').click(function(){
 	   $container.infinitescroll('retrieve');
 	   $('#infinite_pagination').show();
