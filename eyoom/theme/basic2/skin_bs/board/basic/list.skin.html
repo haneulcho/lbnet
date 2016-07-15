@@ -181,7 +181,12 @@ function fwrite_submit(f)
 								} else {
 									$t = str_replace('<p>','',{.wr_content});
 									$t = str_replace('</p>','<br>',$t);
-									echo nl2br(cut_str(strip_tags($t, '<br>'), 100));
+
+									if({member.mb_id} && {member.mb_level} > 1) {
+										echo nl2br(cut_str(strip_tags($t, '<br>'), 40, "..."));
+									} else {
+										echo '<i class="fa fa-exclamation-triangle"></i> 내용 미리보기는 회원만 가능!';
+									}
 								}
 							?>
               </div>
