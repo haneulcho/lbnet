@@ -17,10 +17,9 @@
 	<input type="hidden" name="wr_1" id="wr_1" value="{_wr_1}">
 	<input type="hidden" name="wr_2" id="wr_2" value="{_wr_2}">
 	<input type="hidden" name="wr_3" id="wr_3" value="{_wr_3}">
-  <input type="hidden" name="wr_3" id="wr_4" value="{_wr_4}">
+  <input type="hidden" name="wr_4" id="wr_4" value="{_wr_4}">
 	<input type="hidden" name="wr_5" id="wr_5" value="{_wr_5}">
 	<input type="hidden" name="wmode" id="wmode" value="{_wmode}">
-	<input type="hidden" value="html1" name="html">
 	<div class="tbl_frm01 tbl_wrap">
 		<div class="lbrow">
 			<div class="lbtop">
@@ -84,14 +83,6 @@ function fwrite_submit(f)
 		$("#wr_1").val(wr_1);
 	}
 	<!--{/}-->
-
-	function nl2br (str, is_xhtml) {
-	    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
-	    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
-	}
-
-	f.wr_content.value = nl2br(f.wr_content.value);
-	console.log(f.wr_content.value);
 
 	var subject = "";
 	var content = "";
@@ -190,7 +181,7 @@ function fwrite_submit(f)
 								} else {
 									$t = str_replace('<p>','',{.wr_content});
 									$t = str_replace('</p>','<br>',$t);
-									echo cut_str(strip_tags($t, '<br>'), 100);
+									echo nl2br(cut_str(strip_tags($t, '<br>'), 100));
 								}
 							?>
               </div>
