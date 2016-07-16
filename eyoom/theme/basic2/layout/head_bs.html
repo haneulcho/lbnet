@@ -130,15 +130,13 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
                     <!--{* ------------- Header Logo 영역 시작 ------------- *}-->
                       <div class="header-logo">
                   <a class="navbar-brand" href="{C.G5_URL}"><img src="../image/lebolution_logo.png" class="img-responsive" alt="{config.cf_title} LOGO"></a>
-
-                  <!--{? defined('_INDEX_') || defined('_EYOOM_MYPAGE_')}-->
-            	    <!--{:}-->
-                    <!--{? C.G5_IS_MOBILE}-->
-              	            <span class="lbbread"><i class="fa fa-map-marker"></i> {subinfo.title}</span>
-                    <!--{/}-->
-            	    <!--{/}-->
-
                       </div>
+                      <!--{? defined('_INDEX_') || defined('_EYOOM_MYPAGE_')}-->
+                	    <!--{:}-->
+                        <!--{? C.G5_IS_MOBILE}-->
+                  	            <span class="lbbread"><i class="fa fa-map-marker"></i> {subinfo.title}</span>
+                        <!--{/}-->
+                	    <!--{/}-->
                       <!--{* ------------- Header Logo 영역 끝 ------------- *}-->
 	                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
 	                        <span class="sr-only">Toggle navigation</span>
