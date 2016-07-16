@@ -86,6 +86,7 @@
 			if ($view['file'][$i]['view']) {
 				//echo $view['file'][$i]['view'];
 				$file_conts .= $eb->get_thumbnail($view['file'][$i]['view']);
+				$file_conts .= "<br><br>\n";
 			}
 		}
 		$file_conts .= "</div>\n";
