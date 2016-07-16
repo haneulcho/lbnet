@@ -1,5 +1,5 @@
 /* 여기에 작업 또는 수정할 당신의 css style을 설정하세요. (customizations) */
-.navbar-brand {height:auto;padding:13px 15px;margin-right:5px;}
+.navbar-brand {height:auto;padding:12px 15px;margin-right:5px;}
 .lbbox {box-shadow:0 0 1px rgba(0,0,0,.15);background-color:#fff;border-radius:3px;}
 .basic-latest {position:relative;overflow:hidden;min-height:262px}
 .basic-latest ul {margin-bottom:0}
@@ -203,6 +203,7 @@ line-height: 1.35;
 .view-comment .view-comment-photo img {width:50px;height:50px;margin-bottom:10px}
 .view-comment .comment-item-body {padding-left:65px}
 @media (max-width: 767px) {
+  .navbar-brand {padding:12px 15px 12px 0}
 	.view-comment .view-comment-photo .comment-user-icon {width:30px;height:30px;font-size:20px;line-height:30px}
 	.view-comment .view-comment-photo img {width:30px;height:30px}
 	.view-comment .comment-item-body {padding-left:40px}
