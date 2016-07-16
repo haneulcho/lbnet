@@ -2,62 +2,6 @@
 add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.css" type="text/css" media="screen">',0);
 ?>
 
-<style>
-.comment-area {font-size:12px}
-.comment-write-wrap textarea#wr_content {height:90px !important;border: 1px solid #ddd;background: #fafafa;
-	box-sizing: border-box;
-width: 100% !important;
--webkit-transition: all ease-in-out .2s;
--moz-transition: all ease-in-out .2s;
--o-transition: all ease-in-out .2s;
-transition: all ease-in-out .2s;
-font-size: 12px;
-line-height: 1.35;
-}
-.comment-write-wrap textarea#wr_content:focus {background:#fff;}
-.comment-area .eyoom-form .checkbox {padding-left:22px;}
-.comment-area .margin-hr-15 {height:1px;border-top:1px solid #ccc;margin:15px 0;clear:both}
-.view-comment {position:relative;font-size:12px;padding:0;border-top:1px solid rgba(120,130,140,.13);}
-.view-comment h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
-.view-comment-item {position:relative;}
-.view-comment-item .no-comment {text-align:center;padding:10px 0 20px;border-bottom:1px solid #e5e5e5}
-.view-comment-no-item {position:relative;padding:10px 0;border-top:1px solid #e5e5e5}
-.view-comment-no-item .no-comment {text-align:center;padding:10px 0 20px;border-bottom:1px solid #e5e5e5}
-.view-comment-more {text-align:center;border-top:1px solid #e5e5e5;padding-top:15px}
-.view-comment-item.cmt-best {background:#fffdf0;border-color:rgba(226, 131, 39, 0.3)}
-.view-comment .view-comment-photo {float:left;margin-right:10px}
-.view-comment .view-comment-photo .comment-user-icon {width:50px;height:50px;background:#84848a;font-size:30px;line-height:50px;text-align:center;color:#fff;margin-bottom:10px;display:inline-block}
-.view-comment .view-comment-photo img {width:50px;height:50px;margin-bottom:10px}
-.view-comment .comment-item-body {padding-left:65px}
-@media (max-width: 767px) {
-	.view-comment .view-comment-photo .comment-user-icon {width:30px;height:30px;font-size:20px;line-height:30px}
-	.view-comment .view-comment-photo img {width:30px;height:30px}
-	.view-comment .comment-item-body {padding-left:40px}
-}
-.view-comment .comment-item-body-pn {padding:0;}
-.view-comment .comment-item-info {position:relative;margin-bottom:5px}
-.view-comment .comment-item-info span {margin-right:3px}
-.view-comment .comment-item-info .comment-name {position:relative;}
-.view-comment .comment-ip {font-size:11px;color:#aaa}
-.view-comment .comment-time {float:right;margin-right:-5px !important;margin-top:-3px;}
-.view-comment .comment-btn,
-.view-comment .comment-btn .list-inline {overflow:hidden;}
-.view-comment .comment-btn .list-inline {margin:0;}
-.view-comment .comment-btn .list-inline > li {padding-left:1px;padding-right:1px;margin-left:5px;}
-.view-comment .comment-btn .list-inline > li a strong {font-weight:normal}
-.view-comment .comment-btn .list-inline > li a {color:#bbb;}
-.view-comment .comment-btn .list-inline > li a:hover,
-.view-comment .comment-btn .list-inline > li a span.wow {color:#f44455}
-
-.comment-area .comment-write-wrap {position:relative; border-top:1px solid #e5e5e5;margin-top:0px;padding:15px}
-.comment-area .comment-write-submit {position:relative;text-align:right}
-.comment-area .comment-function-box {margin-bottom:5px;}
-#bo_vc_send_sns ul{padding:0;margin:-5px 0 20px;overflow:hidden}
-#bo_vc_send_sns li{float:left;margin-right:10px;list-style:none}
-#bo_vc_send_sns li input{margin:10px 25px 10px 5px}
-#infscr-loading {text-align:center;z-index:100;position:absolute;left:50%;bottom:0;width:200px;margin-left:-100px;padding:10px;background:#000;opacity:0.6;color:#fff}
-</style>
-
 <script>
 // 글자수 제한
 var char_min = parseInt({_comment_min}); // 최소
