@@ -33,6 +33,14 @@ if($me_id) {
       // if (!$mb['mb_open'] && $is_admin != 'super')
       //     alert_close('정보공개를 하지 않았습니다.');
 
+      // 해당 me_id의 쪽지 보낸 사람이 익명이면 me_name = 익명
+      if ($row['me_send_anonymous'] == 1) {
+        $me_send_anonymous = true;
+        $me_recv_nick = '익명의 니니';
+      } else {
+        $me_send_anonymous = false;
+        $me_recv_nick = $mb['mb_nick'];
+      }
       // 원본 쪽지 내용
       if ($row['me_memo'])
       {

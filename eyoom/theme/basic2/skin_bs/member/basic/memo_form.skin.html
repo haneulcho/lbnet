@@ -19,25 +19,68 @@ add_stylesheet('<link rel="stylesheet" href="../../../css/custom.css" type="text
 			<!-- 쪽지 쓰기 시작 -->
 		    <form name="fmemoform" action="{_memo_action_url}" onsubmit="return fmemoform_submit(this);" method="post" autocomplete="off" class="eyoom-form">
             <section>
+						<!--{? _is_admin}-->
                 <label for="me_recv_mb_id" class="label">받는 회원아이디<strong class="sound_only">필수</strong></label>
                 <label class="input">
                     <i class="icon-append fa fa-user"></i>
                     <input type="text" name="me_recv_mb_id" value="{_me_recv_mb_id}" id="me_recv_mb_id" required size="47">
                 </label>
                 <div class="note margin-bottom-10"><strong>Note:</strong> 여러 회원에게 보낼때는 컴마(,)로 구분하세요.</div>
+						<!--{:}-->
+							<!--{? _me_id}-->
+								<!--{* 원본 쪽지 보기 시작 *}-->
+				        <div class="content-box margin-bottom-10">
+					        <ul class="list-unstyled">
+					            <li class="margin-bottom-10">
+					                <span><i class="fa fa-user"></i> 보낸사람: </span>
+					                <strong>{_me_recv_nick}</strong>
+					            </li>
+					            <li>
+					                <span><i class="fa fa-clock-o"></i> 받은시간: </span>
+					                <strong>{_row.me_send_datetime}</strong>
+					            </li>
+					        </ul>
+					        <div class="margin-hr-10"></div>
+					        <p>
+					            {_content}
+					        </p>
+				        </div>
+				        <!--{* 원본 쪽지 보기 끝 *}-->
+							<!--{:}-->
+								<div class="content-box margin-bottom-10">
+									<ul class="list-unstyled">
+											<li>
+													<span><i class="fa fa-user"></i> 받는사람: </span>
+													<strong>{_me_recv_nick}</strong>
+											</li>
+									</ul>
+								</div>
+							<!--{/}-->
+						<!--{/}-->
             </section>
 			<div class="margin-hr-10"></div>
-            <section>
-				<label for="me_memo" class="label">쪽지내용</label>
-				<label class="textarea textarea-resizable">
-					<textarea name="me_memo" id="me_memo" required>{_content}</textarea>
-				</label>
-            </section>
+        <section>
+					<label for="me_memo" class="label" style="float:left"><!--{? _me_id}-->답장 <!--{/}-->보낼 쪽지 내용</label>
+					<!--{? _me_id}-->
+						<!--{? _me_send_anonymous}-->
+						<input type="hidden" name="me_send_anonymous" value="1" id="me_send_anonymous">
+						<!--{:}-->
+						<input type="hidden" name="me_send_anonymous" value="0" id="me_send_anonymous">
+						<!--{/}-->
+					<!--{:}-->
+						<div><label class="checkbox pull-left margin-left-10" style="margin-top:-4px;margin-left:20px"><input type="checkbox" name="me_send_anonymous" value="1" id="me_send_anonymous" checked><i></i>익명 사용</label></div>
+					<!--{/}-->
+					<div class="clearfix"></div>
+					<label class="textarea textarea-resizable">
+						<textarea name="me_memo" id="me_memo" required></textarea>
+					</label>
+					<div class="note margin-bottom-10 font-size-11"><strong>Note: </strong><!--{? _me_id}--><!--{? _me_send_anonymous}-->익명으로 온 쪽지는 익명으로만 답할 수 있습니다.<!--{:}-->익명이 아닌 쪽지는 답장 시 보낸이의 닉네임이 기록됩니다.<!--{/}--><!--{:}-->익명 사용에 체크하면 익명으로 쪽지가 발송됩니다.<!--{/}--></div>
+        </section>
 			<div class="margin-hr-10"></div>
-            <section>
-                <label class="label">자동등록방지</label>
-                <div class="vc-captcha">{=captcha_html()}</div>
-            </section>
+        <section>
+            <label class="label">자동등록방지</label>
+            <div class="vc-captcha">{=captcha_html()}</div>
+        </section>
 		    <div class="text-center margin-bottom-20">
 			    <input type="submit" value="보내기" id="btn_submit" class="btn-e btn-e-red">
 		        <button type="button" onclick="window.close();" class="btn-e btn-e-dark">창닫기</button>
@@ -47,15 +90,22 @@ add_stylesheet('<link rel="stylesheet" href="../../../css/custom.css" type="text
 </div>
 
 <style>
+#me_memo {height:130px}
+.note {color:#f44455 !important}
 .margin-hr-10 {height:1px;border-top:1px dotted #ddd;margin:10px 0}
 .memo-write {padding:15px;font-size:12px}
 .memo-write .tab-e1 .tab-content img {margin-top:0;margin-bottom:0}
+.memo-write .content-box {border:1px solid #e5e5e5;padding:10px;background-color:#f0f0f0}
 </style>
 
 <script type="text/javascript" src="../../../plugins/eyoom-form/plugins/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="../../../plugins/eyoom-form/plugins/jquery-form/jquery.form.min.js"></script>
 <script>
 function fmemoform_submit(f) {
+		if($("#me_send_anonymous").is(':checked')) {
+			$("#me_send_anonymous").val('1');
+		}
+
     <!--{=chk_captcha_js()}-->
 
     return true;
