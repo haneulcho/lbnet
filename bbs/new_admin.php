@@ -1,6 +1,8 @@
 <?php
 include_once('./_common.php');
-
+if ($is_admin != 'super') {
+    alert_close('잘못된 접근입니다!');
+} else {
 $g5['title'] = '새글';
 include_once('./_head.php');
 
@@ -113,4 +115,5 @@ $write_pages = get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['c
 include_once($new_skin_path.'/new.skin.php');
 
 include_once('./_tail.php');
+}
 ?>

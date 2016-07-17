@@ -1,6 +1,8 @@
 <?php
 include_once('./_common.php');
-
+if ($is_admin != 'super') {
+    alert_close('잘못된 접근입니다!');
+} else {
 if (!$member['mb_id'])
     alert_close('회원만 이용하실 수 있습니다.');
 
@@ -30,4 +32,5 @@ $mb_profile = $mb['mb_profile'] ? conv_content($mb['mb_profile'],0) : '소개 �
 include_once($member_skin_path.'/profile.skin.php');
 
 include_once(G5_PATH.'/tail.sub.php');
+}
 ?>

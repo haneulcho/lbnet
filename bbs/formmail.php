@@ -1,5 +1,8 @@
 <?php
 include_once('./_common.php');
+if ($is_admin != 'super') {
+    alert_close('잘못된 접근입니다!');
+} else {
 include_once(G5_CAPTCHA_PATH.'/captcha.lib.php');
 
 if (!$config['cf_email_use'])
@@ -51,4 +54,5 @@ $type_checked[$type] = 'checked';
 include_once($member_skin_path.'/formmail.skin.php');
 
 include_once(G5_PATH.'/tail.sub.php');
+}
 ?>
