@@ -7,13 +7,13 @@ add_stylesheet('<link rel="stylesheet" href="../../../css/custom.css" type="text
 ?>
 
 <div class="memo-view">
-	<h5 class="margin-bottom-20"><strong>{g5.title}</strong></h5>        
+	<h5 class="margin-bottom-20"><strong>{g5.title}</strong></h5>
     <div class="tab-e1">
         <ul class="nav nav-tabs">
             <li {? _kind == 'recv'}class="active"{/}><a href="./memo.php?kind=recv">받은쪽지</a></li>
             <li {? _kind == 'send'}class="active"{/}><a href="./memo.php?kind=send">보낸쪽지</a></li>
             <li><a href="./memo_form.php">쪽지쓰기</a></li>
-        </ul>                
+        </ul>
         <div class="tab-content">
 	        <!--{* 쪽지 보기 시작 *}-->
 	        <div class="note margin-bottom-10"><strong>쪽지 내용</strong></div>
@@ -36,7 +36,7 @@ add_stylesheet('<link rel="stylesheet" href="../../../css/custom.css" type="text
 	        <!--{* 쪽지 보기 끝 *}-->
         </div>
     </div>
-    
+
     <div class="text-center">
 		<!--{? _prev_link}-->
         <a href="{_prev_link}" class="btn-e btn-e-light-grey">이전쪽지</a>
@@ -45,12 +45,12 @@ add_stylesheet('<link rel="stylesheet" href="../../../css/custom.css" type="text
         <a href="{_next_link}" class="btn-e btn-e-light-grey">다음쪽지</a>
         <!--{/}-->
 		<!--{? _kind == 'recv'}-->
-		<a href="./memo_form.php?me_recv_mb_id={mb.mb_id}&amp;me_id={memo.me_id}" class="btn-e btn-e-red">답장</a>
+		<a href="./memo_form.php?me_id={memo.me_id}" class="btn-e btn-e-red">답장</a>
 		<!--{/}-->
         <a href="./memo.php?kind={_kind}" class="btn-e btn-e-default">목록보기</a>
         <button type="button" onclick="window.close();" class="btn-e btn-e-dark">창닫기</button>
-    </div>    
-    
+    </div>
+
 </div>
 
 <style>
