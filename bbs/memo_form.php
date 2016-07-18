@@ -47,6 +47,21 @@ if($me_id) {
           $content = str_replace("\n", "\n> ", get_text($row['me_memo'], 0));
       }
     }
+} else if($bt && $mid) {
+  // 익명으로 쪽지 보냈는데 닉네임 노출되면 안 되므로 bo_table, wr_id를 매칭해서 닉네임과 익명여부를 가져옴
+  $row = sql_fetch(" select wr_name, wr_1 from {$g5['write_prefix']}{$bt} where wr_id = '{$mid}' ");
+  list($gnu_level,$eyoom_level,$anonymous) = explode('|',$row['wr_1']);
+  if(!$anonymous) {
+    $me_recv_nick = $row['wr_name'];
+  } else {
+    if($anonymous == 'y') {
+      $me_recv_nick = '익명의 니니';
+    }
+  }
+} else {
+  if($is_admin != 'super') {
+    alert_close ('잘못된 접근입니다');
+  }
 }
 
 $g5['title'] = '쪽지 보내기';

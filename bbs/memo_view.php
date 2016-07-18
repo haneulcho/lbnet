@@ -63,7 +63,7 @@ else
     //$next_link = 'javascript:alert(\'쪽지의 마지막입니다.\');';
     $next_link = '';
 
-if ($memo['me_send_anonymous'] == 1) {
+if ($memo['me_'.$unkind.'_anonymous'] == 1) {
   $mb['mb_nick'] = '익명의 니니';
 } else {
   $mb = get_member($memo['me_'.$unkind.'_mb_id']);

@@ -5,12 +5,12 @@ function eb_lbnameview($skin_dir, $mb_id, $name='')
 {
     global $config;
     global $g5;
-    global $is_admin, $member, $tpl_name, $tpl;
+    global $bo_table, $is_admin, $member, $tpl_name, $tpl;
 
     $head['name'] = get_text($name);
 
 		if($mb_id) {
-			$link['memo'] = G5_BBS_URL."/memo_form.php?me_recv_mb_id=".$mb_id;
+			$link['memo'] = G5_BBS_URL."/memo_form.php?mid=".$mb_id;
 		}
 		if($is_admin == "super" && $mb_id) {
 			$link['info'] = G5_ADMIN_URL."/member_form.php?w=u&amp;mb_id=".$mb_id;
@@ -26,6 +26,7 @@ function eb_lbnameview($skin_dir, $mb_id, $name='')
 		"head" => $head,
 		"link" => $link,
 		"mb_id" => $mb_id,
+    "bo_table" => $bo_table,
 		"g5" => $g5,
 		"is_admin" => $is_admin,
 	));

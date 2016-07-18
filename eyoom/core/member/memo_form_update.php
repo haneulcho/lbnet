@@ -9,12 +9,6 @@
 		alert('자동등록방지 숫자가 틀렸습니다.');
 	}
 
-	if ($_POST['me_send_anonymous'] == 1) {
-		$me_send_anonymous = true;
-	} else {
-		$me_send_anonymous = false;
-	}
-
 	$str_nick_list = '';
 	$msg = '';
 	$error_list  = array();
@@ -22,13 +16,28 @@
 
 	if (isset($_POST['me_recv_mb_id'])) {
 		$recv_list = explode(',', trim($_POST['me_recv_mb_id']));
+		$me_recv_anonymous = 1;
 	} else {
 		if (isset($_POST['lbme_id'])) {
 			// input에 직접 아이디값을 주면 소스보기시 아이디가 노출되므로 lbme_id로 memo 테이블에 쿼리 날려서 me_recv_mb_id를 직접 db에서 받아옴
 			$lbme_id = $_POST['lbme_id'];
-			$lb = sql_fetch(" select me_send_mb_id from {$g5['memo_table']} where me_id = '{$lbme_id}' and me_recv_mb_id = '{$member['mb_id']}' ");
+			$lb = sql_fetch(" select me_send_mb_id, me_send_anonymous from {$g5['memo_table']} where me_id = '{$lbme_id}' and me_recv_mb_id = '{$member['mb_id']}' ");
 			$me_recv_mb_id = $lb['me_send_mb_id'];
+			$me_recv_anonymous = $lb['me_send_anonymous'];
 			$recv_list[] = $me_recv_mb_id;
+		} else if(isset($_POST['bt']) && isset($_POST['mid'])) {
+			// 익명으로 쪽지 보냈는데 닉네임 노출되면 안 되므로 bo_table, wr_id를 매칭해서 닉네임과 익명여부를 가져옴
+		  $lb2 = sql_fetch(" select mb_id, wr_name, wr_1 from {$g5['write_prefix']}{$bt} where wr_id = '{$mid}' ");
+			$me_recv_mb_id = $lb2['mb_id'];
+			$recv_list[] = $me_recv_mb_id;
+			list($gnu_level,$eyoom_level,$anonymous) = explode('|',$lb2['wr_1']);
+		  if(!$anonymous) {
+		    $me_recv_anonymous = 0;
+		  } else {
+		    if($anonymous == 'y') {
+		      $me_recv_anonymous = 1;
+		    }
+		  }
 		}
 	}
 	for ($i=0; $i<count($recv_list); $i++) {
@@ -79,20 +88,20 @@
 		$me_id = $tmp_row['max_me_id'] + 1;
 
 		$recv_mb_id   = $member_list['id'][$i];
-		if ($me_send_anonymous) {
+		if ($me_recv_anonymous == 1) {
 			$recv_mb_nick = '익명의 니니';
 		} else {
 			$recv_mb_nick = get_text($member_list['nick'][$i]);
 		}
 
 		// 쪽지 INSERT
-		$sql = " insert into {$g5['memo_table']} ( me_id, me_recv_mb_id, me_send_mb_id, me_send_anonymous, me_send_datetime, me_memo ) values ( '$me_id', '$recv_mb_id', '{$member['mb_id']}', '{$_POST['me_send_anonymous']}', '".G5_TIME_YMDHIS."', '{$_POST['me_memo']}' ) ";
+		$sql = " insert into {$g5['memo_table']} ( me_id, me_recv_mb_id, me_send_mb_id, me_recv_anonymous, me_send_anonymous, me_send_datetime, me_memo ) values ( '$me_id', '$recv_mb_id', '{$member['mb_id']}', '{$me_recv_anonymous}', '{$_POST['me_send_anonymous']}', '".G5_TIME_YMDHIS."', '{$_POST['me_memo']}' ) ";
 		sql_query($sql);
 
 		// 푸시등록
 		$user = sql_fetch("select onoff_push_memo from {$g5['eyoom_member']} where mb_id = '{$recv_mb_id}'");
 		if($user['onoff_push_memo'] == 'on') {
-			if($me_send_anonymous) {
+			if($me_recv_anonymous == 1) {
 				$eb->set_push("memo",$me_id,$recv_mb_id,'익명의 니니');
 			} else {
 				$eb->set_push("memo",$me_id,$recv_mb_id,$member['mb_nick']);
@@ -122,7 +131,7 @@
 	@include_once(EYOOM_USER_PATH.'/member/memo_form_update.php');
 
 	if ($member_list) {
-		if ($me_send_anonymous) {
+		if ($me_recv_anonymous == 1) {
 			$str_nick_list = implode(',', $member_list['nick']);
 			alert("익명의 니니 님께 쪽지를 전달하였습니다.", G5_HTTP_BBS_URL."/memo.php?kind=send", false);
 		} else {

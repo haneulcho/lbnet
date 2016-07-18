@@ -45,8 +45,8 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 {
     $list[$i] = $row;
 
-    if ($row['mb_nick']) {
-      if ($row['me_send_anonymous'] == 1) {
+    if ($row['mb_nick'] && $kind) {
+      if ($row['me_'.$unkind.'_anonymous'] == 1) {
         $list[$i]['mb_nick'] = '익명의 니니';
       } else {
         $list[$i]['mb_nick'] = $row['mb_nick'];
