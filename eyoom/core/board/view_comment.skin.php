@@ -61,6 +61,7 @@
 			if ($view['lb_id'] == $comment[$i]['mb_id']) {
 				$comment[$i]['is_origin'] = true; // 글쓴이와 댓글쓴이 일치 여부 변수에 담기
 			}
+			$comment[$i]['lb_id'] = $comment[$i]['mb_id']; // 댓글쓴이 닉네임 저장하기
 			if(!$level['anonymous']) {
 				$comment[$i]['mb_photo'] = $eb->mb_photo($list[$i]['mb_id']);
 				$comment[$i]['gnu_level'] = $level['gnu_level'];

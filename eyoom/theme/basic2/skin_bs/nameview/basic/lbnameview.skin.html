@@ -1,0 +1,19 @@
+<?php if (!defined('_GNUBOARD_')) exit; ?>
+
+<span class="sv_wrap">
+	<a href="{head.link}" class="sv_member" title="{head.title}" target="_blank" onclick="return false;"> <b>{head.name}</b></a>
+<?php  ob_start(); ?>
+	<span class="sv dropdown-menu" role="menu">
+	<!--{? mb_id && member.mb_id}-->
+		<a href="{C.G5_BBS_URL}/memo_form.php?me_recv_mb_id={mb_id}" class="win_memo" id="ol_after_memo">쪽지보내기</a>
+	<!--{/}-->
+	</span>
+<?php
+    $mb_name = ob_get_contents();
+    ob_end_clean();
+?>
+<?php echo $mb_name; ?>
+<!--{? !is_anonymous}-->
+<noscript class="sv_nojs"><?php echo $noscript;?></noscript>
+<!--{/}-->
+</span>
