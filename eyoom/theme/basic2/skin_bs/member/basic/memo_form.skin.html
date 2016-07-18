@@ -80,10 +80,6 @@ add_stylesheet('<link rel="stylesheet" href="../../../css/custom.css" type="text
 					<div class="note margin-bottom-10 font-size-11"><strong>Note: </strong><!--{? _me_id}--><!--{? _me_send_anonymous}-->익명으로 온 쪽지는 익명으로만 답할 수 있습니다.<!--{:}-->익명이 아닌 쪽지는 답장 시 보낸이의 닉네임이 기록됩니다.<!--{/}--><!--{:}-->익명 사용에 체크하면 익명으로 쪽지가 발송됩니다.<!--{/}--></div>
         </section>
 			<div class="margin-hr-10"></div>
-        <section>
-            <label class="label">자동등록방지</label>
-            <div class="vc-captcha">{=captcha_html()}</div>
-        </section>
 		    <div class="text-center margin-bottom-20">
 			    <input type="submit" value="보내기" id="btn_submit" class="btn-e btn-e-red">
 		        <button type="button" onclick="window.close();" class="btn-e btn-e-dark">창닫기</button>
@@ -108,8 +104,6 @@ function fmemoform_submit(f) {
 		if($("#me_send_anonymous").is(':checked')) {
 			$("#me_send_anonymous").val('1');
 		}
-
-    <!--{=chk_captcha_js()}-->
 
     return true;
 }
