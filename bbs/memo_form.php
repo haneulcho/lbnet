@@ -44,7 +44,7 @@ if($me_id) {
       // 원본 쪽지 내용
       if ($row['me_memo'])
       {
-          $content = str_replace("\n", "\n> ", get_text($row['me_memo'], 0));
+          $content = conv_content($row['me_memo'], 0);
       }
     }
 } else if($bt && $mid) {
