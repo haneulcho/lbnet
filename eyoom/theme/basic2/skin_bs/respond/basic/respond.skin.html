@@ -1,6 +1,7 @@
 <?php if (!defined('_GNUBOARD_')) exit; ?>
 
 <div class="respond-list">
+  <!--{? _is_admin}-->
     <form name="frespond" method="get" class="eyoom-form">
 	<div class="row">
 	    <section class="col col-3">
@@ -49,6 +50,7 @@
 	</div>
     </form>
     <div class="margin-bottom-10"></div>
+  <!--{/}-->
 
 	<form name="frespondlist" method="post" action="#" onsubmit="return frespond_submit(this);" class="eyoom-form">
 	<input type="hidden" name="act"      value="">

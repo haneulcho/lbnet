@@ -12,7 +12,7 @@ add_stylesheet('<link rel="stylesheet" href="../../../css/custom.css" type="text
         <ul class="nav nav-tabs">
             <li {? _kind == 'recv'}class="active"{/}><a href="./memo.php?kind=recv">받은쪽지</a></li>
             <li {? _kind == 'send'}class="active"{/}><a href="./memo.php?kind=send">보낸쪽지</a></li>
-            <li><a href="./memo_form.php">쪽지쓰기</a></li>
+            <!--{? _is_admin}--><li><a href="./memo_form.php">쪽지쓰기</a></li><!--{/}-->
         </ul>
         <div class="tab-content">
 	        <!--{* 쪽지 보기 시작 *}-->
