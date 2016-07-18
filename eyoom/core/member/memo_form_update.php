@@ -9,15 +9,32 @@
 		alert('자동등록방지 숫자가 틀렸습니다.');
 	}
 
-	$recv_list = explode(',', trim($_POST['me_recv_mb_id']));
+	if ($_POST['me_send_anonymous'] == 1) {
+		$me_send_anonymous = true;
+	} else {
+		$me_send_anonymous = false;
+	}
+
 	$str_nick_list = '';
 	$msg = '';
 	$error_list  = array();
 	$member_list = array();
+
+	if (isset($_POST['me_recv_mb_id'])) {
+		$recv_list = explode(',', trim($_POST['me_recv_mb_id']));
+	} else {
+		if (isset($_POST['lbme_id'])) {
+			// input에 직접 아이디값을 주면 소스보기시 아이디가 노출되므로 lbme_id로 memo 테이블에 쿼리 날려서 me_recv_mb_id를 직접 db에서 받아옴
+			$lbme_id = $_POST['lbme_id'];
+			$lb = sql_fetch(" select me_send_mb_id from {$g5['memo_table']} where me_id = '{$lbme_id}' and me_recv_mb_id = '{$member['mb_id']}' ");
+			$me_recv_mb_id = $lb['me_send_mb_id'];
+			$recv_list[] = $me_recv_mb_id;
+		}
+	}
 	for ($i=0; $i<count($recv_list); $i++) {
 		$row = sql_fetch(" select mb_id, mb_nick, mb_open, mb_leave_date, mb_intercept_date from {$g5['member_table']} where mb_id = '{$recv_list[$i]}' ");
 		if ($row) {
-			if ($is_admin || ($row['mb_open'] && (!$row['mb_leave_date'] || !$row['mb_intercept_date']))) {
+			if ($is_admin || (!$row['mb_leave_date'] || !$row['mb_intercept_date'])) {
 				$member_list['id'][]   = $row['mb_id'];
 				$member_list['nick'][] = $row['mb_nick'];
 			} else {
@@ -38,8 +55,13 @@
 
 	$error_msg = implode(",", $error_list);
 
-	if ($error_msg && !$is_admin)
-		alert("회원아이디 '{$error_msg}' 은(는) 존재(또는 정보공개)하지 않는 회원아이디 이거나 탈퇴, 접근차단된 회원아이디 입니다.\\n쪽지를 발송하지 않았습니다.");
+	if ($error_msg) {
+		if ($is_admin) {
+			alert("회원아이디 '{$error_msg}' 은(는) 존재(또는 정보공개)하지 않는 회원아이디 이거나 탈퇴, 접근차단된 회원아이디 입니다.\\n쪽지를 발송하지 않았습니다.");
+		} else {
+			alert("존재하지 않는 회원이거나 탈퇴, 접근차단된 회원 입니다.\\n쪽지를 발송하지 못했습니다.");
+		}
+	}
 
 	if (!$is_admin) {
 		if (count($member_list['id'])) {
@@ -57,15 +79,25 @@
 		$me_id = $tmp_row['max_me_id'] + 1;
 
 		$recv_mb_id   = $member_list['id'][$i];
-		$recv_mb_nick = get_text($member_list['nick'][$i]);
+		if ($me_send_anonymous) {
+			$recv_mb_nick = '익명의 니니';
+		} else {
+			$recv_mb_nick = get_text($member_list['nick'][$i]);
+		}
 
 		// 쪽지 INSERT
-		$sql = " insert into {$g5['memo_table']} ( me_id, me_recv_mb_id, me_send_mb_id, me_send_datetime, me_memo ) values ( '$me_id', '$recv_mb_id', '{$member['mb_id']}', '".G5_TIME_YMDHIS."', '{$_POST['me_memo']}' ) ";
+		$sql = " insert into {$g5['memo_table']} ( me_id, me_recv_mb_id, me_send_mb_id, me_send_anonymous, me_send_datetime, me_memo ) values ( '$me_id', '$recv_mb_id', '{$member['mb_id']}', '{$_POST['me_send_anonymous']}', '".G5_TIME_YMDHIS."', '{$_POST['me_memo']}' ) ";
 		sql_query($sql);
 
 		// 푸시등록
 		$user = sql_fetch("select onoff_push_memo from {$g5['eyoom_member']} where mb_id = '{$recv_mb_id}'");
-		if($user['onoff_push_memo'] == 'on')  $eb->set_push("memo",$me_id,$recv_mb_id,$member['mb_nick']);
+		if($user['onoff_push_memo'] == 'on') {
+			if($me_send_anonymous) {
+				$eb->set_push("memo",$me_id,$recv_mb_id,'익명의 니니');
+			} else {
+				$eb->set_push("memo",$me_id,$recv_mb_id,$member['mb_nick']);
+			}
+		}
 
 		// 나의 활동
 		$act_contents = array();
@@ -79,7 +111,7 @@
 		sql_query($sql);
 
 		if (!$is_admin) {
-			insert_point($member['mb_id'], (int)$config['cf_memo_send_point'] * (-1), $recv_mb_nick.'('.$recv_mb_id.')님께 쪽지 발송', '@memo', $recv_mb_id, $me_id);
+			insert_point($member['mb_id'], (int)$config['cf_memo_send_point'] * (-1), $recv_mb_nick.'님께 쪽지 발송', '@memo', $recv_mb_id, $me_id);
 			if($i=0) {
 				$eb->level_point($levelset['memo']);
 			}
@@ -90,8 +122,13 @@
 	@include_once(EYOOM_USER_PATH.'/member/memo_form_update.php');
 
 	if ($member_list) {
-		$str_nick_list = implode(',', $member_list['nick']);
-		alert($str_nick_list." 님께 쪽지를 전달하였습니다.", G5_HTTP_BBS_URL."/memo.php?kind=send", false);
+		if ($me_send_anonymous) {
+			$str_nick_list = implode(',', $member_list['nick']);
+			alert("익명의 니니님께 쪽지를 전달하였습니다.", G5_HTTP_BBS_URL."/memo.php?kind=send", false);
+		} else {
+			$str_nick_list = implode(',', $member_list['nick']);
+			alert($str_nick_list."님께 쪽지를 전달하였습니다.", G5_HTTP_BBS_URL."/memo.php?kind=send", false);
+		}
 	} else {
 		alert("회원아이디 오류 같습니다.", G5_HTTP_BBS_URL."/memo_form.php", false);
 	}

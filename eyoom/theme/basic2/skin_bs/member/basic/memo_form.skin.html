@@ -19,15 +19,8 @@ add_stylesheet('<link rel="stylesheet" href="../../../css/custom.css" type="text
 			<!-- 쪽지 쓰기 시작 -->
 		    <form name="fmemoform" action="{_memo_action_url}" onsubmit="return fmemoform_submit(this);" method="post" autocomplete="off" class="eyoom-form">
             <section>
-						<!--{? _is_admin}-->
-                <label for="me_recv_mb_id" class="label">받는 회원아이디<strong class="sound_only">필수</strong></label>
-                <label class="input">
-                    <i class="icon-append fa fa-user"></i>
-                    <input type="text" name="me_recv_mb_id" value="{_me_recv_mb_id}" id="me_recv_mb_id" required size="47">
-                </label>
-                <div class="note margin-bottom-10"><strong>Note:</strong> 여러 회원에게 보낼때는 컴마(,)로 구분하세요.</div>
-						<!--{:}-->
 							<!--{? _me_id}-->
+								<input type="hidden" name="lbme_id" value="{_me_id}" id="lbme_id">
 								<!--{* 원본 쪽지 보기 시작 *}-->
 				        <div class="content-box margin-bottom-10">
 					        <ul class="list-unstyled">
@@ -47,6 +40,14 @@ add_stylesheet('<link rel="stylesheet" href="../../../css/custom.css" type="text
 				        </div>
 				        <!--{* 원본 쪽지 보기 끝 *}-->
 							<!--{:}-->
+								<!--{? _is_admin}-->
+		                <label for="me_recv_mb_id" class="label">받는 회원아이디<strong class="sound_only">필수</strong></label>
+		                <label class="input">
+		                    <i class="icon-append fa fa-user"></i>
+		                    <input type="text" name="me_recv_mb_id" value="{_me_recv_mb_id}" id="me_recv_mb_id" required size="47">
+		                </label>
+		                <div class="note margin-bottom-10"><strong>Note:</strong> 여러 회원에게 보낼때는 컴마(,)로 구분하세요.</div>
+								<!--{:}-->
 								<div class="content-box margin-bottom-10">
 									<ul class="list-unstyled">
 											<li>
