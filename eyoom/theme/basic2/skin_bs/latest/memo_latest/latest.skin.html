@@ -11,7 +11,7 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/scrollbar/src/perf
 	</a>
 	<ul class="dropdown-menu">
 		<li class="external">
-			<h5>미확인 <strong class="color-red">{_memo_not_read}건</strong> 쪽지가 있습니다.</h5>
+			<h5>미확인 쪽지가 <strong class="color-red">{_memo_not_read}건</strong> 있습니다.</h5>
 			<a href="{C.G5_BBS_URL}/memo.php" target="_blank" class="win_memo">more</a>
 		</li>
 		<li>
@@ -25,11 +25,11 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/scrollbar/src/perf
 					<a href="{.href}" target="_blank" class="win_memo">
 						<!--{? photo == 'y'}-->
 						<span class="photo">
-							<!--{? .mb_photo}-->{.mb_photo}<!--{:}--><span class="user_icon"><i class="fa fa-user memo-photo"></i></span><!--{/}-->
+							<span class="user_icon"><i class="fa fa-user memo-photo"></i></span>
 						</span>
 						<!--{/}-->
 						<span class="description">
-							<span class="from color-black">{.mb_name}</span>
+							<span class="from color-black">{.mb_name} <span class="lbdes">님이 보낸 쪽지</span></span>
 						</span>
 						<span class="subject">{.memo}</span>
 						<span class="time"><!--{? .is_read}-->읽음<!--{:}--><strong class="color-red">읽지않음</strong><!--{/}--> {eb->date_time('Y-m-d H:i',.datetime)}</span>

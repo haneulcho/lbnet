@@ -861,7 +861,6 @@ img.img-circle {border-radius:50% !important}
 
 .header-topbar li.dropdown-memo .dropdown-menu .dropdown-menu-list > li a .details {overflow:hidden}
 .header-topbar li.dropdown-memo > .dropdown-menu .dropdown-menu-list > li {position:relative;overflow:hidden;min-width:248px}
-.header-topbar li.dropdown-memo > .dropdown-menu .dropdown-menu-list > li a {border-top:1px dotted #e5e5e5}
 .header-topbar li.dropdown-memo > .dropdown-menu .dropdown-menu-list > li.read-disable a {color:#bbb !important}
 .header-topbar li.dropdown-memo > .dropdown-menu .dropdown-menu-list > li.read-disable span {color:#bbb !important}
 .header-topbar li.dropdown-memo > .dropdown-menu .dropdown-menu-list > li:first-child a {border-top:0}
@@ -875,7 +874,6 @@ img.img-circle {border-radius:50% !important}
 .header-topbar li.dropdown-memo .dropdown-menu .dropdown-menu-list > li a .time {display:block !important;font-size:10px;color:#999;float:right;margin-top:5px}
 
 .header-topbar li.dropdown-respond > .dropdown-menu .dropdown-menu-list > li {position:relative;overflow:hidden;min-width:248px}
-.header-topbar li.dropdown-respond > .dropdown-menu .dropdown-menu-list > li a {border-top:1px dotted #e5e5e5}
 .header-topbar li.dropdown-respond > .dropdown-menu .dropdown-menu-list > li:first-child a {border-top:0}
 .header-topbar li.dropdown-respond > .dropdown-menu .dropdown-menu-list > li.read-disable a {color:#bbb !important}
 .header-topbar li.dropdown-respond > .dropdown-menu .dropdown-menu-list > li.read-disable span {color:#bbb !important}

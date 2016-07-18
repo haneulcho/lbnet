@@ -2,6 +2,7 @@
 .header-logo {width:140px;}
 .navbar-brand {height:auto;padding:12px 15px;margin-right:5px;}
 .lbbox {box-shadow:0 0 1px rgba(0,0,0,.15);background-color:#fff;border-radius:3px;}
+.header-topbar.chk {background-color:#f44455}
 .basic-latest {position:relative;overflow:hidden;min-height:262px}
 .basic-latest ul {margin-bottom:0}
 .basic-latest li {position:relative;overflow:hidden;border-top:1px solid rgba(120,130,140,.13);}

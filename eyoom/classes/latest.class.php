@@ -171,7 +171,7 @@ class latest extends eyoom
 			// 조건검색
 			$opt['where'] = $where;
 
-			// 최신글 헤더 타이틀 
+			// 최신글 헤더 타이틀
 			if($optset['title']) {
 				if($optset['bo_table']) {
 					$this->header_title = "<a href='".G5_BBS_URL."/board.php?bo_table=".$optset['bo_table']."'>".$optset['title']."</a>";
@@ -223,7 +223,7 @@ class latest extends eyoom
 
 			// 카테고리 분류명 표시
 			if($optset['ca_view']) $this->ca_view = $optset['ca_view'];
-			
+
 			// 별점기능 표시
 			if($optset['use_star']) $this->use_star = $optset['use_star'];
 
@@ -318,7 +318,7 @@ class latest extends eyoom
 					$list[$i]['lv_name'] = '';
 				}
 			}
-			
+
 			// 블라인드 처리
 			$wr_4 = unserialize($list[$i]['wr_4']);
 			if(!$wr_4) $wr_4 = array();
@@ -326,10 +326,10 @@ class latest extends eyoom
 				$list[$i]['wr_subject'] = '이 게시물은 블라인드 처리된 글입니다.';
 				$list[$i]['wr_content'] = '이 게시물은 블라인드 처리된 글입니다.';
 			}
-			
+
 			// 게시물에 동영상이 있는지 결정
 			$list[$i]['is_video'] = $wr_4['is_video'];
-			
+
 			// 별점기능
 			if($this->use_star == 'y') {
 				$rating = $eb->get_star_rating($wr_4);
@@ -388,7 +388,7 @@ class latest extends eyoom
 						if(@file_exists($imgfile)) {
 							$img_path = explode('/',$img);
 							for($i=0;$i<count($img_path)-1;$i++) {
-								$path[$i] = $img_path[$i]; 
+								$path[$i] = $img_path[$i];
 							}
 							if(is_array($path)) {
 								$filename = $img_path[count($img_path)-1];
@@ -436,7 +436,7 @@ class latest extends eyoom
 		$tpl->print_($tpl_name);
 	}
 
-	// 회원 랭킹 
+	// 회원 랭킹
 	public function latest_ranking($skin, $option, $type='') {
 		global $g5, $config, $tpl, $tpl_name, $eb;
 		$where = 1;
@@ -451,7 +451,7 @@ class latest extends eyoom
 			case "today_point":
 				$start = date("Ymd").'000000';
 				$end = date("Ymd").'595959';
-				
+
 				$sql = "select mb_id, sum(po_point) as po_point from {$g5['point_table']} where po_point > 0 and mb_id <> '{$config['cf_admin']}' and (date_format(po_datetime, '%Y%m%d%H%i%s') between '{$start}' and '{$end}') group by mb_id order by sum(po_point) desc limit {$opt['count']}";
 				$res = sql_query($sql, false);
 
@@ -583,7 +583,7 @@ class latest extends eyoom
 				case 6: $where .= " and ca_id3 = '{$opt['ca_id']}' "; break;
 			}
 		}
-		
+
 		$orderby = " it_time desc ";
 		$list = $this->latest_item_assign($where, $opt['count'], $opt['cut_name'], $orderby, $opt['width']);
 		$this->latest_print($skin, $list, 'single', 'latest');
@@ -605,25 +605,25 @@ class latest extends eyoom
 
 			// 조건검색
 			$opt['where'] = $where;
-		
-			// 최신글 헤더 타이틀 
+
+			// 최신글 헤더 타이틀
 			if($optset['title']) {
 				$this->header_title = $optset['title'];
 			}
-		
+
 			if($optset['it_id']) {
 				$opt['it_id'] = $optset['it_id'];
 			}
-		
+
 			// 출력갯수
 			if($optset['count']) $opt['count'] = $optset['count'];
-		
+
 			// 최신글 제목길이
 			if($optset['cut_name']) $opt['cut_name'] = $optset['cut_name'];
-			
+
 			// 상품이미지 가로
 			if($optset['width']) $opt['width'] = $optset['width'];
-		
+
 			// 타입
 			if($optset['type']) $opt['type'] = $optset['type'];
 
@@ -650,7 +650,7 @@ class latest extends eyoom
 		}
 		return $list;
 	}
-	
+
 	// 내글반응 최근반응 추출
 	public function latest_respond($skin, $option) {
 		global $g5, $member, $is_member;
@@ -681,8 +681,8 @@ class latest extends eyoom
 
 			// 조건검색
 			$opt['where'] = $where;
-		
-			// 최신글 헤더 타이틀 
+
+			// 최신글 헤더 타이틀
 			if($optset['title']) {
 				$this->header_title = $optset['title'];
 			}
@@ -751,7 +751,12 @@ class latest extends eyoom
 		for($i=0; $row = sql_fetch_array($result); $i++) {
 			$list[$i] = $row;
 
-			$list[$i]['mb_name'] = $row['mb_nick'];
+			if($row['me_send_anonymous'] == 1) {
+				$list[$i]['mb_name'] = '익명의 니니';
+			} else {
+				$list[$i]['mb_name'] = $row['mb_nick'];
+			}
+
 			$list[$i]['datetime'] = $row['me_send_datetime'];
 			$list[$i]['href']	= G5_BBS_URL.'/memo_view.php?me_id='.$row['me_id'].'&amp;kind=recv';
 			$list[$i]['memo'] = conv_subject($row['me_memo'], $cut_subject, '…');
@@ -769,7 +774,7 @@ class latest extends eyoom
 			select a.mb_id, b.mb_nick, b.mb_name, b.mb_email, b.mb_homepage, b.mb_open, b.mb_point, a.lo_ip, a.lo_location, a.lo_url
 			from {$g5['login_table']} a left join {$g5['member_table']} b on (a.mb_id = b.mb_id)
 			where a.mb_id <> '{$config['cf_admin']}'
-			order by a.lo_datetime desc 
+			order by a.lo_datetime desc
 		";
 		$result = sql_query($sql);
 		for ($i=0; $row=sql_fetch_array($result); $i++) {
@@ -798,7 +803,7 @@ class latest extends eyoom
 		// 오늘의 1등
 		$atd['today'] = sql_fetch("select atd_mb_id, atd_wr_name from {$g5['eyoom_attendance']} where atd_datetime like '".date('Y-m-d')."%' order by ranking asc limit 1", false);
 
-		// 개근 1등 
+		// 개근 1등
 		$atd['going'] = sql_fetch("select max(atd_count) as count, atd_mb_id, atd_wr_name, atd_datetime, sum(ranking) as rank from {$g5['eyoom_attendance']} where (1) group by atd_mb_id order by count desc, rank asc limit 1", false);
 
 		// 1등 횟수
