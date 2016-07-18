@@ -193,7 +193,7 @@ line-height: 1.35;
 .comment-write-wrap textarea#wr_content:focus {background:#fff;}
 .comment-area .eyoom-form .checkbox {padding-left:22px;}
 .comment-area .margin-hr-15 {height:1px;border-top:1px solid #ccc;margin:15px 0;clear:both}
-.view-comment {position:relative;font-size:12px;padding:0;border-top:1px solid rgba(120,130,140,.13);}
+.view-comment {position:relative;font-size:12.5px;padding:0;border-top:1px solid rgba(120,130,140,.13);}
 .view-comment h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
 .view-comment-item {position:relative;}
 .view-comment-item .no-comment {text-align:center;padding:10px 0 20px;border-bottom:1px solid #e5e5e5}
