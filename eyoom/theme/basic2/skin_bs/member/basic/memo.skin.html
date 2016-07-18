@@ -32,7 +32,7 @@ add_stylesheet('<link rel="stylesheet" href="../../../css/custom.css" type="text
 			            <tbody>
 							<!--{@ list}-->
 					        <tr>
-					            <td class="text-center">{=eb_nameview('basic', .mb_id, .mb_nick, .mb_email, .mb_homepage)}</td>
+					            <td class="text-center">{.mb_nick}</td>
 					            <td class="text-center"><a href="{.view_href}" class="btn-e btn-e-default btn-e-xs color-white {? .read_datetime == '아직 읽지 않음'}btn-e-red{/}">쪽지 보기</a></td>
 					            <td class="text-center memo-hidden-sm"><a href="{.view_href}">{.send_datetime}</a></td>
 					            <td class="text-center memo-hidden-sm"><a href="{.view_href}">{.read_datetime}</a></td>

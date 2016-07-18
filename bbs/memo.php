@@ -45,14 +45,15 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 {
     $list[$i] = $row;
 
-    $mb_id = $row["me_{$unkind}_mb_id"];
-
-    if ($row['mb_nick'])
-        $mb_nick = $row['mb_nick'];
-    else
-        $mb_nick = '정보없음';
-
-    $name = get_sideview($row['mb_id'], $row['mb_nick'], $row['mb_email'], $row['mb_homepage']);
+    if ($row['mb_nick']) {
+      if ($row['me_send_anonymous'] == 1) {
+        $list[$i]['mb_nick'] = '익명의 니니';
+      } else {
+        $list[$i]['mb_nick'] = $row['mb_nick'];
+      }
+    } else {
+      $mb_nick = '정보없음';
+    }
 
     if (substr($row['me_read_datetime'],0,1) == 0)
         $read_datetime = '아직 읽지 않음';
@@ -61,7 +62,6 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
 
     $send_datetime = substr($row['me_send_datetime'],2,14);
 
-    $list[$i]['name'] = $name;
     $list[$i]['send_datetime'] = $send_datetime;
     $list[$i]['read_datetime'] = $read_datetime;
     $list[$i]['view_href'] = './memo_view.php?me_id='.$row['me_id'].'&amp;kind='.$kind;

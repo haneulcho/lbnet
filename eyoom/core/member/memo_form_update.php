@@ -111,7 +111,7 @@
 		sql_query($sql);
 
 		if (!$is_admin) {
-			insert_point($member['mb_id'], (int)$config['cf_memo_send_point'] * (-1), $recv_mb_nick.'님께 쪽지 발송', '@memo', $recv_mb_id, $me_id);
+			insert_point($member['mb_id'], (int)$config['cf_memo_send_point'] * (-1), $recv_mb_nick.' 님께 쪽지 발송', '@memo', $recv_mb_id, $me_id);
 			if($i=0) {
 				$eb->level_point($levelset['memo']);
 			}
@@ -124,10 +124,10 @@
 	if ($member_list) {
 		if ($me_send_anonymous) {
 			$str_nick_list = implode(',', $member_list['nick']);
-			alert("익명의 니니님께 쪽지를 전달하였습니다.", G5_HTTP_BBS_URL."/memo.php?kind=send", false);
+			alert("익명의 니니 님께 쪽지를 전달하였습니다.", G5_HTTP_BBS_URL."/memo.php?kind=send", false);
 		} else {
 			$str_nick_list = implode(',', $member_list['nick']);
-			alert($str_nick_list."님께 쪽지를 전달하였습니다.", G5_HTTP_BBS_URL."/memo.php?kind=send", false);
+			alert($str_nick_list." 님께 쪽지를 전달하였습니다.", G5_HTTP_BBS_URL."/memo.php?kind=send", false);
 		}
 	} else {
 		alert("회원아이디 오류 같습니다.", G5_HTTP_BBS_URL."/memo_form.php", false);
