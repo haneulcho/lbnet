@@ -16,7 +16,7 @@
 
 	if (isset($_POST['me_recv_mb_id'])) {
 		$recv_list = explode(',', trim($_POST['me_recv_mb_id']));
-		$me_recv_anonymous = 1;
+		$me_recv_anonymous = 0;
 	} else {
 		if (isset($_POST['lbme_id'])) {
 			// input에 직접 아이디값을 주면 소스보기시 아이디가 노출되므로 lbme_id로 memo 테이블에 쿼리 날려서 me_recv_mb_id를 직접 db에서 받아옴
