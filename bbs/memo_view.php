@@ -44,7 +44,7 @@ $sql = " select * from {$g5['memo_table']}
             limit 1 ";
 $prev = sql_fetch($sql);
 if ($prev['me_id'])
-    $prev_link = './memo_view.php?kind='.$kind.'&amp;me_id='.$prev['me_id'];
+    $prev_link = './memo_view.php?me_id='.$prev['me_id'].'&amp;kind='.$kind;
 else
     //$prev_link = 'javascript:alert(\'쪽지의 처음입니다.\');';
     $prev_link = '';
@@ -58,12 +58,16 @@ $sql = " select * from {$g5[memo_table]}
             limit 1 ";
 $next = sql_fetch($sql);
 if ($next[me_id])
-    $next_link = './memo_view.php?kind='.$kind.'&amp;me_id='.$next[me_id];
+    $next_link = './memo_view.php?me_id='.$next[me_id].'&amp;kind='.$kind;
 else
     //$next_link = 'javascript:alert(\'쪽지의 마지막입니다.\');';
     $next_link = '';
 
-$mb = get_member($memo['me_'.$unkind.'_mb_id']);
+if ($memo['me_send_anonymous'] == 1) {
+  $mb['mb_nick'] = '익명의 니니';
+} else {
+  $mb = get_member($memo['me_'.$unkind.'_mb_id']);
+}
 
 include_once($member_skin_path.'/memo_view.skin.php');
 
