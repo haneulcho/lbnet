@@ -412,15 +412,20 @@ class eyoom extends qfile
 	public function date_time($format, $date) {
 		$time = strtotime($date);
 		$time_gap = time() - $time;
+		$wr_day = (int)date('ymd', strtotime($date));
+		$today = (int)date('ymd', strtotime('now'));
+		$yesterday = (int)date('ymd', strtotime('-1 day'));
+		$byesterday = (int)date('ymd', strtotime('-2 day'));
 		if($time_gap < 15) return '방금전';
 		else if($time_gap < 60) return $time_gap.'초전';
 		else if ($time_gap < 3600) return round($time_gap/60).'분전'; // 1시간 경과
-		else if ($time_gap < 86400) { // 24시간 전까지 h시간 m분전
+		else if ($time_gap < 21600) { // 6시간 경과 전까지 h시간 m분전
 			$minute = round(($time_gap%3600)/60);
 			return round($time_gap/3600).'시간 '.$minute.'분전';
 		}
-		else if ($time_gap < 172800) return '하루전 '.date('H:i',$time);// 48시간 전까지 하루전
-		else if ($time_gap < 259200) return '이틀전 '.date('H:i',$time);// 72시간 전까지 이틀전
+		else if ($wr_day == $today) return '오늘 '.date('H:i',$time);// 글이 쓰여진 날과 오늘 날이 같으면 오늘
+		else if ($wr_day == $yesterday) return '어제 '.date('H:i',$time);// 글이 쓰여진 날과 어제가 같으면 어제
+		else if ($wr_day == $byesterday) return '엊그제 '.date('H:i',$time);// 글이 쓰여진 날과 엊그제가 같으면 엊그제
 		else return date($format,$time);
 	}
 
