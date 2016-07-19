@@ -359,8 +359,8 @@ body {color:rgba(0,0,0,.87);min-width:330px;}
 /*----- 회원 레이어팝업 -----*/
 .comment-name .sv_wrap > a {color:#666;font-size:12px}
 .comment-name > b .sv_wrap > a {font-weight:bold;color:#00bcd4;}
-.comment-name > b .sv_wrap > a:hover,
-.sv_wrap a:hover {color:#f44455;}
+.lbdes .sv_wrap, .view-comment .comment-item-info .sv_wrap, .sv_wrap {margin-right:2px}
+.sv_wrap a:hover {color:#f44455 !important;}
 .sv_wrap .sv {z-index:998;border:1px solid #ccc;min-width:110px;padding:4px 0;background:#fff}
 .sv_wrap .sv a{background:#fff;padding:3px 12px;font-size:12px;border-bottom:0;display:block;width:110px;color:#f44455 !important;}
 .sv_wrap .sv a:hover{background:#f4f4f4}

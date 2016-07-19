@@ -10,11 +10,12 @@
 		<li>
 			<a class="lblink" href="{.href}">
 				<div class="lbtitle">
-					{.wr_subject}
+					{.wr_subject}<!--{? .wr_comment}--><span class="lbcomment"><i class="fa fa-comment-o"></i>{=number_format(.wr_comment)}</span><!--{/}-->
 				</div>
 				<div class="lbdes">
 					<span class="lbnick"><i class="fa fa-user"></i>{.mb_nick}</span>
-					<span class="lbcomment"><i class="fa fa-comment-o"></i><!--{? .wr_comment}-->{=number_format(.wr_comment)}<!--{:}-->0<!--{/}--></span>
+					<span class="lbhit"><i class="fa fa-eye"></i>{=number_format(.wr_hit)}</span>
+					<span class="lbup"><i class="fa fa-thumbs-up"></i>{=number_format(.wr_good)}</span>
 					<span class="lbtime"><i class="fa fa-clock-o"></i>{eb->date_time('m-d H:i',.datetime)}</span>
 				</div>
 			</a>

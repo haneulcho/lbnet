@@ -189,16 +189,10 @@ function fwrite_submit(f)
               </div>
 							<div class="lbdes">
 								<span class="lbnick"><i class="fa fa-user"></i><!--{?.is_mine}-->{.wr_name}<b class="color-red">*</b><!--{:}-->{.wr_name}<!--{/}--></span>
-		            <span class="lbhit"><i class="fa fa-eye"></i>
-		            {=number_format(.wr_hit)}
+		            <span class="lbhit"><i class="fa fa-eye"></i>{=number_format(.wr_hit)}
 		            </span>
 		            <!--{?_is_good}--><span class="lbup"><i class="fa fa-thumbs-up"></i>{=number_format(.wr_good)}</span><!--{/}-->
-		            <span class="lbtime"><i class="fa fa-clock-o"></i>
-		            <!--{? eyoom_board.bo_sel_date_type == '1'}-->
-		            {eb->date_time('m-d H:i',.wr_datetime)}
-		            <!--{: eyoom_board.bo_sel_date_type == '2'}-->
-		            {eb->date_format('Y.m.d',.wr_datetime)}
-		            <!--{/}-->
+		            <span class="lbtime"><i class="fa fa-clock-o"></i><!--{? eyoom_board.bo_sel_date_type == '1'}-->{eb->date_time('m-d H:i',.wr_datetime)}<!--{: eyoom_board.bo_sel_date_type == '2'}-->{eb->date_format('Y.m.d',.wr_datetime)}<!--{/}-->
 		            </span>
 		          </div>
 							<!--{/}-->
