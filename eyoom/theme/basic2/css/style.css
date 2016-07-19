@@ -357,7 +357,7 @@ body {color:rgba(0,0,0,.87);min-width:330px;}
 #captcha .required,#captcha textarea.required {background:#fff !important}
 
 /*----- 회원 레이어팝업 -----*/
-.comment-name .sv_wrap > a {color:#666;font-size:12px}
+.sv_wrap > a {color:#666;font-size:12px}
 .comment-name > b .sv_wrap > a {font-weight:bold;color:#00bcd4;}
 .lbdes .sv_wrap, .view-comment .comment-item-info .sv_wrap, .sv_wrap {margin-right:2px}
 .sv_wrap a:hover {color:#f44455 !important;}
