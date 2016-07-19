@@ -29,7 +29,7 @@
 		$comment[$i]['name'] = $list[$i]['name'];
 		$comment[$i]['mb_id'] = $list[$i]['mb_id'];
 		$comment[$i]['ip'] = $list[$i]['ip'];
-		$comment[$i]['datetime'] = $list[$i]['datetime'];
+		$comment[$i]['datetime'] = $list[$i]['wr_datetime'];
 		$comment[$i]['wr_option'] = $list[$i]['wr_option'];
 		$comment[$i]['content1'] = get_text($list[$i]['content1'], 0);
 
