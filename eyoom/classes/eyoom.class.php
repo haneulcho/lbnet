@@ -14,8 +14,8 @@ class eyoom extends qfile
 	// 랜덤
 	public function random_num($max_num) {
 		mt_srand ((double) microtime() * 1000000);
-		$num = mt_rand(0, $max_num); 
-		return $num; 
+		$num = mt_rand(0, $max_num);
+		return $num;
 	}
 
 	// 메인페이지 설정
@@ -27,8 +27,8 @@ class eyoom extends qfile
 			$permit = array('page','following','follower','friends','guest');
 			$index = false; $i=0;
 			foreach($_GET as $k => $v) {
-				if($i==0) { $dummy_id = $k; $i++; continue; } // 첫번째 변수는 dummy_id 
-				if(!in_array($k,$permit)) { 
+				if($i==0) { $dummy_id = $k; $i++; continue; } // 첫번째 변수는 dummy_id
+				if(!in_array($k,$permit)) {
 					$index = true; // 허용하지 않은 키값은 무시하고 기본 홈으로
 					break;
 				} else {
@@ -51,7 +51,7 @@ class eyoom extends qfile
 				if(exist_mb_id($dummy_id)) {
 					$user = $this->get_user_info($dummy_id);
 
-					// 공개여부, 비회원여부, 공개하지 않았으나 마이홈으로 이동일 경우 등 
+					// 공개여부, 비회원여부, 공개하지 않았으나 마이홈으로 이동일 경우 등
 					if($user['open_page']=='y' || ($user['mb_id'] == $member['mb_id'] && $user['mb_id']) ) {
 						include_once(EYOOM_CORE_PATH.'/mypage/myhome.php');
 						$tpl->define_template('mypage',$eyoom['mypage_skin'],'myhome.skin.html');
@@ -89,16 +89,16 @@ class eyoom extends qfile
 		}
 	}
 
-	// 기본홈 
+	// 기본홈
 	private function go_index_page() {
 		global $tpl, $tpl_name;
 		$tpl_index = 'index_'.$tpl_name;
 		$tpl->print_($tpl_index);
 	}
-	
+
 	// 공사중 설정 시간 변환하여 리턴
 	public function mktime_countdown_date($cd_datetime) {
-		
+
 		if(strlen($cd_datetime) == 12) {
 			$cd_date = array();
 			$cd_date['year'] 	= substr($cd_datetime,0,4);
@@ -108,9 +108,9 @@ class eyoom extends qfile
 			$cd_date['minute']	= substr($cd_datetime,10,2);
 			$cd_date['mktime']	= mktime($cd_date['hour'], $cd_date['minute'], 0, $cd_date['month'], $cd_date['day'], $cd_date['year']);
 			$cd_date['month_text'] = date('F', $cd_date['mktime']);
-			
+
 			return $cd_date;
-			
+
 		} else {
 			return false;
 		}
@@ -132,7 +132,7 @@ class eyoom extends qfile
 		$board_info = sql_fetch($sql,false);
 		return sql_fetch($sql);
 	}
-	
+
 	// 이윰보드 설정값이 DB에 없는 상태에서 기본값 설정
 	public function eyoom_board_default($bo_table) {
 		global $theme;
@@ -176,7 +176,7 @@ class eyoom extends qfile
 				'download_fee_ratio'		=> 0,
 			);
 			return $eyoom_board;
-			
+
 		} else {
 			return false;
 		}
@@ -214,9 +214,9 @@ class eyoom extends qfile
 			wr_subject	= '" . addslashes(get_text($wr_subject)) . "',
 		";
 		$where = "
-			wr_mb_id = '$wr_mb_id' and 
-			bo_table = '$bo_table' and 
-			pr_id = '$pr_id' and 
+			wr_mb_id = '$wr_mb_id' and
+			bo_table = '$bo_table' and
+			pr_id = '$pr_id' and
 			re_type = '$type'
 		";
 
@@ -251,11 +251,11 @@ class eyoom extends qfile
 	// 내글반응의 종류에 따라 출력될 메세지 결정
 	public function respond_mention($type,$name,$cnt) {
 		switch($type) {
-			case 'reply'	: 
+			case 'reply'	:
 				$reinfo['type'] = '답글';
 				$reinfo['mention'] = $cnt > 0 ?  "<b>".$name."</b>님외 <b>".$cnt."</b>개의 답글이 내글에 달렸습니다." : "<b>".$name."</b>님이 내글에 답글을 남겼습니다.";
 				break;
-			case 'good'		: 
+			case 'good'		:
 				$reinfo['type'] = '추천';
 				$reinfo['mention'] = $cnt > 0 ?  "<b>".$name."</b>님외 <b>".$cnt."</b>명이 내글을 추천하였습니다." : "<b>".$name."</b>님이 내글을 추천하였습니다.";
 				break;
@@ -392,7 +392,7 @@ class eyoom extends qfile
 		global $g5;
 		$act_content = serialize($content);
 		$sql = "
-			insert into {$g5['eyoom_activity']} set 
+			insert into {$g5['eyoom_activity']} set
 				mb_id = '{$mb_id}',
 				act_type = '{$type}',
 				act_contents = '{$act_content}',
@@ -412,12 +412,15 @@ class eyoom extends qfile
 	public function date_time($format, $date) {
 		$time = strtotime($date);
 		$time_gap = time() - $time;
-		if($time_gap < 60) return $time_gap.'초전';
-		else if ($time_gap < 3600) return round($time_gap/60).'분전';
-		else if ($time_gap < 86400) {
+		if($time_gap < 15) return '방금전';
+		else if($time_gap < 60) return $time_gap.'초전';
+		else if ($time_gap < 3600) return round($time_gap/60).'분전'; // 1시간 경과
+		else if ($time_gap < 86400) { // 24시간 전까지 h시간 m분전
 			$minute = round(($time_gap%3600)/60);
 			return round($time_gap/3600).'시간 '.$minute.'분전';
 		}
+		else if ($time_gap < 172800) return '하루전 '.date('H:i',$time);// 48시간 전까지 하루전
+		else if ($time_gap < 259200) return '이틀전 '.date('H:i',$time);// 72시간 전까지 이틀전
 		else return date($format,$time);
 	}
 
@@ -464,14 +467,14 @@ class eyoom extends qfile
 			return $snsinfo;
 		}
 	}
-	
+
 	// 소셜 정보
 	private function get_sns_info($following, $follower, $likes) {
 		$_following	= unserialize($following);
 		$_follower	= unserialize($follower);
 		$_likes		= unserialize($likes);
 		$_friends	= is_array($_following) && is_array($_follower) ? array_intersect($_following,$_follower):array();
-	
+
 		$user['cnt_following']	= $_following ? count($_following):0;
 		$user['cnt_follower']	= $_follower ? count($_follower):0;
 		$user['cnt_friends']	= $_friends ? count($_friends):0;
@@ -534,7 +537,7 @@ class eyoom extends qfile
 	// 포인트를 통한 레벨 가져오기
 	private function get_level_from_point($point,$level) {
 		global $levelinfo;
-		
+
 		$lvinfo = $levelinfo[$level];
 		if($point > $lvinfo['max']) {
 			$level++;
@@ -663,7 +666,7 @@ class eyoom extends qfile
 							insert_point($member['mb_id'], $point['bomb'][$key], $board['bo_subject'].' wr_id='.$wr_id.' 게시물 지뢰폭탄 포인트', '@bomb', $member['mb_id'], $board['bo_subject'].'|'.$wr_id.'|'.$comment_id.'|'.$key);
 						} else if($eyoom_board['bo_cmtpoint_target'] == '2') {
 							$this->level_point($point['bomb'][$key]);
-						}						
+						}
 					}
 				}
 			}
@@ -695,8 +698,8 @@ class eyoom extends qfile
 			echo "k : " . $k . " - " . $tm['tm_code'] . "<br>";
 			echo "d : " . $d . " - " . $tm['tm_time'] . "<br>";
 			*/
-			if(($h != 'n' && $h != $url['host']) || 
-				$k != $tm['tm_code'] || 
+			if(($h != 'n' && $h != $url['host']) ||
+				$k != $tm['tm_code'] ||
 				$k == null ||
 				$d != $tm['tm_time']) {
 				//if(!$preview) $this->del_tmfile(config_file);
@@ -710,13 +713,13 @@ class eyoom extends qfile
 		while($buf) {
 			$m = substr($buf, 0, 16);
 			$buf = substr($buf, 16);
-			
+
 			$c = "";
 			for($i=0;$i<16;$i++) $c .= $m{$i}^$key1{$i};
 			$ret_buf .= $c;
 			$key1 = pack("H*",md5($key.$key1.$m));
 		}
-		
+
 		$len = strlen($ret_buf);
 		for($i=0; $i<$len; $i++) $hex_data .= sprintf("%02x", ord(substr($ret_buf, $i, 1)));
 		return($hex_data);
@@ -726,15 +729,15 @@ class eyoom extends qfile
 	public function decrypt_md5($hex_buf, $key="password") {
         $len = strlen($hex_buf);
         for ($i=0; $i<$len; $i+=2) $buf .= chr(hexdec(substr($hex_buf, $i, 2)));
-        
+
         $key1 = pack("H*", md5($key));
         while($buf) {
            $m = substr($buf, 0, 16);
            $buf = substr($buf, 16);
-           
+
            $c = "";
            for($i=0;$i<16;$i++) $c .= $m{$i}^$key1{$i};
-           
+
            $ret_buf .= $m = $c;
            $key1 = pack("H*",md5($key.$key1.$m));
         }
@@ -752,19 +755,19 @@ class eyoom extends qfile
 
 		// 동영상
 		$content = preg_replace_callback("/{동영상\s*\:([^}]*)}/i", array($this,'video_content'), $content);
-		
+
 		// 이모티콘
 		$content = preg_replace_callback("/{이모티콘\s*\:([^}]*)}/i", array($this, 'emoticon_content'), $content);
-		
+
 		// 사운드클라우드
 		$content = preg_replace_callback("/{soundcloud\s*\:([^}]*)}/i", array($this, 'soundcloud_content'), $content);
-		
+
 		// 지도
 		$content = preg_replace_callback("/{지도\s*\:([^}]*)}/i", array($this, 'map_content'), $content);
-		
+
 		return $content;
 	}
-	
+
 	// 게시글 내용에서 텍스트만 추출
 	public function eyoom_text_abstract($content, $length=300) {
 		$content = preg_replace("#\\r#","",cut_str(str_replace('&nbsp;','',strip_tags(stripslashes($content))),$length,''));
@@ -801,7 +804,7 @@ class eyoom extends qfile
 		if(!$video['height']) {
 			switch($video['host']) {
 				case 'nate.com'	: $video['height'] = 384; break;
-				default			: $video['height'] = 360; break;			
+				default			: $video['height'] = 360; break;
 			}
 		}
 		return $this->video_source($video);
@@ -847,7 +850,7 @@ class eyoom extends qfile
 					$video['key'] = $query['video_id'];
 				} else {
 					$video['key'] = $query['v'];
-				}		
+				}
 				if(!is_numeric($video['key'])) $video = NULL;
 				break;
 			case 'slideshare.net':
@@ -890,7 +893,7 @@ class eyoom extends qfile
 			curl_close($ch);
 			if($host == 'ted.com') return $output;
 		}
-		
+
 		switch($host) {
 			case 'tvcast.naver.com':
 				preg_match('/nhn.rmcnmv.RMCVideoPlayer\("(?P<vid>[A-Z0-9]+)", "(?P<inKey>[a-z0-9]+)"/i', $output, $video);
@@ -907,7 +910,7 @@ class eyoom extends qfile
 				preg_match('/&outKey=(?P<outKey>[a-zA-Z0-9]+)&/i', $output, $video);
 				$out['outKey']= $video['outKey'];
 				return $out;
-				
+
 				break;
 			case 'tvpot.daum.net':
 				preg_match('/\<meta property=\"og:url\"([^\<\>])*\>/i', $output, $scrapping);
@@ -971,15 +974,15 @@ class eyoom extends qfile
 		if($source) {
 			$source = "<div class='responsive-video'>".$source."</div>";
 			return $source;
-		} else return false;		
+		} else return false;
 	}
-	
+
 	/**
 	 * URL로부터 동영상 이미지 경로를 찾기
 	 */
 	public function get_imgurl_from_video($src) {
 		$video = $this->video_from_soruce($src);
-		
+
 		switch($video['host']) {
 			case 'youtu.be':
 			case 'youtube.com':
@@ -992,7 +995,7 @@ class eyoom extends qfile
 				$thumb = $this->get_video_use_curl($url, $video['host']);
 				$video['img_url'] = $thumb['thumbnail_large'];
 				break;
-			
+
 			case 'ted.com':
 				$content = $this->get_video_use_curl($src, $video['host']);
 				if (preg_match('!(((ht|f)tps?:\/\/)|(www.))[a-zA-Z0-9_\-.:#/~}?]+.jpg!', $content, $match)) {
@@ -1006,22 +1009,22 @@ class eyoom extends qfile
 		}
 		return $video;
 	}
-	
+
 	/**
 	 * 동영상 URL를 이용하여 목록이미지 thumbnail 생성하기
 	 */
 	public function make_thumb_from_video($src, $bo_table, $wr_id, $width, $height) {
 		global $w;
 		$src = preg_replace('/&nbsp;/', '', $src);
-		
+
 		$prefix = 'vlist';
-		
+
 		$video = $this->get_imgurl_from_video($src);
 		$filename = trim($this->get_filename_from_url($video['img_url']));
 		$thumb_info = '/file/' . $bo_table . '/' . $prefix . '_thumb_' . $wr_id . '_' . $filename;
 		$vlist_thumb_path = G5_DATA_PATH . $thumb_info;
 		$vlist_thumb_url = G5_DATA_URL . $thumb_info;
-		
+
 		if($video['img_url']) {
 			if( file_exists($vlist_thumb_path) && $w != 'u') {
 				return $vlist_thumb_url;
@@ -1040,28 +1043,28 @@ class eyoom extends qfile
 			}
 		} else return false;
 	}
-	
+
 	public function make_thumb_from_extra_image($bo_table, $wr_id, $content, $width, $height) {
 		global $w;
-		
+
 		if(!$content) return false;
 
 		// 게시물 내용에서 이미지 추출
 		$matchs = get_editor_image($content,false);
 		if(!$matchs) return false;
-		
+
 		$prefix = 'extimg';
-		
+
 		$extra_img_url = $matchs[1][0];
 		$extra_parse_url = parse_url($extra_img_url);
 		$host = $extra_parse_url['host'];
 		if($host == $_SERVER['HTTP_HOST']) return false;
-		
+
 		$filename = trim($this->get_filename_from_url($extra_img_url));
 		$thumb_info = '/file/' . $bo_table . '/' . $prefix . '_thumb_' . $wr_id . '_' . $filename;
 		$list_thumb_path = G5_DATA_PATH . $thumb_info;
 		$list_thumb_url = G5_DATA_URL . $thumb_info;
-		
+
 		if($extra_img_url) {
 			if( file_exists($list_thumb_path) && $w != 'u') {
 				return $list_thumb_url;
@@ -1076,7 +1079,7 @@ class eyoom extends qfile
 			}
 		} else return false;
 	}
-	
+
 	/**
 	 * URL로 부터 파일명 가져오기
 	 */
@@ -1084,7 +1087,7 @@ class eyoom extends qfile
 		$dirs = explode('/', $url);
 		return $dirs[(count($dirs)-1)];
 	}
-	
+
 	/**
 	 * 외부 이미지 로컬에 저장하기
 	 */
@@ -1095,7 +1098,7 @@ class eyoom extends qfile
 		curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
 		$rawdata = curl_exec($ch);
 		curl_close ($ch);
-		
+
 		if(file_exists($local_image)){
 			unlink($local_image);
 		}
@@ -1103,12 +1106,12 @@ class eyoom extends qfile
 		fwrite($fp, $rawdata);
 		fclose($fp);
 	}
-	
+
 	/**
 	 * 다운로드된 비디오 이미지 파일을 썸네일화
 	 */
 	public function make_thumb_list_image ($prefix, $bo_table, $wr_id, $filename, $width, $height) {
-		
+
 		$img_info = '/file/' . $bo_table . '/' . $prefix . '_img_' . $wr_id . '_' . $filename;
 		$img = G5_DATA_PATH . $img_info;
 
@@ -1123,7 +1126,7 @@ class eyoom extends qfile
 			if(!$height) {
 				$height = $width*($size[1]/$size[0]);
 			}
-			
+
 			$dest = @imagecreatetruecolor($width, $height);
 			$out_file = G5_DATA_PATH . '/file/' . $bo_table . '/' . $prefix . '_thumb_' . $wr_id . '_' . $filename;
 			$out_url = G5_DATA_URL . '/file/' . $bo_table . '/' . $prefix . '_thumb_' . $wr_id . '_' . $filename;
@@ -1132,7 +1135,7 @@ class eyoom extends qfile
 			@imagedestroy($dest);
 			@imagedestroy($source);
 			@unlink($img);
-			
+
 			return $out_url;
 
 		} else return false;
@@ -1175,28 +1178,28 @@ class eyoom extends qfile
 
 	public function map_content($source) {
 		global $eyoom_board;
-		
+
 		list($type, $address, $name, $subgps) = explode('^|^', $source[1]);
-		
+
 		if(!$subgps || $eyoom['use_map_content'] == 'n') return $address;
 		else {
 			$map_content = '';
 			$map_hashkey = md5(time().$this->random_num(1000));
-			
+
 			$gps_number = preg_replace('/\(|\)/','',$subgps);
 			list($gps_x,$gps_y) = explode(',',$gps_number);
-			
+
 			switch($type) {
 				case '1': $map_type = 'google'; break;
 				case '2': $map_type = 'naver'; break;
 				case '3': $map_type = 'daum'; break;
 				default : $map_type = 'google'; break;
 			}
-			
+
 			$map_info = $this->encrypt_md5($source);
 			$map_content = '<div class="map-content-wrap" data-map-type="'.$map_type.'" data-map-x="'.trim($gps_x).'" data-map-y="'.trim($gps_y).'" data-map-address="'.$address.'" data-map-name="'.$name.'"><div id="'.$map_hashkey.'"></div></div>';
 		}
-		
+
 		return $map_content;
 	}
 
@@ -1237,7 +1240,7 @@ class eyoom extends qfile
 		$content = preg_replace("/{이모티콘\s*\:([^}]*)}/i","",$content);
 		return $content;
 	}
-	
+
 	public function remove_editor_map($content) {
 		$content = preg_replace("/{지도\s*\:([^}]*)}/i","",$content);
 		return $content;
@@ -1275,20 +1278,20 @@ class eyoom extends qfile
 			@unlink(G5_DATA_PATH.'/file/'.$bo_table.'/'.$bf['file']);
 		}
 	}
-	
+
 	// 게시글보기 썸네일 생성
 	public function get_thumbnail($contents, $thumb_width=0) {
 	    global $board, $config, $eyoom_board, $exif;
-	
+
 	    if (!$thumb_width) $thumb_width = $board['bo_image_width'];
-	
+
 	    // $contents 중 img 태그 추출
 	    $matches = get_editor_image($contents, true);
-	
+
 	    if(empty($matches)) return $contents;
-	
+
 	    for($i=0; $i<count($matches[1]); $i++) {
-	
+
 	        $img = $matches[1][$i];
 	        preg_match("/src=[\'\"]?([^>\'\"]+[^>\'\"]+)/i", $img, $m);
 	        $src = $m[1];
@@ -1300,26 +1303,26 @@ class eyoom extends qfile
 	        $height = $m[1];
 	        preg_match("/alt=[\"\']?([^\"\']*)[\"\']?/", $img, $m);
 	        $alt = get_text($m[1]);
-	
+
 	        // 이미지 path 구함
 	        $p = parse_url($src);
 	        if(strpos($p['path'], '/'.G5_DATA_DIR.'/') != 0)
 	            $data_path = preg_replace('/^\/.*\/'.G5_DATA_DIR.'/', '/'.G5_DATA_DIR, $p['path']);
 	        else
 	            $data_path = $p['path'];
-	
+
 	        $srcfile = G5_PATH.$data_path;
-	
+
 	        if(is_file($srcfile)) {
 		        // EXIF 정보
 		        if($eyoom_board['bo_use_exif']) {
 				   $exif_info = $exif->get_exif_info($srcfile);
 		        }
-		        
+
 	            $size = @getimagesize($srcfile);
 	            if(empty($size))
 	                continue;
-	
+
 	            // jpg 이면 exif 체크
 	            if($size[2] == 2 && function_exists('exif_read_data')) {
 	                $degree = 0;
@@ -1336,7 +1339,7 @@ class eyoom extends qfile
 	                            $degree = -90;
 	                            break;
 	                    }
-	
+
 	                    // 세로사진의 경우 가로, 세로 값 바꿈
 	                    if($degree == 90 || $degree == -90) {
 	                        $tmp = $size;
@@ -1345,35 +1348,35 @@ class eyoom extends qfile
 	                    }
 	                }
 	            }
-	
+
 	            // 원본 width가 thumb_width보다 작다면
 	            if($size[0] <= $thumb_width)
 	                continue;
-	
+
 	            // Animated GIF 체크
 	            $is_animated = false;
 	            if($size[2] == 1) {
 	                $is_animated = is_animated_gif($srcfile);
 	            }
-	
+
 	            // 썸네일 높이
 	            $thumb_height = round(($thumb_width * $size[1]) / $size[0]);
 	            $filename = basename($srcfile);
 	            $filepath = dirname($srcfile);
-	
+
 	            // 썸네일 생성
 	            if(!$is_animated)
 	                $thumb_file = thumbnail($filename, $filepath, $filepath, $thumb_width, $thumb_height, false);
 	            else
 	                $thumb_file = $filename;
-	                
+
 	            if($thumb_file) {
 		            if ($width) {
 		                $thumb_tag = '<img src="'.G5_URL.str_replace($filename, $thumb_file, $data_path).'" alt="'.$alt.'" width="'.$width.'" height="'.$height.'"/>';
 		            } else {
 		                $thumb_tag = '<img src="'.G5_URL.str_replace($filename, $thumb_file, $data_path).'" alt="'.$alt.'"/>';
 		            }
-		
+
 		            // $img_tag에 editor 경로가 있으면 원본보기 링크 추가
 		            $img_tag = $matches[0][$i];
 		            if(strpos($img_tag, G5_DATA_DIR.'/'.G5_EDITOR_DIR) && preg_match("/\.({$config['cf_image_extension']})$/i", $filename)) {
@@ -1388,12 +1391,12 @@ class eyoom extends qfile
 		            }
 		            $img_tag = $matches[0][$i];
 	            }
-	            
+
 	            // EXIF 정보
 	            if($exif_info && $eyoom_board['bo_use_exif']) {
 		            $thumb_tag .= $exif_info;
 		        }
-	
+
 	            $contents = str_replace($img_tag, $thumb_tag, $contents);
 	        }
 	    }
@@ -1410,7 +1413,7 @@ class eyoom extends qfile
 			return $info;
 		}
 	}
-	
+
 	// 신고 내역
 	public function mb_yellow_card($mb_id, $bo_table, $wr_id) {
 		global $g5;
@@ -1421,7 +1424,7 @@ class eyoom extends qfile
 			return $info;
 		}
 	}
-	
+
 	// 별점 내역
 	public function mb_rating() {
 		global $g5;
@@ -1432,7 +1435,7 @@ class eyoom extends qfile
 			return $info;
 		}
 	}
-	
+
 	// 별점 정보 가져오기
 	public function get_star_rating($info) {
 		if(isset($info['rating_score']) && $info['rating_members'] > 0) {
@@ -1576,7 +1579,7 @@ class eyoom extends qfile
 			return 'pc';
 		}
 	}
-	
+
 	// 버전을 입력받아 버전스코어 점수를 리턴함
 	public function version_score($version) {
 		$ebv = explode('.', $version);
@@ -1586,7 +1589,7 @@ class eyoom extends qfile
 		}
 		return array_sum($vscore);
 	}
-	
+
 	// sql set배열을 sql문으로 완성하기
 	public function make_sql_set($source = array()) {
 		$i=0;
@@ -1598,18 +1601,18 @@ class eyoom extends qfile
 			return implode(',', $set);
 		}
 	}
-	
+
 	// 태그 정보 가져오기
 	public function get_tag_info($bo_table, $wr_id) {
 		global $g5, $theme;
 		$sql = " select * from {$g5['eyoom_tag_write']} where tw_theme='{$theme}' and bo_table='{$bo_table}' and wr_id='{$wr_id}' ";
 		return sql_fetch($sql, false);
 	}
-	
+
 	// 연관태그 정보
 	public function get_rel_tag($tag) {
 		global $g5, $theme;
-		
+
 		$org_tag = str_replace('^','&',$tag);
 		$tags = explode('*', $org_tag);
 		if(is_array($tags)) {
@@ -1630,9 +1633,9 @@ class eyoom extends qfile
 				$in_tags[trim($_tag)] = true;
 			}
 		}
-		
+
 		if(isset($in_tags)) {
-			
+
 			ksort($in_tags);
 			$i=0;
 			foreach($in_tags as $_tag => $val) {
@@ -1646,7 +1649,7 @@ class eyoom extends qfile
 		}
 		$output['tag_query'] 	= $tag_query;
 		$output['rel_tags'] 	= $rel_tags;
-		
+
 		return $output;
 	}
 
