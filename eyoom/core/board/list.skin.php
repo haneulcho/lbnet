@@ -152,7 +152,7 @@
 		 * 목록에서 내용 사용
 		 */
 		if($board['bo_use_list_content']) {
-			$content_length = G5_IS_MOBILE ? 100:150;
+			$content_length = G5_IS_MOBILE ? 40:40;
 			$wr_content = $list[$key]['wr_content'];
 			if($eyoom_board['bo_use_addon_coding'] == '1') {
 				$wr_content = $eb->remove_editor_code($wr_content);

@@ -178,11 +178,9 @@ function fwrite_submit(f)
 								if(strpos($s, '블라인드') !== false){
 									$is_blind = 'y';
 								} else {
-									$t = str_replace('<p>','',{.wr_content});
-									$t = str_replace('</p>','<br>',$t);
-
 									if({member.mb_id} && {member.mb_level} > 1) {
-										echo nl2br(cut_str(strip_tags($t, '<br>'), 40, "..."));
+										$t = {.content};
+										echo nl2br(strip_tags($t));
 									} else {
 										echo '<i class="fa fa-exclamation-triangle"></i> 내용 미리보기는 회원만 가능!';
 									}
