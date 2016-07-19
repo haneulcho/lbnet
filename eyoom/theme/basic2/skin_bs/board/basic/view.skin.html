@@ -105,14 +105,14 @@
 	        <!--{? _good_href}-->
 	        <span class="board-view-act-gng">
 	            <a href="{_good_href}&amp;{_qstr}" id="good_button" class="act-gng-btn" type="button"><i class="fa fa-thumbs-up"></i><span>{=number_format(view.wr_good)}</span><div class="mask"><h5>좋아요!</h5></div></a>
-	            <b class="board-view-act-good"></b>
 	        </span>
+          <b class="board-view-act-good"></b>
 	        <!--{/}-->
 	        <!--{? _nogood_href}-->
 	        <span class="board-view-act-gng">
 	            <a href="{_nogood_href}&amp;{_qstr}" id="nogood_button" class="act-gng-btn" type="button"><i class="fa fa-thumbs-down"></i><span>{=number_format(view.wr_nogood)}</span><div class="mask"><h5>글쎄요~</h5></div></a>
-	            <b class="board-view-act-nogood"></b>
 	        </span>
+          <b class="board-view-act-nogood"></b>
 	        <!--{/}-->
         </div>
         <!--{/}-->
@@ -510,12 +510,12 @@ function excute_good(href, $el, $tx)
             }
 
             if(data.count) {
-                $el.find("strong").text(number_format(String(data.count)));
-                if($tx.attr("id").search("nogood") > -1) {
-                    $tx.text("이 글을 비추천하셨습니다.");
+                $el.find("span").text(number_format(String(data.count)));
+                if($tx.attr("class").search("nogood") > -1) {
+                    $tx.html('<i class="fa fa-thumbs-down"></i> 이 글을 비추천했어요!');
                     $tx.fadeIn(200).delay(2500).fadeOut(200);
                 } else {
-                    $tx.text("이 글을 추천하셨습니다.");
+                    $tx.html('<i class="fa fa-thumbs-up"></i> 이 글을 추천했어요!');
                     $tx.fadeIn(200).delay(2500).fadeOut(200);
                 }
             }

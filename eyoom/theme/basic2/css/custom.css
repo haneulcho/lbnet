@@ -125,8 +125,8 @@
 .board-view .board-view-con a:hover {text-decoration:underline !important;}
 .board-view .board-view-con img {max-width:100%;height:auto}
 .board-view .board-view-con iframe {max-width:100%;}
-.board-view .board-view-good-btn {margin-bottom:30px;text-align:center}
-.board-view .board-view-good-btn .board-view-act-gng {position:relative;margin:0 5px}
+.board-view .board-view-good-btn {position:relative;margin-bottom:30px;text-align:center}
+.board-view .board-view-good-btn .board-view-act-gng {margin:0 5px}
 .board-view .board-view-good-btn .board-view-act-gng .act-gng-btn {position:relative;overflow:hidden;width:70px;height:35px;border:1px solid #dfdfdf;display:inline-block;white-space:nowrap;vertical-align:baseline;text-align:center}
 .board-view .board-view-good-btn .board-view-act-gng .act-gng-btn i {font-size:20px;color:#ddd;margin:6px 8px 0 0;}
 .board-view .board-view-good-btn .board-view-act-gng .act-gng-btn:hover i {color:#f44455}
@@ -139,7 +139,9 @@
 .board-view .board-view-btn {margin-bottom:15px;text-align:right}
 .board-view .board-view-btn a {margin-right:5px;vertical-align:middle}
 .board-view .board-view-btn strong {color:#f44455}
-.board-view .board-view-act-good,.board-view-act-nogood {display:none;position:absolute;top:30px;left:0;padding:5px 0;width:165px;background:#000;color:#fff;text-align:center}
+.board-view .board-view-act-good,.board-view-act-nogood {display:none;position:absolute;top:0;left:0;width:100%;height:35px;padding:9px 0;color:#fff;text-align:center;z-index:99;font-size:13px;}
+.board-view .board-view-act-good {background-color:rgba(244, 68, 85, 0.85);}
+.board-view .board-view-act-nogood {background-color:rgba(0, 188, 212, 0.85);}
 .board-view .board-view-bot {zoom:1}
 .board-view .board-view-bot:after {display:block;visibility:hidden;clear:both;content:""}
 .board-view .board-view-bot h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
