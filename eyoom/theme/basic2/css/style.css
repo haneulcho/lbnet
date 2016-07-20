@@ -1,7 +1,8 @@
 /*--------------------------------------
 	eyoom (이윰빌더)
 --------------------------------------*/
-body {padding-top:75px;color:rgba(0,0,0,.87);min-width:330px;}
+body {color:rgba(0,0,0,.87);min-width:330px;}
+.wrapper {padding-top:75px;}
 /*---------- Wrapper & Basic Layout & Boxed Layout ----------*/
 .wrapper {background:#eaeaea}
 .basic-layout {background:#f0f0f0}
@@ -242,9 +243,7 @@ body {padding-top:75px;color:rgba(0,0,0,.87);min-width:330px;}
 .basic-body .basic-body-side {padding-top:25px;padding-bottom:25px}
 .basic-body .basic-body-side.left-side {margin-right:-1px;border-right:1px solid #e5e5e5}
 .basic-body .basic-body-side.right-side {margin-left:-1px;background-color:#f8f8f8;}
-.basic-body .basic-body-side.right-side.scrolled {padding-top:110px;}
 @media (max-width: 991px){
-	.basic-body .basic-body-side.right-side.scrolled {padding-top:25px;}
 	.basic-body .basic-body-main.left-main {border-right:0}
 	.basic-body .basic-body-main.right-main {border-left:0}
 	.basic-body .basic-body-side.left-side {margin-right:0;border-right:0}
