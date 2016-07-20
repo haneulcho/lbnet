@@ -87,6 +87,15 @@
           {_view_content}
           <!--{/}-->
         </div>
+        <!--{? _is_admin == 'super'}-->
+        <form name="fhit" id="fhit" action="./hit_update.php" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form margin-bottom-20">
+          <label for="wr_hit" class="margin-right-10">{_bo_table} / wr_id {view.wr_id}</label>
+          <input type="hidden" name="bo_table" value="{_bo_table}">
+          <input type="text" id="wr_hit" name="wr_hit" value="{=number_format(view.wr_hit)}">
+      	  <input type="hidden" name="wr_id" value="{view.wr_id}">
+					<button type="submit" id="btn_submit" class="btn-e btn-e-lg btn-e-yellow margin-top-m-2">수정</button>
+        </form>
+        <!--{/}-->
         <!--{* 본문 내용 끝 *}-->
 
         <!--{? eyoom.use_tag == 'y' && eyoom_board.bo_use_tag == '1' && view_tags.size_ > 0}-->
