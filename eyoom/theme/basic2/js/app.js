@@ -151,3 +151,23 @@ var App = function () {
     };
 
 }();
+var target = window.location.hash,
+target = target.replace('#', '');
+window.location.hash = "";
+
+jQuery(document).ready(function() {
+  if (target) {
+    setTimeout(function(){
+      lbScrollTo(jQuery('#'+target));
+    }, 100);
+  }
+});
+
+function lbScrollTo(targets) {
+  $('html, body').animate({
+    scrollTop: targets.offset().top - 140
+  }, 600, function(){
+    window.location.hash = target;
+    targets.find('.comment-item-body-pn').children(":first").addClass('commentScrolled');
+  });
+}

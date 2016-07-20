@@ -2,7 +2,10 @@
 .header-logo {width:140px;}
 .navbar-brand {height:auto;padding:12px 15px;margin-right:5px;}
 .lbbox {box-shadow:0 0 1px rgba(0,0,0,.15);background-color:#fff;border-radius:3px;}
-.header-topbar.chk {background-color:#f44455}
+.header-topbar.chk {background-color:#f44455;-webkit-transition: all ease-in-out .2s;
+-moz-transition: all ease-in-out .2s;
+-o-transition: all ease-in-out .2s;
+transition: all ease-in-out .2s;}
 .basic-latest {position:relative;overflow:hidden;min-height:262px}
 .basic-latest ul {margin-bottom:0}
 .basic-latest li {position:relative;overflow:hidden;border-top:1px solid rgba(120,130,140,.13);}
@@ -214,6 +217,11 @@ line-height: 1.35;
 	.view-comment .comment-item-body {padding-left:40px}
 }
 .view-comment .comment-item-body-pn {padding:0;}
+.view-comment .commentScrolled {background-color:#f1f9fb;-webkit-transition: all ease-in-out .3s;
+-moz-transition: all ease-in-out .3s;
+-o-transition: all ease-in-out .3s;
+transition: all ease-in-out .3s;}
+.view-comment .commentScrolled .comment-item-contents p {color:#f44455;}
 .view-comment .comment-item-info {position:relative;margin-bottom:5px;line-height:1.6}
 .view-comment .comment-item-info span {margin-right:3px}
 .view-comment .comment-item-info .comment-name {position:relative;}
