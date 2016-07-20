@@ -113,7 +113,6 @@
 					</div>
 	                <!--{/}-->
 				</section>
-        <!--{? _req_nick}-->
   				<section>
   					<div class="col col-4">
   						<label for="reg_mb_nick" class="label width-100">
@@ -128,7 +127,11 @@
   						<label class="input">
   			                <input type="hidden" name="mb_nick_default" value="{? isset(member.mb_nick)}{member.mb_nick}{/}">
   							<i class="icon-prepend fa fa-smile-o"></i>
+                  <!--{? _req_nick}-->
   			                <input type="text" name="mb_nick" value="{? isset(member.mb_nick)}{member.mb_nick}{/}" id="reg_mb_nick" required size="10" maxlength="20">
+                  <!--{:}-->
+  			                <input type="text" name="mb_nick" value="{? isset(member.mb_nick)}{member.mb_nick}{/}" id="reg_mb_nick" size="10" maxlength="20" readonly="readonly">
+                  <!--{/}-->
   							<!--{? _w==''}--><input type="hidden" name="mb_nick_duplicated" id="mb_nick_duplicated"><!--{/}-->
   			                <span id="msg_mb_nick"></span>
   						</label>
@@ -136,11 +139,14 @@
   					<div class="clear"></div>
   					<div class="col col-12">
   						<div class="alert alert-warning padding-all-10 margin-top-10">
+                <!--{? _req_nick}-->
   							<strong>Note:</strong> 공백없이 한글,영문,숫자만 입력 가능 (한글2자, 영문4자 이상) | 닉네임을 바꾸시면 앞으로 {config.cf_nick_modify*1}일 이내에는 변경 할 수 없습니다.
+                <!--{:}-->
+  							<strong>Note:</strong> 마지막 수정 이후 {config.cf_nick_modify*1}일이 지나지 않아 닉네임을 변경 할 수 없습니다.
+                <!--{/}-->
   						</div>
   					</div>
   				</section>
-  			<!--{/}-->
 			</div>
 
 			<div class="margin-hr-10"></div>

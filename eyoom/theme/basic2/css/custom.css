@@ -246,3 +246,5 @@ line-height: 1.35;
 .ol-after .member-point span {margin-left:5px}
 .ol-after .member-lv {margin-bottom:7px}
 .ol-after .member-statistics p {margin-bottom:5px;font-size:11px}
+
+#fregisterform input:read-only {color:#9da5a9;background-color:#eceeef;}
