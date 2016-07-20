@@ -1,7 +1,7 @@
 /*--------------------------------------
 	eyoom (이윰빌더)
 --------------------------------------*/
-body {color:rgba(0,0,0,.87);min-width:330px;}
+body {padding-top:75px;color:rgba(0,0,0,.87);min-width:330px;}
 /*---------- Wrapper & Basic Layout & Boxed Layout ----------*/
 .wrapper {background:#eaeaea}
 .basic-layout {background:#f0f0f0}
@@ -206,7 +206,7 @@ body {color:rgba(0,0,0,.87);min-width:330px;}
 	.header-nav .mega-menu .mega-height-list li a:hover {color:#f44455;text-decoration:none}
 }
 /*Header Nav Fixed*/
-.header-fixed .header-nav.header-fixed-trans {border-bottom:none;position:fixed;top:0;left:0}
+.header-fixed .header-nav {border-bottom:none;position:fixed;top:0;left:0}
 .header-fixed .header-nav.header-sticky {width:100%;height:auto;z-index:999;}
 @media (min-width: 701px) {
 	.header-fixed .header-nav.header-fixed-trans .navbar {background:#fff;border:0}
@@ -242,7 +242,7 @@ body {color:rgba(0,0,0,.87);min-width:330px;}
 .basic-body .basic-body-side {padding-top:25px;padding-bottom:25px}
 .basic-body .basic-body-side.left-side {margin-right:-1px;border-right:1px solid #e5e5e5}
 .basic-body .basic-body-side.right-side {margin-left:-1px;background-color:#f8f8f8;}
-.basic-body .basic-body-side.right-side.scrolled {padding-top:100px;}
+.basic-body .basic-body-side.right-side.scrolled {padding-top:110px;}
 @media (max-width: 991px){
 	.basic-body .basic-body-side.right-side.scrolled {padding-top:25px;}
 	.basic-body .basic-body-main.left-main {border-right:0}
