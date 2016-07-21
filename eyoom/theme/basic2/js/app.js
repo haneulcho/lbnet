@@ -145,7 +145,7 @@ var App = function () {
         },
         initSideSticky: function () {
 			$(window).load(function(){
-				$('.basic-body-main, .basic-body-side').theiaStickySidebar({additionalMarginTop: 70});
+				$('.basic-body-main, .basic-body-side').theiaStickySidebar({additionalMarginTop: 100});
 			});
 	    },
     };

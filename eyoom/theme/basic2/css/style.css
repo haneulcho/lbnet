@@ -300,7 +300,7 @@ body {color:rgba(0,0,0,.87);min-width:330px;}
 .footer.footer-light .contactus li p {margin-bottom:0}
 .footer.footer-light .contactus li a {color:#777}
 .footer.footer-light .contactus li a:hover {color:#000}
-.footer.footer-light .copyright {margin-top:10px;padding:15px 0;background:#fff;border-top:1px solid #e5e5e5}
+.footer.footer-light .copyright {padding:15px 0;background:#fff;}
 .footer.footer-light .copyright p {font-size:12px;margin:0;}
 
 /*----- Back To Top -----*/
