@@ -191,7 +191,17 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
 
 		                        <!--{* Menu *}-->
 		                        <!--{@ menu}-->
-	                            <li class="{? .active}active{/} {? menu.submenu}dropdown{/}">
+                            <!--{? .active}-->
+                              <?php $liClass = 'active' ?>
+                            <!--{/}-->
+                            <!--{? menu.submenu}-->
+                              <?php $space = '' ?>
+                              <!--{? .active}-->
+                              <?php $space = ' ' ?>
+                              <!--{/}-->
+                              <?php $liClass = $space.'dropdown' ?>
+                            <!--{/}-->
+	                            <li<!--{? .active}--> class="<?php echo $liClass; ?>"<!--{/}-->>
 	                                <a href="{.me_link}" target="_{.me_target}" class="dropdown-toggle" {? C.G5_IS_MOBILE && menu.submenu}data-toggle="dropdown"{:}data-hover="dropdown"{/}>
 	                                    <!--{? .me_icon}--><i class="fa {.me_icon}"></i> <!--{/}-->{.me_name}<!--{? .new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}-->
 	                                </a>
