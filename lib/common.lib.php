@@ -282,6 +282,15 @@ function get_file($bo_table, $wr_id)
     $file['count'] = 0;
     $sql = " select * from {$g5['board_file_table']} where bo_table = '$bo_table' and wr_id = '$wr_id' order by bf_no ";
     $result = sql_query($sql);
+
+    // 이미지 alt값 용으로 게시글 제목만 가져오기
+    $sql2 = " select wr_subject from g5_write_".$bo_table." where wr_id = '$wr_id' ";
+    $row2 = sql_fetch($sql2);
+    $img_title = '';
+    if($row2) {
+      $img_title = $row2['wr_subject'];
+    }
+
     while ($row = sql_fetch_array($result))
     {
         $no = $row['bf_no'];
@@ -293,7 +302,11 @@ function get_file($bo_table, $wr_id)
         $file[$no]['datetime'] = $row['bf_datetime'];
         $file[$no]['source'] = addslashes($row['bf_source']);
         $file[$no]['bf_content'] = $row['bf_content'];
-        $file[$no]['content'] = get_text($row['bf_content']);
+        if (!empty($file[$no]['bf_content'])) {
+          $file[$no]['content'] = get_text($row['bf_content']);
+        } else {
+          $file[$no]['content'] = get_text($img_title);
+        }
         //$file[$no]['view'] = view_file_link($row['bf_file'], $file[$no]['content']);
         $file[$no]['view'] = view_file_link($row['bf_file'], $row['bf_width'], $row['bf_height'], $file[$no]['content']);
         $file[$no]['file'] = $row['bf_file'];
@@ -1297,13 +1310,15 @@ function view_file_link($file, $width, $height, $content='')
 
     // 폭이 있는 경우 폭과 높이의 속성을 주고, 없으면 자동 계산되도록 코드를 만들지 않는다.
     if ($width)
-        $attr = ' width="'.$width.'" height="'.$height.'" ';
+        $attr = 'width="'.$width.'" height="'.$height.'"';
     else
         $attr = '';
 
     if (preg_match("/\.({$config['cf_image_extension']})$/i", $file)) {
-        $img = '<a href="'.G5_BBS_URL.'/view_image.php?bo_table='.$board['bo_table'].'&amp;fn='.urlencode($file).'" target="_blank" class="view_image">';
-        $img .= '<img src="'.G5_DATA_URL.'/file/'.$board['bo_table'].'/'.urlencode($file).'" alt="'.$content.'" '.$attr.'>';
+        // 이미지에 venobox 플러그인 적용
+        // $img = '<a href="'.G5_BBS_URL.'/view_image.php?bo_table='.$board['bo_table'].'&amp;fn='.urlencode($file).'" target="_blank" class="view_image">';
+        $img = '<a href="'.G5_DATA_URL.'/file/'.$board['bo_table'].'/'.urlencode($file).'" class="view_image venobox" data-gall="lbgall" title="'.$content.'">';
+        $img .= '<img src="'.G5_DATA_URL.'/file/'.$board['bo_table'].'/'.urlencode($file).'" alt="'.$content.'" title="'.$content.'" '.$attr.'>';
         $img .= '</a>';
 
         return $img;

@@ -332,9 +332,10 @@ function board_move(href)
 
 <script>
 $(function() {
-    $("a.view_image").click(function() {
-        window.open(this.href, "large_image", "location=yes,links=no,toolbar=no,top=10,left=10,width=10,height=10,resizable=yes,scrollbars=no,status=no");
-        return false;
+    // 본문, 댓글 이미지 갤러리 처리
+    $('.venobox').venobox({
+      numeratio: true,
+      infinigall: true
     });
 
     // 추천, 비추천
@@ -348,9 +349,6 @@ $(function() {
         excute_good(this.href, $(this), $tx);
         return false;
     });
-
-    // 이미지 리사이즈
-    // $(".board-view-atc").viewimageresize();
 
     <!--{? eyoom_board.bo_use_yellow_card == '1' && _is_member}-->
     // 게시물 신고
