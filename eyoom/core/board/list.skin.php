@@ -166,7 +166,11 @@
 			if($eyoom_board['bo_use_addon_soundcloud'] == '1') {
 				$wr_content = $eb->remove_editor_sound($wr_content);
 			}
-			$list[$key]['content'] = cut_str(trim(strip_tags(preg_replace("/\?/","",$wr_content))),$content_length, '…');
+      if($eyoom_board['bo_use_addon_video'] == '1') {
+        $list[$key]['content'] = cut_str(trim(strip_tags(preg_replace("/\?/","",$wr_content))),$content_length, '…');
+      } else {
+        $list[$key]['content'] = cut_str(trim(strip_tags($wr_content)),$content_length, '…');
+      }
 		}
 
 		// 게시물 view페이지의 wmode(Window Mode) 설정
