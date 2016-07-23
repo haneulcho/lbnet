@@ -1,0 +1,48 @@
+<?php if (!defined('_GNUBOARD_')) exit; ?>
+
+<div class="basic-group-skin">
+<!--{@ list}-->
+	<!--{? .index_%2==0}-->
+	<div class="row margin-bottom-20">
+	<!--{/}-->
+        <div class="col-sm-6 md-margin-bottom-20">
+			<div class="headline">
+				<h6><strong><a href="{C.G5_BBS_URL}/board.php?bo_table={.bo_table}">{.bo_subject}</a></strong></h6>
+			</div>
+			<div class="group-latest">
+				<ul class="list-unstyled">
+				<!--{@ data}-->
+					<li>
+						<a href="{..href}">
+							<div class="group-subj">
+								- <!--{? ..wr_comment}--><span class="group-comment">+{=number_format(..wr_comment)}</span> <!--{/}-->{..wr_subject}
+							</div>
+							<div class="group-time">
+								<i class="fa fa-clock-o {? ..new}color-red{:}i-color{/}"></i> {eb->date_time('m-d',..datetime)}
+							</div>
+						</a>
+					</li>
+				<!--{:}-->
+				<p class="text-center font-size-12 margin-top-20">최신글이 없습니다.</p>
+				<!--{/}-->
+				</ul>
+			</div>
+        </div>
+	<!--{? .index_%2==1 || .index_+1 == .size_}-->
+	</div>
+	<div class="clearfix"></div>
+	<!--{/}-->
+<!--{/}-->
+</div>
+
+<style>
+.group-latest {position:relative;overflow:hidden;border:1px solid #e5e5e5;padding:15px;min-height:193px}
+.group-latest ul {margin-bottom:0}
+.group-latest li {position:relative;overflow:hidden;padding:2px 0;font-size:12px}
+.group-latest .group-subj {position:relative;width:70%;padding-right:0;padding-left:0;display:block;text-overflow:ellipsis;white-space:nowrap;word-wrap:normal;overflow:hidden;float:left}
+.group-latest .group-comment {display: inline-block;min-width:35px;padding:0px 3px;font-size:10px;font-weight:300;line-height:13px;color:#fff;text-align:center;white-space:nowrap;vertical-align:baseline;background-color:#74747a}
+.group-latest .group-time {position:relative;overflow:hidden;width:30%;font-size:12px;text-align:right;color:#555;float:right}
+.group-latest .group-time .i-color {color:#bbb}
+.group-latest a:hover .group-subj {text-decoration:underline}
+.group-latest a:hover .group-time i {color:#f44455}
+</style>
