@@ -34,7 +34,22 @@ if ($sop != 'and' && $sop != 'or')
 // 분류 선택 또는 검색어가 있다면
 $stx = trim($stx);
 if ($sca || $stx) {
-    $sql_search = get_sql_search($sca, $sfl, $stx, $sop);
+    if ($is_member && $is_admin == 'super') {
+      $sql_search = get_sql_search($sca, $sfl, $stx, $sop);
+    } else if ($is_member) {
+      // 회원은 검색 분류에 아이디, 닉네임 사용할 수 없게 외부에서 쿼리날리기 차단
+      if ((strpos(trim($sfl), 'id') !== false || strpos(trim($sfl), 'name') !== false)) {
+        alert('잘못된 접근을 통한 정보 탈취는 불법입니다. \n3회 이상 시도시 법적 처벌을 받을 수 있습니다!', G5_URL);
+        $sql_search='';
+        $total_count = $board['bo_count_write'];
+      } else {
+        $sql_search = get_sql_search($sca, $sfl, $stx, $sop);
+      }
+    } else {
+      alert('잘못된 접근을 통한 정보 탈취는 불법입니다. \n3회 이상 시도시 법적 처벌을 받을 수 있습니다!', G5_URL);
+      $sql_search='';
+      $total_count = $board['bo_count_write'];
+    }
 
     // 가장 작은 번호를 얻어서 변수에 저장 (하단의 페이징에서 사용)
     $sql = " select MIN(wr_num) as min_wr_num from {$write_table} ";
@@ -43,18 +58,20 @@ if ($sca || $stx) {
 
     if (!$spt) $spt = $min_spt;
 
-    $sql_search .= " and (wr_num between {$spt} and ({$spt} + {$config['cf_search_part']})) ";
+    if (!empty($sql_search)) {
+      $sql_search .= " and (wr_num between {$spt} and ({$spt} + {$config['cf_search_part']})) ";
 
-    // 원글만 얻는다. (코멘트의 내용도 검색하기 위함)
-    // 라엘님 제안 코드로 대체 http://sir.kr/g5_bug/2922
-    $sql = " SELECT COUNT(DISTINCT `wr_parent`) AS `cnt` FROM {$write_table} WHERE {$sql_search} ";
-    $row = sql_fetch($sql);
-    $total_count = $row['cnt'];
-    /*
-    $sql = " select distinct wr_parent from {$write_table} where {$sql_search} ";
-    $result = sql_query($sql);
-    $total_count = sql_num_rows($result);
-    */
+      // 원글만 얻는다. (코멘트의 내용도 검색하기 위함)
+      // 라엘님 제안 코드로 대체 http://sir.kr/g5_bug/2922
+      $sql = " SELECT COUNT(DISTINCT `wr_parent`) AS `cnt` FROM {$write_table} WHERE {$sql_search} ";
+      $row = sql_fetch($sql);
+      $total_count = $row['cnt'];
+      /*
+      $sql = " select distinct wr_parent from {$write_table} where {$sql_search} ";
+      $result = sql_query($sql);
+      $total_count = sql_num_rows($result);
+      */
+    }
 } else {
     $sql_search = "";
 
