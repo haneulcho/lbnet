@@ -151,25 +151,26 @@ var App = function () {
     };
 
 }();
-var target = window.location.hash,
-target = target.replace('#', '');
-window.location.hash = "";
-
+if(location.hash){
+  var el = jQuery(location.hash);
+  el.removeAttr('id');
+  target = location.hash.replace('#', '');
+}
 jQuery(document).ready(function() {
   if (target) {
-    setTimeout(function(){
-      lbScrollTo(jQuery('#'+target));
-    }, 100);
+    executeOnce = setTimeout(function(){
+      el.attr('id', target);
+      lbScrollTo(el);
+    }, 145);
   }
 });
-
 function lbScrollTo(targets) {
   $('html, body').animate({
-    scrollTop: targets.offset().top - 140
-  }, 600, function(){
-    window.location.hash = target;
+    scrollTop: targets.offset().top - 145
+  }, 650, function(){
     targets.find('.comment-item-body-pn').children(":first").addClass('commentScrolled');
   });
+  clearTimeout(executeOnce);
 }
 $("#bookmarkme").click(function() {
     // Mozilla Firefox Bookmark
