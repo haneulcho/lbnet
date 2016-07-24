@@ -4,6 +4,9 @@ include_once('./_common.php');
 $g5['title'] = '전체검색 결과';
 include_once('./_head.php');
 
+if ($is_admin != 'super') {
+  alert('잘못된 접근을 통한 정보 탈취는 불법입니다. \n3회 이상 시도시 법적 처벌을 받을 수 있습니다!', G5_URL);
+} else {
 $search_table = Array();
 $table_index = 0;
 $write_pages = "";
@@ -231,6 +234,7 @@ if (!$sfl) $sfl = 'wr_subject';
 if (!$sop) $sop = 'or';
 
 include_once($search_skin_path.'/search.skin.php');
+}
 
 include_once('./_tail.php');
 ?>
