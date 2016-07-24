@@ -85,35 +85,35 @@ var App = function () {
 	    });
 	}
 	/*Header Slider Carousel*/
-	function handleHeaderSlider() {
-		jQuery(document).ready(function() {
-			jQuery("#owl-header-slider").owlCarousel({
-				navigation : true,
-				slideSpeed : 300,
-				paginationSpeed : 400,
-				singleItem: true,
-				autoPlay: 16000
-			});
-		});
-	}
+	// function handleHeaderSlider() {
+	// 	jQuery(document).ready(function() {
+	// 		jQuery("#owl-header-slider").owlCarousel({
+	// 			navigation : true,
+	// 			slideSpeed : 300,
+	// 			paginationSpeed : 400,
+	// 			singleItem: true,
+	// 			autoPlay: 16000
+	// 		});
+	// 	});
+	// }
 	/*Main Banner Slider Carousel*/
-	function handleOwlMainBanner() {
-		jQuery(document).ready(function() {
-			var owl = jQuery(".owl-slider-main-banner");
-		    owl.owlCarousel({
-		        autoPlay : 8000,
-			    singleItem : true,
-			    slideSpeed: 300,
-		        pagination: false
-		    });
-		    jQuery(".next-main-banner").click(function(){
-		        owl.trigger('owl.next');
-		    })
-		    jQuery(".prev-main-banner").click(function(){
-		        owl.trigger('owl.prev');
-		    })
-		});
-	}
+	// function handleOwlMainBanner() {
+	// 	jQuery(document).ready(function() {
+	// 		var owl = jQuery(".owl-slider-main-banner");
+	// 	    owl.owlCarousel({
+	// 	        autoPlay : 8000,
+	// 		    singleItem : true,
+	// 		    slideSpeed: 300,
+	// 	        pagination: false
+	// 	    });
+	// 	    jQuery(".next-main-banner").click(function(){
+	// 	        owl.trigger('owl.next');
+	// 	    })
+	// 	    jQuery(".prev-main-banner").click(function(){
+	// 	        owl.trigger('owl.prev');
+	// 	    })
+	// 	});
+	// }
 	function handleSidebar() {
 		jQuery(document).ready(function () {
 		    var sides = ["left", "top", "right", "bottom"];
@@ -139,8 +139,8 @@ var App = function () {
             handleSearch();
             handleToggle();
             handleSticky();
-            handleHeaderSlider();
-            handleOwlMainBanner();
+            //handleHeaderSlider();
+            //handleOwlMainBanner();
             handleSidebar();
         },
         initSideSticky: function () {
@@ -171,3 +171,13 @@ function lbScrollTo(targets) {
     targets.find('.comment-item-body-pn').children(":first").addClass('commentScrolled');
   });
 }
+$("#bookmarkme").click(function() {
+    // Mozilla Firefox Bookmark
+    if ('sidebar' in window && 'addPanel' in window.sidebar) {
+        window.sidebar.addPanel(location.href,document.title,"");
+    } else if( /*@cc_on!@*/false) { // IE Favorite
+        window.external.AddFavorite(location.href,document.title);
+    } else { // webkit - safari/chrome
+        alert('단축키 ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command' : 'CTRL') + ' + D를 눌러 즐겨찾기에 추가하세요.');
+    }
+});

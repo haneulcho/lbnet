@@ -70,20 +70,6 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
                         <!--{? !C.G5_IS_MOBILE}-->
             <li>
               <a id="bookmarkme" href="javascript:void(0);" rel="sidebar" title="bookmark this page">즐겨찾기</a>
-              <script>
-                  $(function() {
-                      $("#bookmarkme").click(function() {
-                          // Mozilla Firefox Bookmark
-                          if ('sidebar' in window && 'addPanel' in window.sidebar) {
-                              window.sidebar.addPanel(location.href,document.title,"");
-                          } else if( /*@cc_on!@*/false) { // IE Favorite
-                              window.external.AddFavorite(location.href,document.title);
-                          } else { // webkit - safari/chrome
-                              alert('단축키 ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command' : 'CTRL') + ' + D를 눌러 즐겨찾기에 추가하세요.');
-                          }
-                      });
-                  });
-              </script>
             </li>
                         <!--{/}-->
             <!--{? _is_admin //관리자일 경우}-->
