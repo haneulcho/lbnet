@@ -17,7 +17,7 @@ var char_max = parseInt({_comment_max}); // 최대
 			<div class="comment-item-body-pn">
 				<div style="padding:10px 12px 6px">
 				<div class="comment-item-info lbdes" style="{? .cmt_depth && !.is_cmt_best}padding-left:{.cmt_depth}px;{/}">
-					<span class="comment-name{? .cmt_depth && !.is_cmt_best} lbdepth{/}"><!--{?.is_origin}--><b>{=eb_lbnameview('basic', .comment_id, .wr_name)}</b><!--{:}-->{=eb_lbnameview('basic', .comment_id, .wr_name)}<!--{/}--><!--{?.is_mine}--><b class="color-red">*</b><!--{/}--></span> <!--{? .is_cmt_best}--><span class="badge badge-purple">BEST {.index_+1}</span><!--{/}--><!--{? _is_ip_view && _is-admin}--> <span class="comment-ip">{.ip}</span><!--{/}-->
+					<span class="comment-name{? .cmt_depth && !.is_cmt_best} lbdepth{/}"><!--{?.is_origin}--><b>{=eb_lbnameview('basic', .comment_id, .wr_name)}</b><!--{:}-->{=eb_lbnameview('basic', .comment_id, .wr_name)}<!--{/}--><!--{?.is_mine}--><b class="color-red">*</b><!--{/}--></span> <!--{? _is_ip_view && _is-admin}--> <span class="comment-ip">{.ip}</span><!--{/}-->
 					<span class="lbctime lbdes">
 					<!--{? eyoom_board.bo_sel_date_type == '1'}-->
 					<i class="fa fa-clock-o color-grey"></i>{eb->date_time('m-d H:i',.datetime)}
@@ -34,33 +34,13 @@ var char_max = parseInt({_comment_max}); // 최대
 				</div>
 
 				<div class="comment-item-contents" style="{? .cmt_depth && !.is_cmt_best}padding-left:{.cmt_depth}px;{/}">
-				<!--{? .yc_blind && .yc_cannotsee}-->
-				<p>이글은 블라인드 처리된 댓글입니다.</p>
-				<!--{:}-->
 				<p>
-					<!--{? .yc_blind}-->
-					<p>이글은 블라인드 처리된 댓글입니다.</p>
-					<!--{/}-->
 					<!--{? strstr(.wr_option, 'secret')}--><i class="fa fa-lock" style="color:#aaa;"></i> <!--{/}-->
 					<!--{? .imgsrc}-->
-					<img src="{.imgsrc}" class="img-responsive"><br>
+					<a href="{.imgsrc}" class="venobox" data-gall="lbgall" title="{view.wr_subject}"><img src="{.imgsrc}" class="img-responsive"></a><br>
 					<!--{/}-->
 					{.comment}
 				</p>
-				<!--{/}-->
-				</div>
-
-				<div class="comment-btn">
-					<!--{? .is_reply || .is_edit || .is_del || .c_good_href || .c_nogood_href}-->
-					<ul class="list-inline reply-list pull-right">
-						<!--{? .c_good_href}-->
-						<li class="margin-left-5"><a href="{.c_good_href}" id="goodcmt_button_{.comment_id}" class="goodcmt_button" type="button" title="공감"><i class="fa fa-thumbs-up"></i> <strong>{? .good}<span class="wow">{.good}</span>{:}<span>0</span>{/}</strong></a></li>
-						<!--{/}-->
-						<!--{? .c_nogood_href}-->
-						<li><a href="{.c_nogood_href}" id="nogoodcmt_button_{.comment_id}" class="nogoodcmt_button" type="button" title="비공감"><i class="fa fa-thumbs-down"></i> <strong>{? .nogood}<span>{.nogood}</span>{:}<span>0</span>{/}</strong></a></li>
-						<!--{/}-->
-					</ul>
-					<!--{/}-->
 				</div>
 
 				</div>
@@ -95,7 +75,7 @@ var char_max = parseInt({_comment_max}); // 최대
 	<!--{* 댓글 쓰기 시작 *}-->
 	<!--{? _is_comment_write}-->
 	<div id="view-comment-write">
-		<form name="fviewcomment" action="./write_comment_update.php" onsubmit="return fviewcomment_submit(this);" method="post" autocomplete="off" class="eyoom-form view-comment-write-box" enctype="multipart/form-data">
+		<form name="fviewcomment" action="./write_comment_update_love.php" onsubmit="return fviewcomment_submit(this);" method="post" autocomplete="off" class="eyoom-form view-comment-write-box" enctype="multipart/form-data">
 			<input type="hidden" name="w" value="{? !_w}c{:}{_w}{/}" id="w">
 			<input type="hidden" name="bo_table" value="{_bo_table}">
 			<input type="hidden" name="wr_id" value="{_wr_id}">
@@ -105,128 +85,186 @@ var char_max = parseInt({_comment_max}); // 최대
 			<input type="hidden" name="stx" value="{_stx}">
 			<input type="hidden" name="spt" value="{_spt}">
 			<input type="hidden" name="page" value="{_page}">
-			<input type="hidden" name="is_good" value="">
 			<input type="hidden" name="board_skin_path" value="{C.EYOOM_CORE_PATH}/board">
 			<input type="hidden" name="wr_1" value="{_wr_1}">
 			<input type="hidden" name="cmt_amt" value="{_cmt_amt}">
 			<input type="hidden" name="wmode" value="{_wmode}">
+			<input type="hidden" name="wr_recv_moreinfo" value="0">
 
 <!-- 댓글 쓰기 영역 -->
 			<div class="comment-write-wrap">
-				<div class="row">
-					<!--{? !_is_member}-->
-					<section class="col col-4">
-						<label for="wr_name" class="label">이름<strong class="sound_only"> 필수</strong></label>
-						<label class="input">
-							<i class="icon-append fa fa-user"></i>
-							<input type="text" name="wr_name" value="{=get_cookie('ck_sns_name')}" id="wr_name" required size="5" maxLength="20">
-						</label>
-					</section>
-					<section class="col col-4">
-						<label for="wr_password" class="label">비밀번호<strong class="sound_only"> 필수</strong></label>
-						<label class="input">
-							<i class="icon-append fa fa-lock"></i>
-							<input type="password" name="wr_password" id="wr_password" required size="10" maxLength="20">
-						</label>
-					</section>
-					<!--{/}-->
+
+				<div>
+					<div class="col-sm-6 md-margin-bottom-20">
+						<fieldset class="lbbox">
+							<h3><i class="fa fa-pencil-square-o"></i> <strong>기본정보 입력</strong></h3>
+							<dl class="margin-bottom-15">
+								<dt>지역</dt>
+								<dd>
+									<label class="select">
+										<select name="wr_area" <!--{? !_is_admin}-->required  <!--{/}-->class="form-control c-select">
+											<option value="">지역을 선택하세요.</option>
+											<?php
+												$area = array('서울', '인천/경기', '대전/충청', '광주/전라', '대구/경북', '부산/경남', '강원/제주', '해외');
+												for($i=0;$i<count($area);$i++) {
+											?>
+											<option value="<?php echo $area[$i]; ?>"<?php if({_wr_area} == $area[$i]){ echo ' selected';} ?>><?php echo $area[$i]; ?></option>
+											<?php } ?>
+										</select>
+										<i></i>
+									</label>
+								</dd>
+								<dt>성향</dt>
+								<dd>
+									<label class="select">
+									<select name="wr_type" class="form-control c-select">
+										<option value="">성향을 선택하세요.</option>
+										<?php
+											$type = array('팸', '부치', '전천', '무성향');
+											for($i=0;$i<count($type);$i++) {
+										?>
+										<option value="<?php echo $type[$i]; ?>"<?php if({_wr_type} == $type[$i]){ echo ' selected';} ?>><?php echo $type[$i]; ?></option>
+										<?php } ?>
+									</select>
+										<i></i>
+									</label>
+								</dd>
+								<dt>나이</dt>
+								<dd>
+									<label class="select">
+									<select name="wr_age" class="form-control c-select">
+										<option value="">나이를 선택하세요.</option>
+										<?php
+											$age = array('20~24', '25~29', '30~34', '35 이상');
+											for($i=0;$i<count($age);$i++) {
+										?>
+										<option value="<?php echo $age[$i]; ?>"<?php if({_wr_age} == $age[$i]){ echo ' selected';} ?>><?php echo $age[$i]; ?></option>
+										<?php } ?>
+									</select>
+										<i></i>
+									</label>
+								</dd>
+							</dl>
+						</fieldset>
+					</div>
+					<div class="col-sm-6 md-margin-bottom-20">
+						<fieldset class="lbbox">
+							<h3><i class="fa fa-plus-square"></i> <strong>추가정보 입력</strong></h3>
+							<div class="margin-bottom-15">
+								<label for="wr_send_moreinfo" class="col-sm-4 form-control-label">추가정보 입력하기</label><label class="ui-switch primary m-t-xs m-r"><input type="checkbox" id="wr_send_moreinfo" name="wr_send_moreinfo"<?php if({_wr_send_moreinfo} == '1'){ echo ' checked value="1"';} else { echo ' value="0"'; } ?>><i></i></label>
+							</div>
+							<div class="alert alert-danger padding-all-10 margin-top-10">
+							<!--{? view.wr_send_moreinfo == '0'}-->
+							<strong>Note:</strong> 추가정보 입력시 50포인트 적립
+							<!--{:}-->
+							<strong>Note:</strong> 추가정보 입력시 50포인트 적립 / 원글 니니가 상대 추가정보 받기를 켜두었어요. 댓글 니니는 무조건 추가정보를 입력해야 해요!
+							<!--{/}-->
+							</div>
+							<dl id="moreinfo">
+								<dt>직업</dt>
+								<dd>
+									<label class="select">
+									<select name="wr_job" class="form-control c-select">
+										<option value="">직업을 선택하세요.</option>
+										<?php
+											$job = array('학생', '직장인(주5일)', '직장인(주6일)', '직장인(평일휴무)', '직장인(주말휴무)', '프리랜서', '무직');
+											for($i=0;$i<count($job);$i++) {
+										?>
+										<option value="<?php echo $job[$i]; ?>"<?php if({_wr_job} == $job[$i]){ echo ' selected';} ?>><?php echo $job[$i]; ?></option>
+										<?php } ?>
+									</select>
+										<i></i>
+									</label>
+								</dd>
+								<dt>키</dt>
+								<dd>
+									<label class="select">
+									<select name="wr_figure[]" class="form-control c-select">
+										<option value="0">키를 선택하세요.</option>
+										<?php
+											$figure1 = array('155cm 미만', '155~159cm', '160~164cm', '165~169cm', '170cm 이상');
+											for($i=0;$i<count($figure1);$i++) {
+										?>
+										<option value="<?php echo $figure1[$i]; ?>"<?php if({_wr_figure[0]} == $figure1[$i]){ echo ' selected';} ?>><?php echo $figure1[$i]; ?></option>
+										<?php } ?>
+									</select>
+										<i></i>
+									</label>
+								</dd>
+								<dt>체형</dt>
+								<dd>
+									<label class="select">
+									<select name="wr_figure[]" class="form-control c-select">
+										<option value="0">체형을 선택하세요.</option>
+										<?php
+											$figure2 = array('마름', '보통', '통통', '통통 이상');
+											for($i=0;$i<count($figure2);$i++) {
+										?>
+										<option value="<?php echo $figure2[$i]; ?>"<?php if({_wr_figure[1]} == $figure2[$i]){ echo ' selected';} ?>><?php echo $figure2[$i]; ?></option>
+										<?php } ?>
+									</select>
+										<i></i>
+									</label>
+								</dd>
+								<dt>흡연유무</dt>
+								<dd>
+									<label for="wr_etc1" class="radio"><input type="radio" id="wr_etc1" name="wr_etc" value="흡연"<?php if({_wr_etc} == '흡연'){ echo ' checked';} ?>><i class="rounded-x"></i>흡연</label>
+									<label for="wr_etc2" class="radio"><input type="radio" id="wr_etc2" name="wr_etc" value="비흡연"<?php if({_wr_etc} == '비흡연'){ echo ' checked';} ?>><i class="rounded-x"></i>비흡연</label>
+								</dd>
+								<dt>관심사</dt>
+								<dd>
+									<?php
+										$wr_interest_array = {_wr_interest};
+										$interest = array("독서/글쓰기","음악","영화/드라마","게임","운동","덕질","사진/영상","예술","정치/사회","반려동물");
+										for($i=0;$i<count($interest);$i++) {
+									?>
+																<label for="wr_interest<?php echo $i; ?>" class="checkbox pull-left"><input type="checkbox" id="wr_interest<?php echo $i; ?>" name="wr_interest[]" value="<?php echo $interest[$i]; ?>"<?php if(in_array($interest[$i], $wr_interest_array)){ echo ' checked';} ?>><i></i><?php echo $interest[$i]; ?></label>
+									<?php } ?>
+								</dd>
+							</dl>
+						</fieldset>
+					</div>
+				</div>
+
+				<div class="clearfix">
 					<section class="col lbwoption">
 						<!--{? _is_anonymous}-->
 						<label class="checkbox pull-left"><input type="checkbox" name="anonymous" value="y" id="anonymous" checked><i></i>익명글</label>
 						<!--{/}-->
-						<label class="checkbox pull-left" style="margin-left:15px;"><input type="checkbox" name="wr_secret" value="secret" id="wr_secret"><i></i>비밀글</label>
-						<!--{? eyoom_board.bo_use_addon_cmtimg == '1'}-->
-						<span class="lbimage">
-						<a data-toggle="collapse" data-parent="#comment-option" href="#collapse-image-cm"><i class="fa fa-picture-o"></i>이미지 첨부</a>
-						</span>
-						<!--{/}-->
+						<label class="checkbox pull-left" style="margin-left:15px;"><input type="checkbox" name="wr_secret" value="secret" id="wr_secret" checked readonly><i></i>비밀글</label>
 						<div class="clearfix"></div>
 					</section>
-				</div>
 
-				<!--{? board.bo_use_sns && (config.cf_facebook_appid || config.cf_twitter_key)}-->
-				<label class="label">SNS 동시등록</label>
-				<div id="bo_vc_send_sns"></div>
-				<div class="clear"></div>
-				<!--{/}-->
+					<section class="clearfix">
+						<label class="textarea textarea-resizable">
+							<!--{? _comment_min || _comment_max}--><strong id="char_cnt"><span id="char_count"></span>글자</strong><!--{/}-->
+							<textarea rows="7" id="wr_content" name="wr_content" maxlength="10000" required title="내용" {? _comment_min || _comment_max}onkeyup="check_byte('wr_content', 'char_count');"{/}>{_c_wr_content}</textarea>
+							<!--{? _comment_min || _comment_max}--><script> check_byte('wr_content', 'char_count'); </script><!--{/}-->
+							<script>
+							$("textarea#wr_content[maxlength]").live("keyup change", function() {
+								var str = $(this).val()
+								var mx = parseInt($(this).attr("maxlength"))
+								if (str.length > mx) {
+									$(this).val(str.substr(0, mx));
+									return false;
+								}
+							});
+							</script>
+						</label>
+					</section>
 
-				<section>
-					<div id="comment-option">
-						<div class="panel panel-default" style="border:0;margin-bottom:0;box-shadow:none">
-							<!--{? eyoom_board.bo_use_addon_video == '1'}-->
-							<a class="btn-e btn-e-xs btn-e-default" data-toggle="collapse" data-parent="#comment-option" href="#collapse-video-cm">동영상</a>
-							<!--{/}-->
-							<!--{? eyoom_board.bo_use_addon_soundcloud== '1'}-->
-							<a class="btn-e btn-e-xs btn-e-default" data-toggle="collapse" data-parent="#comment-option" href="#collapse-sound-cm">사운드클라우드</a>
-							<!--{/}-->
-							<div class="clearfix"></div>
-							<div id="collapse-image-cm" class="panel-collapse collapse">
-								<div class="comment-function-box">
-									<label for="file" class="input input-file">
-		                                <div class="button bg-color-light-grey"><input type="file" id="file" name="cmt_file[]" value="이미지선택" title="파일첨부 : 용량 {_upload_max_filesize} 이하만 업로드 가능" onchange="this.parentNode.nextSibling.value = this.value">Image</div><input type="text" readonly>
-		                            </label>
-		                            <div id="del_cmtimg"></div>
-								</div>
-							</div>
-							<!--{? eyoom_board.bo_use_addon_video == '1'}-->
-							<div id="collapse-video-cm" class="panel-collapse collapse">
-								<div class="comment-function-box">
-									<label class="input input-file">
-										<a href="javascript:;" class="button bg-color-light-grey color-white" id="btn_video" onclick="return false;">확인</a>
-										<input type="text" id="video_url" class="form-control" placeholder="동영상주소">
-									</label>
-								</div>
-							</div>
-							<!--{/}-->
-							<!--{? eyoom_board.bo_use_addon_soundcloud == '1'}-->
-							<div id="collapse-sound-cm" class="panel-collapse collapse">
-								<div class="comment-function-box">
-									<div class="row">
-										<div class="col col-8 left">
-											<label class="input input-file">
-												<a href="javascript:;" class="button bg-color-light-grey color-white" id="btn_scloud" onclick="return false;">확인</a>
-												<input type="text" id="scloud_url" class="form-control" placeholder="사운드클라우드 음원주소">
-											</label>
-										</div>
-										<div class="col col-4 right text-right">
-											<a href="https://soundcloud.com/" target="_blank" class="btn-e btn-e-xs btn-e-light-grey"><i class="fa fa-location-arrow"></i> 사운드클라우드 GO</a>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</div>
-							</div>
-							<!--{/}-->
-
-						</div>
+					<!--{? !_is_member}-->
+					<section>
+						<label class="label">자동등록방지</label>
+						<div class="vc-captcha">{_captcha_html}</div>
+					</section>
+					<!--{/}-->
+					<div class="comment-write-submit">
+						<button type="submit" id="btn_submit" class="btn-e btn-e-lg btn-e-yellow" value="댓글등록"><i class="fa fa-paper-plane" aria-hidden="true"></i> 입력</button>
 					</div>
-					<label class="textarea textarea-resizable">
-						<!--{? _comment_min || _comment_max}--><strong id="char_cnt"><span id="char_count"></span>글자</strong><!--{/}-->
-						<textarea rows="7" id="wr_content" name="wr_content" maxlength="10000" required title="내용" {? _comment_min || _comment_max}onkeyup="check_byte('wr_content', 'char_count');"{/}>{_c_wr_content}</textarea>
-						<!--{? _comment_min || _comment_max}--><script> check_byte('wr_content', 'char_count'); </script><!--{/}-->
-						<script>
-						$("textarea#wr_content[maxlength]").live("keyup change", function() {
-							var str = $(this).val()
-							var mx = parseInt($(this).attr("maxlength"))
-							if (str.length > mx) {
-								$(this).val(str.substr(0, mx));
-								return false;
-							}
-						});
-						</script>
-					</label>
-				</section>
-
-				<!--{? !_is_member}-->
-				<section>
-					<label class="label">자동등록방지</label>
-					<div class="vc-captcha">{_captcha_html}</div>
-				</section>
-				<!--{/}-->
-				<div class="comment-write-submit">
-					<button type="submit" id="btn_submit" class="btn-e btn-e-lg btn-e-yellow" value="댓글등록"><i class="fa fa-paper-plane" aria-hidden="true"></i> 입력</button>
 				</div>
-			</div>
 
+			</div> <!--{* comment-write-wrap END *}-->
 		</form>
 	</div>
 	<!--{/}-->
@@ -241,39 +279,6 @@ var char_max = parseInt({_comment_max}); // 최대
 <script>
 var save_before = '';
 var save_html = document.getElementById('view-comment-write').innerHTML;
-
-function set_textarea_contents(type,value) {
-	var type_text = '';
-	var content = '';
-	var mobile = {? C.G5_IS_MOBILE}true{:}false{/};
-	switch(type) {
-		case 'emoticon': type_text = '이모티콘'; break;
-		case 'video': type_text = '동영상'; break;
-		case 'code': type_text = 'code'; break;
-		case 'sound': type_text = 'soundcloud'; break;
-		case 'map': type_text = '지도'; break;
-	}
-	if(type_text != 'code') {
-		content = '{'+type_text+':'+value+'}';
-	} else {
-		content = '{code:'+value+'}\n\n{/code}\n'
-	}
-	var wr_html = $("#wr_content").val();
-	var wr_emo = content;
-	wr_html += wr_emo;
-	$("#wr_content").val(wr_html);
-}
-
-function good_and_write()
-{
-	var f = document.fviewcomment;
-	if (fviewcomment_submit(f)) {
-		f.is_good.value = 1;
-		f.submit();
-	} else {
-		f.is_good.value = 0;
-	}
-}
 
 function fviewcomment_submit(f) {
 	var pattern = /(^\s*)|(\s*$)/g; // \s 공백 문자
@@ -415,39 +420,6 @@ function comment_box(comment_id, work)
 		document.getElementById('comment_id').value = comment_id;
 		document.getElementById('w').value = work;
 
-		<!--{? eyoom_board.bo_use_addon_emoticon == '1'}-->
-		$(".emoticon").venobox({border:'3px'});
-		<!--{/}-->
-
-		<!--{? eyoom_board.bo_use_addon_video == '1'}-->
-		//동영상 추가
-		$("#btn_video").click(function(){
-			var v_url = $("#video_url").val();
-			if(!v_url) alert('동영상 주소를 입력해 주세요.');
-			else set_textarea_contents('video',v_url);
-			$("#video_url").val('');
-		});
-		<!--{/}-->
-
-		<!--{? eyoom_board.bo_use_addon_coding == '1'}-->
-		//코드 추가
-		$(".ch_code").click(function(){
-			var ch = $(this).text();
-			var val = ch.toLowerCase();
-			set_textarea_contents('code',val);
-		});
-		<!--{/}-->
-
-		<!--{? eyoom_board.bo_use_addon_soundcloud == '1'}-->
-		//사운드크라우드 추가
-		$("#btn_scloud").click(function(){
-			var s_url = $("#scloud_url").val();
-			if(!s_url) alert('사운드크라우드 주소를 입력해 주세요.');
-			else set_textarea_contents('sound',s_url);
-			$("#scloud_url").val('');
-		});
-		<!--{/}-->
-
 		if(save_before)
 			$("#captcha_reload").trigger("click");
 
@@ -475,41 +447,6 @@ $(function() {
 <!--{/}-->
 </script>
 
-<script>
-$(function() {
-	// 댓글 추천, 비추천
-	$(".goodcmt_button, .nogoodcmt_button").click(function() {
-		excute_goodcmt(this.href, $(this));
-		return false;
-	});
-
-	<!--{? eyoom_board.bo_use_yellow_card == '1'}-->
-	// 신고버튼 클릭시, 댓글 cmt_id 설정
-	$(".cmt_yellow_card, .cancel_cmt_yellow_card").click(function() {
-		var cmt_id = $(this).attr('data-cmt-id');
-		$(".yellowcard-modal #modal_cmt_id").val(cmt_id);
-	});
-	<!--{/}-->
-});
-
-function excute_goodcmt(href, $el)
-{
-	$.post(
-		href,
-		{ js: "on" },
-		function(data) {
-			if(data.error) {
-				alert(data.error);
-				return false;
-			}
-
-			if(data.count) {
-				$el.find("strong").text(number_format(String(data.count)));
-			}
-		}, "json"
-	);
-}
-</script>
 <!--{? eyoom_board.bo_use_cmt_infinite == '1'}-->
 <script>
 $(document).ready(function(){

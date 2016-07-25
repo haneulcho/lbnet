@@ -8,11 +8,6 @@
 		}
 	}
 
-	// add_javascript('js 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
-	if($eyoom_board['bo_use_addon_map'] == '1') {
-		add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
-	}
-
 	unset($comment);
 	$cmt_amt = count($list);
 	for ($i=0; $i<$cmt_amt; $i++) {
@@ -24,8 +19,6 @@
 		$comment[$i]['comment'] = $eb->eyoom_content($comment[$i]['comment']);
 		$comment[$i]['cmt_sv'] = $cmt_amt - $i + 1; // 댓글 헤더 z-index 재설정 ie8 이하 사이드뷰 겹침 문제 해결
 		$comment[$i]['wr_name'] = get_text($list[$i]['wr_name']);
-		$comment[$i]['wr_email'] = $list[$i]['wr_email'];
-		$comment[$i]['wr_homepage'] = $list[$i]['wr_homepage'];
 		$comment[$i]['name'] = $list[$i]['name'];
 		$comment[$i]['mb_id'] = $list[$i]['mb_id'];
 		$comment[$i]['ip'] = $list[$i]['ip'];
@@ -33,12 +26,25 @@
 		$comment[$i]['wr_option'] = $list[$i]['wr_option'];
 		$comment[$i]['content1'] = get_text($list[$i]['content1'], 0);
 
-		// 댓글포인트
-		$point = $list[$i]['wr_link1'] ? @unserialize($list[$i]['wr_link1']):'';
-		if(is_array($point)) {
-			$comment[$i]['firstcmt_point'] = $point['firstcmt'] ? $point['firstcmt']:0;
-			$comment[$i]['bomb_point'] = is_array($point['bomb']) ? array_sum($point['bomb']):0;
-			$comment[$i]['lucky_point'] = $point['lucky'] ? $point['lucky']:0;
+		$comment[$i]['wr_area'] = $list[$i]['wr_area'];
+		$comment[$i]['wr_type'] = $list[$i]['wr_type'];
+		$comment[$i]['wr_age'] = $list[$i]['wr_age'];
+		$comment[$i]['wr_send_moreinfo'] = $list[$i]['wr_send_moreinfo'];
+		$comment[$i]['wr_recv_moreinfo'] = $list[$i]['wr_recv_moreinfo'];
+
+		if(!empty($list[$i]['wr_etc'])) {
+			$comment[$i]['wr_etc'] = $list[$i]['wr_etc'];
+		}
+		if(!empty($list[$i]['wr_job'])) {
+			$comment[$i]['wr_job'] = $list[$i]['wr_job'];
+		}
+		if(!empty($list[$i]['wr_figure'])) {
+			$wr_figure = explode(',', $list[$i]['wr_figure']);
+			$comment[$i]['wr_figure1'] = $wr_figure[0];
+			$comment[$i]['wr_figure2'] = $wr_figure[1];
+		}
+		if(!empty($list[$i]['wr_interest'])) {
+			$comment[$i]['wr_interest'] = explode(',', $list[$i]['wr_interest']);
 		}
 
 		// wr_link2를 활용하여 댓글에 이미지표현
@@ -75,8 +81,6 @@
 				$comment[$i]['anonymous_id'] = $anonymous ? $gnu_level."|".$eyoom_level:'';
 				$comment[$i]['mb_id'] = 'anonymous';
 				$comment[$i]['wr_name'] = '익명';
-				$comment[$i]['email'] = '';
-				$comment[$i]['homepage'] = '';
 				$comment[$i]['gnu_level'] = '';
 				$comment[$i]['eyoom_level'] = '';
 				$comment[$i]['lv_gnu_name'] = '';
@@ -101,42 +105,7 @@
 			$comment[$i]['c_reply_href'] = './board.php?'.$query_string.'&amp;c_id='.$comment[$i]['comment_id'].'&amp;w=c#bo_vc_w';
 			$comment[$i]['c_edit_href'] = './board.php?'.$query_string.'&amp;c_id='.$comment[$i]['comment_id'].'&amp;w=cu#bo_vc_w';
 		}
-		// 댓글 추천/비추천 링크
-		if($board['bo_use_good'] || $board['bo_use_nogood']) {
-			$comment[$i]['good'] = $list[$i]['wr_good'];
-			$comment[$i]['nogood'] = $list[$i]['wr_nogood'];
-			$comment[$i]['c_good_href'] = $board['bo_use_good'] ? './goodcmt.php?'.$query_string.'&amp;c_id='.$comment[$i]['comment_id'].'&amp;good=good':'';
-			$comment[$i]['c_nogood_href'] = $board['bo_use_nogood'] ? './goodcmt.php?'.$query_string.'&amp;c_id='.$comment[$i]['comment_id'].'&amp;good=nogood':'';
-		}
 
-		// 블라인드 처리
-		if($eyoom_board['bo_use_yellow_card'] == '1') {
-			$cmt_ycard = unserialize($list[$i]['wr_4']);
-			if(!$cmt_ycard) $cmt_ycard = array();
-			$comment[$i]['yc_count'] = $cmt_ycard['yc_count'];
-			if($cmt_ycard['yc_blind'] == 'y') {
-				if(!$is_admin && $member['mb_level'] < $eyoom_board['bo_blind_view']) {
-					$comment[$i]['mb_ycard'] = $eb->mb_yellow_card($member['mb_id'],$bo_table, $comment[$i]['comment_id']);
-					if(!$comment[$i]['mb_ycard']) {
-						$comment[$i]['yc_cannotsee'] = true;
-					}
-				}
-				$comment[$i]['yc_blind'] = true;
-			}
-
-			// 바로 블라인드 처리할 수 있는 권한인지 체크
-			if($is_admin || $member['mb_level'] >= $eyoom_board['bo_blind_direct'] ) {
-				$blind_direct = true;
-			}
-		}
-
-		// 베스트 댓글용 raw data
-		if($eyoom_board['bo_use_cmt_best'] == '1' && $comment[$i]['good']) {
-			if($comment[$i]['good'] >= $eyoom_board['bo_cmt_best_min']) {
-				$good_comment[$i] = $comment[$i]['good'];
-				$best_comment[$i] = $comment[$i];
-			}
-		}
 	}
 
 	// paging 처리 및 댓글 무한스크롤 기능 구현
@@ -148,42 +117,9 @@
 		$comment = array_slice($comment,$from_record,$page_rows);
 	}
 
-	// Best 댓글
-	if(isset($good_comment) && is_array($good_comment)) {
-		if(!isset($cpage) || (isset($cpage) && $cpage == 1) ) {
-			arsort($good_comment);
-
-			$i=0;
-			foreach($good_comment as $key => $good) {
-				// 베스트 댓글 추출 갯수 제한
-				if( $eyoom_board['bo_cmt_best_limit'] <= $i) break;
-				else {
-					$best_comment[$key]['is_cmt_best'] = true;
-					$best_cmt[$i] = $best_comment[$key];
-				}
-				$i++;
-			}
-
-			if(isset($best_cmt) && is_array($best_cmt)) {
-				krsort($best_cmt);
-				foreach($best_cmt as $key => $bestcmt) {
-					array_unshift($comment, $bestcmt);
-				}
-			}
-		}
-	}
-
 	// 댓글에 이미지 첨부파일 용량 제한
 	$upload_max_filesize = ini_get('upload_max_filesize') . ' 바이트';
 
-	if($board['bo_use_sns']) {
-		ob_start();
-		include_once (G5_SNS_PATH."/view_comment_list.sns.skin.php");
-		$comment_sns = ob_get_contents();
-		ob_end_clean();
-	}
-
-echo '셀소게 댓글';
 	// 사용자 프로그램
 	@include_once(EYOOM_USER_PATH.'/board/view_comment.skin.php');
 
