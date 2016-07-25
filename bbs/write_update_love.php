@@ -28,7 +28,7 @@ if (isset($_POST['wr_area'])) {
     $wr_area = substr(trim($_POST['wr_area']),0,255);
     $wr_area = preg_replace("#[\\\]+$#", "", $wr_area);
 }
-if ($wr_area == '') {
+if ($wr_area == '' && !$is_admin) {
     $msg[] = '<strong>지역</strong>을 선택하세요.';
 }
 
@@ -37,7 +37,7 @@ if (isset($_POST['wr_type'])) {
     $wr_type = substr(trim($_POST['wr_type']),0,255);
     $wr_type = preg_replace("#[\\\]+$#", "", $wr_type);
 }
-if ($wr_type == '') {
+if ($wr_type == '' && !$is_admin) {
     $msg[] = '<strong>성향</strong>을 선택해 주세요!';
 }
 
@@ -46,8 +46,49 @@ if (isset($_POST['wr_age'])) {
     $wr_age = substr(trim($_POST['wr_age']),0,255);
     $wr_age = preg_replace("#[\\\]+$#", "", $wr_age);
 }
-if ($wr_age == '') {
+if ($wr_age == '' && !$is_admin) {
     $msg[] = '<strong>나이</strong>를 선택해 주세요!';
+}
+
+$wr_send_moreinfo = '';
+if (isset($_POST['wr_send_moreinfo'])) {
+    $wr_send_moreinfo = trim($_POST['wr_send_moreinfo']);
+    $wr_send_moreinfo = preg_replace("#[\\\]+$#", "", $wr_send_moreinfo);
+}
+
+$wr_recv_moreinfo = '';
+if (isset($_POST['wr_recv_moreinfo'])) {
+    $wr_recv_moreinfo = trim($_POST['wr_recv_moreinfo']);
+    $wr_recv_moreinfo = preg_replace("#[\\\]+$#", "", $wr_recv_moreinfo);
+}
+
+$wr_job = '';
+if (isset($_POST['wr_job'])) {
+    $wr_job = substr(trim($_POST['wr_job']),0,255);
+    $wr_job = preg_replace("#[\\\]+$#", "", $wr_job);
+}
+
+$wr_interest = '';
+if (isset($_POST['wr_interest'])) {
+    $wr_interest = implode(",", $_POST['wr_interest']);
+    $wr_interest = substr(trim($wr_interest),0,255);
+    $wr_interest = preg_replace("#[\\\]+$#", "", $wr_interest);
+}
+
+$wr_figure = '';
+if (isset($_POST['wr_figure'])) {
+    $wr_figure = implode(",", $_POST['wr_figure']);
+    $wr_figure = substr(trim($wr_figure),0,255);
+    $wr_figure = preg_replace("#[\\\]+$#", "", $wr_figure);
+    if ($wr_figure == '0,0') {
+      $wr_figure = '';
+    }
+}
+
+$wr_etc = '';
+if (isset($_POST['wr_etc'])) {
+    $wr_etc = substr(trim($_POST['wr_etc']),0,255);
+    $wr_etc = preg_replace("#[\\\]+$#", "", $wr_etc);
 }
 
 $wr_link1 = '';
@@ -64,7 +105,7 @@ if (isset($_POST['wr_link2'])) {
     $wr_link2 = preg_replace("#[\\\]+$#", "", $wr_link2);
 }
 
-$msg = implode('<br>', $msg);
+$msg = implode('\n', $msg);
 if ($msg) {
     alert($msg);
 }
@@ -112,24 +153,17 @@ if (isset($_POST['html']) && $_POST['html']) {
         $html = $matches[0];
 }
 
-$mail = '';
-if (isset($_POST['mail']) && $_POST['mail']) {
-    if(preg_match('#mail#', strtolower($_POST['mail']), $matches))
-        $mail = $matches[0];
-}
-
 $notice = '';
 if (isset($_POST['notice']) && $_POST['notice']) {
     $notice = $_POST['notice'];
 }
 
-for ($i=1; $i<=10; $i++) {
-    $var = "wr_$i";
-    $$var = "";
-    if (isset($_POST['wr_'.$i]) && settype($_POST['wr_'.$i], 'string')) {
-        $$var = trim($_POST['wr_'.$i]);
-    }
+$var = "wr_1";
+$$var = "";
+if (isset($_POST['wr_1']) && settype($_POST['wr_1'], 'string')) {
+    $$var = trim($_POST['wr_1']);
 }
+
 
 @include_once($board_skin_path.'/write_update.head.skin.php');
 
@@ -242,35 +276,28 @@ if ($w == '' || $w == 'r') {
                 set wr_num = '$wr_num',
                      wr_reply = '$wr_reply',
                      wr_comment = 0,
-                     ca_name = '$ca_name',
                      wr_option = '$html,$secret,$mail',
                      wr_subject = '$wr_subject',
                      wr_content = '$wr_content',
                      wr_link1 = '$wr_link1',
                      wr_link2 = '$wr_link2',
-                     wr_link1_hit = 0,
-                     wr_link2_hit = 0,
                      wr_hit = 0,
-                     wr_good = 0,
-                     wr_nogood = 0,
                      mb_id = '{$member['mb_id']}',
                      wr_password = '$wr_password',
                      wr_name = '$wr_name',
-                     wr_email = '$wr_email',
-                     wr_homepage = '$wr_homepage',
                      wr_datetime = '".G5_TIME_YMDHIS."',
                      wr_last = '".G5_TIME_YMDHIS."',
                      wr_ip = '{$_SERVER['REMOTE_ADDR']}',
-                     wr_1 = '$wr_1',
-                     wr_2 = '$wr_2',
-                     wr_3 = '$wr_3',
-                     wr_4 = '$wr_4',
-                     wr_5 = '$wr_5',
-                     wr_6 = '$wr_6',
-                     wr_7 = '$wr_7',
-                     wr_8 = '$wr_8',
-                     wr_9 = '$wr_9',
-                     wr_10 = '$wr_10' ";
+                     wr_send_moreinfo = '$wr_send_moreinfo',
+                     wr_recv_moreinfo = '$wr_recv_moreinfo',
+                     wr_type = '$wr_type',
+                     wr_age = '$wr_age',
+                     wr_area = '$wr_area',
+                     wr_figure = '$wr_figure',
+                     wr_job = '$wr_job',
+                     wr_interest = '$wr_interest',
+                     wr_etc = '$wr_etc',
+                     wr_1 = '$wr_1' ";
     sql_query($sql);
 
     $wr_id = sql_insert_id();
@@ -291,11 +318,16 @@ if ($w == '' || $w == 'r') {
             sql_query(" update {$g5['board_table']} set bo_notice = '{$bo_notice}' where bo_table = '{$bo_table}' ");
         }
 
-        insert_point($member['mb_id'], $board['bo_write_point'], "{$board['bo_subject']} {$wr_id} 글쓰기", $bo_table, $wr_id, '쓰기');
-    } else {
-        // 답변은 코멘트 포인트를 부여함
-        // 답변 포인트가 많은 경우 코멘트 대신 답변을 하는 경우가 많음
-        insert_point($member['mb_id'], $board['bo_comment_point'], "{$board['bo_subject']} {$wr_id} 글답변", $bo_table, $wr_id, '쓰기');
+        // 추가정보 입력자는 50 포인트 더 적립하기
+        if ($wr_send_moreinfo == '1') {
+          if (isset($_POST['wr_job']) && isset($_POST['wr_etc']) && isset($wr_interest) && $wr_figure != '') {
+            insert_point($member['mb_id'], $board['bo_write_point']+50, "{$board['bo_subject']} {$wr_id} 글쓰기 (추가정보 입력 +50)", $bo_table, $wr_id, '쓰기');
+          } else {
+            insert_point($member['mb_id'], $board['bo_write_point'], "{$board['bo_subject']} {$wr_id} 글쓰기", $bo_table, $wr_id, '쓰기');            
+          }
+        } else {
+          insert_point($member['mb_id'], $board['bo_write_point'], "{$board['bo_subject']} {$wr_id} 글쓰기", $bo_table, $wr_id, '쓰기');
+        }
     }
 }  else if ($w == 'u') {
     if (get_session('ss_bo_table') != $_POST['bo_table'] || get_session('ss_wr_id') != $_POST['wr_id']) {
@@ -331,29 +363,18 @@ if ($w == '' || $w == 'r') {
         if ($member['mb_id'] == $wr['mb_id']) {
             $mb_id = $member['mb_id'];
             $wr_name = addslashes(clean_xss_tags($board['bo_use_name'] ? $member['mb_name'] : $member['mb_nick']));
-            $wr_email = addslashes($member['mb_email']);
-            $wr_homepage = addslashes(clean_xss_tags($member['mb_homepage']));
         } else {
             $mb_id = $wr['mb_id'];
             if(isset($_POST['wr_name']) && $_POST['wr_name'])
                 $wr_name = clean_xss_tags(trim($_POST['wr_name']));
             else
                 $wr_name = addslashes(clean_xss_tags($wr['wr_name']));
-            if(isset($_POST['wr_email']) && $_POST['wr_email'])
-                $wr_email = get_email_address(trim($_POST['wr_email']));
-            else
-                $wr_email = addslashes($wr['wr_email']);
-            if(isset($_POST['wr_homepage']) && $_POST['wr_homepage'])
-                $wr_homepage = addslashes(clean_xss_tags($_POST['wr_homepage']));
-            else
-                $wr_homepage = addslashes(clean_xss_tags($wr['wr_homepage']));
         }
     } else {
         $mb_id = "";
         // 비회원의 경우 이름이 누락되는 경우가 있음
         if (!trim($wr_name)) alert("이름은 필히 입력하셔야 합니다.");
         $wr_name = clean_xss_tags(trim($_POST['wr_name']));
-        $wr_email = get_email_address(trim($_POST['wr_email']));
     }
 
     $sql_password = $wr_password ? " , wr_password = '".get_encrypt_string($wr_password)."' " : "";
@@ -363,34 +384,26 @@ if ($w == '' || $w == 'r') {
         $sql_ip = " , wr_ip = '{$_SERVER['REMOTE_ADDR']}' ";
 
     $sql = " update {$write_table}
-                set ca_name = '{$ca_name}',
-                     wr_option = '{$html},{$secret},{$mail}',
+                set wr_option = '{$html},{$secret},{$mail}',
                      wr_subject = '{$wr_subject}',
                      wr_content = '{$wr_content}',
                      wr_link1 = '{$wr_link1}',
                      wr_link2 = '{$wr_link2}',
                      mb_id = '{$mb_id}',
                      wr_name = '{$wr_name}',
-                     wr_email = '{$wr_email}',
-                     wr_homepage = '{$wr_homepage}',
-                     wr_1 = '{$wr_1}',
-                     wr_2 = '{$wr_2}',
-                     wr_3 = '{$wr_3}',
-                     wr_4 = '{$wr_4}',
-                     wr_5 = '{$wr_5}',
-                     wr_6 = '{$wr_6}',
-                     wr_7 = '{$wr_7}',
-                     wr_8 = '{$wr_8}',
-                     wr_9 = '{$wr_9}',
-                     wr_10= '{$wr_10}'
+                     wr_send_moreinfo = '{$wr_send_moreinfo}',
+                     wr_recv_moreinfo = '{$wr_recv_moreinfo}',
+                     wr_type = '{$wr_type}',
+                     wr_age = '{$wr_age}',
+                     wr_area = '{$wr_area}',
+                     wr_figure = '{$wr_figure}',
+                     wr_job = '{$wr_job}',
+                     wr_interest = '{$wr_interest}',
+                     wr_etc = '{$wr_etc}',
+                     wr_1 = '{$wr_1}'
                      {$sql_ip}
                      {$sql_password}
               where wr_id = '{$wr['wr_id']}' ";
-    sql_query($sql);
-
-    // 분류가 수정되는 경우 해당되는 코멘트의 분류명도 모두 수정함
-    // 코멘트의 분류를 수정하지 않으면 검색이 제대로 되지 않음
-    $sql = " update {$write_table} set ca_name = '{$ca_name}' where wr_parent = '{$wr['wr_id']}' ";
     sql_query($sql);
 
     $bo_notice = board_notice($board['bo_notice'], $wr_id, $notice);
@@ -610,7 +623,6 @@ if ($secret)
     set_session("ss_secret_{$bo_table}_{$wr_num}", TRUE);
 
 
-// 사용자 코드 실행
 @include_once($board_skin_path.'/write_update.skin_love.php');
 @include_once($board_skin_path.'/write_update.tail.skin.php');
 

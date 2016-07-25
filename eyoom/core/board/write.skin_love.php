@@ -21,11 +21,6 @@
 		$editor_js .= chk_editor_js('wr_content', $is_dhtml_editor);
 	}
 
-	// add_javascript('js 구문', 출력순서); 숫자가 작을 수록 먼저 출력됨
-	if($eyoom_board['bo_use_addon_map'] == '1') {
-		add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
-	}
-
 	// wr_1에 작성자의 레벨정보 입력
 	if($is_member) {
 		if($w==''||$w=='r') {
@@ -39,9 +34,6 @@
 		}
 	}
 
-	// wr_4 변수값 암호화
-	$wr_4 = $eb->encrypt_md5($wr_4);
-
 	for ($i=1; $is_link && $i<=G5_LINK_COUNT; $i++) {
 		$wr_link[$i]['link_val'] = $write['wr_link'.$i];
 	}
@@ -53,16 +45,6 @@
 		$wr_file[$i]['size'] = $file[$i]['size'];
 		$wr_file[$i]['source'] = $file[$i]['source'];
 		$wr_file[$i]['bf_content'] = $file[$i]['bf_content'];
-	}
-
-	// 태그 정보
-	if ($eyoom['use_tag'] == 'y' && $eyoom_board['bo_use_tag'] == '1' && $member['mb_level'] >= $eyoom_board['bo_tag_level']) {
-		$tag_info = $eb->get_tag_info($bo_table, $wr_id);
-		if($tag_info['wr_tag']) {
-			$write['wr_tag'] = $tag_info['wr_tag'];
-			$wr_tags = explode(',', $tag_info['wr_tag']);
-		}
-		if(isset($wr_tags)) $tpl->assign('wr_tags', $wr_tags);
 	}
 
 	// 사용자 프로그램
