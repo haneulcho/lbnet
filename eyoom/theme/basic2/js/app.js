@@ -151,13 +151,14 @@ var App = function () {
     };
 
 }();
+target = '';
 if(location.hash){
   var el = jQuery(location.hash);
   el.removeAttr('id');
   target = location.hash.replace('#', '');
 }
 jQuery(document).ready(function() {
-  if (target) {
+  if (target != '') {
     executeOnce = setTimeout(function(){
       el.attr('id', target);
       lbScrollTo(el);
