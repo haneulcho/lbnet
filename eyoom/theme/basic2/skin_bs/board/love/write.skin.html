@@ -24,14 +24,12 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.cs
 							<label class="select">
 							<select name="wr_area" <!--{? !_is_admin}-->required  <!--{/}-->class="form-control c-select">
 								<option value="">지역을 선택하세요.</option>
-								<option value="서울">서울</option>
-								<option value="인천/경기">인천/경기</option>
-								<option value="대전/충청">대전/충청</option>
-								<option value="광주/전라">광주/전라</option>
-								<option value="대구/경북">대구/경북</option>
-								<option value="부산/경남">부산/경남</option>
-								<option value="강원/제주">강원/제주</option>
-								<option value="해외">해외</option>
+								<?php
+									$area = array('서울', '인천/경기', '대전/충청', '광주/전라', '대구/경북', '부산/경남', '강원/제주', '해외');
+									for($i=0;$i<count($area);$i++) {
+								?>
+								<option value="<?php echo $area[$i]; ?>"<?php if({_wr_area} == $area[$i]){ echo ' selected';} ?>><?php echo $area[$i]; ?></option>
+								<?php } ?>
 							</select>
 								<i></i>
 							</label>
@@ -40,19 +38,23 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.cs
 					<dl class="col-6 pull-left">
 						<dt>성향</dt>
 						<dd>
-							<label for="wr_type1" class="radio"><input type="radio" id="wr_type1" name="wr_type" value="팸"><i class="rounded-x"></i>팸</label>
-							<label for="wr_type2" class="radio"><input type="radio" id="wr_type2" name="wr_type" value="부치"><i class="rounded-x"></i>부치</label>
-							<label for="wr_type3" class="radio"><input type="radio" id="wr_type3" name="wr_type" value="전천"><i class="rounded-x"></i>전천</label>
-							<label for="wr_type4" class="radio"><input type="radio" id="wr_type4" name="wr_type" value="무성향"><i class="rounded-x"></i>무성향</label>
+							<?php
+								$type = array('팸', '부치', '전천', '무성향');
+								for($i=0;$i<count($type);$i++) {
+							?>
+							<label for="wr_type<?php echo $i; ?>" class="radio"><input type="radio" id="wr_type<?php echo $i; ?>" name="wr_type" value="<?php echo $type[$i]; ?>"<?php if({_wr_type} == $type[$i]){ echo ' checked';} ?>><i class="rounded-x"></i><?php echo $type[$i]; ?></label>
+							<?php } ?>
 						</dd>
 					</dl>
 					<dl class="col-6 pull-left">
 						<dt>나이</dt>
 						<dd>
-							<label for="wr_age1" class="radio"><input type="radio" id="wr_age1" name="wr_age" value="20~24"><i class="rounded-x"></i>20~24</label>
-							<label for="wr_age2" class="radio"><input type="radio" id="wr_age2" name="wr_age" value="25~29"><i class="rounded-x"></i>25~29</label>
-							<label for="wr_age3" class="radio"><input type="radio" id="wr_age3" name="wr_age" value="30~34"><i class="rounded-x"></i>30~34</label>
-							<label for="wr_age4" class="radio"><input type="radio" id="wr_age4" name="wr_age" value="35 이상"><i class="rounded-x"></i>35 이상</label>
+							<?php
+								$age = array('20~24', '25~29', '30~34', '35 이상');
+								for($i=0;$i<count($age);$i++) {
+							?>
+							<label for="wr_age<?php echo $i; ?>" class="radio"><input type="radio" id="wr_age<?php echo $i; ?>" name="wr_age" value="<?php echo $age[$i]; ?>"<?php if({_wr_age} == $age[$i]){ echo ' checked';} ?>><i class="rounded-x"></i><?php echo $age[$i]; ?></label>
+							<?php } ?>
 						</dd>
 					</dl>
 				</fieldset>
@@ -61,10 +63,10 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.cs
 				<fieldset class="lbbox">
 					<h3><i class="fa fa-plus-square"></i> <strong>추가정보 입력</strong></h3>
 					<div class="margin-bottom-15">
-						<label for="wr_send_moreinfo" class="col-sm-4 form-control-label">추가정보 입력하기</label><label class="ui-switch primary m-t-xs m-r"><input type="checkbox" id="wr_send_moreinfo" name="wr_send_moreinfo" value="1" checked><i></i></label>
+						<label for="wr_send_moreinfo" class="col-sm-4 form-control-label">추가정보 입력하기</label><label class="ui-switch primary m-t-xs m-r"><input type="checkbox" id="wr_send_moreinfo" name="wr_send_moreinfo"<?php if({_wr_send_moreinfo} == '1'){ echo ' checked value="1"';} else { echo ' value="0"'; } ?>><i></i></label>
 					</div>
 					<div class="margin-bottom-15">
-						<label for="wr_recv_moreinfo" class="col-sm-4 form-control-label">무조건 상대 추가정보 받기</label><label class="ui-switch primary m-t-xs m-r"><input type="checkbox" id="wr_recv_moreinfo" name="wr_recv_moreinfo" value="0"><i></i></label>
+						<label for="wr_recv_moreinfo" class="col-sm-4 form-control-label">무조건 상대 추가정보 받기</label><label class="ui-switch primary m-t-xs m-r"><input type="checkbox" id="wr_recv_moreinfo" name="wr_recv_moreinfo"<?php if({_wr_recv_moreinfo} == '1'){ echo ' checked value="1"';} else { echo ' value="0"'; } ?>><i></i></label>
 					</div>
 					<div class="alert alert-danger padding-all-10 margin-top-10">
 					<strong>Note:</strong> 추가정보 입력시 50포인트 적립 / 상대 추가정보 받기를 켜두면, 댓글 쓰는 상대방은 무조건 추가정보를 입력해야 합니다.
@@ -75,13 +77,12 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.cs
 							<label class="select">
 							<select name="wr_job" class="form-control c-select">
 								<option value="">직업을 선택하세요.</option>
-								<option value="학생">학생</option>
-								<option value="직장인(주5일)">직장인(주5일)</option>
-								<option value="직장인(주6일)">직장인(주6일)</option>
-								<option value="직장인(평일휴무)">직장인(평일휴무)</option>
-								<option value="직장인(주말휴무)">직장인(주말휴무)</option>
-								<option value="프리랜서">프리랜서</option>
-								<option value="무직">무직</option>
+								<?php
+									$job = array('학생', '직장인(주5일)', '직장인(주6일)', '직장인(평일휴무)', '직장인(주말휴무)', '프리랜서', '무직');
+									for($i=0;$i<count($job);$i++) {
+								?>
+								<option value="<?php echo $job[$i]; ?>"<?php if({_wr_job} == $job[$i]){ echo ' selected';} ?>><?php echo $job[$i]; ?></option>
+								<?php } ?>
 							</select>
 								<i></i>
 							</label>
@@ -91,11 +92,12 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.cs
 							<label class="select">
 							<select name="wr_figure[]" class="form-control c-select">
 								<option value="0">키를 선택하세요.</option>
-								<option value="155cm 미만">155cm 미만</option>
-								<option value="155~159cm">155~159cm</option>
-								<option value="160~164cm">160~164cm</option>
-								<option value="165~169cm">165~169cm</option>
-								<option value="170cm 이상">170cm 이상</option>
+								<?php
+									$figure1 = array('155cm 미만', '155~159cm', '160~164cm', '165~169cm', '170cm 이상');
+									for($i=0;$i<count($figure1);$i++) {
+								?>
+								<option value="<?php echo $figure1[$i]; ?>"<?php if({_wr_figure[0]} == $figure1[$i]){ echo ' selected';} ?>><?php echo $figure1[$i]; ?></option>
+								<?php } ?>
 							</select>
 								<i></i>
 							</label>
@@ -105,26 +107,29 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.cs
 							<label class="select">
 							<select name="wr_figure[]" class="form-control c-select">
 								<option value="0">체형을 선택하세요.</option>
-								<option value="마름">마름</option>
-								<option value="보통">보통</option>
-								<option value="통통">통통</option>
-								<option value="통통 이상">통통 이상</option>
+								<?php
+									$figure2 = array('마름', '보통', '통통', '통통 이상');
+									for($i=0;$i<count($figure2);$i++) {
+								?>
+								<option value="<?php echo $figure2[$i]; ?>"<?php if({_wr_figure[1]} == $figure2[$i]){ echo ' selected';} ?>><?php echo $figure2[$i]; ?></option>
+								<?php } ?>
 							</select>
 								<i></i>
 							</label>
 						</dd>
 						<dt>흡연유무</dt>
 						<dd>
-							<label for="wr_etc1" class="radio"><input type="radio" id="wr_etc1" name="wr_etc" value="흡연"><i class="rounded-x"></i>흡연</label>
-							<label for="wr_etc2" class="radio"><input type="radio" id="wr_etc2" name="wr_etc" value="비흡연"><i class="rounded-x"></i>비흡연</label>
+							<label for="wr_etc1" class="radio"><input type="radio" id="wr_etc1" name="wr_etc" value="흡연"<?php if({_wr_etc} == '흡연'){ echo ' checked';} ?>><i class="rounded-x"></i>흡연</label>
+							<label for="wr_etc2" class="radio"><input type="radio" id="wr_etc2" name="wr_etc" value="비흡연"<?php if({_wr_etc} == '비흡연'){ echo ' checked';} ?>><i class="rounded-x"></i>비흡연</label>
 						</dd>
 						<dt>관심사</dt>
 						<dd>
 <?php
+	$wr_interest_array = {_wr_interest};
 	$interest = array("독서/글쓰기","음악","영화/드라마","게임","운동","덕질","사진/영상","예술","정치/사회","반려동물");
 	for($i=0;$i<count($interest);$i++) {
 ?>
-							<label for="wr_interest<?php echo $i; ?>" class="checkbox pull-left"><input type="checkbox" id="wr_interest<?php echo $i; ?>" name="wr_interest[]" value="<?php echo $interest[$i]; ?>"><i></i><?php echo $interest[$i]; ?></label>
+							<label for="wr_interest<?php echo $i; ?>" class="checkbox pull-left"><input type="checkbox" id="wr_interest<?php echo $i; ?>" name="wr_interest[]" value="<?php echo $interest[$i]; ?>"<?php if(in_array($interest[$i], $wr_interest_array)){ echo ' checked';} ?>><i></i><?php echo $interest[$i]; ?></label>
 <?php } ?>
 						</dd>
 					</dl>

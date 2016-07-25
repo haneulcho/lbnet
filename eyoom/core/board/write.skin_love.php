@@ -34,6 +34,27 @@
 		}
 	}
 
+  $wr_area = $write['wr_area'];
+  $wr_type = $write['wr_type'];
+  $wr_age = $write['wr_age'];
+  $wr_send_moreinfo = $write['wr_send_moreinfo'];
+  $wr_recv_moreinfo = $write['wr_recv_moreinfo'];
+
+  if(!empty($write['wr_etc'])) {
+    $wr_etc = $write['wr_etc'];
+  }
+  if(!empty($write['wr_job'])) {
+    $wr_job = $write['wr_job'];
+  }
+  if(!empty($write['wr_figure'])) {
+    $wr_figure = explode(',', $write['wr_figure']);
+    $wr_figure1 = $wr_figure[0];
+    $wr_figure2 = $wr_figure[1];
+  }
+  if(!empty($write['wr_interest'])) {
+    $wr_interest = explode(',', $write['wr_interest']);
+  }
+
 	for ($i=1; $is_link && $i<=G5_LINK_COUNT; $i++) {
 		$wr_link[$i]['link_val'] = $write['wr_link'.$i];
 	}
