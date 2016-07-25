@@ -137,7 +137,11 @@ else
     $comment_max = (int)$board['bo_comment_max'];
 }
 
-include_once($board_skin_path.'/view_comment.skin.php');
+if($bo_table == 'love') {
+  include_once($board_skin_path.'/view_comment.skin_love.php');
+} else {
+  include_once($board_skin_path.'/view_comment.skin.php');
+}
 
 if (!$member['mb_id']) // 비회원일 경우에만
     echo '<script src="'.G5_JS_URL.'/md5.js"></script>'."\n";
