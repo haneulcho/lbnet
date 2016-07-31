@@ -15,31 +15,33 @@ $w = $_POST["w"];
 $wr_name  = trim($_POST['wr_name']);
 $msg = array();
 
-$wr_area = '';
-if (isset($_POST['wr_area'])) {
-    $wr_area = substr(trim($_POST['wr_area']),0,255);
-    $wr_area = preg_replace("#[\\\]+$#", "", $wr_area);
-}
-if ($wr_area == '' && !$is_admin) {
-    $msg[] = '<strong>지역</strong>을 선택하세요.';
-}
+if(!$comment_id) {
+  $wr_area = '';
+  if (isset($_POST['wr_area'])) {
+      $wr_area = substr(trim($_POST['wr_area']),0,255);
+      $wr_area = preg_replace("#[\\\]+$#", "", $wr_area);
+  }
+  if ($wr_area == '' && !$is_admin) {
+      $msg[] = '<strong>지역</strong>을 선택하세요.';
+  }
 
-$wr_type = '';
-if (isset($_POST['wr_type'])) {
-    $wr_type = substr(trim($_POST['wr_type']),0,255);
-    $wr_type = preg_replace("#[\\\]+$#", "", $wr_type);
-}
-if ($wr_type == '' && !$is_admin) {
-    $msg[] = '<strong>성향</strong>을 선택해 주세요!';
-}
+  $wr_type = '';
+  if (isset($_POST['wr_type'])) {
+      $wr_type = substr(trim($_POST['wr_type']),0,255);
+      $wr_type = preg_replace("#[\\\]+$#", "", $wr_type);
+  }
+  if ($wr_type == '' && !$is_admin) {
+      $msg[] = '<strong>성향</strong>을 선택해 주세요!';
+  }
 
-$wr_age = '';
-if (isset($_POST['wr_age'])) {
-    $wr_age = substr(trim($_POST['wr_age']),0,255);
-    $wr_age = preg_replace("#[\\\]+$#", "", $wr_age);
-}
-if ($wr_age == '' && !$is_admin) {
-    $msg[] = '<strong>나이</strong>를 선택해 주세요!';
+  $wr_age = '';
+  if (isset($_POST['wr_age'])) {
+      $wr_age = substr(trim($_POST['wr_age']),0,255);
+      $wr_age = preg_replace("#[\\\]+$#", "", $wr_age);
+  }
+  if ($wr_age == '' && !$is_admin) {
+      $msg[] = '<strong>나이</strong>를 선택해 주세요!';
+  }
 }
 
 $wr_send_moreinfo = '';
@@ -209,8 +211,7 @@ if ($w == 'c') // 댓글 입력
     $wr_subject = get_text(stripslashes($wr['wr_subject']));
 
     $sql = " insert into $write_table
-                set ca_name = '{$wr['ca_name']}',
-                     wr_option = '$wr_secret',
+                set wr_option = '$wr_secret',
                      wr_num = '{$wr['wr_num']}',
                      wr_reply = '',
                      wr_parent = '$wr_id',
@@ -222,21 +223,19 @@ if ($w == 'c') // 댓글 입력
                      mb_id = '$mb_id',
                      wr_password = '$wr_password',
                      wr_name = '$wr_name',
-                     wr_email = '$wr_email',
-                     wr_homepage = '$wr_homepage',
                      wr_datetime = '".G5_TIME_YMDHIS."',
                      wr_last = '',
                      wr_ip = '{$_SERVER['REMOTE_ADDR']}',
-                     wr_1 = '$wr_1',
-                     wr_2 = '$wr_2',
-                     wr_3 = '$wr_3',
-                     wr_4 = '$wr_4',
-                     wr_5 = '$wr_5',
-                     wr_6 = '$wr_6',
-                     wr_7 = '$wr_7',
-                     wr_8 = '$wr_8',
-                     wr_9 = '$wr_9',
-                     wr_10 = '$wr_10' ";
+                     wr_send_moreinfo = '$wr_send_moreinfo',
+                     wr_recv_moreinfo = '$wr_recv_moreinfo',
+                     wr_type = '$wr_type',
+                     wr_age = '$wr_age',
+                     wr_area = '$wr_area',
+                     wr_figure = '$wr_figure',
+                     wr_job = '$wr_job',
+                     wr_interest = '$wr_interest',
+                     wr_etc = '$wr_etc',
+                     wr_1 = '$wr_1' ";
     sql_query($sql);
 
     $comment_id = sql_insert_id();
@@ -251,69 +250,15 @@ if ($w == 'c') // 댓글 입력
     sql_query(" update {$g5['board_table']} set bo_count_comment = bo_count_comment + 1 where bo_table = '$bo_table' ");
 
     // 포인트 부여
-    insert_point($member['mb_id'], $board['bo_comment_point'], "{$board['bo_subject']} {$wr_id}-{$comment_id} 댓글쓰기", $bo_table, $comment_id, '댓글');
-
-    // 메일발송 사용
-    if ($config['cf_email_use'] && $board['bo_use_email'])
-    {
-        // 관리자의 정보를 얻고
-        $super_admin = get_admin('super');
-        $group_admin = get_admin('group');
-        $board_admin = get_admin('board');
-
-        $wr_content = nl2br(get_text(stripslashes("원글\n{$wr['wr_subject']}\n\n\n댓글\n$wr_content")));
-
-        $warr = array( ''=>'입력', 'u'=>'수정', 'r'=>'답변', 'c'=>'댓글 ', 'cu'=>'댓글 수정' );
-        $str = $warr[$w];
-
-        $subject = '['.$config['cf_title'].'] '.$board['bo_subject'].' 게시판에 '.$str.'글이 올라왔습니다.';
-        // 4.00.15 - 메일로 보내는 댓글의 바로가기 링크 수정
-        $link_url = G5_BBS_URL."/board.php?bo_table=".$bo_table."&amp;wr_id=".$wr_id."&amp;".$qstr."#c_".$comment_id;
-
-        include_once(G5_LIB_PATH.'/mailer.lib.php');
-
-        ob_start();
-        include_once ('./write_update_mail.php');
-        $content = ob_get_contents();
-        ob_end_clean();
-
-        $array_email = array();
-        // 게시판관리자에게 보내는 메일
-        if ($config['cf_email_wr_board_admin']) $array_email[] = $board_admin['mb_email'];
-        // 게시판그룹관리자에게 보내는 메일
-        if ($config['cf_email_wr_group_admin']) $array_email[] = $group_admin['mb_email'];
-        // 최고관리자에게 보내는 메일
-        if ($config['cf_email_wr_super_admin']) $array_email[] = $super_admin['mb_email'];
-
-        // 원글게시자에게 보내는 메일
-        if ($config['cf_email_wr_write']) $array_email[] = $wr['wr_email'];
-
-        // 댓글 쓴 모든이에게 메일 발송이 되어 있다면 (자신에게는 발송하지 않는다)
-        if ($config['cf_email_wr_comment_all']) {
-            $sql = " select distinct wr_email from {$write_table}
-                        where wr_email not in ( '{$wr['wr_email']}', '{$member['mb_email']}', '' )
-                        and wr_parent = '$wr_id' ";
-            $result = sql_query($sql);
-            while ($row=sql_fetch_array($result))
-                $array_email[] = $row['wr_email'];
-        }
-
-        // 중복된 메일 주소는 제거
-        $unique_email = array_unique($array_email);
-        $unique_email = array_values($unique_email);
-        for ($i=0; $i<count($unique_email); $i++) {
-            mailer($wr_name, $wr_email, $unique_email[$i], $subject, $content, 1);
-        }
-    }
-
-    // SNS 등록
-    include_once("./write_comment_update.sns.php");
-    if($wr_facebook_user || $wr_twitter_user) {
-        $sql = " update $write_table
-                    set wr_facebook_user = '$wr_facebook_user',
-                        wr_twitter_user  = '$wr_twitter_user'
-                    where wr_id = '$comment_id' ";
-        sql_query($sql);
+    // 추가정보 입력자는 50 포인트 더 적립하기
+    if ($wr_send_moreinfo == '1') {
+      if (isset($_POST['wr_job']) && isset($_POST['wr_etc']) && isset($wr_interest) && $wr_figure != '') {
+        insert_point($member['mb_id'], $board['bo_comment_point']+50, "{$board['bo_subject']} {$wr_id}-{$comment_id} 소개댓글쓰기 (추가정보 입력 +50)", $bo_table, $comment_id, '댓글');
+      } else {
+        insert_point($member['mb_id'], $board['bo_comment_point'], "{$board['bo_subject']} {$wr_id}-{$comment_id} 소개댓글쓰기", $bo_table, $comment_id, '댓글');
+      }
+    } else {
+      insert_point($member['mb_id'], $board['bo_comment_point'], "{$board['bo_subject']} {$wr_id}-{$comment_id} 소개댓글쓰기", $bo_table, $comment_id, '댓글');
     }
 }
 else if ($w == 'cu') // 댓글 수정
@@ -378,15 +323,6 @@ else if ($w == 'cu') // 댓글 수정
                 set wr_subject = '$wr_subject',
                      wr_content = '$wr_content',
                      wr_1 = '$wr_1',
-                     wr_2 = '$wr_2',
-                     wr_3 = '$wr_3',
-                     wr_4 = '$wr_4',
-                     wr_5 = '$wr_5',
-                     wr_6 = '$wr_6',
-                     wr_7 = '$wr_7',
-                     wr_8 = '$wr_8',
-                     wr_9 = '$wr_9',
-                     wr_10 = '$wr_10',
                      wr_option = '$wr_option'
                      $sql_ip
                      $sql_secret
@@ -395,7 +331,7 @@ else if ($w == 'cu') // 댓글 수정
 }
 
 // 사용자 코드 실행
-@include_once($board_skin_path.'/write_comment_update.skin.php');
+@include_once($board_skin_path.'/write_comment_update.skin_love.php');
 @include_once($board_skin_path.'/write_comment_update.tail.skin.php');
 
 delete_cache_latest($bo_table);

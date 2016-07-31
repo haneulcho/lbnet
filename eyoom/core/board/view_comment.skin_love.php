@@ -32,6 +32,12 @@
 		$comment[$i]['wr_send_moreinfo'] = $list[$i]['wr_send_moreinfo'];
 		$comment[$i]['wr_recv_moreinfo'] = $list[$i]['wr_recv_moreinfo'];
 
+		if(strpos($comment[$i]['comment'], '비밀글 입니다.') !== false) {
+			$comment[$i]['wr_is_secret'] = true;
+		} else {
+			$comment[$i]['wr_is_secret'] = false;
+		}
+
 		if(!empty($list[$i]['wr_etc'])) {
 			$comment[$i]['wr_etc'] = $list[$i]['wr_etc'];
 		}
@@ -44,7 +50,7 @@
 			$comment[$i]['wr_figure2'] = $wr_figure[1];
 		}
 		if(!empty($list[$i]['wr_interest'])) {
-			$comment[$i]['wr_interest'] = explode(',', $list[$i]['wr_interest']);
+			$comment[$i]['wr_interest'] = str_replace(',',', ', $list[$i]['wr_interest']);
 		}
 
 		// wr_link2를 활용하여 댓글에 이미지표현

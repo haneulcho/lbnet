@@ -9,40 +9,10 @@
 	$user = $eb->get_user_info($mb['mb_id'])+$mb;
 	$lvuser = $eb->user_level_info($user);
 
-	// wr_4 unserialize
-	$wr_4 = unserialize($view['wr_4']);
-	if(!$wr_4) $wr_4 = array();
-
-	// 신고처리 정보
-	if($eyoom_board['bo_use_yellow_card'] == '1') {
-		$mb_ycard = $eb->mb_yellow_card($member['mb_id'],$bo_table, $wr_id);
-		$ycard = $wr_4;
-		if($ycard['yc_blind'] == 'y') {
-			if(!$is_admin && $member['mb_level'] < $eyoom_board['bo_blind_view']) {
-				if(!$mb_ycard['mb_id']) {
-					alert('이 게시물은 블라인드 처리된 게시물입니다.');
-					exit;
-				}
-			}
-		}
-
-		// 바로 블라인드 처리할 수 있는 권한인지 체크
-		if($is_admin || $member['mb_level'] >= $eyoom_board['bo_blind_direct'] ) {
-			$blind_direct = true;
-		}
-	}
-
-	// 별점기능 사용여부
-	if($eyoom_board['bo_use_rating'] == '1') {
-		$mb_rating = $eb->mb_rating($member['mb_id'],$bo_table, $wr_id);
-		$rating = $eb->get_star_rating($wr_4);
-	}
-
 	// 읽는사람 포인트 주기 및 이윰뉴 테이블의 히트수/댓글수 일치 시키기
     $spv_name = 'spv_board_'.$bo_table.'_'.$wr_id;
     if (!get_session($spv_name)) {
-		if($is_member) $eb->level_point($levelset['read']);
-        set_session($spv_name, TRUE);
+      set_session($spv_name, TRUE);
 
 		// 이윰뉴 테이블에 wr_hit 적용
 		$where = "wr_id = '{$wr_id}' ";
@@ -118,28 +88,23 @@
 		}
 		$view['mb_id'] = 'anonymous';
 		$view['wr_name'] = '익명';
-		$view['wr_email'] = '';
-		$view['wr_homepage'] = '';
 	}
 
-	// 추천/비추천
-	if($member['mb_id']) {
-		$goodinfo = $eb->mb_goodinfo($member['mb_id'],$bo_table,$wr_id);
+	if(!empty($view['wr_figure'])) {
+		$view['wr_figure'] = explode(',',$view['wr_figure']);
+		$view['wr_height'] = $view['wr_figure'][0];
+		$view['wr_weight'] = $view['wr_figure'][1];
 	}
 
-	// sns 버튼들
-	if($board['bo_use_sns']) {
-		$sns_msg = urlencode(str_replace('\"', '"', $view['subject']));
+	if(!empty($view['wr_interest'])) {
+		$view['wr_interest'] = str_replace(',',', ', $view['wr_interest']);
+	}
 
-		$longurl = urlencode($short_url);
-		$sns_send  = EYOOM_CORE_URL.'/board/sns_send.php?longurl='.$longurl;
-		$sns_send .= '&amp;title='.$sns_msg;
-
-		$facebook_url = $sns_send.'&amp;sns=facebook';
-		$twitter_url  = $sns_send.'&amp;sns=twitter';
-		$gplus_url    = $sns_send.'&amp;sns=gplus';
-		$kakaostory_url   = $sns_send.'&amp;sns=kakaostory';
-		$band_url   = $sns_send.'&amp;sns=band';
+	// 글쓴이가 추가정보 받기를 켜두면, 댓글쓴이 is_moreinfo true
+	if($view['wr_recv_moreinfo'] == 1) {
+		$view['is_moreinfo'] = true;
+	} else {
+		$view['is_moreinfo'] = false;
 	}
 
 	// Window Mode 사용시
@@ -163,33 +128,12 @@
 	// wr_1에 작성자의 레벨정보 입력
 	if($is_member) $wr_1 = $member['mb_level']."|".$eyoomer['level'];
 
-	// 태그 정보
-	if ($eyoom['use_tag'] == 'y' && $eyoom_board['bo_use_tag'] == '1') {
-		$tag_info = $eb->get_tag_info($bo_table, $wr_id);
-		if($tag_info['wr_tag']) {
-			$wr_tags = explode(',', $tag_info['wr_tag']);
-			$i=0;
-			foreach($wr_tags as $key => $_tag) {
-				$view_tags[$i]['tag'] = $_tag;
-				$view_tags[$i]['href'] = G5_URL . '/tag/?tag=' . str_replace('&', '^', $_tag);
-				$i++;
-			}
-		}
-		if(isset($view_tags)) $tpl->assign('view_tags', $view_tags);
-	}
-
 	include_once(G5_BBS_PATH.'/view_comment.php');
 
 	$tpl->define(array(
 		'cmt_pc'	=> 'skin_pc/board/' . $eyoom_board['bo_skin'] . '/view_comment.skin.html',
 		'cmt_mo'	=> 'skin_mo/board/' . $eyoom_board['bo_skin'] . '/view_comment.skin.html',
 		'cmt_bs'	=> 'skin_bs/board/' . $eyoom_board['bo_skin'] . '/view_comment.skin.html',
-		'sns_pc'	=> 'skin_pc/board/' . $eyoom_board['bo_skin'] . '/sns.skin.html',
-		'sns_mo'	=> 'skin_mo/board/' . $eyoom_board['bo_skin'] . '/sns.skin.html',
-		'sns_bs'	=> 'skin_bs/board/' . $eyoom_board['bo_skin'] . '/sns.skin.html',
-		'signature_pc'	=> 'skin_pc/signature/' . $eyoom['signature_skin'] . '/signature.skin.html',
-		'signature_mo'	=> 'skin_mo/signature/' . $eyoom['signature_skin'] . '/signature.skin.html',
-		'signature_bs'	=> 'skin_bs/signature/' . $eyoom['signature_skin'] . '/signature.skin.html',
 	));
 
 	// 사용자 프로그램

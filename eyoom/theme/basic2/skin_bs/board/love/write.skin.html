@@ -22,7 +22,7 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.cs
 						<dt>지역</dt>
 						<dd>
 							<label class="select">
-							<select name="wr_area" <!--{? !_is_admin}-->required  <!--{/}-->class="form-control c-select">
+							<select name="wr_area" <!--{? !_is_admin}-->required <!--{/}-->class="form-control c-select">
 								<option value="">지역을 선택하세요.</option>
 								<?php
 									$area = array('서울', '인천/경기', '대전/충청', '광주/전라', '대구/경북', '부산/경남', '강원/제주', '해외');
@@ -68,10 +68,10 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.cs
 					<div class="margin-bottom-15">
 						<label for="wr_recv_moreinfo" class="col-sm-4 form-control-label">무조건 상대 추가정보 받기</label><label class="ui-switch primary m-t-xs m-r"><input type="checkbox" id="wr_recv_moreinfo" name="wr_recv_moreinfo"<?php if({_wr_recv_moreinfo} == '1'){ echo ' checked value="1"';} else { echo ' value="0"'; } ?>><i></i></label>
 					</div>
-					<div class="alert alert-danger padding-all-10 margin-top-10">
+					<div class="alert alert-danger padding-all-10 margin-top-10 margin-bottom-15">
 					<strong>Note:</strong> 추가정보 입력시 50포인트 적립 / 상대 추가정보 받기를 켜두면, 댓글 쓰는 상대방은 무조건 추가정보를 입력해야 합니다.
 					</div>
-					<dl id="moreinfo">
+					<dl id="moreinfo" style="display:none">
 						<dt>직업</dt>
 						<dd>
 							<label class="select">
@@ -90,7 +90,7 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.cs
 						<dt>키</dt>
 						<dd>
 							<label class="select">
-							<select name="wr_figure[]" class="form-control c-select">
+							<select id="wr_figure1" name="wr_figure[]" class="form-control c-select">
 								<option value="0">키를 선택하세요.</option>
 								<?php
 									$figure1 = array('155cm 미만', '155~159cm', '160~164cm', '165~169cm', '170cm 이상');
@@ -105,7 +105,7 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.cs
 						<dt>체형</dt>
 						<dd>
 							<label class="select">
-							<select name="wr_figure[]" class="form-control c-select">
+							<select id="wr_figure2" name="wr_figure[]" class="form-control c-select">
 								<option value="0">체형을 선택하세요.</option>
 								<?php
 									$figure2 = array('마름', '보통', '통통', '통통 이상');
@@ -239,10 +239,10 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.cs
 <script>
 $('#wr_send_moreinfo').change(function() {
 	if(this.checked) {
-		$('#moreinfo').show();
+		$('#moreinfo').slideDown();
 		$(this).val('1').attr('checked', 'checked');
 	} else {
-		$('#moreinfo').hide();
+		$('#moreinfo').slideUp();
 		$(this).val('0').removeAttr('checked');
 	}
 });
@@ -289,6 +289,34 @@ function fwrite_submit(f)
 		alert('나이를 선택해 주세요!');
 		f.wr_age1.focus();
 		return false;
+	}
+
+	if($('input:checkbox[name="wr_send_moreinfo"]').is(':checked') == true || $('input[name="wr_send_moreinfo"]').val() == 1) {
+		if($('select[name="wr_job"] option:selected').val() == '' ) {
+			alert('직업을 선택해 주세요!');
+			f.wr_job.focus();
+			return false;
+		}
+		if($('#wr_figure1 option:selected').val() == 0) {
+			alert('키를 선택해 주세요!');
+			f.wr_figure1.focus();
+			return false;
+		}
+		if($('#wr_figure2 option:selected').val() == 0) {
+			alert('체형을 선택해 주세요!');
+			f.wr_figure2.focus();
+			return false;
+		}
+		if($('input:radio[name="wr_etc"]').is(':checked') == false) {
+			alert('흡연유무를 선택해 주세요!');
+			f.wr_etc1.focus();
+			return false;
+		}
+		if($('input:checkbox[name="wr_interest[]"]').is(':checked') == false) {
+			alert('관심사를 선택해 주세요!');
+			f.wr_interest1.focus();
+			return false;
+		}
 	}
 	<!--{/}-->
 

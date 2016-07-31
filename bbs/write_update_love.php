@@ -321,12 +321,12 @@ if ($w == '' || $w == 'r') {
         // 추가정보 입력자는 50 포인트 더 적립하기
         if ($wr_send_moreinfo == '1') {
           if (isset($_POST['wr_job']) && isset($_POST['wr_etc']) && isset($wr_interest) && $wr_figure != '') {
-            insert_point($member['mb_id'], $board['bo_write_point']+50, "{$board['bo_subject']} {$wr_id} 글쓰기 (추가정보 입력 +50)", $bo_table, $wr_id, '쓰기');
+            insert_point($member['mb_id'], $board['bo_write_point']+50, "{$board['bo_subject']} {$wr_id} 소개글쓰기 (추가정보 입력 +50)", $bo_table, $wr_id, '쓰기');
           } else {
-            insert_point($member['mb_id'], $board['bo_write_point'], "{$board['bo_subject']} {$wr_id} 글쓰기", $bo_table, $wr_id, '쓰기');            
+            insert_point($member['mb_id'], $board['bo_write_point'], "{$board['bo_subject']} {$wr_id} 소개글쓰기", $bo_table, $wr_id, '쓰기');
           }
         } else {
-          insert_point($member['mb_id'], $board['bo_write_point'], "{$board['bo_subject']} {$wr_id} 글쓰기", $bo_table, $wr_id, '쓰기');
+          insert_point($member['mb_id'], $board['bo_write_point'], "{$board['bo_subject']} {$wr_id} 소개글쓰기", $bo_table, $wr_id, '쓰기');
         }
     }
 }  else if ($w == 'u') {

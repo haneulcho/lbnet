@@ -36,8 +36,13 @@ var char_max = parseInt({_comment_max}); // 최대
 				<div class="comment-item-contents" style="{? .cmt_depth && !.is_cmt_best}padding-left:{.cmt_depth}px;{/}">
 				<p>
 					<!--{? strstr(.wr_option, 'secret')}--><i class="fa fa-lock" style="color:#aaa;"></i> <!--{/}-->
-					<!--{? .imgsrc}-->
-					<a href="{.imgsrc}" class="venobox" data-gall="lbgall" title="{view.wr_subject}"><img src="{.imgsrc}" class="img-responsive"></a><br>
+					<!--{? !.wr_is_secret}-->
+						<!--{? .wr_area != ''}-->
+							<dl class="lbcinfo"><dt>지역</dt><dd>{.wr_area}</dd><dt>성향</dt><dd>{.wr_type}</dd><dt>나이</dt><dd>{.wr_age}</dd></dl>
+						<!--{/}-->
+						<!--{? .wr_send_moreinfo == '1'}-->
+							<dl class="lbcinfo"><!--{? .wr_job != ''}--><dt>직업</dt><dd>{.wr_job}</dd><!--{/}--><!--{? .wr_figure1 != ''}--><dt>키</dt><dd>{.wr_figure1}</dd><!--{/}--><!--{? .wr_figure2 != ''}--><dt>체형</dt><dd>{.wr_figure2}</dd><!--{/}--><!--{? .wr_etc != ''}--><dt>흡연유무</dt><dd>{.wr_etc}</dd><!--{/}--><!--{? .wr_interest != ''}--><dt>관심사</dt><dd>{.wr_interest}</dd><!--{/}--></dl>
+						<!--{/}-->
 					<!--{/}-->
 					{.comment}
 				</p>
@@ -94,7 +99,7 @@ var char_max = parseInt({_comment_max}); // 최대
 <!-- 댓글 쓰기 영역 -->
 			<div class="comment-write-wrap">
 
-				<div>
+				<div id="write_info">
 					<div class="col-sm-6 md-margin-bottom-20">
 						<fieldset class="lbbox">
 							<h3><i class="fa fa-pencil-square-o"></i> <strong>기본정보 입력</strong></h3>
@@ -102,13 +107,13 @@ var char_max = parseInt({_comment_max}); // 최대
 								<dt>지역</dt>
 								<dd>
 									<label class="select">
-										<select name="wr_area" <!--{? !_is_admin}-->required  <!--{/}-->class="form-control c-select">
+										<select name="wr_area" <!--{? !_is_admin}-->required <!--{/}-->class="form-control c-select">
 											<option value="">지역을 선택하세요.</option>
 											<?php
 												$area = array('서울', '인천/경기', '대전/충청', '광주/전라', '대구/경북', '부산/경남', '강원/제주', '해외');
 												for($i=0;$i<count($area);$i++) {
 											?>
-											<option value="<?php echo $area[$i]; ?>"<?php if({_wr_area} == $area[$i]){ echo ' selected';} ?>><?php echo $area[$i]; ?></option>
+											<option value="<?php echo $area[$i]; ?>"><?php echo $area[$i]; ?></option>
 											<?php } ?>
 										</select>
 										<i></i>
@@ -117,13 +122,13 @@ var char_max = parseInt({_comment_max}); // 최대
 								<dt>성향</dt>
 								<dd>
 									<label class="select">
-									<select name="wr_type" class="form-control c-select">
+									<select name="wr_type" <!--{? !_is_admin}-->required <!--{/}-->class="form-control c-select">
 										<option value="">성향을 선택하세요.</option>
 										<?php
 											$type = array('팸', '부치', '전천', '무성향');
 											for($i=0;$i<count($type);$i++) {
 										?>
-										<option value="<?php echo $type[$i]; ?>"<?php if({_wr_type} == $type[$i]){ echo ' selected';} ?>><?php echo $type[$i]; ?></option>
+										<option value="<?php echo $type[$i]; ?>"><?php echo $type[$i]; ?></option>
 										<?php } ?>
 									</select>
 										<i></i>
@@ -132,13 +137,13 @@ var char_max = parseInt({_comment_max}); // 최대
 								<dt>나이</dt>
 								<dd>
 									<label class="select">
-									<select name="wr_age" class="form-control c-select">
+									<select name="wr_age" <!--{? !_is_admin}-->required <!--{/}-->class="form-control c-select">
 										<option value="">나이를 선택하세요.</option>
 										<?php
 											$age = array('20~24', '25~29', '30~34', '35 이상');
 											for($i=0;$i<count($age);$i++) {
 										?>
-										<option value="<?php echo $age[$i]; ?>"<?php if({_wr_age} == $age[$i]){ echo ' selected';} ?>><?php echo $age[$i]; ?></option>
+										<option value="<?php echo $age[$i]; ?>"><?php echo $age[$i]; ?></option>
 										<?php } ?>
 									</select>
 										<i></i>
@@ -150,27 +155,32 @@ var char_max = parseInt({_comment_max}); // 최대
 					<div class="col-sm-6 md-margin-bottom-20">
 						<fieldset class="lbbox">
 							<h3><i class="fa fa-plus-square"></i> <strong>추가정보 입력</strong></h3>
-							<div class="margin-bottom-15">
-								<label for="wr_send_moreinfo" class="col-sm-4 form-control-label">추가정보 입력하기</label><label class="ui-switch primary m-t-xs m-r"><input type="checkbox" id="wr_send_moreinfo" name="wr_send_moreinfo"<?php if({_wr_send_moreinfo} == '1'){ echo ' checked value="1"';} else { echo ' value="0"'; } ?>><i></i></label>
-							</div>
-							<div class="alert alert-danger padding-all-10 margin-top-10">
-							<!--{? view.wr_send_moreinfo == '0'}-->
-							<strong>Note:</strong> 추가정보 입력시 50포인트 적립
+							<!--{? view.is_moreinfo}-->
+								<input type="hidden" id="wr_send_moreinfo" name="wr_send_moreinfo" value="1"><i></i>
 							<!--{:}-->
+							<div class="margin-bottom-15">
+								<label for="wr_send_moreinfo" class="col-sm-4 form-control-label">추가정보 입력하기</label><label class="ui-switch primary m-t-xs m-r">
+								<input type="checkbox" id="wr_send_moreinfo" name="wr_send_moreinfo" value="0"><i></i>
+							</div>
+							<!--{/}-->
+							<div class="alert alert-danger padding-all-10 margin-top-10 margin-bottom-15">
+							<!--{? view.is_moreinfo}-->
 							<strong>Note:</strong> 추가정보 입력시 50포인트 적립 / 원글 니니가 상대 추가정보 받기를 켜두었어요. 댓글 니니는 무조건 추가정보를 입력해야 해요!
+							<!--{:}-->
+							<strong>Note:</strong> 추가정보 입력시 50포인트 적립
 							<!--{/}-->
 							</div>
 							<dl id="moreinfo">
 								<dt>직업</dt>
 								<dd>
 									<label class="select">
-									<select name="wr_job" class="form-control c-select">
+									<select name="wr_job" <!--{? view.is_moreinfo}-->required <!--{/}-->class="form-control c-select">
 										<option value="">직업을 선택하세요.</option>
 										<?php
 											$job = array('학생', '직장인(주5일)', '직장인(주6일)', '직장인(평일휴무)', '직장인(주말휴무)', '프리랜서', '무직');
 											for($i=0;$i<count($job);$i++) {
 										?>
-										<option value="<?php echo $job[$i]; ?>"<?php if({_wr_job} == $job[$i]){ echo ' selected';} ?>><?php echo $job[$i]; ?></option>
+										<option value="<?php echo $job[$i]; ?>"><?php echo $job[$i]; ?></option>
 										<?php } ?>
 									</select>
 										<i></i>
@@ -179,13 +189,13 @@ var char_max = parseInt({_comment_max}); // 최대
 								<dt>키</dt>
 								<dd>
 									<label class="select">
-									<select name="wr_figure[]" class="form-control c-select">
+									<select id="wr_figure1" name="wr_figure[]" <!--{? view.is_moreinfo}-->required <!--{/}-->class="form-control c-select">
 										<option value="0">키를 선택하세요.</option>
 										<?php
 											$figure1 = array('155cm 미만', '155~159cm', '160~164cm', '165~169cm', '170cm 이상');
 											for($i=0;$i<count($figure1);$i++) {
 										?>
-										<option value="<?php echo $figure1[$i]; ?>"<?php if({_wr_figure[0]} == $figure1[$i]){ echo ' selected';} ?>><?php echo $figure1[$i]; ?></option>
+										<option value="<?php echo $figure1[$i]; ?>"><?php echo $figure1[$i]; ?></option>
 										<?php } ?>
 									</select>
 										<i></i>
@@ -194,13 +204,13 @@ var char_max = parseInt({_comment_max}); // 최대
 								<dt>체형</dt>
 								<dd>
 									<label class="select">
-									<select name="wr_figure[]" class="form-control c-select">
+									<select id="wr_figure2" name="wr_figure[]" <!--{? view.is_moreinfo}-->required <!--{/}-->class="form-control c-select">
 										<option value="0">체형을 선택하세요.</option>
 										<?php
 											$figure2 = array('마름', '보통', '통통', '통통 이상');
 											for($i=0;$i<count($figure2);$i++) {
 										?>
-										<option value="<?php echo $figure2[$i]; ?>"<?php if({_wr_figure[1]} == $figure2[$i]){ echo ' selected';} ?>><?php echo $figure2[$i]; ?></option>
+										<option value="<?php echo $figure2[$i]; ?>"><?php echo $figure2[$i]; ?></option>
 										<?php } ?>
 									</select>
 										<i></i>
@@ -208,8 +218,8 @@ var char_max = parseInt({_comment_max}); // 최대
 								</dd>
 								<dt>흡연유무</dt>
 								<dd>
-									<label for="wr_etc1" class="radio"><input type="radio" id="wr_etc1" name="wr_etc" value="흡연"<?php if({_wr_etc} == '흡연'){ echo ' checked';} ?>><i class="rounded-x"></i>흡연</label>
-									<label for="wr_etc2" class="radio"><input type="radio" id="wr_etc2" name="wr_etc" value="비흡연"<?php if({_wr_etc} == '비흡연'){ echo ' checked';} ?>><i class="rounded-x"></i>비흡연</label>
+									<label for="wr_etc1" class="radio"><input type="radio" id="wr_etc1" name="wr_etc" value="흡연"><i class="rounded-x"></i>흡연</label>
+									<label for="wr_etc2" class="radio"><input type="radio" id="wr_etc2" name="wr_etc" value="비흡연"><i class="rounded-x"></i>비흡연</label>
 								</dd>
 								<dt>관심사</dt>
 								<dd>
@@ -218,7 +228,7 @@ var char_max = parseInt({_comment_max}); // 최대
 										$interest = array("독서/글쓰기","음악","영화/드라마","게임","운동","덕질","사진/영상","예술","정치/사회","반려동물");
 										for($i=0;$i<count($interest);$i++) {
 									?>
-																<label for="wr_interest<?php echo $i; ?>" class="checkbox pull-left"><input type="checkbox" id="wr_interest<?php echo $i; ?>" name="wr_interest[]" value="<?php echo $interest[$i]; ?>"<?php if(in_array($interest[$i], $wr_interest_array)){ echo ' checked';} ?>><i></i><?php echo $interest[$i]; ?></label>
+																<label for="wr_interest<?php echo $i; ?>" class="checkbox pull-left"><input type="checkbox" id="wr_interest<?php echo $i; ?>" name="wr_interest[]" value="<?php echo $interest[$i]; ?>"><i></i><?php echo $interest[$i]; ?></label>
 									<?php } ?>
 								</dd>
 							</dl>
@@ -283,13 +293,43 @@ var save_html = document.getElementById('view-comment-write').innerHTML;
 function fviewcomment_submit(f) {
 	var pattern = /(^\s*)|(\s*$)/g; // \s 공백 문자
 
-	f.is_good.value = 0;
-
 	<!--{? _is_anonymous}-->
 	var wr_1 = '{_wr_1}';
 	if($("#anonymous").is(':checked')) {
 		wr_1 = wr_1+'|y';
 		f.wr_1.value=wr_1;
+	}
+	<!--{/}-->
+
+	<!--{? !_is_admin}-->
+	if($('#write_info').length) {
+		if($('input:checkbox[name="wr_send_moreinfo"]').is(':checked') == true || $('input[name="wr_send_moreinfo"]').val() == 1) {
+			if($('select[name="wr_job"] option:selected').val() == '' ) {
+				alert('직업을 선택해 주세요!');
+				f.wr_job.focus();
+				return false;
+			}
+			if($('#wr_figure1 option:selected').val() == 0) {
+				alert('키를 선택해 주세요!');
+				f.wr_figure1.focus();
+				return false;
+			}
+			if($('#wr_figure2 option:selected').val() == 0) {
+				alert('체형을 선택해 주세요!');
+				f.wr_figure2.focus();
+				return false;
+			}
+			if($('input:radio[name="wr_etc"]').is(':checked') == false) {
+				alert('흡연유무를 선택해 주세요!');
+				f.wr_etc1.focus();
+				return false;
+			}
+			if($('input:checkbox[name="wr_interest[]"]').is(':checked') == false) {
+				alert('관심사를 선택해 주세요!');
+				f.wr_interest1.focus();
+				return false;
+			}
+		}
 	}
 	<!--{/}-->
 
@@ -393,6 +433,12 @@ function comment_box(comment_id, work)
 
 		document.getElementById(el_id).style.display = '';
 		document.getElementById(el_id).innerHTML = save_html;
+
+		if (comment_id && work == 'c' || work == 'cu') {
+			el_id = 'reply_' + comment_id;
+			// 대댓글일 때는 추가정보 기입칸 제거
+			$('#write_info').remove();
+		}
 		// 댓글 수정
 		if (work == 'cu')
 		{
@@ -409,12 +455,6 @@ function comment_box(comment_id, work)
 			else
 				document.getElementById('anonymous').checked = false;
 			<!--{/}-->
-			var imgname = document.getElementById('imgname_' + comment_id).value;
-			if(imgname) {
-				var delchk_str = '<label class="checkbox"><input type="checkbox" name="del_cmtimg" value="1"><i></i><span class="font-size-12">파일삭제 ('+imgname+')</span></label>';
-				$("#del_cmtimg").html('');
-				$("#del_cmtimg").html(delchk_str);
-			}
 		}
 
 		document.getElementById('comment_id').value = comment_id;
@@ -434,17 +474,6 @@ function comment_delete()
 
 comment_box('', 'c'); // 댓글 입력폼이 보이도록 처리하기위해서 추가 (root님)
 
-<!--{? board.bo_use_sns && (config.cf_facebook_appid || config.cf_twitter_key)}-->
-// sns 등록
-$(function() {
-	$("#bo_vc_send_sns").load(
-		"{C.G5_SNS_URL}/view_comment_write.sns.skin.php?bo_table={_bo_table}",
-		function() {
-			save_html = document.getElementById('view-comment-write').innerHTML;
-		}
-	);
-});
-<!--{/}-->
 </script>
 
 <!--{? eyoom_board.bo_use_cmt_infinite == '1'}-->
