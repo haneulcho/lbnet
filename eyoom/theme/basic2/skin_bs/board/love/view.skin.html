@@ -50,7 +50,7 @@
     <!--{/}-->
     <!--{* 게시물 상단 버튼 끝 *}-->
 
-    <section class="board-view-atc col-sm-6">
+    <section class="board-view-atc">
       <h4 class="lbvtitle">
           <strong>{=cut_str(get_text(view.wr_subject), 70)}</strong>
       </h4>
@@ -71,51 +71,49 @@
           <!--{/}-->
         </div>
         <!--{* 본문 내용 끝 *}-->
-    </section>
 
-    <section class="lbvinfo col-sm-6">
-      <div class="lbvinfo_default">
-        <h2><i class="fa fa-heart"></i>기본정보</h2>
-        <dl>
-          <dt>지역</dt>
-          <dd>{view.wr_area}</dd>
-          <dt>성향</dt>
-          <dd>{view.wr_type}</dd>
-          <dt>나이</dt>
-          <dd>{view.wr_age}</dd>
-        </dl>
-      </div>
-      <!--{? view.wr_send_moreinfo == '1'}-->
-      <div class="lbvinfo_additional">
-        <h2><i class="fa fa-heart"></i>추가정보</h2>
-        <dl>
-          <!--{? view.wr_job != ''}-->
-          <dt>직업</dt>
-          <dd>{view.wr_job}</dd>
-          <!--{/}-->
-          <!--{? view.wr_height != ''}-->
-          <dt>키</dt>
-          <dd>{view.wr_height}</dd>
-          <!--{/}-->
-          <!--{? view.wr_weight != ''}-->
-          <dt>체형</dt>
-          <dd>{view.wr_weight}</dd>
-          <!--{/}-->
-          <!--{? view.wr_etc != ''}-->
-          <dt>흡연유무</dt>
-          <dd>{view.wr_etc}</dd>
-          <!--{/}-->
-          <!--{? view.wr_interest != ''}-->
-          <dt>관심사</dt>
-          <dd>{view.wr_interest}</dd>
-          <!--{/}-->
-        </dl>
-      </div>
-      <!--{/}-->
-      <div class="board-view-btn">
-        <!--{? _update_href}--><a href="{_update_href}" class="lbbtn_light" type="button"><i class="fa fa-pencil"></i>수정</a><!--{/}-->
-        <!--{? _delete_href}--><a href="{_delete_href}" class="lbbtn_light" type="button" onclick="del(this.href); return false;"><i class="fa fa-trash-o"></i>삭제</a><!--{/}-->
-      </div>
+        <div class="lbvinfo lbvinfo_default">
+          <h2><i class="fa fa-heart"></i>기본정보</h2>
+          <dl>
+            <dt>지역</dt>
+            <dd>{view.wr_area}</dd>
+            <dt>성향</dt>
+            <dd>{view.wr_type}</dd>
+            <dt>나이</dt>
+            <dd>{view.wr_age}</dd>
+          </dl>
+        </div>
+        <!--{? view.wr_send_moreinfo == '1'}-->
+        <div class="lbvinfo lbvinfo_additional">
+          <h2><i class="fa fa-heart"></i>추가정보</h2>
+          <dl>
+            <!--{? view.wr_job != ''}-->
+            <dt>직업</dt>
+            <dd>{view.wr_job}</dd>
+            <!--{/}-->
+            <!--{? view.wr_height != ''}-->
+            <dt>키</dt>
+            <dd>{view.wr_height}</dd>
+            <!--{/}-->
+            <!--{? view.wr_weight != ''}-->
+            <dt>체형</dt>
+            <dd>{view.wr_weight}</dd>
+            <!--{/}-->
+            <!--{? view.wr_etc != ''}-->
+            <dt>흡연유무</dt>
+            <dd>{view.wr_etc}</dd>
+            <!--{/}-->
+            <!--{? view.wr_interest != ''}-->
+            <dt>관심사</dt>
+            <dd>{view.wr_interest}</dd>
+            <!--{/}-->
+          </dl>
+        </div>
+        <!--{/}-->
+        <div class="board-view-btn">
+          <!--{? _update_href}--><a href="{_update_href}" class="lbbtn_light" type="button"><i class="fa fa-pencil"></i>수정</a><!--{/}-->
+          <!--{? _delete_href}--><a href="{_delete_href}" class="lbbtn_light" type="button" onclick="del(this.href); return false;"><i class="fa fa-trash-o"></i>삭제</a><!--{/}-->
+        </div>
     </section>
 
     <div class="clearfix"></div>

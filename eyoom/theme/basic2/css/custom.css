@@ -117,7 +117,7 @@ transition: all ease-in-out .2s;}
 .board-view .view-top-btn h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
 .board-view .view-top-btn .top-btn-left li {float:left;margin-right:5px}
 .board-view .view-top-btn .top-btn-right li {float:left;margin-left:5px;margin-bottom:5px}
-.board-view .board-view-atc {min-height:200px;height:auto !important;padding:0 20px;}
+.board-view .board-view-atc {height:auto !important;padding:0 20px;}
 .board-view .board-view-atc-title {position:absolute;font-size:0;line-height:0;overflow:hidden}
 .board-view .board-view-img {margin:0;width:100%;overflow:hidden;zoom:1}
 .board-view .board-view-img:after {display:block;visibility:hidden;clear:both;content:""}
@@ -256,3 +256,36 @@ transition: all ease-in-out .3s;}
 .ol-after .member-statistics p {margin-bottom:5px;font-size:11px}
 
 #fregisterform input:read-only {color:#9da5a9;background-color:#eceeef;}
+.lbvinfo {overflow:hidden;margin:0 5px 10px;padding:0;-webkit-border-radius:5px !important;border-radius:5px !important;border:1px solid #ffe2e8;}
+.lbvinfo h2 {margin:0;padding:7px 10px;font-size:12px;border-top:1px solid #fefefe;border-bottom:1px solid #ffd2db;background-color:#fff0f3;margin-bottom:2px;}
+.lbvinfo h2, fieldset.lbbox h3 {font-size:14px;line-height:1;color:#f44455;font-weight:bold;}
+.lbvinfo dl {padding:10px 15px 8px;font-size:12px;}
+.lbvinfo dt {clear:both;width:70px;margin-bottom:2px;}
+.lbvinfo dd {width:100%;margin-bottom:2px;padding-left:70px;}
+.lbvinfo dl, .lbcinfo dl {overflow:hidden;margin:0;}
+.lbvinfo dt, .lbcinfo dt {float:left;color:#555;}
+.lbvinfo dd, .lbcinfo dd {color:#666;}
+.lbcinfo {margin:5px 0 10px;padding:10px 12px 3px;background-color:#f9f9f9;}
+.lbcinfo dl {clear:both;margin-bottom:4px;font-size:11px;}
+.lbcinfo dt, .lbcinfo dd {margin-bottom:2px;}
+.lbcinfo dt {margin-right:5px;}
+.lbcinfo dd {float:left;margin-right:10px;padding-right:10px;border-right:1px solid #eee;}
+.lbcinfo dd:last-child {border-right:none;}
+fieldset.lbbox {padding:20px 20px 12px;}
+fieldset.lbbox h3 {margin-bottom:12px;}
+fieldset.lbbox dt{margin-bottom:2px}
+fieldset.lbbox .checkbox i, fieldset.lbbox .radio i {top:3px;}
+fieldset.lbbox .checkbox, fieldset.lbbox .radio {padding-left:24px;line-height:24px;}
+fieldset.lbbox .checkbox {margin-right:12px;margin-bottom:2px;}
+fieldset.lbbox .checkbox input + i:after {top:-7px;}
+.ui-switch {position:relative;cursor:pointer;display:inline-block;width:32px;height:18px;border-radius:30px !important;color:rgba(255,255,255,.87);background-color:#00bcd4;margin:0 0 0 8px;}
+.ui-switch input:checked+i:before {top:50%;bottom:50%;left:50%;right:5px;border-width:0;border-radius:5px !important;}
+.ui-switch i:before {top:-1px;bottom:-1px;left:-1px;right:-1px;border:1px solid #e5e5e5;border-radius:30px !important;;-webkit-transition:all .2s;transition:all .2s;}
+.ui-switch i:after, .ui-switch i:before {position:absolute;background-color:#f4f4f4;}
+.ui-switch i:before {content:"";}
+.ui-switch input:checked+i:after {margin-left:15px;}
+.ui-switch i:after {width:16px;top:1px;bottom:1px;box-shadow:1px 1px 3px rgba(0,0,0,.25);-webkit-transition:margin .3s;transition:margin .3s;}
+.ui-switch i:after {border-radius:50% !important;;content:"";background-color:#fff;}
+.ui-switch input {position:absolute;opacity:0;}
+.comment-write-wrap .lbbox dd, #moreinfo dd {overflow:hidden;margin-bottom:15px}
+.comment-write-wrap .lbbox dd:last-child, #moreinfo dd:last-child {margin-bottom:0}

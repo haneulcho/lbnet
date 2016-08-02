@@ -36,16 +36,18 @@ var char_max = parseInt({_comment_max}); // 최대
 				<div class="comment-item-contents" style="{? .cmt_depth && !.is_cmt_best}padding-left:{.cmt_depth}px;{/}">
 				<p>
 					<!--{? strstr(.wr_option, 'secret')}--><i class="fa fa-lock" style="color:#aaa;"></i> <!--{/}-->
-					<!--{? !.wr_is_secret}-->
-						<!--{? .wr_area != ''}-->
-							<dl class="lbcinfo"><dt>지역</dt><dd>{.wr_area}</dd><dt>성향</dt><dd>{.wr_type}</dd><dt>나이</dt><dd>{.wr_age}</dd></dl>
-						<!--{/}-->
-						<!--{? .wr_send_moreinfo == '1'}-->
-							<dl class="lbcinfo"><!--{? .wr_job != ''}--><dt>직업</dt><dd>{.wr_job}</dd><!--{/}--><!--{? .wr_figure1 != ''}--><dt>키</dt><dd>{.wr_figure1}</dd><!--{/}--><!--{? .wr_figure2 != ''}--><dt>체형</dt><dd>{.wr_figure2}</dd><!--{/}--><!--{? .wr_etc != ''}--><dt>흡연유무</dt><dd>{.wr_etc}</dd><!--{/}--><!--{? .wr_interest != ''}--><dt>관심사</dt><dd>{.wr_interest}</dd><!--{/}--></dl>
-						<!--{/}-->
-					<!--{/}-->
 					{.comment}
 				</p>
+				<!--{? !.wr_is_secret}-->
+					<!--{? .wr_area != ''}-->
+					<div class="lbcinfo">
+						<dl><dt>지역</dt><dd>{.wr_area}</dd><dt>성향</dt><dd>{.wr_type}</dd><dt>나이</dt><dd>{.wr_age}</dd></dl>
+						<!--{? .wr_send_moreinfo == '1'}-->
+							<dl><!--{? .wr_job != ''}--><dt>직업</dt><dd>{.wr_job}</dd><!--{/}--><!--{? .wr_figure1 != ''}--><dt>키</dt><dd>{.wr_figure1}</dd><!--{/}--><!--{? .wr_figure2 != ''}--><dt>체형</dt><dd>{.wr_figure2}</dd><!--{/}--><!--{? .wr_etc != ''}--><dt>흡연유무</dt><dd>{.wr_etc}</dd><!--{/}--><!--{? .wr_interest != ''}--><dt>관심사</dt><dd>{.wr_interest}</dd><!--{/}--></dl>
+						<!--{/}-->
+					</div>
+					<!--{/}-->
+				<!--{/}-->
 				</div>
 
 				</div>
@@ -170,7 +172,7 @@ var char_max = parseInt({_comment_max}); // 최대
 							<strong>Note:</strong> 추가정보 입력시 50포인트 적립
 							<!--{/}-->
 							</div>
-							<dl id="moreinfo">
+							<dl id="moreinfo" style="display:none">
 								<dt>직업</dt>
 								<dd>
 									<label class="select">

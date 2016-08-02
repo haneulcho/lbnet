@@ -139,7 +139,6 @@
 	// 사용자 프로그램
 	@include_once(EYOOM_USER_PATH.'/board/view.skin.php');
 
-echo '셀소게';
 	// Template define
 	$tpl->define_template('board',$eyoom_board['bo_skin'],'view.skin.html');
 
