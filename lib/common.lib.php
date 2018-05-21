@@ -1274,7 +1274,7 @@ function get_sideview($mb_id, $name='', $email='', $homepage='')
             $str2 .= "<a href=\"".G5_BBS_URL."/board.php?bo_table=".$bo_table."&amp;sca=".$sca."&amp;sfl=wr_name,1&amp;stx=".$name."\">이름으로 검색</a>\n";
     }
     if($mb_id)
-        $str2 .= "<a href=\"".G5_BBS_URL."/new.php?mb_id=".$mb_id."\">전체게시물</a>\n";
+        $str2 .= "<a href=\"".G5_BBS_URL."/search.php?srows=10&gr_id=&sfl=mb_id&stx=".$mb_id."&sop=and\" target=\"_blank\">전체게시물</a>\n";
     if($is_admin == "super" && $mb_id) {
         $str2 .= "<a href=\"".G5_ADMIN_URL."/member_form.php?w=u&amp;mb_id=".$mb_id."\" target=\"_blank\">회원정보변경</a>\n";
         $str2 .= "<a href=\"".G5_ADMIN_URL."/point_list.php?sfl=mb_id&amp;stx=".$mb_id."\" target=\"_blank\">포인트내역</a>\n";

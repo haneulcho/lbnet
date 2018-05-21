@@ -40,7 +40,7 @@
 			<div class="lbbottom">
 				<div class="wr_content">
 					<!--{* 에디터 사용시는 에디터로, 아니면 textarea 로 노출 *}-->
-					<textarea id="wr_content" name="wr_content" style="height:36px;" maxlength="65536">내용을 입력해 주세요.</textarea>
+					<textarea id="wr_content" name="wr_content" style="height:36px;" required maxlength="65536" placeholder="내용을 입력해 주세요."></textarea>
 				</div>
 				<div class="lbsubmit">
 					<button type="submit" id="btn_submit" accesskey="s" class="btn-e btn-e-lg btn-e-yellow margin-top-m-2"><i class="fa fa-paper-plane" aria-hidden="true"></i> 입력</button>
@@ -86,6 +86,17 @@ function fwrite_submit(f)
 
 	var subject = "";
 	var content = "";
+
+	if (!f.wr_subject.value || f.wr_subject.value == '제목을 입력해 주세요.') {
+		alert("제목을 입력해 주세요!");
+		f.wr_subject.focus();
+		return false;
+	}
+	if (!f.wr_content.value || f.wr_content.value == '내용을 입력해 주세요.') {
+		alert("내용을 입력해 주세요!");
+		f.wr_content.focus();
+		return false;
+	}
 	$.ajax({
 		url: g5_bbs_url+"/ajax.filter.php",
 		type: "POST",
