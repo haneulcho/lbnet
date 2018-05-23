@@ -29,7 +29,11 @@
 		if($favorite) $my_favorite = implode(',', $favorite);
 
 		// 그누레벨 자동조정
-		if(!$is_admin && $member['mb_level'] <= $levelset['max_use_gnu_level']) $eb->set_gnu_level($eyoomer['level']);
+		// 180523 로그인 시, 레벨 자동 조정되지 않도록 수정
+		// 2: 회원가입 시 초기 레벨
+		// 3: 인증 대기 회원 (인증 게시판에 글 작성 시 3레벨로 자동 조절, 로그인 시 매회 확인처리)
+		// 4: 인증 회원
+		//if(!$is_admin && $member['mb_level'] <= $levelset['max_use_gnu_level']) $eb->set_gnu_level($eyoomer['level']);
 
 		// 오늘 처음 로그인 이라면 로그인 레벨포인트 적용
 		if (substr($member['mb_today_login'], 0, 10) != G5_TIME_YMD) {
