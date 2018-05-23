@@ -52,6 +52,7 @@ h1 i, h2 i, h3 i, h4 i, h5 i, h6 i {margin-right:5px}
 .heading h2:before, .heading h2:after, .heading h4:before, .heading h4:after {content:' ';width:50%;position:absolute;border-width:1px;border-color:#bababb}
 .heading h2:before, .heading h4:before {right:100%}
 .heading h2:after, .heading h4:after {left:100%}
+.guest_msg {margin-top:15px;text-align:center}
 @media (max-width:768px) {
 .heading h2:before, .heading h2:after, .heading h4:before, .heading h4:after {width:10%}
 }
