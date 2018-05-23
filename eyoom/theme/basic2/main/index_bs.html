@@ -1,31 +1,37 @@
 <?php if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가 ?>
 
-<!--{* -----------------------------------------------------
-	최신글 추출옵션에서 title=게시판명, bo_table=게시판id 를 설정합니다.
------------------------------------------------------- *}-->
+<!--{? _is_member && member.mb_level > 1}-->
+  <!--{* -----------------------------------------------------
+    최신글 추출옵션에서 title=게시판명, bo_table=게시판id 를 설정합니다.
+  ------------------------------------------------------ *}-->
 
-<!--{* ------------- Basic 최신글 영역 시작 ------------- *}-->
-<div class="row margin-bottom-20">
-    <div class="col-sm-6 md-margin-bottom-20">
-      <div class="lbbox">
-      <!--{* 아래 title=게시판명, bo_table=게시판id 설정 *}-->
-        {latest->latest_eyoom('basic','title=익게막게||bo_table=free||count=8||cut_subject=27')}
+  <!--{* ------------- Basic 최신글 영역 시작 ------------- *}-->
+  <div class="row margin-bottom-20">
+      <div class="col-sm-6 md-margin-bottom-20">
+        <div class="lbbox">
+        <!--{* 아래 title=게시판명, bo_table=게시판id 설정 *}-->
+          {latest->latest_eyoom('basic','title=수다방||bo_table=free||count=8||cut_subject=27')}
+        </div>
       </div>
-    </div>
-    <div class="col-sm-6 md-margin-bottom-20 md-padding-left-0">
-      <div class="lbbox">
-  		<!--{* 아래 title=게시판명, bo_table=게시판id 설정 *}-->
-  	    {latest->latest_eyoom('basic','title=명예의전당||bo_table=best||count=8||cut_subject=27')}
+      <div class="col-sm-6 md-margin-bottom-20 md-padding-left-0">
+        <div class="lbbox">
+        <!--{* 아래 title=게시판명, bo_table=게시판id 설정 *}-->
+          {latest->latest_eyoom('basic','title=명예의전당||bo_table=best||count=8||cut_subject=27')}
+        </div>
       </div>
-    </div>
-</div>
-<!--{* ------------- Basic 최신글 영역 끝 ------------- *}-->
-
-<!--{* ------------- Webzine 최신글 영역 시작 ------------- *}-->
-<div>
-  <div class="lbbox">
-	<!--{* 아래 title=게시판명, bo_table=게시판id 설정 *}-->
-	{latest->latest_eyoom('webzine','title=테레비||bo_table=etc||count=6||cut_subject=50||img_view=y||img_width=300||content=y||cut_content=25')}
   </div>
-</div>
-<!--{* ------------- Webzine 최신글 영역 끝 ------------- *}-->
+  <!--{* ------------- Basic 최신글 영역 끝 ------------- *}-->
+
+  <!--{* ------------- Webzine 최신글 영역 시작 ------------- *}-->
+  <div>
+    <div class="lbbox">
+    <!--{* 아래 title=게시판명, bo_table=게시판id 설정 *}-->
+    {latest->latest_eyoom('webzine','title=테레비방||bo_table=etc||count=6||cut_subject=50||img_view=y||img_width=300||content=y||cut_content=25')}
+    </div>
+  </div>
+  <!--{* ------------- Webzine 최신글 영역 끝 ------------- *}-->
+<!--{:}-->
+  <div class="guest_msg">
+    <p>회원만 확인 가능합니다. 로그인 해 주세요.</p>
+  </div>
+<!--{/}-->

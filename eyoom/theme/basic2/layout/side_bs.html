@@ -35,46 +35,52 @@
 	<!--{/}-->
 	<!--{* ------------- Side Nav 영역 끝 ------------- *}-->
 
-	<!--{* ------------- 새글 새댓글 영역 시작 ------------- *}-->
-	<div class="margin-bottom-20">
-		<div class="side-tab margin-bottom-20">
-		    <div class="tab-e2">
-		        <ul class="nav nav-tabs">
-		            <li class="active"><a href="#side-tn-1" data-toggle="tab"><i class="fa fa-list-alt"></i>새로운 글</a></li>
-		            <li class="last"><a href="#side-tn-2" data-toggle="tab"><i class="fa fa-commenting"></i>새로운 댓글</a></li>
-		        </ul>
-		        <div class="tab-content">
-		            <div class="tab-pane fade active in" id="side-tn-1">
-		                <div class="tab-content-wrap">
-		                    {latest->latest_newpost('tab_newpost', 'count=5||cut_subject=18||photo=n')}
-		                </div>
-		            </div>
-		            <div class="tab-pane fade in" id="side-tn-2">
-		                <div class="tab-content-wrap">
-			                {latest->latest_newpost('tab_newcomment', 'count=5||cut_content=20||photo=n')}
-		                </div>
-		            </div>
-		        </div>
-		    </div>
+	<!--{? _is_member && member.mb_level > 1}-->
+		<!--{* ------------- 새글 새댓글 영역 시작 ------------- *}-->
+		<div class="margin-bottom-20">
+			<div class="side-tab margin-bottom-20">
+				<div class="tab-e2">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#side-tn-1" data-toggle="tab"><i class="fa fa-list-alt"></i>새로운 글</a></li>
+						<li class="last"><a href="#side-tn-2" data-toggle="tab"><i class="fa fa-commenting"></i>새로운 댓글</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane fade active in" id="side-tn-1">
+							<div class="tab-content-wrap">
+								{latest->latest_newpost('tab_newpost', 'count=5||cut_subject=18||photo=n')}
+							</div>
+						</div>
+						<div class="tab-pane fade in" id="side-tn-2">
+							<div class="tab-content-wrap">
+								{latest->latest_newpost('tab_newcomment', 'count=5||cut_content=20||photo=n')}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
-	<!--{* ------------- 새글 새댓글 영역 끝 ------------- *}-->
+		<!--{* ------------- 새글 새댓글 영역 끝 ------------- *}-->
 
-	<div class="margin-bottom-20">
-		<!--{* 투표 *}-->
-		<!--{? eyoom.use_gnu_poll == 'y'}-->{=poll('basic')}<!--{:}-->{=eb_poll(eyoom.poll_skin)}<!--{/}-->
-	</div>
-	<!--{? eyoom.use_tag == 'y'}-->
-	<!--{* 태그메뉴 *}-->
-	<div class="margin-bottom-20">
-		{=eb_tagmenu(eyoom.tag_skin)}
-	</div>
-	<!--{/}-->
-	<!--{? _is_admin // 관리자일때만 보입니다.}-->
-	<div class="margin-bottom-20">
-	    <!--{* 방문자 통계 *}-->
-		<!--{? eyoom.use_gnu_visit == 'y'}-->{=visit('basic')}<!--{:}-->{=eb_visit(eyoom.visit_skin)}<!--{/}-->
-	</div>
+		<div class="margin-bottom-20">
+			<!--{* 투표 *}-->
+			<!--{? eyoom.use_gnu_poll == 'y'}-->{=poll('basic')}<!--{:}-->{=eb_poll(eyoom.poll_skin)}<!--{/}-->
+		</div>
+		<!--{? eyoom.use_tag == 'y'}-->
+		<!--{* 태그메뉴 *}-->
+		<div class="margin-bottom-20">
+			{=eb_tagmenu(eyoom.tag_skin)}
+		</div>
+		<!--{/}-->
+		<!--{? _is_admin // 관리자일때만 보입니다.}-->
+		<div class="margin-bottom-20">
+			<!--{* 방문자 통계 *}-->
+			<!--{? eyoom.use_gnu_visit == 'y'}-->{=visit('basic')}<!--{:}-->{=eb_visit(eyoom.visit_skin)}<!--{/}-->
+		</div>
+		<!--{/}-->
+	<!--{:}-->
+	  <div class="guest_msg">
+		<p></p>
+	  </div>
 	<!--{/}-->
 </div>
 
