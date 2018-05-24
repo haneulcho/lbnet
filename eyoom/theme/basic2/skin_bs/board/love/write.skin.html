@@ -142,17 +142,9 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.cs
 				<section>
 					<div class="row">
 						<div class="col col-8" style="margin-bottom:0">
-						<!--{? _is_notice || _is_html || _is_secret || _is_mail || _is_anonymous}-->
+						<!--{? _is_notice || _is_secret || _is_mail || _is_anonymous}-->
 							<!--{? _is_notice}-->
 							<label for="notice" class="checkbox"><input type="checkbox" id="notice" name="notice" value="1" {_notice_checked}><i></i>공지</label>
-							<!--{/}-->
-
-							<!--{? _is_html}-->
-							<!--{? _is_dhtml_editor}-->
-							<input type="hidden" value="html1" name="html">
-							<!--{:}-->
-							<label for="html" class="checkbox"><input type="checkbox" id="html" name="html" onclick="html_auto_br(this);" value="{_html_value}" {_html_checked}><i></i>HTML</label>
-							<!--{/}-->
 							<!--{/}-->
 
 							<!--{? _is_secret}-->
@@ -174,6 +166,13 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.cs
 						<div class="lbanonymous">
 							<!--{? _is_anonymous}-->
 							<label for="anonymous" class="checkbox"><input type="checkbox" id="anonymous" name="anonymous" value="y" checked><i></i>익명글</label>
+							<!--{/}-->
+							<!--{? _is_html}-->
+								<!--{? _is_dhtml_editor}-->
+								<input type="hidden" value="html1" name="html">
+								<!--{:}-->
+								<label for="html" class="checkbox"><input type="checkbox" id="html" name="html" onclick="html_auto_br(this);" value="{_html_value}" {_html_checked}><i></i>HTML</label>
+								<!--{/}-->
 							<!--{/}-->
 						</div>
 						<label for="wr_subject" class="sound_only">제목<strong class="sound_only"> 필수</strong></label>

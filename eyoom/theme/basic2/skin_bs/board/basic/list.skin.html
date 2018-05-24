@@ -1,7 +1,7 @@
 <?php if (!defined('_GNUBOARD_')) exit; ?>
 
 <div class="board-area">
-<!--{? !_wr_id }-->
+<!--{? !_wr_id && _bo_table == 'free' }-->
 <section class="board-write">
 	<form name="fwrite" id="fwrite" action="./write_update.php" onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form">
 	<input type="hidden" name="uid" value="<?php echo get_uniqid(); ?>">
@@ -149,6 +149,49 @@ function fwrite_submit(f)
     </div>
     <!--{* 게시판 페이지 정보 및 버튼 끝 *}-->
 
+    <!--{* 게시판 카테고리 시작 *}-->
+    <!--{?_is_category}-->
+	<script>
+		// 카테고리 이동
+		function category_view(sca) {
+			if(sca)	var url = "{_category_href}&sca="+sca;
+			else var url = "{_category_href}";
+			$(location).attr('href',url);
+			return false;
+		}
+	</script>
+    <!--{? !C.G5_IS_MOBILE // PC의 경우}-->
+    <div class="lb_category">
+        <ul class="lb_cate_nav">
+			<li>분류</li>
+            <li class="{?!_decode_sca}active{/}">
+                <a href="{_category_href}">전체</a>
+            </li>
+            <!--{@ _bocate}-->
+            <li class="{? _decode_sca == .ca_name}active{/}">
+                <a href="{_category_href}&sca={.ca_sca}">{.ca_name}</a>
+            </li>
+            <!--{/}-->
+        </ul>
+    </div>
+    <!--{: // 모바일의 경우}-->
+    <nav class="margin-bottom-20 margin-top-15">
+        <div class="eyoom-form">
+            <label class="select">
+				<select name="ca_name" id="ca_name" required onchange="return category_view(this.value);">
+					<option value="">전체 ({_ca_total})</option>
+					<!--{@ _bocate}-->
+					<option value="{.ca_sca}" {? _decode_sca == .ca_name}selected{/}>{.ca_name} ({.ca_count})</option>
+					<!--{/}-->
+				</select>
+				<i></i>
+			</label>
+        </div>
+    </nav>
+    <!--{/}-->
+    <!--{/}-->
+    <!--{* 게시판 카테고리 끝 *}-->
+
 	<!--{? _is_admin}-->
     <form name="fboardlist" id="fboardlist" action="./board_list_update.php" onsubmit="return fboardlist_submit(this);" method="post" class="eyoom-form">
     <input type="hidden" name="bo_table" value="{_bo_table}">
@@ -176,18 +219,21 @@ function fwrite_submit(f)
 						<!--{/}-->
             <a class="lblink<!--{? _is_admin}--> admin<!--{/}-->" href="{.href}">
 							<div class="lbtitle<!--{? .wr_comment > 30}--> lbhot<!--{: .wr_comment > 100}--> lbbest<!--{/}-->">
+								<!--{? _is_category && .ca_name}-->
+								<span class="lbcate">{.ca_name}</span>
+								<!--{/}-->
 								<!--{? .is_notice }--><i class="fa fa-smile-o"></i> <b>{.subject}</b><!--{:}--><!--{? .icon_file}--><i class="fa fa-picture-o color-red"></i><!--{/}--> {.subject}<!--{/}-->
 	              <!--{?.icon_new}--><i class="fa fa-circle"></i>&nbsp;<!--{/}-->
 	              <!--{?.icon_secret}--><i class="fa fa-lock"></i>&nbsp;<!--{/}-->
 								<!--{? .comment_cnt}-->
 								<span class="lbcomment"><i class="fa fa-comment-o"></i>{=number_format(.wr_comment)}</span><!--{/}-->
+								<!--{? !.is_notice && _is_good && .wr_good > 0 }--><span class="lbup"><i class="fa fa-thumbs-up"></i>{=number_format(.wr_good)}</span><!--{/}-->
 							</div>
 							<!--{? !.is_notice}-->
 							<div class="lbdes">
 								<span class="lbnick"><i class="fa fa-user"></i><!--{?.is_mine}-->{.wr_name}<b class="color-red">*</b><!--{:}-->{.wr_name}<!--{/}--></span>
 		            <span class="lbhit"><i class="fa fa-eye"></i>{=number_format(.wr_hit)}
 		            </span>
-		            <!--{?_is_good}--><span class="lbup"><i class="fa fa-thumbs-up"></i>{=number_format(.wr_good)}</span><!--{/}-->
 		            <span class="lbtime"><i class="fa fa-clock-o"></i><!--{? eyoom_board.bo_sel_date_type == '1'}-->{eb->date_time('m-d H:i',.wr_datetime)}<!--{: eyoom_board.bo_sel_date_type == '2'}-->{eb->date_format('Y.m.d',.wr_datetime)}<!--{/}-->
 		            </span>
 		          </div>

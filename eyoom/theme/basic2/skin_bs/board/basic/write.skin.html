@@ -122,63 +122,60 @@ function set_textarea_contents(type,value) {
 	<div class="tbl_frm01 tbl_wrap" style="margin-top:-10px;">
 		<div class="clearfix"></div>
 		<section>
-			<div class="row">
+			<div class="row" style="margin-bottom:0">
 				<!--{? _is_category}-->
-				<div class="col col-4">
+				<div class="col col-6" style="margin-bottom:0">
 					<label class="select">
 						<select name="ca_name" id="ca_name" required class="form-control">
-							<option value="">선택하세요 - 필수</option>
+							<option value="">분류를 선택하세요 (필수)</option>
 							{_category_option}
 						</select>
 						<i></i>
 					</label>
 				</div>
 				<!--{/}-->
-				<div class="col col-8" style="margin-bottom:0">
-				<!--{? _is_notice || _is_html || _is_secret || _is_mail || _is_anonymous}-->
-					<!--{? _is_notice}-->
-					<label for="notice" class="checkbox"><input type="checkbox" id="notice" name="notice" value="1" {_notice_checked}><i></i>공지</label>
-					<!--{/}-->
+				<!--{? _is_notice || _is_secret || _is_mail}-->
+					<div class="col col-6">
+						<!--{? _is_notice}-->
+						<label for="notice" class="checkbox"><input type="checkbox" id="notice" name="notice" value="1" {_notice_checked}><i></i>공지</label>
+						<!--{/}-->
+						<!--{? _is_secret}-->
+						<!--{? _is_admin || _is_secret == 1}-->
+						<label for="secret" class="checkbox"><input type="checkbox" id="secret" name="secret" value="secret" {_secret_checked}><i></i>비밀글</label>
+						<!--{:}-->
+						<input type="hidden" name="secret" value="secret">
+						<!--{/}-->
+						<!--{/}-->
+						<!--{? _is_mail}-->
+						<label for="mail" class="checkbox"><input type="checkbox" id="mail" name="mail" value="mail" {_recv_email_checked}><i></i>답변메일받기</label>
+						<!--{/}-->
+					</div>
+				<!--{/}-->
+			</div>
+		</section>
 
-					<!--{? _is_html}-->
-					<!--{? _is_dhtml_editor}-->
-					<input type="hidden" value="html1" name="html">
-					<!--{:}-->
-					<label for="html" class="checkbox"><input type="checkbox" id="html" name="html" onclick="html_auto_br(this);" value="{_html_value}" {_html_checked}><i></i>HTML</label>
-					<!--{/}-->
-					<!--{/}-->
-
-					<!--{? _is_secret}-->
-					<!--{? _is_admin || _is_secret == 1}-->
-					<label for="secret" class="checkbox"><input type="checkbox" id="secret" name="secret" value="secret" {_secret_checked}><i></i>비밀글</label>
-					<!--{:}-->
-					<input type="hidden" name="secret" value="secret">
-					<!--{/}-->
-					<!--{/}-->
-
+		<div class="lbtop">
+			<div class="lbsubject">
+				<div class="lbanonymous">
 					<!--{? _is_anonymous}-->
 					<label for="anonymous" class="checkbox"><input type="checkbox" id="anonymous" name="anonymous" value="y" checked><i></i>익명글</label>
 					<!--{/}-->
-
-					<!--{? _is_mail}-->
-					<label for="mail" class="checkbox"><input type="checkbox" id="mail" name="mail" value="mail" {_recv_email_checked}><i></i>답변메일받기</label>
+					<!--{? _is_html}-->
+						<!--{? _is_dhtml_editor}-->
+						<input type="hidden" value="html1" name="html">
+						<!--{:}-->
+						<label for="html" class="checkbox"><input type="checkbox" id="html" name="html" onclick="html_auto_br(this);" value="{_html_value}" {_html_checked}><i></i>HTML</label>
+						<!--{/}-->
 					<!--{/}-->
-				<!--{/}-->
 				</div>
+				<label for="wr_subject" class="sound_only">제목<strong class="sound_only"> 필수</strong></label>
+				<label class="input">
+				<i class="icon-prepend fa fa-edit"></i>
+				<input type="text" name="wr_subject" value="{_subject}" id="wr_subject" required class="form-control" size="50" maxlength="255" placeholder="제목을 입력해 주세요.">
+				<b class="tooltip tooltip-top-left">제목을 입력해 주세요.</b>
+				</label>
 			</div>
-		</section>
-		<section>
-			<div class="row">
-				<div class="col col-8" style="margin-bottom:0;">
-					<label for="wr_subject" class="sound_only">제목<strong class="sound_only"> 필수</strong></label>
-					<label class="input">
-                        <i class="icon-prepend fa fa-edit"></i>
-                        <input type="text" name="wr_subject" value="{_subject}" id="wr_subject" required class="form-control" size="50" maxlength="255">
-                        <b class="tooltip tooltip-top-left">제목을 입력해 주세요.</b>
-                    </label>
-				</div>
-			</div>
-		</section>
+		</div>
 		<!--{? eyoom.use_tag == 'y' && eyoom_board.bo_use_tag == '1' && member.mb_level >= eyoom_board.bo_tag_level}-->
 		<section>
 			<div class="row">
