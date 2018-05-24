@@ -219,7 +219,7 @@ function fwrite_submit(f)
 						<!--{/}-->
             <a class="lblink<!--{? _is_admin}--> admin<!--{/}-->" href="{.href}">
 							<div class="lbtitle<!--{? .wr_comment > 30}--> lbhot<!--{: .wr_comment > 100}--> lbbest<!--{/}-->">
-								<!--{? _is_category && .ca_name}-->
+								<!--{? !.is_notice && _is_category && .ca_name}-->
 								<span class="lbcate">{.ca_name}</span>
 								<!--{/}-->
 								<!--{? .is_notice }--><i class="fa fa-smile-o"></i> <b>{.subject}</b><!--{:}--><!--{? .icon_file}--><i class="fa fa-picture-o color-red"></i><!--{/}--> {.subject}<!--{/}-->
