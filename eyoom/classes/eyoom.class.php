@@ -138,42 +138,43 @@ class eyoom extends qfile
 		global $theme;
 		if($bo_table) {
 			$eyoom_board = array(
-				'bo_table'					=> $bo_table,
-				'bo_theme'					=> $theme,
-				'bo_skin'					=> 'basic',
-				'use_gnu_skin'				=> 'n',
-				'bo_use_profile_photo'		=> 1,
-				'bo_sel_date_type'			=> 1,
-				'bo_use_hotgul'				=> 1,
-				'bo_use_anonymous'			=> 2,
-				'bo_use_infinite_scroll'	=> 2,
-				'bo_use_point_explain'		=> 1,
-				'bo_use_video_photo'		=> 2,
-				'bo_use_list_image'			=> 1,
-				'bo_use_yellow_card'		=> 0,
-				'bo_use_exif'				=> 0,
-				'bo_use_rating'				=> 0,
-				'bo_use_rating_list'		=> 1,
-				'bo_use_summernote_mo'		=> 1,
-				'bo_use_addon_emoticon'		=> 1,
-				'bo_use_addon_video'		=> 1,
-				'bo_use_addon_coding'		=> 0,
-				'bo_use_addon_soundcloud'	=> 0,
-				'bo_use_addon_map'			=> 0,
-				'bo_use_addon_cmtimg'		=> 1,
-				'bo_blind_limit'			=> 5,
-				'bo_blind_view'				=> 10,
-				'bo_blind_direct'			=> 10,
-				'bo_firstcmt_point'			=> 0,
-				'bo_firstcmt_point_type' 	=> 1,
-				'bo_bomb_point'				=> 0,
-				'bo_bomb_point_type'		=> 1,
-				'bo_bomb_point_limit'		=> 10,
-				'bo_bomb_point_cnt'			=> 1,
-				'bo_lucky_point'			=> 0,
-				'bo_lucky_point_type'		=> 1,
-				'bo_lucky_point_ratio'		=> 1,
-				'download_fee_ratio'		=> 0,
+				'bo_table'						=> $bo_table,
+				'bo_theme'						=> $theme,
+				'bo_skin'						=> 'basic',
+				'use_gnu_skin'					=> 'n',
+				'bo_use_profile_photo'			=> 1,
+				'bo_sel_date_type'				=> 1,
+				'bo_use_hotgul'					=> 1,
+				'bo_use_anonymous'				=> 2,
+				'bo_use_anonymous_respond'		=> 2,
+				'bo_use_infinite_scroll'		=> 2,
+				'bo_use_point_explain'			=> 1,
+				'bo_use_video_photo'			=> 2,
+				'bo_use_list_image'				=> 1,
+				'bo_use_yellow_card'			=> 0,
+				'bo_use_exif'					=> 0,
+				'bo_use_rating'					=> 0,
+				'bo_use_rating_list'			=> 1,
+				'bo_use_summernote_mo'			=> 1,
+				'bo_use_addon_emoticon'			=> 1,
+				'bo_use_addon_video'			=> 1,
+				'bo_use_addon_coding'			=> 0,
+				'bo_use_addon_soundcloud'		=> 0,
+				'bo_use_addon_map'				=> 0,
+				'bo_use_addon_cmtimg'			=> 1,
+				'bo_blind_limit'				=> 5,
+				'bo_blind_view'					=> 10,
+				'bo_blind_direct'				=> 10,
+				'bo_firstcmt_point'				=> 0,
+				'bo_firstcmt_point_type' 		=> 1,
+				'bo_bomb_point'					=> 0,
+				'bo_bomb_point_type'			=> 1,
+				'bo_bomb_point_limit'			=> 10,
+				'bo_bomb_point_cnt'				=> 1,
+				'bo_lucky_point'				=> 0,
+				'bo_lucky_point_type'			=> 1,
+				'bo_lucky_point_ratio'			=> 1,
+				'download_fee_ratio'			=> 0,
 			);
 			return $eyoom_board;
 
@@ -198,8 +199,8 @@ class eyoom extends qfile
 			$mb_id = $member['mb_id'];
 			$mb_nick = $member['mb_nick'];
 		} else {
-			$mb_id = 'anonymous';
-			$mb_nick = '익명';
+			$mb_id = $member['mb_id'];
+			$mb_nick = $member['mb_nick'];
 		}
 
 		$set = "

@@ -169,6 +169,7 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_board` (
   `bo_sel_date_type` enum('1','2') NOT NULL default '1',
   `bo_use_hotgul` char(1) NOT NULL default '1',
   `bo_use_anonymous` char(1) NOT NULL default '2',
+  `bo_use_anonymous_respond` char(1) NOT NULL default '2',
   `bo_use_infinite_scroll` char(1) NOT NULL default '2',
   `bo_use_cmt_infinite` char(1) NOT NULL default '0',
   `bo_use_cmt_best` char(1) NOT NULL default '0',

@@ -12,9 +12,13 @@ if (defined('_EYOOM_VESION_')) {
  * EyoomBuilder_1.0.3
  */
 if ($eb_version >= $eb->version_score('1.0.3')) {
-	// 장바구니 상품 주문폼 등록시간 기록 필드 추가
+	// 이윰보드 익명글 사용여부 필드 추가
 	if(!sql_query(" select bo_use_anonymous from {$g5['eyoom_board']} limit 1 ", false)) {
 		sql_query(" alter table `{$g5['eyoom_board']}` add `bo_use_anonymous` char(1) not null default '2' after `bo_use_hotgul` ", true);
+	}
+	// 이윰보드 익명내글반응 사용여부 필드 추가
+	if(!sql_query(" select bo_use_anonymous_respond from {$g5['eyoom_board']} limit 1 ", false)) {
+		sql_query(" alter table `{$g5['eyoom_board']}` add `bo_use_anonymous_respond` char(1) not null default '2' after `bo_use_anonymous` ", true);
 	}
 }
 
@@ -26,7 +30,7 @@ if ($eb_version >= $eb->version_score('1.0.5')) {
 	if(!sql_query(" select bo_firstcmt_point from {$g5['eyoom_board']} limit 1 ", false)) {
 		$sql = "
 			alter table `{$g5['eyoom_board']}`
-				add `bo_use_point_explain` char(1) NOT NULL default '1' after `bo_use_anonymous`,
+				add `bo_use_point_explain` char(1) NOT NULL default '1' after `bo_use_anonymous_respond`,
 				add `bo_firstcmt_point` int(7) NOT NULL default '0' after `bo_use_point_explain`,
 				add `bo_firstcmt_point_type` char(1) NOT NULL default '1' after `bo_firstcmt_point`,
 				add `bo_bomb_point` int(7) NOT NULL default '0' after `bo_firstcmt_point_type`,
@@ -149,7 +153,7 @@ if ($eb_version >= $eb->version_score('1.1.2')) {
 if ($eb_version >= $eb->version_score('1.1.3')) {
 	// 이윰보드에 무한스크롤 사용여부 필드 추가
 	if(!sql_query(" select bo_use_infinite_scroll from {$g5['eyoom_board']} limit 1 ", false)) {
-		$sql = "alter table `{$g5['eyoom_board']}` add `bo_use_infinite_scroll` char(1) not null default '2' after `bo_use_anonymous`";
+		$sql = "alter table `{$g5['eyoom_board']}` add `bo_use_infinite_scroll` char(1) not null default '2' after `bo_use_anonymous_respond`";
 		sql_query($sql, true);
 	}
 }

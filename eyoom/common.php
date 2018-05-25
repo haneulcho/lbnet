@@ -90,6 +90,9 @@
 		// 익명글쓰기 체크
 		$is_anonymous = $eyoom_board['bo_use_anonymous'] == 1 ? true:false;
 
+		// 익명내글반응 체크
+		$is_anonymous_respond = $eyoom_board['bo_use_anonymous_respond'] == 1 ? true:false;
+
 		// 무한스크롤 기능을 사용하면 wmode를 활성화
 		if($eyoom_board['bo_use_infinite_scroll'] == 1) {
 			$user_agent = $eb->user_agent();

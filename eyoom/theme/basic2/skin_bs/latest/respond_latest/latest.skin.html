@@ -28,10 +28,12 @@ add_stylesheet('<link rel="stylesheet" href="../../../plugins/scrollbar/src/perf
 							<span class="user_icon"><i class="fa fa-user respond-photo"></i></span>
 						</span>
 						<!--{/}-->
+						<!--{? 0}-->
 						<span class="description">
 							<span class="from color-black">{.mb_name}</span>
 							<span class="cate">{.type}</span>
 						</span>
+						<!--{/}-->
 						<span class="subject color-grey">글제목: {.wr_subject}</span>
 						<span class="message">{.mention}</span>
 						<span class="time"><!--{? .is_read}-->읽음<!--{:}--><strong class="color-red">읽지않음</strong><!--{/}--> {eb->date_time('Y-m-d H:i',.datetime)}</span>
