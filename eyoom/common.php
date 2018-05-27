@@ -23,7 +23,7 @@
 		$eyoomer = $eb->get_user_info($member['mb_id']);
 		if(!$eyoomer['following']) $eyoomer['following'] = array();
 		if(!$eyoomer['follower']) $eyoomer['follower'] = array();
-		
+
 		// 관심게시판
 		$favorite = unserialize($eyoomer['favorite']);
 		if($favorite) $my_favorite = implode(',', $favorite);
@@ -51,10 +51,10 @@
 			// DB에 입력된 정보가 없을 때, 기본값 가져오기
 			$eyoom_board = $eb->eyoom_board_default($bo_table);
 		}
-		
+
 		// 게시물 자동 이동/복사를 위한 변수
 		(array)$bo_automove = unserialize($eyoom_board['bo_automove']);
-		
+
 		// 사이트 내 게시판 정보 일괄 가져오기
 		$sql = "select bo_table, bo_subject from {$g5['board_table']} where 1 order by bo_subject asc";
 		$result = sql_query($sql);
@@ -185,6 +185,7 @@
 	$qa_skin_path		= EYOOM_CORE_PATH.'/qa';
 	$poll_skin_path		= EYOOM_CORE_PATH.'/poll';
 	$respond_skin_path	= EYOOM_CORE_PATH.'/respond';
+	$mine_skin_path	= EYOOM_CORE_PATH.'/mine';
 	$mypage_skin_path	= EYOOM_CORE_PATH.'/mypage';
 	$page_skin_path		= EYOOM_CORE_PATH.'/page';
 	$tag_skin_path		= EYOOM_CORE_PATH.'/tag';
@@ -256,7 +257,7 @@
 
 	// 일정 기간이 지난 DB 데이터 삭제 및 최적화
 	include_once(EYOOM_INC_PATH.'/db_table.optimize.php');
-		
+
 	// common.php 파일을 수정할 필요가 없도록 확장
 	$extend_file = array();
 	$tmp = dir(EYOOM_EXTEND_PATH);
@@ -265,10 +266,10 @@
 	    if (preg_match("/(\.php)$/i", $entry))
 	        $extend_file[] = $entry;
 	}
-	
+
 	if(!empty($extend_file) && is_array($extend_file)) {
 	    natsort($extend_file);
-	
+
 	    foreach($extend_file as $exfile) {
 	        include_once(EYOOM_EXTEND_PATH.'/'.$exfile);
 	    }

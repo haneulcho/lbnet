@@ -407,7 +407,7 @@ $frm_submit = '
 		</tr>
 		<tr>
             <th scope="row"><label for="respond_skin">태그 스킨</label></th>
-            <td colspan="3">
+            <td>
                 <?php
                 $arr = $eb->get_skin_dir('tag',EYOOM_THEME_PATH.'/'.$_theme.'/skin_'.$_tpl_name);
 				if($arr) {
@@ -419,6 +419,23 @@ $frm_submit = '
 					echo '</select>';
 				} else {
 					echo "현재 테마에는 태그 스킨이 존재하지 않습니다.";
+				}
+				unset($arr);
+                ?>
+            </td>
+            <th scope="row"><label for="mine_skin">내가 쓴 글/댓글 스킨</label></th>
+            <td>
+                <?php
+                $arr = $eb->get_skin_dir('mine',EYOOM_THEME_PATH.'/'.$_theme.'/skin_'.$_tpl_name);
+				if($arr) {
+					echo '<select name="mine_skin" id="mine_skin" required class="required">';
+					for ($i=0; $i<count($arr); $i++) {
+						if ($i == 0) echo "<option value=\"\">선택</option>";
+						echo "<option value=\"".$arr[$i]."\"".get_selected($_eyoom['mine_skin'], $arr[$i]).">".$arr[$i]."</option>\n";
+					}
+					echo '</select>';
+				} else {
+					echo "현재 테마에는 내가 쓴 글/댓글 스킨이 존재하지 않습니다.";
 				}
 				unset($arr);
                 ?>

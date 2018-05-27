@@ -66,6 +66,7 @@ $eyoom = array(
 	"mypage_skin" => "basic",
 	"signature_skin" => "basic",
 	"respond_skin" => "basic",
+  "mine_skin" => "basic",
 	"push_skin" => "basic",
 	"board_skin" => "basic",
 	"emoticon_skin" => "basic",

@@ -14,7 +14,7 @@ class theme extends qfile
 
 		$this->tmp_path		= G5_DATA_PATH . '/tmp';
 		$this->theme_path	= EYOOM_THEME_PATH;
-		
+
 		if($bo_table) {
 			$this->page_type = 'board';
 			$this->me_pid = $bo_table;
@@ -64,7 +64,7 @@ class theme extends qfile
 				$arr['theme'] = '';
 			}
 		}
-		
+
 		// 유니크 아이디 쿠키 생성
 		if(get_cookie('unique_theme_id')) {
 			$unique_theme_id = get_cookie('unique_theme_id');
@@ -198,7 +198,7 @@ class theme extends qfile
 		return $menu;
 	}
 
-	// 이윰메뉴 
+	// 이윰메뉴
 	private function eyoom_menu_create() {
 		global $me_shop;
 		// 메뉴정보 가져오기
@@ -341,7 +341,7 @@ class theme extends qfile
 		}
 		return $new;
 	}
-	
+
 	// 게시판 분류사용시, 새글정보
 	private function eyoom_menu_ca_new($bo_new=24) {
 		global $g5;
@@ -353,7 +353,7 @@ class theme extends qfile
 		}
 		return $ca_new;
 	}
-	
+
 	// 링크로 부터 sca 추출하기
 	private function get_sca_from_link($link) {
 		$str = parse_url(urldecode($link));
@@ -542,7 +542,7 @@ class theme extends qfile
 			$info['me_pid'] = basename($url['path']);
 			$info['me_type'] = 'userpage';
 			$info['me_link'] = $url['path'];
-			
+
 		} else {
 			$info['me_pid'] = 'intra';
 			$info['me_type'] = 'userpage';
@@ -593,14 +593,14 @@ class theme extends qfile
 		global $g5, $tpl, $it_id, $is_admin, $ca_id, $eyoom, $lang_theme, $sca;
 		$url = $this->compare_host_from_link($_SERVER['REQUEST_URI']);
 		$info = $this->get_meinfo_link($url);
-		
+
 		$_sca = $this->get_sca_from_link($info['me_link']);
 		if($_sca) {
 			$where = " me_theme='{$theme}' and me_type='{$info['me_type']}' and me_pid='{$info['me_pid']}' and me_sca='{$_sca}' ";
 		}else {
 			$where = " me_theme='{$theme}' and me_type='{$info['me_type']}' and me_pid='{$info['me_pid']}' ";
 		}
-		
+
 		if($it_id) $where .= " and me_link='{$info['me_link']}' ";
 
 		$sql = "select * from {$g5['eyoom_menu']} where $where order by me_code desc";
@@ -690,7 +690,7 @@ class theme extends qfile
 			if($it_id || $ca_id) $page_info = $this->shop_subpage_info();
 			else $page_info = $this->get_default_page();
 		}
-		
+
 		if(!$page_info['title']) {
 			if($is_admin) {
 				$page_info['title'] = $eyoom['theme_lang_type']=='m' ? $lang_theme[1181] : '미등록페이지';
@@ -714,8 +714,15 @@ class theme extends qfile
 		switch($key) {
 			case 'new'		: $title = $eyoom['theme_lang_type']=='m' ? $lang_theme[990] : '새글모음'; break;
 			case 'respond'	: $title = $eyoom['theme_lang_type']=='m' ? $lang_theme[647] : '내글반응'; break;
+			case 'mine'	:
+				if (isset($query['type']) && $query['type'] == 'cmt') {
+					$title = $eyoom['theme_lang_type']=='m' ? $lang_theme[650] : '내가 쓴 댓글';
+				} else {
+					$title = $eyoom['theme_lang_type']=='m' ? $lang_theme[650] : '내가 쓴 글';
+				}
+			break;
 			case 'search'	: $title = $eyoom['theme_lang_type']=='m' ? $lang_theme[675] : '전체검색'; break;
-			case 'bo_search'	: 
+			case 'bo_search'	:
 				$title = $eyoom['theme_lang_type']=='m' ? $lang_theme[606] : '검색결과';
 				$cate_name = $board['bo_subject'];
 				break;
@@ -725,7 +732,7 @@ class theme extends qfile
 			case 'qaview'	: $title = $eyoom['theme_lang_type']=='m' ? $lang_theme[619] : '1:1문의'; break;
 			case 'current_connect'	: $title = $eyoom['theme_lang_type']=='m' ? $lang_theme[1085] : '현재접속자'; break;
 			case 'register'	: $cate_name = $eyoom['theme_lang_type']=='m' ? $lang_theme[616] : '회원가입'; $title = $eyoom['theme_lang_type']=='m' ? 'Agreement' : '약관동의'; break;
-			case 'register_form' : 
+			case 'register_form' :
 				if($is_member) {
 					$cate_name = $eyoom['theme_lang_type']=='m' ? 'MemberShip' : '멤버쉽'; $title = $eyoom['theme_lang_type']=='m' ? $lang_theme[614] : '정보수정';
 				} else {
@@ -754,7 +761,7 @@ class theme extends qfile
 			case 'itemqalist': $title = $eyoom['theme_lang_type']=='m' ? $lang_theme[416] : '상품문의'; $cate_name = $eyoom['theme_lang_type']=='m' ? $lang_theme[644] : '쇼핑몰'; break;
 			case 'itemuselist': $title = $eyoom['theme_lang_type']=='m' ? $lang_theme[415] : '사용후기'; $cate_name = $eyoom['theme_lang_type']=='m' ? $lang_theme[644] : '쇼핑몰'; break;
 		}
-		
+
 		if(defined('_TAG_')) {
 			// 태그 페이지
 			if($_GET['tag']) {

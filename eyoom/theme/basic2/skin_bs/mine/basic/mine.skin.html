@@ -1,0 +1,154 @@
+<?php if (!defined('_GNUBOARD_')) exit; ?>
+
+<div class="new-list">
+	<form name="fnewlist" method="post" action="#" onsubmit="return fmine_submit(this);" class="eyoom-form">
+	<input type="hidden" name="sw"       value="move">
+	<input type="hidden" name="view"     value="{_view}">
+	<input type="hidden" name="sfl"      value="{_sfl}">
+	<input type="hidden" name="stx"      value="{_stx}">
+	<input type="hidden" name="srows"    value="{_srows}">
+	<input type="hidden" name="bo_table" value="{_bo_table}">
+	<input type="hidden" name="page"     value="{_page}">
+	<!--{? _is_cmt}-->
+	<input type="hidden" name="type"     value="cmt">
+	<!--{/}-->
+	<input type="hidden" name="pressed"  value="">
+
+	<div class="table-list-eb margin-bottom-20">
+	    <div class="board-list-body">
+	        <table class="table table-hover">
+			    <thead>
+				    <tr>
+						<!--{? _is_admin}-->
+				        <th>
+				            <label for="all_chk" class="sound_only">목록 전체</label>
+				            <label class="checkbox">
+				            	<input type="checkbox" id="all_chk"><i></i>
+				            </label>
+				        </th>
+				        <!--{/}-->
+                <!--{? _is_cmt}-->
+                <th>댓글 내용</th>
+                <!--{:}-->
+                <th>제목</th>
+                <!--{/}-->
+				        <th class="hidden-xs">게시판</th>
+				        <th class="hidden-xs">닉네임</th>
+				        <th class="hidden-xs">날짜</th>
+				    </tr>
+			    </thead>
+			    <tbody>
+					<!--{@ list}-->
+				    <tr>
+						<!--{? _is_admin}-->
+				        <td>
+				            <label for="chk_bn_id_{.key_}" class="sound_only">{.num}번</label>
+				            <label class="checkbox">
+				            	<input type="checkbox" name="chk_bn_id[]" value="{.key_}" id="chk_bn_id_{.key_}"><i></i>
+				            </label>
+				            <input type="hidden" name="bo_table[{.key_}]" value="{.bo_table}">
+				            <input type="hidden" name="wr_id[{.key_}]" value="{.wr_id}">
+				        </td>
+				        <!--{/}-->
+				        <td class="td-width">
+                  <!--{? _is_cmt}-->
+                  <a href="{.href}">
+                    <div class="td-mention ellipsis">
+                      {.wr_content}
+                    </div>
+                    <div class="td-subject sc ellipsis">
+                      원글 제목: {=stripslashes(.wr_subject)}
+                    </div>
+                  </a>
+                  <!--{:}-->
+                  <a href="{.href}">{=stripslashes(.wr_subject)}</a>
+                  <!--{/}-->
+					    </td>
+				        <td class="text-center hidden-xs"><a href="./board.php?bo_table={.bo_table}">{.bo_subject}</a></td>
+				        <td class="text-center hidden-xs"><div>{.name}</div></td>
+				        <td class="text-center hidden-xs">{.datetime2}</td>
+				    </tr>
+			        <tr class="td-mobile visible-xs"><!--{* 767px 이하에서만 보임 *}-->
+				        <td colspan="{colspan}">
+					        <span><a href="./board.php?bo_table={.bo_table}">[{.bo_subject}]</a></span>
+					        <span><i class="fa fa-user"></i> {.name}</span>
+					        <span><i class="fa fa-clock-o"></i> {.datetime2}</span>
+				        </td>
+			        </tr>
+				    <!--{:}-->
+					<tr><td colspan="{colspan}" class="text-center">게시물이 없습니다.</td></tr>
+				    <!--{/}-->
+			    </tbody>
+	    	</table>
+	    </div>
+	</div>
+
+	<!--{? _is_admin}-->
+	<input type="submit" onclick="document.pressed=this.value" value="선택삭제" class="btn-e btn-e-light-grey">
+	<!--{/}-->
+	</form>
+</div>
+
+<style>
+.new-list {font-size:12px}
+.new-list .eyoom-form .radio i, .new-list .eyoom-form .checkbox i {top:2px}
+.new-list .eyoom-form .radio, .new-list .eyoom-form .checkbox {margin-bottom:0}
+.table-list-eb .table thead > tr > th {border-bottom:1px solid #000}
+.table-list-eb .table tbody > tr > td {padding:8px 5px}
+.table-list-eb .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {background:#fafafa}
+.table-list-eb thead {border-top:1px solid #000;border-bottom:1px solid #000;background:#fff}
+.table-list-eb th {color:#000;font-weight:bold;white-space:nowrap}
+.table-list-eb .td-mention {width:300px;margin-bottom:4px}
+.table-list-eb .td-subject {width:300px;font-size:11px;color:#000}
+.table-list-eb .td-subject.sc {color:#777}
+@media (max-width: 1199px) {
+	.table-list-eb .td-mention {width:260px}
+	.table-list-eb .td-subject {width:260px}
+}
+@media (max-width: 767px) {
+	.table-list-eb .td-width {width:inherit}
+	.table-list-eb .td-mention {width:280px}
+	.table-list-eb .td-subject {width:280px}
+}
+.table-list-eb .td-chked .read{color:#aaa}
+.table-list-eb .td-chked .noread{color:#000}
+.table-list-eb .td-mobile td {border-top:1px solid #f0f0f0;padding:4px 5px !important;font-size:10px;color:#999;background:#fcfcfc}
+.table-list-eb .td-mobile td span {margin-right:5px}
+</style>
+
+<!--{? _is_admin}-->
+<script>
+$(function(){
+    $('#all_chk').click(function(){
+        $('[name="chk_bn_id[]"]').attr('checked', this.checked);
+    });
+});
+
+function fmine_submit(f)
+{
+    f.pressed.value = document.pressed;
+
+    var cnt = 0;
+    for (var i=0; i<f.length; i++) {
+        if (f.elements[i].name == "chk_bn_id[]" && f.elements[i].checked)
+            cnt++;
+    }
+
+    if (!cnt) {
+        alert(document.pressed+"할 게시물을 하나 이상 선택하세요.");
+        return false;
+    }
+
+    if (!confirm("선택한 게시물을 정말 "+document.pressed+" 하시겠습니까?\n\n한번 삭제한 자료는 복구할 수 없습니다")) {
+        return false;
+    }
+
+    f.action = "./mine_delete.php";
+
+    return true;
+}
+</script>
+<!--{/}-->
+
+{=eb_paging('basic')}
+<!--{* 전체게시물 목록 끝 *}-->
