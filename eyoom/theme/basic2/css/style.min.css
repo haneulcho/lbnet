@@ -793,8 +793,8 @@ body {color:rgba(0, 0, 0, .87);min-width:330px}
 .header-nav .search-open .form-control {padding:0;background:#f4f4f4;padding:0 10px;margin-top:3px}
 .header-nav .navbar-header {float:none}
 .header-nav .navbar-toggle {display:block}
-.header-nav .navbar-collapse {border:0;width:100%!important;clear:both!important}
-.header-nav .navbar-collapse.collapse {min-height:100vh;height:100vh;display:none!important}
+.header-nav .navbar-collapse {position:fixed !important;top:77px;left:0;z-index:999;height:calc(100% - 77px);border:0;width:100%!important;clear:both!important;background-color:#fff}
+.header-nav .navbar-collapse.collapse {display:none!important}
 .header-nav .navbar-collapse.collapse.in {display:block!important;overflow-y:auto!important}
 .header-nav .navbar-nav {margin:0;float:none!important}
 .header-nav .dropdown-menu.pull-right {float:none!important}
