@@ -22,7 +22,7 @@ $published    = date('Y-m-d\TH:i:s\+09:00', strtotime($write['wr_datetime']));
 $updated      = $published;
 $link_href    = G5_BBS_URL . "/board.php?bo_table={$bo_table}";
 $id           = $link_href . htmlspecialchars("&wr_id={$wr_id}");
-$cf_title     = htmlspecialchars($config['cf_title']);
+$cf_title     = htmlspecialchars($config['cf_display_title']);
 $link_title   = htmlspecialchars($board['bo_subject']);
 $feed_updated = date('Y-m-d\TH:i:s\+09:00', G5_SERVER_TIME);
 

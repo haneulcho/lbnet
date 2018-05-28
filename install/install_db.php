@@ -96,6 +96,7 @@ $download_point = 0;
 // config 테이블 설정
 $sql = " insert into `{$table_prefix}config`
             set cf_title = '".G5_VERSION."',
+                cf_display_title = '',
                 cf_theme = 'basic',
                 cf_admin = '$admin_id',
                 cf_admin_email = '$admin_email',

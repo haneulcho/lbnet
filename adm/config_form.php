@@ -248,6 +248,10 @@ if ($config['cf_sms_use'] && $config['cf_icode_id'] && $config['cf_icode_pw']) {
             <td colspan="3"><input type="text" name="cf_title" value="<?php echo $config['cf_title'] ?>" id="cf_title" required class="required frm_input" size="40"></td>
         </tr>
         <tr>
+            <th scope="row"><label for="cf_display_title">디스플레이용 홈페이지 제목</label></th>
+            <td colspan="3"><input type="text" name="cf_display_title" value="<?php echo $config['cf_display_title'] ?>" id="cf_display_title" class="frm_input" size="40"></td>
+        </tr>
+        <tr>
             <th scope="row"><label for="cf_admin">최고관리자<strong class="sound_only">필수</strong></label></th>
             <td colspan="3"><?php echo get_member_id_select('cf_admin', 10, $config['cf_admin'], 'required') ?></td>
         </tr>
