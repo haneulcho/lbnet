@@ -576,6 +576,7 @@ img.img-circle {border-radius:50%!important}
 .md-margin-bottom-50 {margin-bottom:50px}
 .md-margin-bottom-60 {margin-bottom:60px}
 }
+.xd-margin-bottom-10 {margin-bottom:10px}
 .padding-top-3 {padding-top:3px}
 .padding-top-5 {padding-top:5px}
 .padding-top-10 {padding-top:10px}
@@ -1030,12 +1031,15 @@ fieldset legend {border-bottom:0}
 .navbar-brand {height:auto;padding:12px 15px;margin-right:5px}
 .lbbox {box-shadow:0 0 1px rgba(0, 0, 0, .15);background-color:#fff;border-radius:3px}
 .header-topbar.chk {background-color:#f44455;-webkit-transition:all ease-in-out .2s;-moz-transition:all ease-in-out .2s;-o-transition:all ease-in-out .2s;transition:all ease-in-out .2s}
-.basic-latest {position:relative;overflow:hidden;min-height:262px}
+.basic-latest {position:relative;overflow:hidden;min-height:50px}
 .basic-latest ul {margin-bottom:0}
 .basic-latest li {position:relative;overflow:hidden;border-top:1px solid rgba(120, 130, 140, .13)}
 .basic-latest li:first-child {border-top:0}
+.l-margin-bottom-20 {margin-bottom:20px}
+.l-padding-left-0 {padding-left:0}
 @media (min-width:991px) {
 .board-area {padding:0 20px}
+
 }
 #lbboard {margin:0;padding:0}
 #lbboard li {clear:both;position:relative;list-style:none;margin:8px 0 0}
