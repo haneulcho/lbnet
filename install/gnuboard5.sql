@@ -511,6 +511,22 @@ CREATE TABLE IF NOT EXISTS `g5_memo` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `g5_login_data`
+--
+
+DROP TABLE IF EXISTS `g5_login_data`;
+CREATE TABLE IF NOT EXISTS `g5_login_data` (
+  `lg_id` int(11) NOT NULL auto_increment,
+  `mb_id` varchar(20) NOT NULL default '',
+  `mb_ip` varchar(255) NOT NULL default '',
+  `lg_time` datetime NOT NULL default '0000-00-00 00:00:00',
+  `lg_success` tinyint(4) NOT NULL default '0',
+  PRIMARY KEY  (`lg_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `g5_point`
 --
 
