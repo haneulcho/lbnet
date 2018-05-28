@@ -41,7 +41,7 @@ if (!$mb['mb_id'] || !check_password($mb_password, $mb['mb_password'])) {
         $member_list = array();
         $member_list['id'][] = $send_mb_id;
         $member_list['id'][] = $mb['mb_id'];
-        $me_memo = '최근 7일 내 회원님의 아이디로 동일 IP 10회 이상 로그인 실패 기록이 발견 되어 보내드리는 보안 알림 쪽지입니다.\\n아래 로그인 실패 기록을 확인하신 후, 본인이 접속한 것이 아니라면 운영자에게 말씀 주세요.\\n\\n접근 시도 아이피: '.$_SERVER['REMOTE_ADDR'].'\\n로그인 실패일자:\\n';
+        $me_memo = '최근 7일 내 회원님의 아이디로 동일 IP 10회 이상 로그인 실패 기록이 발견 되어 보내드리는 보안 알림 쪽지입니다.\\n아래 로그인 실패 기록을 확인하신 후, 본인이 접속한 것이 아니라면 운영자에게 말씀 주세요.\\n\\n접근 시도 아이디: '.$mb['mb_id'].'\\n접근 시도 아이피: '.$_SERVER['REMOTE_ADDR'].'\\n로그인 실패일자:\\n';
 
         $sql3 = " select * from {$g5['login_data_table']}
                 where mb_id = '{$mb['mb_id']}'
