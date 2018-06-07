@@ -616,6 +616,7 @@ class theme extends qfile
 				$path .= "<li {$active}>".$me_name."</li>";
 			}
 			$page_info['title'] = $data['me_name'];
+			$page_info['title_link'] = $data['me_link'];
 			$page_info['path'] = "<li><a href='".G5_URL."'>Home</a></li>".$path;
 			$page_info['subtitle'] = $me_path[0];
 			$page_info['sidemenu'] = $data['me_side'];
