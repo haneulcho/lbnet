@@ -1031,7 +1031,7 @@ fieldset legend {border-bottom:0}
 .navbar-brand {height:auto;padding:12px 15px;margin-right:5px}
 .lbbox {box-shadow:0 0 1px rgba(0, 0, 0, .15);background-color:#fff;border-radius:3px}
 .header-topbar.chk {background-color:#f44455;-webkit-transition:all ease-in-out .2s;-moz-transition:all ease-in-out .2s;-o-transition:all ease-in-out .2s;transition:all ease-in-out .2s}
-.basic-latest {position:relative;overflow:hidden;min-height:50px}
+.basic-latest {position:relative;overflow:hidden;min-height:30px}
 .basic-latest ul {margin-bottom:0}
 .basic-latest li {position:relative;overflow:hidden;border-top:1px solid rgba(120, 130, 140, .13)}
 .basic-latest li:first-child {border-top:0}
@@ -1063,6 +1063,7 @@ fieldset legend {border-bottom:0}
 .lbtitle .lbcate:after {content:'';display:inline-block;width:1px;height:10px;margin-left:8px;vertical-align:-1px;background-color:#ccc}
 .lbtitle.lbhot, .lbtitle.lbhot .lbcomment, .lbtitle.lbhot .lbup {color:#f44455!important}
 .lbtitle.lbbest, .lbtitle.lbbest .lbcomment, .lbtitle.lbbest .lbup {color:#444!important}
+.lbtitle.txtonly {line-height:1.3;margin-bottom:0}
 .lblink .lbdes {margin-top:10px}
 .lbcontents {margin-top:6px;margin-bottom:12px;color:#777}
 .lbtitle .lbcomment, .lbtitle .lbup, .lbdes {font-size:11px;color:#818a91;line-height:1}

@@ -1,0 +1,21 @@
+<?php if (!defined('_GNUBOARD_')) exit; ?>
+
+<div class="headline">
+	<h6><i class="fa fa-map-marker"></i><strong>{title}</strong></h6>
+</div>
+
+<div class="basic-latest">
+	<ul class="list-unstyled">
+	<!--{@ loop}-->
+		<li>
+			<a class="lblink" href="{.href}">
+				<div class="lbtitle txtonly">
+					{.wr_subject}<!--{? .wr_comment}--><span class="lbcomment"><i class="fa fa-comment-o"></i>{=number_format(.wr_comment)}</span><!--{/}--><!--{? .wr_good}--><span class="lbup"><i class="fa fa-thumbs-up"></i>{=number_format(.wr_good)}</span><!--{/}-->
+				</div>
+			</a>
+		</li>
+	<!--{:}-->
+		<li><p class="text-center font-size-12 margin-top-30">최신글이 없습니다.</p></li>
+	<!--{/}-->
+	</ul>
+</div>
