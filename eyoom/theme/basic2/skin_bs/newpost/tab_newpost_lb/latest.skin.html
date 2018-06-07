@@ -1,0 +1,15 @@
+<?php if (!defined('_GNUBOARD_')) exit; ?>
+
+<div class="tab_newpost">
+	<!--{@ write}-->
+    <article class="new-post">
+		<a href="{.href}">
+      <div class="lbtitle txtonly">
+        {.wr_subject}<!--{? .wr_comment}--><span class="lbcomment"><i class="fa fa-comment-o"></i>{=number_format(.wr_comment)}</span><!--{/}-->
+      </div>
+		</a>
+    </article>
+    <!--{:}-->
+    <p class="text-center font-size-12 margin-top-10">최신글이 없습니다.</p>
+	<!--{/}-->
+</div>
