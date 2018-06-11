@@ -43,7 +43,13 @@ var char_max = parseInt({_comment_max}); // 최대
 					<!--{/}-->
 					<!--{? strstr(.wr_option, 'secret')}--><i class="fa fa-lock" style="color:#aaa;"></i> <!--{/}-->
 					<!--{? .imgsrc}-->
-					<a href="{.imgsrc}" class="venobox" data-gall="lbgall" title="{view.wr_subject}"><img src="{.imgsrc}" class="img-responsive"></a><br>
+						<!--{? strstr(.wr_option, 'secret')}-->
+							<!--{? .is_origin || .is_mine}-->
+							<a href="{.imgsrc}" class="venobox" data-gall="lbgall" title="{view.wr_subject}"><img src="{.imgsrc}" class="img-responsive"></a><br>
+							<!--{/}-->
+						<!--{:}-->
+						<a href="{.imgsrc}" class="venobox" data-gall="lbgall" title="{view.wr_subject}"><img src="{.imgsrc}" class="img-responsive"></a><br>
+						<!--{/}-->
 					<!--{/}-->
 					{.comment}
 				</p>
