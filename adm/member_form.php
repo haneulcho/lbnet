@@ -84,6 +84,10 @@ $mb_certify_no   = !$mb['mb_certify'] ? 'checked="checked"' : '';
 $mb_adult_yes       =  $mb['mb_adult']      ? 'checked="checked"' : '';
 $mb_adult_no        = !$mb['mb_adult']      ? 'checked="checked"' : '';
 
+// 여성인증
+$mb_woman_yes       =  $mb['mb_woman']      ? 'checked="checked"' : '';
+$mb_woman_no        = !$mb['mb_woman']      ? 'checked="checked"' : '';
+
 //메일수신
 $mb_mailling_yes    =  $mb['mb_mailling']   ? 'checked="checked"' : '';
 $mb_mailling_no     = !$mb['mb_mailling']   ? 'checked="checked"' : '';
@@ -109,6 +113,13 @@ if(isset($mb['mb_adult'])) {
     sql_query(" ALTER TABLE `{$g5['member_table']}` CHANGE `mb_adult` `mb_adult` TINYINT(4) NOT NULL DEFAULT '0' ", false);
 } else {
     sql_query(" ALTER TABLE `{$g5['member_table']}` ADD `mb_adult` TINYINT NOT NULL DEFAULT '0' AFTER `mb_certify` ", false);
+}
+
+// 여성인증 체크 필드추가
+if(isset($mb['mb_woman'])) {
+    sql_query(" ALTER TABLE `{$g5['member_table']}` CHANGE `mb_woman` `mb_woman` TINYINT(4) NOT NULL DEFAULT '0' ", false);
+} else {
+    sql_query(" ALTER TABLE `{$g5['member_table']}` ADD `mb_woman` TINYINT NOT NULL DEFAULT '0' AFTER `mb_certify` ", false);
 }
 
 // 지번주소 필드추가
@@ -194,11 +205,18 @@ add_javascript(G5_POSTCODE_JS, 0);    //다음 주소 js
     </tr>
     <tr>
         <th scope="row">본인확인방법</th>
-        <td colspan="3">
+        <td>
             <input type="radio" name="mb_certify_case" value="ipin" id="mb_certify_ipin" <?php if($mb['mb_certify'] == 'ipin') echo 'checked="checked"'; ?>>
             <label for="mb_certify_ipin">아이핀</label>
             <input type="radio" name="mb_certify_case" value="hp" id="mb_certify_hp" <?php if($mb['mb_certify'] == 'hp') echo 'checked="checked"'; ?>>
             <label for="mb_certify_hp">휴대폰</label>
+        </td>
+        <th scope="row"><label for="mb_woman">여성인증</label></th>
+        <td>
+            <input type="radio" name="mb_woman" value="1" id="mb_woman_yes" <?php echo $mb_woman_yes; ?>>
+            <label for="mb_woman_yes">예</label>
+            <input type="radio" name="mb_woman" value="0" id="mb_woman_no" <?php echo $mb_woman_no; ?>>
+            <label for="mb_woman_no">아니오</label>
         </td>
     </tr>
     <tr>

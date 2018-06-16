@@ -174,6 +174,7 @@ if ($config['cf_cert_use'] && $cert_type && $md5_cert_no) {
         $sql_certify .= " , mb_hp = '{$mb_hp}' ";
         $sql_certify .= " , mb_certify  = '{$cert_type}' ";
         $sql_certify .= " , mb_adult = '{$_SESSION['ss_cert_adult']}' ";
+        $sql_certify .= " , mb_woman = 0 ";
         $sql_certify .= " , mb_birth = '{$_SESSION['ss_cert_birth']}' ";
         $sql_certify .= " , mb_sex = '{$_SESSION['ss_cert_sex']}' ";
         $sql_certify .= " , mb_dupinfo = '{$_SESSION['ss_cert_dupinfo']}' ";
@@ -183,6 +184,7 @@ if ($config['cf_cert_use'] && $cert_type && $md5_cert_no) {
         $sql_certify .= " , mb_hp = '{$mb_hp}' ";
         $sql_certify .= " , mb_certify  = '' ";
         $sql_certify .= " , mb_adult = 0 ";
+        $sql_certify .= " , mb_woman = 0 ";
         $sql_certify .= " , mb_birth = '' ";
         $sql_certify .= " , mb_sex = '' ";
     }
@@ -191,6 +193,7 @@ if ($config['cf_cert_use'] && $cert_type && $md5_cert_no) {
         $sql_certify .= " , mb_hp = '{$mb_hp}' ";
         $sql_certify .= " , mb_certify = '' ";
         $sql_certify .= " , mb_adult = 0 ";
+        $sql_certify .= " , mb_woman = 0 ";
         $sql_certify .= " , mb_birth = '' ";
         $sql_certify .= " , mb_sex = '' ";
     }

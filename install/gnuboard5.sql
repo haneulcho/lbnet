@@ -288,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `g5_config` (
   `cf_sms_use` varchar(255) NOT NULL DEFAULT '',
   `cf_sms_type` varchar(10) NOT NULL DEFAULT '',
   `cf_icode_id` varchar(255) NOT NULL DEFAULT '',
-  `cf_icode_pw` varchar(255) NOT NULL DEFAULT '',  
+  `cf_icode_pw` varchar(255) NOT NULL DEFAULT '',
   `cf_icode_server_ip` varchar(255) NOT NULL DEFAULT '',
   `cf_icode_server_port` varchar(255) NOT NULL DEFAULT '',
   `cf_googl_shorturl_apikey` varchar(255) NOT NULL DEFAULT '',
@@ -448,6 +448,7 @@ CREATE TABLE IF NOT EXISTS `g5_member` (
   `mb_hp` varchar(255) NOT NULL default '',
   `mb_certify` varchar(20) NOT NULL default '',
   `mb_adult` tinyint(4) NOT NULL default '0',
+  `mb_woman` tinyint(4) NOT NULL default '0',
   `mb_dupinfo` varchar(255) NOT NULL default '',
   `mb_zip1` char(3) NOT NULL default '',
   `mb_zip2` char(3) NOT NULL default '',
@@ -756,7 +757,7 @@ CREATE TABLE IF NOT EXISTS `g5_qa_config` (
 DROP TABLE IF EXISTS `g5_qa_content`;
 CREATE TABLE IF NOT EXISTS `g5_qa_content` (
   `qa_id` int(11) NOT NULL AUTO_INCREMENT,
-  `qa_num` int(11) NOT NULL DEFAULT '0',  
+  `qa_num` int(11) NOT NULL DEFAULT '0',
   `qa_parent` int(11) NOT NULL DEFAULT '0',
   `qa_related` int(11) NOT NULL DEFAULT '0',
   `mb_id` varchar(20) NOT NULL DEFAULT '',

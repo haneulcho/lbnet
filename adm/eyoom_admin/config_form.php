@@ -441,6 +441,25 @@ $frm_submit = '
                 ?>
             </td>
 		</tr>
+    <tr>
+            <th scope="row"><label for="levelup_skin">등업 스킨</label></th>
+            <td>
+                <?php
+                $arr = $eb->get_skin_dir('levelup',EYOOM_THEME_PATH.'/'.$_theme.'/skin_'.$_tpl_name);
+				if($arr) {
+					echo '<select name="levelup_skin" id="levelup_skin" required class="required">';
+					for ($i=0; $i<count($arr); $i++) {
+						if ($i == 0) echo "<option value=\"\">선택</option>";
+						echo "<option value=\"".$arr[$i]."\"".get_selected($_eyoom['levelup_skin'], $arr[$i]).">".$arr[$i]."</option>\n";
+					}
+					echo '</select>';
+				} else {
+					echo "현재 테마에는 등업 스킨이 존재하지 않습니다.";
+				}
+				unset($arr);
+                ?>
+            </td>
+		</tr>
         </tbody>
         </table>
     </div>
