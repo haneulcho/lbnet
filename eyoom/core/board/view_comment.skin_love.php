@@ -67,6 +67,9 @@
 
 		$level = $list[$i]['wr_1'] ? $eb->level_info($list[$i]['wr_1']):'';
 		if(is_array($level)) {
+			if ($member['mb_id'] == $view['lb_id'] ) {
+				$comment[$i]['is_myarticle'] = true; // 내가 쓴 글 여부 변수에 담기
+			}
 			if ($member['mb_id'] == $comment[$i]['mb_id']) {
 				$comment[$i]['is_mine'] = true; // 내가 쓴 댓글 여부 변수에 담기
 			}
