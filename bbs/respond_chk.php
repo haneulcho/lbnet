@@ -2,7 +2,7 @@
 include_once('./_common.php');
 
 if (!$is_member) {
-	alert('로그인해 주세요.', G5_BBS_URL.'/login.php?url='.urlencode('../bbs/respond.php'));
+	alert('로그인해 주세요.', G5_BBS_URL.'/login.php?url='.urlencode(G5_BBS_URL.'/respond.php'));
 }
 
 if(isset($chk)) $get .= "&chk=$chk";

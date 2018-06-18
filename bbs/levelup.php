@@ -4,7 +4,7 @@ include_once(EYOOM_PATH.'/common.php');
 
 $url = G5_URL;
 if (!$is_member) {
-  alert('로그인해 주세요.', G5_BBS_URL.'/login.php?url='.urlencode('../bbs/levelup.php'));
+  alert('로그인해 주세요.', G5_BBS_URL.'/login.php?url='.urlencode(G5_BBS_URL.'/levelup.php'));
 } else {
   if ($member['mb_id']) {
     $mb_id = $member['mb_id'];
@@ -57,7 +57,7 @@ set_session("ss_cert_no",   "");
 set_session("ss_cert_hash", "");
 set_session("ss_cert_type", "");
 
-$g5['title'] = '기존 회원 등업 (~ 2018.07.31 까지)';
+$g5['title'] = '기존 회원 등업 (~ 07.31)';
 include_once('./_head.php');
 
 include_once($levelup_skin_path.'/levelup.skin.php');

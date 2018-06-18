@@ -3,7 +3,7 @@
 	include_once(EYOOM_PATH.'/common.php');
 
 	if (!$is_member) {
-		alert('로그인해 주세요.', G5_BBS_URL.'/login.php?url='.urlencode('../bbs/respond.php'));
+		alert('로그인해 주세요.', G5_BBS_URL.'/login.php?url='.urlencode(G5_BBS_URL.'/respond.php'));
 	}
 
 	$g5['title'] = '내글반응';

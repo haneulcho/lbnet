@@ -3,7 +3,7 @@ include_once('./_common.php');
 include_once(EYOOM_PATH.'/common.php');
 
 if (!$is_member) {
-  alert('로그인해 주세요.', G5_BBS_URL.'/login.php?url='.urlencode('../bbs/mine.php'));
+  alert('로그인해 주세요.', G5_BBS_URL.'/login.php?url='.urlencode(G5_BBS_URL.'/mine.php'));
 }
 
 $is_cmt = $_GET['type'] == 'cmt' ? true : false;

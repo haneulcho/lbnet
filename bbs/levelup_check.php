@@ -4,7 +4,7 @@ include_once(EYOOM_PATH.'/common.php');
 
 $url = G5_URL;
 if (!$is_member) {
-  alert('로그인해 주세요.', G5_BBS_URL.'/login.php?url='.urlencode('../bbs/levelup.php'));
+  alert('로그인해 주세요.', G5_BBS_URL.'/login.php?url='.urlencode(G5_BBS_URL.'/levelup.php'));
 } else {
   if ($member['mb_id']) {
     $mb_id = $member['mb_id'];
