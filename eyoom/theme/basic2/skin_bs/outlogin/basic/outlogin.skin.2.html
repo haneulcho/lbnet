@@ -24,8 +24,12 @@
 	        </div>
 	        <div class="member-lv">
 	            <div class="width-50 pull-left">
-	                <p class="margin-bottom-0">레벨</p>
-	                <p class="color-red">{eyoomer.level}</p>
+					<p class="margin-bottom-0">레벨</p>
+					<!--{? _is_member && member.mb_woman == 1}-->
+					<p class="color-red">{eyoomer.level} (인증회원)</p>
+					<!--{:}-->
+					<p class="color-red">{eyoomer.level}</p>
+					<!--{/}-->
 	            </div>
 	            <div class="widht-50 pull-right text-right">
 	                <p class="margin-bottom-0">{levelset.eyoom_name}</p>
@@ -57,7 +61,10 @@
                 	<a href="{C.G5_BBS_URL}/memo.php" target="_blank" id="ol_after_memo" class="win_memo">
                     	쪽지 <span class="badge badge-red rounded-2x">{memo_not_read}</span>
                     </a>
-                </li>
+				</li>
+				<!--{? _is_member && member.mb_woman != 1}-->
+								<li><a href="{C.G5_BBS_URL}/levelup.php">기존 회원 등업</a></li>
+				<!--{/}-->
 								<li><a href="{C.G5_BBS_URL}/mine.php">내가 쓴 글</a></li>
 								<li><a href="{C.G5_BBS_URL}/mine.php?type=cmt">내가 쓴 댓글</a></li>
                 <!--{? _is_admin == 'super' || _is_auth}-->

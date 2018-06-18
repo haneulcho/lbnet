@@ -175,7 +175,10 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
 	                    <div class="menu-container">
 	                        <ul class="nav navbar-nav">
 
-		                        <!--{* Menu *}-->
+								<!--{* Menu *}-->
+								<!--{? _is_member && member.mb_woman != 1}-->
+								<li><a href="{C.G5_BBS_URL}/levelup.php"><i class="fa fa-pencil-square-o"></i> 기존 회원 등업</a></li>
+								<!--{/}-->
 		                        <!--{@ menu}-->
                             <!--{? .active}-->
                               <?php $liClass = 'active' ?>
@@ -215,7 +218,7 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
 									<!--{/}-->
 	                            </li>
 		                        <!--{/}-->
-		                        <!--{* End Menu *}-->
+								<!--{* End Menu *}-->
 	                        </ul>
 	                    </div>
 	                </div><!--{* navbar-collapse *}-->

@@ -2,13 +2,13 @@
 
 <div class="levelup-list">
 	<form name="fnewlist" id="flevelup" action="#" method="post" onsubmit="return levelup_submit(this);" enctype="multipart/form-data" autocomplete="off" class="eyoom-form">
-
 	<fieldset class="lbbox">
 		<h3><i class="fa fa-pencil-square-o"></i> <strong>등업 답변 작성</strong></h3>
 		<div class="alert alert-danger padding-all-10 margin-top-10 margin-bottom-20">
 			<strong>Note:</strong> 답변은 영문 대소문자 및 띄어쓰기를 구분합니다. 정확하게 답변해 주세요.
 		</div>
 		<!--{@ list}-->
+		<input type="hidden" name="ansNum{.key_}" value="{.ansNum}" />
 		<dl class="margin-bottom-15 input">
 			<dt><label for="ans{.key_}">Q. {.ques}</label></dt>
 			<dd>
