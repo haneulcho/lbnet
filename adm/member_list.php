@@ -239,7 +239,7 @@ $colspan = 16;
     <tr class="<?php echo $bg; ?>">
         <td headers="mb_list_nick" class="td_name sv_use"><div><?php echo $mb_nick ?></div></td>
         <td headers="mb_list_mailc" class="td_chk"><?php echo preg_match('/[1-9]/', $row['mb_email_certify'])?'<span class="txt_true">Yes</span>':'<span class="txt_false">No</span>'; ?></td>
-        <td headers="mb_list_womanc" class="td_chk"><?php echo $row['mb_woman']?'<span class="txt_true">Yes</span>':'<span class="txt_false">No</span>'; ?></td>
+        <td headers="mb_list_womanc" class="td_chk"><?php echo $row['mb_woman'] == 1 ?'<span class="txt_true">Yes</span>':'<span class="txt_false">No</span>'; ?></td>
         <td headers="mb_list_open" class="td_chk">
             <label for="mb_open_<?php echo $i; ?>" class="sound_only">정보공개</label>
             <input type="checkbox" name="mb_open[<?php echo $i; ?>]" <?php echo $row['mb_open']?'checked':''; ?> value="1" id="mb_open_<?php echo $i; ?>">

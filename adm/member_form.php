@@ -85,8 +85,8 @@ $mb_adult_yes       =  $mb['mb_adult']      ? 'checked="checked"' : '';
 $mb_adult_no        = !$mb['mb_adult']      ? 'checked="checked"' : '';
 
 // 여성인증
-$mb_woman_yes       =  $mb['mb_woman']      ? 'checked="checked"' : '';
-$mb_woman_no        = !$mb['mb_woman']      ? 'checked="checked"' : '';
+$mb_woman_yes       =  $mb['mb_woman'] == 1      ? 'checked="checked"' : '';
+$mb_woman_no        =  $mb['mb_woman'] != 1      ? 'checked="checked"' : '';
 
 //메일수신
 $mb_mailling_yes    =  $mb['mb_mailling']   ? 'checked="checked"' : '';
