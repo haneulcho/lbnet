@@ -19,7 +19,7 @@ if (!$is_member) {
   if ($member['mb_level'] >= $level_limit && $member['mb_woman'] == 1) {
     alert('이미 인증된 회원입니다! 환영해요!', $url);
   }
-  
+
   if ($member['mb_woman'] == 3 && (G5_SERVER_TIME - strtotime(date($member['mb_email_certify']))) < (3600 * $time_limit)) {
     alert('질문에 대한 답이 틀렸습니다! 3시간 후 다시 시도해주세요.\n(재시도 가능일자: '.$next_date.')', $url);
   }
@@ -37,7 +37,7 @@ $qna = array(
   array("ques"=>"로다 접속 주소는? (http:// 및 끝 / 제외 작성, ex. http://naver.com (x), naver.com (o))", "ans"=>"roda.kr"),
   array("ques"=>"로다 운영진은 총 몇 명일까? (숫자로만 작성, ex. 3명 (x), 3 (o))", "ans"=>"1"),
   array("ques"=>"로다 상단 다이어리 메뉴의 첫 번째 하위 메뉴는? (띄어쓰기 없이 작성)", "ans"=>"일기장"),
-  array("ques"=>"로다 광고홍보 - L업소정보에 등록된 업소 개수는? (숫자로만 작성, ex. 15개 (x), 15(o))", "ans"=>"19")
+  array("ques"=>"로다 광고홍보 - L업소정보에 등록된 업소 개수는? (숫자로만 작성, ex. 15개 (x), 15(o))", "ans"=>"18")
 );
 
 if (isset($_POST['ans0'])) {
