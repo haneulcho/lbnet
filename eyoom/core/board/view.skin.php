@@ -107,6 +107,10 @@
 	// 익명 여부 관계 없이 원글 아이디 변수에 담기
 	$view['lb_id'] = $view['mb_id'];
 
+	// 등업게시판용 작성자 닉네임, 이메일 변수에 담기
+	$view['lb_nickname'] = $view['wr_name'];
+	$view['lb_email'] = $view['wr_email'];
+
 	// 익명글 기능
 	if(!$lv['anonymous']) {
 		// 작성자 프로필 사진

@@ -124,15 +124,25 @@ function set_textarea_contents(type,value) {
 		<section>
 			<div class="row" style="margin-bottom:0">
 				<!--{? _is_category}-->
-				<div class="col col-6" style="margin-bottom:0">
-					<label class="select">
-						<select name="ca_name" id="ca_name" required class="form-control">
-							<option value="">분류를 선택하세요 (필수)</option>
-							{_category_option}
-						</select>
-						<i></i>
-					</label>
-				</div>
+					<!--{? _is_admin}-->
+						<div class="col col-6" style="margin-bottom:0">
+							<label class="select">
+								<select name="ca_name" id="ca_name" required class="form-control">
+									<option value="공지">공지</option>
+								</select>
+								<i></i>
+							</label>
+						</div>
+					<!--{:}-->
+						<div class="col col-6" style="margin-bottom:0">
+							<label class="select">
+								<select name="ca_name" id="ca_name" required class="form-control">
+									<option value="대기">대기</option>
+								</select>
+								<i></i>
+							</label>
+						</div>
+					<!--{/}-->
 				<!--{/}-->
 				<!--{? _is_notice || _is_secret || _is_mail}-->
 					<div class="col col-6">

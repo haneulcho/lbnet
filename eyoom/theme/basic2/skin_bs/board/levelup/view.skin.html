@@ -5,8 +5,6 @@
       <div class="pull-left">
         <div class="lbdes">
           <span class="lbnick"><!--{?view.is_mine}-->{=eb_lbnameview('basic', view.wr_id, view.wr_name)}<b class="color-red">*</b><!--{:}-->{=eb_lbnameview('basic', view.wr_id, view.wr_name)}<!--{/}--></span>
-          <span class="lbhit"><i class="fa fa-eye"></i>{=number_format(view.wr_hit)}
-          </span>
           <span class="lbtime"><i class="fa fa-clock-o"></i><!--{? eyoom_board.bo_sel_date_type == '1'}-->
           {eb->date_time('m-d H:i',view.wr_datetime)}<!--{: eyoom_board.bo_sel_date_type == '2'}-->{eb->date_format('Y.m.d',view.wr_datetime)}<!--{/}-->
           </span>
@@ -87,14 +85,29 @@
           {_view_content}
           <!--{/}-->
         </div>
-        <!--{? _is_admin == 'super'}-->
-        <form name="fhit" id="fhit" action="./hit_update.php" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form margin-bottom-20">
-          <label for="wr_hit" class="margin-right-10">{_bo_table} / wr_id {view.wr_id}</label>
-          <input type="hidden" name="bo_table" value="{_bo_table}">
-          <input type="text" id="wr_hit" name="wr_hit" value="{=number_format(view.wr_hit)}">
-      	  <input type="hidden" name="wr_id" value="{view.wr_id}">
-					<button type="submit" id="btn_submit" class="btn-e btn-e-lg btn-e-yellow margin-top-m-2">수정</button>
-        </form>
+        <!--{? _is_admin }-->
+        <div class="lbvinfo lbvinfo_default">
+            <h2><i class="fa fa-star"></i>레볼루션에 등록된 정보</h2>
+            <dl>
+                <dt>닉네임</dt>
+                <dd>{view.lb_nickname}</dd>
+                <dt>아이디</dt>
+                <dd>{view.lb_id}</dd>
+                <dt>이메일</dt>
+                <dd>{view.lb_email}</dd>
+            </dl>
+        </div>
+            <!--{? _is_admin && view.ca_name != '완료' }-->
+                <form name="flevelup" id="flevelup" action="./levelup_update.php" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form margin-bottom-20">
+                <input type="hidden" name="bo_table" value="{_bo_table}">
+                    <input type="hidden" name="mb_id" value="{view.lb_id}">
+                    <input type="hidden" name="wr_id" value="{view.wr_id}">
+                    <div class="text-center">
+                        <p style="margin-bottom:10px">첨부된 사진의 아이디, 이메일과 레볼루션에 등록된 정보가 일치하는지 확인하신 후, 등업하기를 눌러 주세요.<br><strong>*등업하기 버튼을 누르시면 취소하실 수 없습니다!</strong></p>
+                        <button type="submit" id="btn_submit" class="btn-e btn-e-lg btn-e-yellow margin-top-m-2">등업하기</button>
+                    </div>
+                </form>
+            <!--{/}-->
         <!--{/}-->
         <!--{* 본문 내용 끝 *}-->
 
