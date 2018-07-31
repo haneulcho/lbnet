@@ -141,7 +141,7 @@ $colspan = 10;
         <td class="td_mng td_input">
         <?php if ($is_admin == 'super'){ ?>
             <label for="gr_admin_<?php echo $i; ?>" class="sound_only">그룹관리자</label>
-            <input type="text" name="gr_admin[<?php echo $i ?>]" value="<?php echo $row['gr_admin'] ?>" id="gr_admin_<?php echo $i ?>" class="frm_input" size="10" maxlength="20">
+            <input type="text" name="gr_admin[<?php echo $i ?>]" value="<?php echo $row['gr_admin'] ?>" id="gr_admin_<?php echo $i ?>" class="frm_input" size="10" maxlength="300">
         <?php }else{ ?>
             <input type="hidden" name="gr_admin[<?php echo $i ?>]" value="<?php echo $row['gr_admin'] ?>"><?php echo $row['gr_admin'] ?>
         <?php } ?>

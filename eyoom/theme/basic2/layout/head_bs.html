@@ -91,7 +91,7 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
                 <div class="col-md-6">
                     <ul class="list-unstyled topbar-right">
             <!--{? _is_member //회원일 경우}-->
-              <!--{? _is_admin //관리자일 경우}-->
+              <!--{? _is_admin == 'super' //관리자일 경우}-->
                     <li><a href="{C.G5_ADMIN_URL}">관리자</a></li>
                     <!--{/}-->
                     <li><a href="{C.G5_BBS_URL}/member_confirm.php?url={C.G5_BBS_URL}/register_form.php">정보수정</a></li>

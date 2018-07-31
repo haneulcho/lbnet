@@ -277,7 +277,7 @@ $frm_submit .= '</div>';
         <tr>
             <th scope="row"><label for="bo_admin">게시판 관리자</label></th>
             <td>
-                <input type="text" name="bo_admin" value="<?php echo $board['bo_admin'] ?>" id="bo_admin" class="frm_input" maxlength="20">
+                <input type="text" name="bo_admin" value="<?php echo $board['bo_admin'] ?>" id="bo_admin" class="frm_input" maxlength="300">
             </td>
             <td class="td_grpset">
                 <input type="checkbox" name="chk_grp_admin" value="1" id="chk_grp_admin">
