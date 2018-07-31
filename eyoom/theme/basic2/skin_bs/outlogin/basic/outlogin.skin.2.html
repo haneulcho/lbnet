@@ -62,8 +62,11 @@
                     	쪽지 <span class="badge badge-red rounded-2x">{memo_not_read}</span>
                     </a>
 				</li>
-				<!--{? _is_member && member.mb_woman != 1}-->
+				<!--{? _is_member && member.mb_woman == 3}-->
 								<li><a href="{C.G5_BBS_URL}/levelup.php">기존 회원 등업</a></li>
+				<!--{/}-->
+				<!--{? _is_member && member.mb_woman == 0}-->
+								<li><a href="{C.G5_BBS_URL}/board.php?bo_table=levelup">등업신청</a></li>
 				<!--{/}-->
 								<li><a href="{C.G5_BBS_URL}/mine.php">내가 쓴 글</a></li>
 								<li><a href="{C.G5_BBS_URL}/mine.php?type=cmt">내가 쓴 댓글</a></li>
