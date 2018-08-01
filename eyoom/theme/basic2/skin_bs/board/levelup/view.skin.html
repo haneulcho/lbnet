@@ -69,8 +69,13 @@
           <!--{? _category_name}--><span class="lbvcate">[{view.ca_name}]</span><!--{/}-->
           <strong>{=cut_str(get_text(view.wr_subject), 70)}</strong>
       </h4>
-
-        <!--{_file_conts}-->
+        <!--{? view.ca_name == '공지' }-->
+        {_file_conts}
+        <!--{:}-->
+            <!--{? _is_admin || view.is_mine }-->
+            {_file_conts}
+            <!--{/}-->
+        <!--{/}-->
 
         <!--{* 본문 내용 시작 *}-->
         <div class="board-view-con view-content">
@@ -82,10 +87,14 @@
               <p class='text-center'>-- 블라인드 처리된 글입니다. --</p>
             <!--{/}-->
           <!--{:}-->
-            <!--{? _is_admin || view.is_mine }-->
+            <!--{? view.ca_name == '공지' }-->
                 {_view_content}
             <!--{:}-->
-                <p>* 글쓴이와 운영진만 게시글 내용을 확인할 수 있습니다!</p>
+                <!--{? _is_admin || view.is_mine }-->
+                {_view_content}
+                <!--{:}-->
+                    <p>* 글쓴이와 운영진만 게시글 내용을 확인할 수 있습니다!</p>
+                <!--{/}-->
             <!--{/}-->
           <!--{/}-->
         </div>
