@@ -224,7 +224,7 @@ function fwrite_submit(f)
 								<!--{/}-->
 								<!--{? .is_notice }--><i class="fa fa-smile-o"></i> <b>{.subject}</b><!--{:}--><!--{? .icon_file}--><i class="fa fa-picture-o color-red"></i><!--{/}--> {.subject}<!--{/}-->
 	              <!--{?.icon_new}--><i class="fa fa-circle"></i>&nbsp;<!--{/}-->
-	              <!--{?.icon_secret}--><i class="fa fa-lock"></i>&nbsp;<!--{/}-->
+	              <!--{?.icon_secret}-->&nbsp;<i class="fa fa-lock"></i>&nbsp;<!--{/}-->
 								<!--{? .comment_cnt}-->
 								<span class="lbcomment"><i class="fa fa-comment-o"></i>{=number_format(.wr_comment)}</span><!--{/}-->
 								<!--{? !.is_notice && _is_good && .wr_good > 0 }--><span class="lbup"><i class="fa fa-thumbs-up"></i>{=number_format(.wr_good)}</span><!--{/}-->
@@ -255,7 +255,7 @@ function fwrite_submit(f)
 							<!--{?_admin_href}--><li><a href="{_admin_href}" class="btn-e btn-e-dark margin-right-5" type="button">관리자</a></li><!--{/}-->
 					<!--{?_eyoom_href}--><li><a href="{_eyoom_href}" class="btn-e btn-e-dark margin-right-5" type="button">이윰설정</a></li><!--{/}-->
 			</ul>
-			<!--{? _is_member}-->
+			<!--{? _is_member && _is_admin}-->
 	        <span class="pull-left">
 	        	<!--{?_rss_href}--><a href="{_rss_href}" class="btn-e btn-e-yellow" type="button"><i class="fa fa-rss"></i></a><!--{/}-->
 				<a href="javascript:;" class="btn-e btn-e-dark" type="button" data-toggle="modal" data-target=".search-modal"><i class="fa fa-search"></i></a>
