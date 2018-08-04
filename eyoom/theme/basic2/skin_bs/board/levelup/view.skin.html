@@ -181,8 +181,10 @@
           <!--{? _copy_href}--><a href="{_copy_href}" class="btn-e btn-e-light-grey" type="button" onclick="board_move(this.href); return false;">복사</a><!--{/}-->
           <!--{? _move_href}--><a href="{_move_href}" class="btn-e btn-e-light-grey" type="button" onclick="board_move(this.href); return false;">이동</a><!--{/}-->
         <!--{/}-->
-        <!--{? _update_href}--><a href="{_update_href}" class="lbbtn_light" type="button"><i class="fa fa-pencil"></i>수정</a><!--{/}-->
-        <!--{? _delete_href}--><a href="{_delete_href}" class="lbbtn_light" type="button" onclick="del(this.href); return false;"><i class="fa fa-trash-o"></i>삭제</a><!--{/}-->
+        <!--{? view.ca_name != '완료' || _is_admin }-->
+            <!--{? _update_href}--><a href="{_update_href}" class="lbbtn_light" type="button"><i class="fa fa-pencil"></i>수정</a><!--{/}-->
+            <!--{? _delete_href}--><a href="{_delete_href}" class="lbbtn_light" type="button" onclick="del(this.href); return false;"><i class="fa fa-trash-o"></i>삭제</a><!--{/}-->
+        <!--{/}-->
         <!--{? eyoom_board.bo_use_yellow_card == '1' }-->
             <!--{? eyoom_board.bo_use_yellow_card == '1' && _is_member }-->
                 <!--{? !mb_ycard.mb_id }-->
