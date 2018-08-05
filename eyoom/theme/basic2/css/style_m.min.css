@@ -1,6 +1,5 @@
 @charset "UTF-8";
-@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
-* {border-radius:0!important;font-family:'Nanum Gothic', 'Malgun Gothic', Dotum, Arial, Verdana, sans-serif}
+* {border-radius:0!important;font-family:HelveticaNeue-Light,AppleSDGothicNeo-Light,'Malgun Gothic','맑은 고딕',sans-serif}
 body {color:rgba(0, 0, 0, .87);font-size:12px;line-height:1.6;overflow-x:hidden}
 p, li, li a {color:rgba(0, 0, 0, .87)}
 a {color:rgba(0, 0, 0, .87);text-decoration:none}
