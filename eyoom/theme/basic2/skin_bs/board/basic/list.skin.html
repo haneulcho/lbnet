@@ -54,26 +54,6 @@
 
 <script>
 $save_val = $("#wr_content").val();
-$("#wr_content").click(function(){
-  if(!$(this).hasClass('txt_active')) {
-    $(this).addClass('txt_active');
-  }
-  if($(this).val() == $save_val) {
-    $(this).val('');
-  }
-}).focusin(function(){
-  if(!$(this).hasClass('txt_active')) {
-    $(this).addClass('txt_active');
-  }
-  if($(this).val() == $save_val) {
-    $(this).val('');
-  }
-}).focusout(function(){
-  if($(this).val() == '') {
-    $(this).removeClass('txt_active');
-    $(this).val($save_val);
-  }
-});
 function fwrite_submit(f)
 {
 	<!--{? _is_anonymous}-->
@@ -138,8 +118,8 @@ function fwrite_submit(f)
 #wr_content {
 	box-sizing:border-box;
 	width:100% !important;
-	-webkit-transition:height ease-in-out .2s;-moz-transition:height ease-in-out .2s;-o-transition:height ease-in-out .2s;transition:height ease-in-out .2s;font-size:12px;line-height:1.35;}
-#wr_content.txt_active{height:120px !important;}
+	font-size:13px;line-height:1.35;}
+#wr_content:focus {height:120px !important;}
 </style>
 <!--{/}-->
 <div class="board-list">
