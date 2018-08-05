@@ -1048,8 +1048,8 @@ fieldset legend {border-bottom:0}
 #lbboard li {clear:both;position:relative;list-style:none;margin:8px 0 0}
 #lbboard .lbcheck {float:left;padding:0;margin-top:8px}
 #lbboard .lblink.admin {margin-left:25px}
-#lbboard .lblink {position:relative;-webkit-box-sizing:border-box;box-sizing:border-box;box-shadow:0 5px 19px rgb(232, 232, 232);background-color:#fff;padding:14px 16px;transition:all ease .3s}
-#lbboard li:hover .lblink {padding-left:22px;box-shadow:0 5px 19px rgb(216, 216, 216)}
+#lbboard .lblink {position:relative;-webkit-box-sizing:border-box;box-sizing:border-box;box-shadow:0 5px 19px rgb(232, 232, 232);background-color:#fff;padding:14px 16px}
+#lbboard li:hover .lblink {box-shadow:0 5px 19px rgb(216, 216, 216)}
 #lbboard li:hover .lblink .lbtitle {font-weight:bold}
 #lbboard li.notice {margin-top:1px}
 #lbboard li.notice .lblink {padding:10px 16px 11px}
