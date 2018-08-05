@@ -31,7 +31,7 @@ if($_POST['w'] == 'u') {
 				PRIMARY KEY  (po_id),
 				KEY index1 (mb_id,po_rel_table,po_rel_id,po_rel_action),
 				KEY index2 (po_expire_date)
-			) ENGINE=MyISAM  DEFAULT CHARSET=utf8
+			) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4
 		";
 		sql_query($sql);
 		

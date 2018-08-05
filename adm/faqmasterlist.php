@@ -21,7 +21,7 @@ if(!sql_query(" DESCRIBE {$g5['faq_master_table']} ", false)) {
                       `fm_tail_html` text NOT NULL,
                       `fm_order` int(11) NOT NULL DEFAULT '0',
                       PRIMARY KEY (`fm_id`)
-                    ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ", true);
+                    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ", true);
     }
     // FAQ Master
     sql_query(" insert into `{$g5['faq_master_table']}` set fm_id = '1', fm_subject = '자주하시는 질문' ", false);
@@ -40,7 +40,7 @@ if(!sql_query(" DESCRIBE {$g5['faq_table']} ", false)) {
                       `fa_order` int(11) NOT NULL DEFAULT '0',
                       PRIMARY KEY (`fa_id`),
                       KEY `fm_id` (`fm_id`)
-                    ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ", true);
+                    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ", true);
     }
 }
 

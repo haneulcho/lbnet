@@ -115,7 +115,7 @@ if ($eb_version >= $eb->version_score('1.1.1')) {
 		  `wr_id` int(11) unsigned not null default '0',
 		  `theme` varchar(40) collate utf8_unicode_ci not null,
 		  primary key  (`s_no`)
-		) engine=myisam default charset=utf8
+		) engine=myisam default charset=utf8mb4
 	";
 	sql_query($sql, false);
 }
@@ -258,7 +258,7 @@ if ($eb_version >= $eb->version_score('1.1.10')) {
 		  `yc_reason` char(1) NOT NULL,
 		  `yc_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
 		  PRIMARY KEY  (`yc_id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 	";
 	sql_query($yellow_card_sql, true);
 }
@@ -369,7 +369,7 @@ if ($eb_version >= $eb->version_score('1.1.15')) {
 		  `rating` smallint(2) NOT NULL default '0',
 		  `rt_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
 		  PRIMARY KEY  (`rt_id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 	";
 	sql_query($rating_sql, true);
 }
@@ -410,7 +410,7 @@ if ($eb_version >= $eb->version_score('1.2.1')) {
 		  `tg_regdt` datetime NOT NULL default '0000-00-00 00:00:00',
 		  PRIMARY KEY  (`tg_id`),
 		  KEY `tg_word` (`tg_word`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 	";
 	sql_query($eyoom_tag_sql, true);
 	
@@ -445,7 +445,7 @@ if ($eb_version >= $eb->version_score('1.2.1')) {
 		  PRIMARY KEY  (`tw_id`),
 		  KEY `mb_id` (`mb_id`),
 		  KEY `wr_hit` (`wr_hit`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 	";
 	sql_query($eyoom_tag_write_sql, true);
 	

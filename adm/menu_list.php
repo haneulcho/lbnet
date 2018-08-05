@@ -21,7 +21,7 @@ if(!sql_query(" DESCRIBE {$g5['menu_table']} ", false)) {
                   `me_use` tinyint(4) NOT NULL DEFAULT '0',
                   `me_mobile_use` tinyint(4) NOT NULL DEFAULT '0',
                   PRIMARY KEY (`me_id`)
-                ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ", true);
+                ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ", true);
 }
 
 $sql = " select * from {$g5['menu_table']} order by me_id ";

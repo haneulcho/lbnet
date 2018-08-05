@@ -21,7 +21,7 @@ if(!sql_query(" DESCRIBE {$g5['content_table']} ", false)) {
                       `co_include_head` varchar(255) NOT NULL,
                       `co_include_tail` varchar(255) NOT NULL,
                       PRIMARY KEY (`co_id`)
-                    ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ", true);
+                    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ", true);
 
         // 내용관리 생성
         sql_query(" insert into `{$g5['content_table']}` set co_id = 'company', co_html = '1', co_subject = '회사소개', co_content= '<p align=center><b>회사소개에 대한 내용을 입력하십시오.</b></p>' ", false );

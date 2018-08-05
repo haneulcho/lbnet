@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `g5_auth` (
   `au_menu` varchar(20) NOT NULL default '',
   `au_auth` set('r','w','d') NOT NULL default '',
   PRIMARY KEY  (`mb_id`,`au_menu`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `g5_board` (
   `bo_9` varchar(255) NOT NULL DEFAULT '',
   `bo_10` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`bo_table`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `g5_board_file` (
   `bf_type` tinyint(4) NOT NULL default '0',
   `bf_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`bo_table`,`wr_id`,`bf_no`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `g5_board_good` (
   `bg_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`bg_id`),
   UNIQUE KEY `fkey1` (`bo_table`,`wr_id`,`mb_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `g5_board_new` (
   `mb_id` varchar(20) NOT NULL default '',
   PRIMARY KEY  (`bn_id`),
   KEY `mb_id` (`mb_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -317,7 +317,7 @@ CREATE TABLE IF NOT EXISTS `g5_config` (
   `cf_8` varchar(255) NOT NULL DEFAULT '',
   `cf_9` varchar(255) NOT NULL DEFAULT '',
   `cf_10` varchar(255) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -336,7 +336,7 @@ CREATE TABLE IF NOT EXISTS `g5_cert_history` (
   `cr_time` time NOT NULL DEFAULT '00:00:00',
   PRIMARY KEY (`cr_id`),
   KEY `mb_id` (`mb_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -373,7 +373,7 @@ CREATE TABLE IF NOT EXISTS `g5_group` (
   `gr_9` varchar(255) NOT NULL default '',
   `gr_10` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`gr_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -390,7 +390,7 @@ CREATE TABLE IF NOT EXISTS `g5_group_member` (
   PRIMARY KEY  (`gm_id`),
   KEY `gr_id` (`gr_id`),
   KEY `mb_id` (`mb_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -406,7 +406,7 @@ CREATE TABLE IF NOT EXISTS `g5_login` (
   `lo_location` text NOT NULL,
   `lo_url` text NOT NULL,
   PRIMARY KEY  (`lo_ip`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -423,7 +423,7 @@ CREATE TABLE IF NOT EXISTS `g5_mail` (
   `ma_ip` varchar(255) NOT NULL default '',
   `ma_last_option` text NOT NULL,
   PRIMARY KEY  (`ma_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -489,7 +489,7 @@ CREATE TABLE IF NOT EXISTS `g5_member` (
   UNIQUE KEY `mb_id` (`mb_id`),
   KEY `mb_today_login` (`mb_today_login`),
   KEY `mb_datetime` (`mb_datetime`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -507,7 +507,7 @@ CREATE TABLE IF NOT EXISTS `g5_memo` (
   `me_memo` text NOT NULL,
   PRIMARY KEY  (`me_id`),
   KEY `me_recv_mb_id` (`me_recv_mb_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -523,7 +523,7 @@ CREATE TABLE IF NOT EXISTS `g5_login_data` (
   `lg_time` datetime NOT NULL default '0000-00-00 00:00:00',
   `lg_success` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`lg_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -548,7 +548,7 @@ CREATE TABLE IF NOT EXISTS `g5_point` (
   PRIMARY KEY  (`po_id`),
   KEY `index1` (`mb_id`,`po_rel_table`,`po_rel_id`,`po_rel_action`),
   KEY `index2` (`po_expire_date`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -585,7 +585,7 @@ CREATE TABLE IF NOT EXISTS `g5_poll` (
   `po_ips` mediumtext NOT NULL,
   `mb_ids` text NOT NULL,
   PRIMARY KEY  (`po_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -602,7 +602,7 @@ CREATE TABLE IF NOT EXISTS `g5_poll_etc` (
   `pc_idea` varchar(255) NOT NULL default '',
   `pc_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`pc_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -618,7 +618,7 @@ CREATE TABLE IF NOT EXISTS `g5_popular` (
   `pp_ip` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`pp_id`),
   UNIQUE KEY `index1` (`pp_date`,`pp_word`,`pp_ip`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -635,7 +635,7 @@ CREATE TABLE IF NOT EXISTS `g5_scrap` (
   `ms_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`ms_id`),
   KEY `mb_id` (`mb_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -654,7 +654,7 @@ CREATE TABLE IF NOT EXISTS `g5_visit` (
   PRIMARY KEY  (`vi_id`),
   UNIQUE KEY `index1` (`vi_ip`,`vi_date`),
   KEY `index2` (`vi_date`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -668,7 +668,7 @@ CREATE TABLE IF NOT EXISTS `g5_visit_sum` (
   `vs_count` int(11) NOT NULL default '0',
   PRIMARY KEY  (`vs_date`),
   KEY `index1` (`vs_count`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -681,7 +681,7 @@ CREATE TABLE IF NOT EXISTS `g5_uniqid` (
   `uq_id` bigint(20) unsigned NOT NULL,
   `uq_ip` varchar(255) NOT NULL,
   PRIMARY KEY (`uq_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -700,7 +700,7 @@ CREATE TABLE IF NOT EXISTS `g5_autosave` (
   PRIMARY KEY (`as_id`),
   UNIQUE KEY `as_uid` (`as_uid`),
   KEY `mb_id` (`mb_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -746,7 +746,7 @@ CREATE TABLE IF NOT EXISTS `g5_qa_config` (
   `qa_3` varchar(255) NOT NULL DEFAULT '',
   `qa_4` varchar(255) NOT NULL DEFAULT '',
   `qa_5` varchar(255) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -785,7 +785,7 @@ CREATE TABLE IF NOT EXISTS `g5_qa_content` (
   `qa_5` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`qa_id`),
   KEY `qa_num_parent` (`qa_num`,`qa_parent`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -807,7 +807,7 @@ CREATE TABLE IF NOT EXISTS `g5_content` (
   `co_include_head` varchar(255) NOT NULL,
   `co_include_tail` varchar(255) NOT NULL,
   PRIMARY KEY (`co_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -824,7 +824,7 @@ CREATE TABLE IF NOT EXISTS `g5_faq` (
   `fa_order` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`fa_id`),
   KEY `fm_id` (`fm_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -842,7 +842,7 @@ CREATE TABLE IF NOT EXISTS `g5_faq_master` (
   `fm_mobile_tail_html` text NOT NULL,
   `fm_order` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`fm_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -865,7 +865,7 @@ CREATE TABLE IF NOT EXISTS `g5_new_win` (
   `nw_content` text NOT NULL,
   `nw_content_html` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`nw_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -884,4 +884,4 @@ CREATE TABLE IF NOT EXISTS `g5_menu` (
   `me_use` tinyint(4) NOT NULL DEFAULT '0',
   `me_mobile_use` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`me_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4;

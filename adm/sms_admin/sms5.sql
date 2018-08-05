@@ -33,7 +33,7 @@ CREATE TABLE `{$g5['sms5_book_table']}` (
   KEY `mb_no` (`mb_no`),
   KEY `bg_no` (`bg_no`,`bk_no`),
   KEY `mb_id` (`mb_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 
 ##
@@ -53,7 +53,7 @@ CREATE TABLE `{$g5['sms5_book_table']}_group` (
   `bg_reject` int(11) NOT NULL default '0',
   PRIMARY KEY  (`bg_no`),
   KEY `bg_name` (`bg_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 
 ##
@@ -66,7 +66,7 @@ DROP TABLE IF EXISTS `{$g5['sms5_config_table']}`;
 CREATE TABLE `{$g5['sms5_config_table']}` (
   `cf_phone` varchar(255) NOT NULL default '',
   `cf_datetime` datetime NOT NULL default '0000-00-00 00:00:00'  
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 
 ##
@@ -85,7 +85,7 @@ CREATE TABLE `{$g5['sms5_form_table']}` (
   `fo_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`fo_no`),
   KEY `fg_no` (`fg_no`,`fo_no`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 
 ##
@@ -102,7 +102,7 @@ CREATE TABLE `{$g5['sms5_form_table']}_group` (
   `fg_member` tinyint(4) NOT NULL,
   PRIMARY KEY  (`fg_no`),
   KEY `fg_name` (`fg_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 
 ##
@@ -135,7 +135,7 @@ CREATE TABLE `{$g5['sms5_history_table']}` (
   KEY `hs_code` (`hs_code`),
   KEY `bg_no` (`bg_no`),
   KEY `mb_id` (`mb_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 
 ##
@@ -158,4 +158,4 @@ CREATE TABLE `{$g5['sms5_write_table']}` (
   `wr_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
   `wr_memo` text NOT NULL,
   KEY `wr_no` (`wr_no`,`wr_renum`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;

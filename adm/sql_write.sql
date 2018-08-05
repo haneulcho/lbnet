@@ -41,4 +41,4 @@ CREATE TABLE `__TABLE_NAME__` (
   PRIMARY KEY (`wr_id`),
   KEY `wr_num_reply_parent` (`wr_num`,`wr_reply`,`wr_parent`),
   KEY `wr_is_comment` (`wr_is_comment`,`wr_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4;

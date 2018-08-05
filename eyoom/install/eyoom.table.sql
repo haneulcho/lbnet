@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_respond` (
   `regdt` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`rid`),
   KEY `mb_id` (`wr_mb_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_member` (
   `follower` longtext NOT NULL,
   `likes` longtext NOT NULL,
   UNIQUE KEY `mb_id` (`mb_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_new` (
   PRIMARY KEY  (`bn_id`),
   KEY `mb_id` (`mb_id`),
   KEY `wr_hit` (`wr_hit`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_banner` (
   `bn_view_level` tinyint(4) NOT NULL default '1',
   `bn_regdt` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`bn_no`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_activity` (
   `act_image` text NOT NULL,
   `act_regdt` datetime NOT NULL,
   PRIMARY KEY  (`act_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -213,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_board` (
   PRIMARY KEY  (`bo_id`),
   KEY `bo_table` (`bo_table`),
   KEY `bo_theme` (`bo_theme`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -230,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_guest` (
   `content` text NOT NULL,
   `gu_regdt` datetime NOT NULL,
   PRIMARY KEY  (`gu_no`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -258,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_menu` (
   `me_use` enum('y','n') NOT NULL default 'y',
   `me_use_nav` enum('y','n') NOT NULL default 'y',
   PRIMARY KEY  (`me_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -276,7 +276,7 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_theme` (
   `tm_ordno` varchar(20) NOT NULL,
   `tm_time` varchar(20) NOT NULL,
   UNIQUE KEY `tm_name` (`tm_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -291,7 +291,7 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_link` (
   `wr_id` int(11) unsigned NOT NULL default '0',
   `theme` varchar(40) collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`s_no`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -309,7 +309,7 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_yellowcard` (
   `yc_reason` char(1) NOT NULL,
   `yc_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`yc_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -327,7 +327,7 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_rating` (
   `rating` smallint(2) NOT NULL default '0',
   `rt_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`rt_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -348,7 +348,7 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_tag` (
   `tg_regdt` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`tg_id`),
   KEY `tg_word` (`tg_word`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -386,4 +386,4 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_tag_write` (
   PRIMARY KEY  (`tw_id`),
   KEY `mb_id` (`mb_id`),
   KEY `wr_hit` (`wr_hit`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;

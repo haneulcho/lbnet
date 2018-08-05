@@ -1696,7 +1696,7 @@ function get_table_define($table, $crlf="\n")
         $schema_create     .= implode($columns, ', ') . ')';
     } // end while
 
-    $schema_create .= $crlf . ') ENGINE=MyISAM DEFAULT CHARSET=utf8';
+    $schema_create .= $crlf . ') ENGINE=MyISAM DEFAULT CHARSET=utf8mb4';
 
     return $schema_create;
 } // end of the 'PMA_getTableDef()' function

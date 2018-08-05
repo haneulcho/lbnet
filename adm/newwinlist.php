@@ -26,7 +26,7 @@ if(!sql_query(" DESCRIBE {$g5['new_win_table']} ", false)) {
                       `nw_content` text NOT NULL,
                       `nw_content_html` tinyint(4) NOT NULL DEFAULT '0',
                       PRIMARY KEY (`nw_id`)
-                    ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ", true);
+                    ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ", true);
     }
 }
 
