@@ -72,11 +72,10 @@
         <!--{? view.ca_name == '공지' }-->
         {_file_conts}
         <!--{:}-->
-            <!--{? _is_admin || view.is_mine }-->
+            <!--{? member.mb_id == 'lebolution' || member.mb_id == 'lbadmin_col' || view.is_mine }-->
             {_file_conts}
             <!--{/}-->
         <!--{/}-->
-
         <!--{* 본문 내용 시작 *}-->
         <div class="board-view-con view-content">
           <!--{? ycard.yc_blind == 'y'}-->
@@ -90,7 +89,7 @@
             <!--{? view.ca_name == '공지' }-->
                 {_view_content}
             <!--{:}-->
-                <!--{? _is_admin || view.is_mine }-->
+                <!--{? member.mb_id == 'lebolution' || member.mb_id == 'lbadmin_col' || view.is_mine }-->
                 {_view_content}
                 <!--{:}-->
                     <p>* 글쓴이와 운영진만 게시글 내용을 확인할 수 있습니다!</p>
@@ -98,7 +97,7 @@
             <!--{/}-->
           <!--{/}-->
         </div>
-        <!--{? _is_admin && view.ca_name != '공지' }-->
+        <!--{? (member.mb_id == 'lebolution' || member.mb_id == 'lbadmin_col') && view.ca_name != '공지' }-->
             <div class="lbvinfo lbvinfo_default">
                 <h2><i class="fa fa-star"></i>레볼루션에 등록된 정보</h2>
                 <dl>
@@ -110,7 +109,7 @@
                     <dd>{view.lb_email}</dd>
                 </dl>
             </div>
-            <!--{? _is_admin && view.ca_name != '완료' }-->
+            <!--{? (member.mb_id == 'lebolution' || member.mb_id == 'lbadmin_col') && view.ca_name != '완료' }-->
                 <form name="flevelup" id="flevelup" action="./levelup_update.php" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form margin-bottom-20">
                 <input type="hidden" name="bo_table" value="{_bo_table}">
                     <input type="hidden" name="mb_id" value="{view.lb_id}">
