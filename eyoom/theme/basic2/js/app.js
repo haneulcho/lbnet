@@ -163,7 +163,31 @@ jQuery(document).ready(function() {
       el.attr('id', target);
       lbScrollTo(el);
     }, 145);
-  }
+    }
+    if ($('.lb_toggle').length) {
+        $('.lb_toggle').on('click', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+            if ($this.hasClass('btn_menu')) {
+                $('.lb_m_nav.left').addClass('opened');
+                setTimeout(function () {
+                    $('.lb_m_nav.left .lb_m_nav_cont').addClass('opened');
+                }, 100);
+            } else {
+                $('.lb_m_nav.right').addClass('opened');
+                setTimeout(function () {
+                    $('.lb_m_nav.right .lb_m_nav_cont').addClass('opened');
+                }, 100);
+            }
+        });
+        $('.lb_m_nav').find('.btn_navClose').on('click', function (e) {
+            e.preventDefault();
+            $(this).parents('.lb_m_nav_cont').removeClass('opened');
+            setTimeout(function () {
+                $('.lb_m_nav').removeClass('opened');
+            }, 800);
+        });
+    }
 });
 function lbScrollTo(targets) {
   $('html, body').animate({
