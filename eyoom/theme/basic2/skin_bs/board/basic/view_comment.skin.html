@@ -504,20 +504,24 @@ $(function() {
 
 function excute_goodcmt(href, $el)
 {
-	$.post(
-		href,
-		{ js: "on" },
-		function(data) {
-			if(data.error) {
-				alert(data.error);
-				return false;
-			}
+    var msg = ($el.hasClass('nogoodcmt_button')) ? '비추천' : '추천';
+    var confirmed = confirm('이 댓글을 ' + msg + ' 하시겠습니까?');
+    if (confirmed) {
+		$.post(
+			href,
+			{ js: "on" },
+			function(data) {
+				if(data.error) {
+					alert(data.error);
+					return false;
+				}
 
-			if(data.count) {
-				$el.find("strong").text(number_format(String(data.count)));
-			}
-		}, "json"
-	);
+				if(data.count) {
+					$el.find("strong").text(number_format(String(data.count)));
+				}
+			}, "json"
+		);
+	}
 }
 </script>
 <!--{? eyoom_board.bo_use_cmt_infinite == '1'}-->
