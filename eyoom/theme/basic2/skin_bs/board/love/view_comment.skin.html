@@ -173,7 +173,11 @@ var char_max = parseInt({_comment_max}); // 최대
 							<strong>Note:</strong> 추가정보 입력시 50포인트 적립
 							<!--{/}-->
 							</div>
+							<!--{? view.is_moreinfo}-->
+							<dl id="moreinfo">
+							<!--{:}-->
 							<dl id="moreinfo" style="display:none">
+							<!--{/}-->
 								<dt>직업</dt>
 								<dd>
 									<label class="select">
@@ -192,7 +196,7 @@ var char_max = parseInt({_comment_max}); // 최대
 								<dt>키</dt>
 								<dd>
 									<label class="select">
-									<select id="wr_figure1" name="wr_figure[]" <!--{? view.is_moreinfo}-->required <!--{/}-->class="form-control c-select">
+									<select id="wr_figure1" name="wr_figure[]" class="form-control c-select">
 										<option value="0">키를 선택하세요.</option>
 										<?php
 											$figure1 = array('155cm 미만', '155~159cm', '160~164cm', '165~169cm', '170cm 이상');
@@ -207,7 +211,7 @@ var char_max = parseInt({_comment_max}); // 최대
 								<dt>체형</dt>
 								<dd>
 									<label class="select">
-									<select id="wr_figure2" name="wr_figure[]" <!--{? view.is_moreinfo}-->required <!--{/}-->class="form-control c-select">
+									<select id="wr_figure2" name="wr_figure[]" class="form-control c-select">
 										<option value="0">체형을 선택하세요.</option>
 										<?php
 											$figure2 = array('마름', '보통', '통통', '통통 이상');
