@@ -422,13 +422,16 @@ function comment_box(comment_id, work)
 	// 댓글 아이디가 넘어오면 답변, 수정
 	if (comment_id)
 	{
-		if (work == 'c')
+		if (work == 'c') {
 			el_id = 'reply_' + comment_id;
-		else
+		} else {
 			el_id = 'edit_' + comment_id;
-	}
-	else
+		}
+		$('#' + el_id).addClass('writing');
+	} else {
 		el_id = 'view-comment-write';
+		$('#' + el_id).removeClass('writing');
+	}
 
 	if (save_before != el_id)
 	{

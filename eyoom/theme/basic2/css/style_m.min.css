@@ -1242,6 +1242,8 @@ fieldset legend {border-bottom:0}
 .view-comment .comment-btn .list-inline>li a {color:#bbb}
 .view-comment .comment-btn .list-inline>li a:hover, .view-comment .comment-btn .list-inline>li a span.wow {color:#f44455}
 .comment-area .comment-write-wrap {position:relative;border-top:1px solid #e5e5e5;margin-top:0;padding:15px}
+.comment-area .writing .comment-write-wrap {padding:30px 15px 15px}
+.comment-area .writing .comment-write-wrap:before {content:'\f061  대댓글 작성 중입니다.';font-family:'FontAwesome';position:absolute;top:11px;left:15px;font-size:11px;color:#818a91}
 .comment-area .comment-write-submit {position:relative;text-align:right}
 .comment-area .comment-function-box {margin-bottom:5px}
 #bo_vc_send_sns ul {padding:0;margin:-5px 0 20px;overflow:hidden}
