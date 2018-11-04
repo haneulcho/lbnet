@@ -179,6 +179,7 @@ jQuery(document).ready(function() {
                     $('.lb_m_nav.right .lb_m_nav_cont').addClass('opened');
                 }, 100);
             }
+            $('body').addClass('fixed');
         });
         $('.lb_m_nav').find('.btn_navClose').on('click', function (e) {
             e.preventDefault();
@@ -186,6 +187,7 @@ jQuery(document).ready(function() {
             setTimeout(function () {
                 $('.lb_m_nav').removeClass('opened');
             }, 800);
+            $('body').removeClass('fixed');
         });
     }
 });
