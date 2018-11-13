@@ -15,6 +15,7 @@ if($eyoom_board['bo_use_level_icon'] == '1') $checked['bo_use_level_icon'] = tru
 if($eyoom_board['bo_use_hotgul'] == '1') $checked['bo_use_hotgul'] = true; else $checked['bo_use_hotgul'] = false;
 if($eyoom_board['bo_use_anonymous'] == '1') $checked['bo_use_anonymous'] = true; else $checked['bo_use_anonymous'] = false;
 if($eyoom_board['bo_use_anonymous_respond'] == '1') $checked['bo_use_anonymous_respond'] = true; else $checked['bo_use_anonymous_respond'] = false;
+if($eyoom_board['bo_use_timer'] == '1') $checked['bo_use_timer'] = true; else $checked['bo_use_timer'] = false;
 if($eyoom_board['bo_use_infinite_scroll'] == '1') $checked['bo_use_infinite_scroll'] = true; else $checked['bo_use_infinite_scroll'] = false;
 if($eyoom_board['bo_use_cmt_infinite'] == '1') $checked['bo_use_cmt_infinite'] = true; else $checked['bo_use_cmt_infinite'] = false;
 if($eyoom_board['bo_use_cmt_best'] == '1') $checked['bo_use_cmt_best'] = true; else $checked['bo_use_cmt_best'] = false;
@@ -341,6 +342,59 @@ $frm_submit = '
 				<label for="chk_all_blind_direct">전체적용</label>
 			</td>
 		</tr>
+        </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="anc_bo_basic">
+    <h2 class="h2_frm color-green">게시판 접근 시간 설정 기능</h2>
+
+    <div class="tbl_frm01 tbl_wrap">
+        <table>
+        <caption>게시판 접근 시간 설정 기능</caption>
+        <colgroup>
+            <col class="grid_4">
+            <col>
+            <col class="grid_3">
+        </colgroup>
+        <tbody>
+        <tr>
+            <th scope="row"><label for="bo_use_timer">게시판 접근 시간 설정 기능 사용</label></th>
+            <td>
+				<label for="bo_use_timer"><input type="checkbox" name="bo_use_timer" value="1" id="bo_use_timer" <?php echo $checked['bo_use_timer']?'checked':''; ?>> 사용</label>
+            </td>
+            <td class="td_grpset">
+                <input type="checkbox" name="chk_grp_timer" value="1" id="chk_grp_timer">
+                <label for="chk_grp_timer">그룹적용</label>
+                <input type="checkbox" name="chk_all_timer" value="1" id="chk_all_timer">
+                <label for="chk_all_timer">전체적용</label>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="bo_timer_start">게시판 접근 시작 시간</label></th>
+            <td>
+				<input type="text" name="bo_timer_start" value="<?php echo $eyoom_board['bo_timer_start'] ?>" id="bo_timer_start" class="frm_input" size="30"> (형식: 0000-00-00 00:00:00)
+            </td>
+            <td class="td_grpset">
+                <input type="checkbox" name="chk_grp_timer_start" value="1" id="chk_grp_timer_start">
+                <label for="chk_grp_timer_start">그룹적용</label>
+                <input type="checkbox" name="chk_all_timer_start" value="1" id="chk_all_timer_start">
+                <label for="chk_all_timer_start">전체적용</label>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="bo_timer_end">게시판 접근 종료 시간</label></th>
+            <td>
+				<input type="text" name="bo_timer_end" value="<?php echo $eyoom_board['bo_timer_end'] ?>" id="bo_timer_end" class="frm_input" size="30"> (형식: 0000-00-00 00:00:00)
+            </td>
+            <td class="td_grpset">
+                <input type="checkbox" name="chk_grp_timer_end" value="1" id="chk_grp_timer_end">
+                <label for="chk_grp_timer_end">그룹적용</label>
+                <input type="checkbox" name="chk_all_timer_end" value="1" id="chk_all_timer_end">
+                <label for="chk_all_timer_end">전체적용</label>
+            </td>
+        </tr>
         </tbody>
         </table>
     </div>

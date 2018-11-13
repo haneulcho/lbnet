@@ -20,6 +20,18 @@ if ($eb_version >= $eb->version_score('1.0.3')) {
 	if(!sql_query(" select bo_use_anonymous_respond from {$g5['eyoom_board']} limit 1 ", false)) {
 		sql_query(" alter table `{$g5['eyoom_board']}` add `bo_use_anonymous_respond` char(1) not null default '2' after `bo_use_anonymous` ", true);
 	}
+	// 이윰보드 게시판 접근 시간 설정 사용여부 필드 추가
+	if(!sql_query(" select bo_use_timer from {$g5['eyoom_board']} limit 1 ", false)) {
+		sql_query(" alter table `{$g5['eyoom_board']}` add `bo_use_timer` char(1) not null default '0' after `bo_use_anonymous_respond` ", true);
+	}
+	// 이윰보드 게시판 접근 시작 시간 필드 추가
+	if(!sql_query(" select bo_timer_start from {$g5['eyoom_board']} limit 1 ", false)) {
+		sql_query(" alter table `{$g5['eyoom_board']}` add `bo_timer_start` datetime not null default '0000-00-00 00:00:00' after `bo_use_timer` ", true);
+	}
+	// 이윰보드 게시판 접근 종료 시간 필드 추가
+	if(!sql_query(" select bo_timer_end from {$g5['eyoom_board']} limit 1 ", false)) {
+		sql_query(" alter table `{$g5['eyoom_board']}` add `bo_timer_end` datetime not null default '0000-00-00 00:00:00' after `bo_timer_start` ", true);
+	}
 }
 
 /**

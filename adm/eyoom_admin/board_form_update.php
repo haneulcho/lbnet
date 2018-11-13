@@ -16,6 +16,7 @@ $set = "
 	bo_use_hotgul				= '{$_POST['bo_use_hotgul']}',
 	bo_use_anonymous			= '{$_POST['bo_use_anonymous']}',
 	bo_use_anonymous_respond	= '{$_POST['bo_use_anonymous_respond']}',
+	bo_use_timer				= '{$_POST['bo_use_timer']}',
 	bo_use_infinite_scroll		= '{$_POST['bo_use_infinite_scroll']}',
 	bo_use_cmt_infinite			= '{$_POST['bo_use_cmt_infinite']}',
 	bo_use_cmt_best				= '{$_POST['bo_use_cmt_best']}',
@@ -42,6 +43,8 @@ $set = "
 	bo_blind_limit				= '{$_POST['bo_blind_limit']}',
 	bo_blind_view				= '{$_POST['bo_blind_view']}',
 	bo_blind_direct				= '{$_POST['bo_blind_direct']}',
+	bo_timer_start				= '{$_POST['bo_timer_start']}',
+	bo_timer_end				= '{$_POST['bo_timer_end']}',
 	download_fee_ratio			= '{$_POST['download_fee_ratio']}'
 ";
 
@@ -84,6 +87,7 @@ if ($_POST['wmode']) {
 	if (is_checked('chk_grp_hotgul'))				$grp_fields .= " , bo_use_hotgul = '{$_POST['bo_use_hotgul']}' ";
 	if (is_checked('chk_grp_anonymous'))			$grp_fields .= " , bo_use_anonymous = '{$_POST['bo_use_anonymous']}' ";
 	if (is_checked('chk_grp_anonymous_respond'))	$grp_fields .= " , bo_use_anonymous_respond = '{$_POST['bo_use_anonymous_respond']}' ";
+	if (is_checked('chk_grp_timer'))				$grp_fields .= " , bo_use_timer = '{$_POST['bo_use_timer']}' ";
 	if (is_checked('chk_grp_infinite_scroll'))		$grp_fields .= " , bo_use_infinite_scroll = '{$_POST['bo_use_infinite_scroll']}' ";
 	if (is_checked('chk_grp_cmt_infinite'))			$grp_fields .= " , bo_use_cmt_infinite = '{$_POST['bo_use_cmt_infinite']}' ";
 	if (is_checked('chk_grp_cmt_best'))				$grp_fields .= " , bo_use_cmt_best = '{$_POST['bo_use_cmt_best']}' ";
@@ -113,6 +117,8 @@ if ($_POST['wmode']) {
 	if (is_checked('chk_grp_blind_limit'))			$grp_fields .= " , bo_blind_limit = '{$_POST['bo_blind_limit']}' ";
 	if (is_checked('chk_grp_blind_view'))			$grp_fields .= " , bo_blind_view = '{$_POST['bo_blind_view']}' ";
 	if (is_checked('chk_grp_blind_direct'))			$grp_fields .= " , bo_blind_direct = '{$_POST['bo_blind_direct']}' ";
+	if (is_checked('chk_grp_timer_start'))			$grp_fields .= " , bo_timer_start = '{$_POST['bo_timer_start']}' ";
+	if (is_checked('chk_grp_timer_end'))			$grp_fields .= " , bo_timer_end = '{$_POST['bo_timer_end']}' ";
 	if (is_checked('chk_grp_cmtpoint_target'))		$grp_fields .= " , bo_cmtpoint_target = '{$_POST['bo_cmtpoint_target']}' ";
 	if (is_checked('chk_grp_download_ratio'))		$grp_fields .= " , download_fee_ratio = '{$_POST['download_fee_ratio']}' ";
 	if (is_checked('chk_grp_firstcmt_point')) {
@@ -143,6 +149,7 @@ if ($_POST['wmode']) {
 	if (is_checked('chk_all_hotgul'))				$all_fields .= " , bo_use_hotgul = '{$_POST['bo_use_hotgul']}' ";
 	if (is_checked('chk_all_anonymous'))			$all_fields .= " , bo_use_anonymous = '{$_POST['bo_use_anonymous']}' ";
 	if (is_checked('chk_all_anonymous_respond'))	$all_fields .= " , bo_use_anonymous_respond = '{$_POST['bo_use_anonymous_respond']}' ";
+	if (is_checked('chk_all_timer'))				$all_fields .= " , bo_use_timer = '{$_POST['bo_use_timer']}' ";
 	if (is_checked('chk_all_infinite_scroll'))		$all_fields .= " , bo_use_infinite_scroll = '{$_POST['bo_use_infinite_scroll']}' ";
 	if (is_checked('chk_all_cmt_infinite'))			$all_fields .= " , bo_use_cmt_infinite = '{$_POST['bo_use_cmt_infinite']}' ";
 	if (is_checked('chk_all_cmt_best'))				$all_fields .= " , bo_use_cmt_best = '{$_POST['bo_use_cmt_best']}' ";
@@ -172,6 +179,8 @@ if ($_POST['wmode']) {
 	if (is_checked('chk_all_blind_limit'))			$all_fields .= " , bo_blind_limit = '{$_POST['bo_blind_limit']}' ";
 	if (is_checked('chk_all_blind_view'))			$all_fields .= " , bo_blind_view = '{$_POST['bo_blind_view']}' ";
 	if (is_checked('chk_all_blind_direct'))			$all_fields .= " , bo_blind_direct = '{$_POST['bo_blind_direct']}' ";
+	if (is_checked('chk_all_timer_start'))			$all_fields .= " , bo_timer_start = '{$_POST['bo_timer_start']}' ";
+	if (is_checked('chk_all_timer_end'))			$all_fields .= " , bo_timer_end = '{$_POST['bo_timer_end']}' ";
 	if (is_checked('chk_all_cmtpoint_target'))		$all_fields .= " , bo_cmtpoint_target = '{$_POST['bo_cmtpoint_target']}' ";
 	if (is_checked('chk_all_download_ratio'))		$all_fields .= " , download_fee_ratio = '{$_POST['download_fee_ratio']}' ";
 	if (is_checked('chk_all_firstcmt_point'))	{

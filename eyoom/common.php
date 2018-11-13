@@ -93,6 +93,15 @@
 		// 익명내글반응 체크
 		$is_anonymous_respond = $eyoom_board['bo_use_anonymous_respond'] == 1 ? true:false;
 
+		// 게시판 접근 시간 설정 사용여부 체크
+		$is_timer = $eyoom_board['bo_use_timer'] == 1 ? true:false;
+
+		// 게시판 접근 시간 설정 사용시 변수 담기
+		if($is_timer) {
+			$timer_start = $eyoom_board['bo_timer_start'];
+			$timer_end = $eyoom_board['bo_timer_end'];
+		}
+
 		// 무한스크롤 기능을 사용하면 wmode를 활성화
 		if($eyoom_board['bo_use_infinite_scroll'] == 1) {
 			$user_agent = $eb->user_agent();

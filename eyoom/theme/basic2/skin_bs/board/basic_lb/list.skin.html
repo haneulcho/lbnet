@@ -1,6 +1,26 @@
 <?php if (!defined('_GNUBOARD_')) exit; ?>
 
 <div class="board-area">
+
+<!-- {* 게시판 접근 시간 가져오기 *} -->
+
+<!--{? !_wr_id && _is_timer}-->
+
+	<!--{? _is_timer}-->
+	<p>게시판 공개 시작 시간: {_timer_start}</p>
+	<p>게시판 공개 마감 시간: {_timer_end}</p>
+
+	<p>게시판 접근 기능을 쓰고 있지 않습니다!</p>
+	<!--{:}-->
+	<p>게시판 접근 기능을 쓰고 있습니다!</p>
+	<!--{/}-->
+
+<!--{/}-->
+
+
+
+
+
 <!--{? !_wr_id && _bo_table == 'free' }-->
 <section class="board-write">
 	<form name="fwrite" id="fwrite" action="./write_update.php" onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form">
