@@ -141,7 +141,9 @@ var char_max = parseInt({_comment_max}); // 최대
 						<!--{? _is_anonymous}-->
 						<label class="checkbox pull-left"><input type="checkbox" name="anonymous" value="y" id="anonymous" checked><i></i>익명글</label>
 						<!--{/}-->
+						<!--{? _bo_table != 'sdiary' }-->
 						<label class="checkbox pull-left" style="margin-left:15px;"><input type="checkbox" name="wr_secret" value="secret" id="wr_secret"><i></i>비밀글</label>
+						<!--{/}-->
 						<!--{? eyoom_board.bo_use_addon_cmtimg == '1'}-->
 						<span class="lbimage">
 						<a data-toggle="collapse" data-parent="#comment-option" href="#collapse-image-cm"><i class="fa fa-picture-o"></i>이미지 첨부</a>
