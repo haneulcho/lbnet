@@ -61,18 +61,18 @@
                     </div>
                   </a>
                   <!--{:}-->
-                  <a href="{.href}">{=stripslashes(.wr_subject)}</a>
+                  <a href="{.href}" class="lbtitle" style="font-size:12px">{=stripslashes(.wr_subject)}<!--{? .wr_comment > 0}--><span class="lbcomment"><i class="fa fa-comment-o"></i>{=number_format(.wr_comment)}</span><!--{/}--><!--{? .wr_good > 0}--><span class="lbup"><i class="fa fa-thumbs-up"></i>{=number_format(.wr_good)}</span><!--{/}--></a>
                   <!--{/}-->
 					    </td>
 				        <td class="text-center hidden-xs"><a href="./board.php?bo_table={.bo_table}">{.bo_subject}</a></td>
 				        <td class="text-center hidden-xs"><div>{.name}</div></td>
-				        <td class="text-center hidden-xs">{.datetime2}</td>
+				        <td class="text-center hidden-xs">{.datetime}</td>
 				    </tr>
 			        <tr class="td-mobile visible-xs"><!--{* 767px 이하에서만 보임 *}-->
 				        <td colspan="{colspan}">
 					        <span><a href="./board.php?bo_table={.bo_table}">[{.bo_subject}]</a></span>
 					        <span><i class="fa fa-user"></i> {.name}</span>
-					        <span><i class="fa fa-clock-o"></i> {.datetime2}</span>
+					        <span><i class="fa fa-clock-o"></i> {.datetime_mobile}</span>
 				        </td>
 			        </tr>
 				    <!--{:}-->

@@ -20,21 +20,24 @@
 		$num = $total_count - ($page - 1) * $config['cf_page_rows'] - $i;
 		$bo_subject = cut_str($newlist[$i]['bo_subject'], 20);
 		$wr_subject = get_text(cut_str($newlist[$i]['wr_subject'], 80));
-    $wr_content = get_text(cut_str($newlist[$i]['wr_content'], 120));
+    	$wr_content = get_text(cut_str($newlist[$i]['wr_content'], 120));
 
 		unset($data);
 
 		$data['num'] = $num;
 		$data['bo_subject'] = $bo_subject;
 		$data['wr_subject'] = $wr_subject;
-    $data['wr_content'] = $wr_content;
+		$data['wr_content'] = $wr_content;
+		$data['wr_comment'] = $newlist[$i]['wr_comment'];
+		$data['wr_good'] 	= $newlist[$i]['wr_good'];
 		$data['bo_table']	= $newlist[$i]['bo_table'];
 		$data['wr_id']		= $newlist[$i]['wr_id'];
 		// $data['gr_id']		= $newlist[$i]['gr_id'];
 		$data['comment']	= $newlist[$i]['comment'];
 		$data['name']		= $newlist[$i]['name'];
 		$data['href']		= $newlist[$i]['href'];
-		$data['datetime2']	= $newlist[$i]['datetime2'];
+		$data['datetime']	= $newlist[$i]['datetime'];
+		$data['datetime_mobile']	= $newlist[$i]['datetime_mobile'];
 
 		$list[$i] = $data;
 	}

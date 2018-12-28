@@ -1508,6 +1508,35 @@ function sql_query($sql, $error=G5_DISPLAY_SQL_ERROR, $link=null)
     return $result;
 }
 
+function sql_query_arrow_union($sql, $error=G5_DISPLAY_SQL_ERROR, $link=null)
+{
+    global $g5;
+
+    if(!$link)
+        $link = $g5['connect_db'];
+
+    // Blind SQL Injection 취약점 해결
+    $sql = trim($sql);
+    // `information_schema` DB로의 접근을 허락하지 않습니다.
+    $sql = preg_replace("#^select.*from.*where.*`?information_schema`?.*#i", "select 1", $sql);
+
+    if(function_exists('mysqli_query') && G5_MYSQLI_USE) {
+        if ($error) {
+            $result = @mysqli_query($link, $sql) or die("<p>$sql<p>" . mysqli_errno($link) . " : " .  mysqli_error($link) . "<p>error file : {$_SERVER['SCRIPT_NAME']}");
+        } else {
+            $result = @mysqli_query($link, $sql);
+        }
+    } else {
+        if ($error) {
+            $result = @mysql_query($sql, $link) or die("<p>$sql<p>" . mysql_errno() . " : " .  mysql_error() . "<p>error file : {$_SERVER['SCRIPT_NAME']}");
+        } else {
+            $result = @mysql_query($sql, $link);
+        }
+    }
+
+    return $result;
+}
+
 
 // 쿼리를 실행한 후 결과값에서 한행을 얻는다.
 function sql_fetch($sql, $error=G5_DISPLAY_SQL_ERROR, $link=null)

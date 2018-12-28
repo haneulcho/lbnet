@@ -11,23 +11,41 @@ $g5['title'] = $is_cmt ? '내가 쓴 댓글' : '내가 쓴 글';
 $view = $is_cmt ? 'cmt' : '';
 include_once('./_head.php');
 
-$sql_common = " from {$g5['board_new_table']} a, {$g5['board_table']} b where a.bo_table = b.bo_table ";
-
-if ($is_cmt)
-  $sql_common .= " and a.wr_id <> a.wr_parent ";
-else
-  $sql_common .= " and a.wr_id = a.wr_parent ";
-
 $mb_id = substr(preg_replace('#[^a-z0-9_]#i', '', $member['mb_id']), 0, 20);
 
-if ($mb_id) {
-    $sql_common .= " and a.mb_id = '{$mb_id}' ";
+if ($is_cmt) {
+  $sql_common = " wr_id <> wr_parent ";
+} else {
+  $sql_common = " wr_id = wr_parent ";
 }
-$sql_order = " order by a.bn_id desc ";
+if ($mb_id) {
+  $sql_common .= " and mb_id = '{$mb_id}' ";
+}
+$sql_order = " order by wr_id desc ";
 
-$sql = " select count(*) as cnt {$sql_common} ";
-$row = sql_fetch($sql);
-$total_count = $row['cnt'];
+$g5_search['tables'] = Array();
+$g5_search['read_level'] = Array();
+
+$sql = " select bo_table, bo_read_level, bo_subject, bo_mobile_subject from {$g5['board_table']} where bo_use_search = 1 and bo_list_level <= '{$member['mb_level']}' ";
+$result = sql_query($sql);
+
+for ($i=0; $row=sql_fetch_array($result); $i++) {
+    $g5_search['tables'][] = $row['bo_table'];
+    $g5_search['read_level'][] = $row['bo_read_level'];
+    $g5_search['bo_subject'][] = $row['bo_subject'];
+    $g5_search['bo_mobile_subject'][] = $row['bo_mobile_subject'];
+}
+ 
+$total_count = 0;
+for ($i=0; $i<count($g5_search['tables']); $i++) {
+    $tmp_write_table = $g5['write_prefix'] . $g5_search['tables'][$i];
+
+    $sql = " select wr_id from {$tmp_write_table} where {$sql_common} ";
+    $result = sql_query($sql);
+    $row['cnt'] = @sql_num_rows($result);
+
+    $total_count += $row['cnt'];
+}
 
 // $rows = G5_IS_MOBILE ? $config['cf_mobile_page_rows'] : $config['cf_new_rows'];
 $rows = 15;
@@ -36,81 +54,57 @@ if ($page < 1) $page = 1; // 페이지가 없으면 첫 페이지 (1 페이지)
 $from_record = ($page - 1) * $rows; // 시작 열을 구함
 
 $list = array();
-$sql = " select a.*, b.bo_subject, b.bo_mobile_subject {$sql_common} {$sql_order} limit {$from_record}, {$rows} ";
-$result = sql_query($sql);
-for ($i=0; $row=sql_fetch_array($result); $i++) {
-    $tmp_write_table = $g5['write_prefix'].$row['bo_table'];
 
-    if ($row['wr_id'] == $row['wr_parent']) {
+for ($i=0; $i<count($g5_search['tables']); $i++) {
+  $tmp_write_table = $g5['write_prefix'] . $g5_search['tables'][$i];
+  $tmp_bo_table = $g5_search['tables'][$i];
+  $tmp_bo_subject = $g5_search['bo_subject'][$i];
 
-        // 원글
-        $comment_link = "";
-        $row2 = sql_fetch(" select * from {$tmp_write_table} where wr_id = '{$row['wr_id']}' ");
-        $list[$i] = $row2;
+  $sql_union .= " select '{$tmp_bo_table}' as bo_table, '{$tmp_bo_subject}' as bo_subject, wr_id, wr_parent, wr_subject, wr_content, wr_comment, wr_good, mb_id, wr_name, wr_datetime, wr_1 from {$tmp_write_table} where {$sql_common} ";
+  if ($i != count($g5_search['tables']) - 1) {
+    $sql_union .= " union all ";
+  } else {
+    $sql_union .= " order by wr_datetime desc ";
+  }
+}
+$sql_union .= " limit {$from_record}, {$rows} ";
+$result = sql_query_arrow_union($sql_union);
 
-        // 익명/비익명 구분
-        list($gnu_level,$eyoom_level,$anonymous) = explode('|',$row2['wr_1']);
-        if(!$anonymous) {
-          $name = $row2['wr_name'];
-        } else {
-          if($anonymous == 'y') {
-            $name = '익명';
-          }
-        }
+for ($k=0; $row=sql_fetch_array($result); $k++) {
+  $list[$k] = $row;
+  if ($row['wr_id'] == $row['wr_parent']) {
+    // 일반글
+    $list[$k]['wr_subject'] = $row['wr_subject'];
+    $list[$k]['wr_comment'] = $row['wr_comment'];
+    $list[$k]['href'] = './board.php?bo_table='.$row['bo_table'].'&amp;wr_id='.$row['wr_id'];
+  } else {
+    // 코멘트
+    $write_table = $g5['write_prefix'] . $row['bo_table'];
+    $comment_link = '#c_'.$row['wr_id'];
+    $row2 = sql_fetch(" select wr_subject from {$write_table} where wr_id = '{$row['wr_parent']}' ");
 
-        // 당일인 경우 시간으로 표시함
-        $datetime = substr($row2['wr_datetime'],0,10);
-        $datetime2 = $row2['wr_datetime'];
-        if ($datetime == G5_TIME_YMD) {
-            $datetime2 = substr($datetime2,11,5);
-        } else {
-            $datetime2 = substr($datetime2,0,10);
-        }
+    $list[$k]['wr_subject'] = $row2['wr_subject'];
+    $list[$k]['wr_content'] = $row['wr_content'];
+    $list[$k]['href'] = './board.php?bo_table='.$row['bo_table'].'&amp;wr_id='.$row['wr_parent'].$comment_link;
+  }
 
-    } else {
-
-        // 코멘트
-        $comment_link = '#c_'.$row['wr_id'];
-        $row2 = sql_fetch(" select * from {$tmp_write_table} where wr_id = '{$row['wr_parent']}' ");
-        $row3 = sql_fetch(" select mb_id, wr_name, wr_email, wr_homepage, wr_content, wr_datetime, wr_1 from {$tmp_write_table} where wr_id = '{$row['wr_id']}' ");
-        $list[$i] = $row2;
-        $list[$i]['wr_id'] = $row['wr_id'];
-        $list[$i]['mb_id'] = $row3['mb_id'];
-        $list[$i]['wr_name'] = $row3['wr_name'];
-        $list[$i]['wr_email'] = $row3['wr_email'];
-        $list[$i]['wr_homepage'] = $row3['wr_homepage'];
-        $list[$i]['wr_content'] = $row3['wr_content'];
-
-        // 익명/비익명 구분
-        list($gnu_level,$eyoom_level,$anonymous) = explode('|',$row3['wr_1']);
-        if(!$anonymous) {
-          $name = $row3['wr_name'];
-        } else {
-          if($anonymous == 'y') {
-            $name = '익명';
-          }
-        }
-
-        // 당일인 경우 시간으로 표시함
-        $datetime = substr($row3['wr_datetime'],0,10);
-        $datetime2 = $row3['wr_datetime'];
-        if ($datetime == G5_TIME_YMD) {
-            $datetime2 = substr($datetime2,11,5);
-        } else {
-            $datetime2 = substr($datetime2,0,10);
-        }
-
+  // 익명/비익명 구분
+  list($gnu_level,$eyoom_level,$anonymous) = explode('|',$row['wr_1']);
+  if(!$anonymous) {
+    $name = $row['wr_name'];
+  } else {
+    if($anonymous == 'y') {
+      $name = '익명';
     }
+  }
 
-    $list[$i]['bo_table'] = $row['bo_table'];
-    $list[$i]['name'] = $name;
-    $list[$i]['href'] = './board.php?bo_table='.$row['bo_table'].'&amp;wr_id='.$row2['wr_id'].$comment_link;
-    $list[$i]['datetime'] = $datetime;
-    $list[$i]['datetime2'] = $datetime2;
-
-    $list[$i]['bo_subject'] = ((G5_IS_MOBILE && $row['bo_mobile_subject']) ? $row['bo_mobile_subject'] : $row['bo_subject']);
-    $list[$i]['wr_subject'] = $row2['wr_subject'];
-    $list[$i]['is_cmt'] = $is_cmt;
+  $list[$k]['bo_table'] = $row['bo_table'];
+  $list[$k]['name'] = $name;
+  $list[$k]['wr_good'] = $row['wr_good'];
+  $list[$k]['datetime'] = $row['wr_datetime'];
+  $list[$k]['datetime_mobile'] = substr($row['wr_datetime'], 11, 5);
+  $list[$k]['bo_subject'] = $row['bo_subject'];
+  $list[$k]['is_cmt'] = $is_cmt;
 }
 
 include_once($mine_skin_path.'/mine.skin.php');
