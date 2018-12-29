@@ -49,7 +49,13 @@ if($me_id) {
     }
 } else if($bt && $mid) {
   // 익명으로 쪽지 보냈는데 닉네임 노출되면 안 되므로 bo_table, wr_id를 매칭해서 닉네임과 익명여부를 가져옴
-  $row = sql_fetch(" select wr_name, wr_1 from {$g5['write_prefix']}{$bt} where wr_id = '{$mid}' ");
+  $row = sql_fetch(" select mb_id, wr_name, wr_1 from {$g5['write_prefix']}{$bt} where wr_id = '{$mid}' ");
+  // 받는이가 관리자인 경우 쪽지 못 보내게
+  $group = sql_fetch(" select gr_admin from {$g5['group_table']} where gr_id = 'leb' ");
+  $tmpArr= explode(',', $group['gr_admin']);
+  if ($row['mb_id'] == 'lebolution' || in_array($row['mb_id'], $tmpArr)) {
+    alert_close('운영진에게는 쪽지를 보낼 수 없습니다!');
+  }
   list($gnu_level,$eyoom_level,$anonymous) = explode('|',$row['wr_1']);
   if(!$anonymous) {
     $me_recv_nick = $row['wr_name'];
