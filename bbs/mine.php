@@ -101,8 +101,8 @@ for ($k=0; $row=sql_fetch_array($result); $k++) {
   $list[$k]['bo_table'] = $row['bo_table'];
   $list[$k]['name'] = $name;
   $list[$k]['wr_good'] = $row['wr_good'];
-  $list[$k]['datetime'] = $row['wr_datetime'];
-  $list[$k]['datetime_mobile'] = substr($row['wr_datetime'], 11, 5);
+  $list[$k]['datetime'] = substr($row['wr_datetime'], 2, 17);
+  $list[$k]['datetime_mobile'] = substr($row['wr_datetime'], 2, 14);
   $list[$k]['bo_subject'] = $row['bo_subject'];
   $list[$k]['is_cmt'] = $is_cmt;
 }

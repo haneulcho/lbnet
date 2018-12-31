@@ -141,7 +141,11 @@ var char_max = parseInt({_comment_max}); // 최대
 						<!--{? _is_anonymous}-->
 						<label class="checkbox pull-left"><input type="checkbox" name="anonymous" value="y" id="anonymous" checked><i></i>익명글</label>
 						<!--{/}-->
+						<!--{? _bo_table != 'sdiary' }-->
 						<label class="checkbox pull-left" style="margin-left:15px;"><input type="checkbox" name="wr_secret" value="secret" id="wr_secret"><i></i>비밀글</label>
+						<!--{:}-->
+						<input type="hidden" name="wr_secret" value="" id="wr_secret">
+						<!--{/}-->
 						<!--{? eyoom_board.bo_use_addon_cmtimg == '1'}-->
 						<span class="lbimage">
 						<a data-toggle="collapse" data-parent="#comment-option" href="#collapse-image-cm"><i class="fa fa-picture-o"></i>이미지 첨부</a>
@@ -404,10 +408,17 @@ function comment_box(comment_id, work)
 			document.getElementById('wr_content').value = document.getElementById('save_comment_' + comment_id).value;
 			if (typeof char_count != 'undefined')
 				check_byte('wr_content', 'char_count');
-			if (document.getElementById('secret_comment_'+comment_id).value)
-				document.getElementById('wr_secret').checked = true;
-			else
-				document.getElementById('wr_secret').checked = false;
+			<!--{? _bo_table != 'sdiary' }-->
+				if (document.getElementById('secret_comment_'+comment_id).value)
+					document.getElementById('wr_secret').checked = true;
+				else
+					document.getElementById('wr_secret').checked = false;
+			<!--{:}-->
+				if (document.getElementById('secret_comment_'+comment_id).value)
+					document.getElementById('wr_secret').value = 'secret';
+				else
+					document.getElementById('wr_secret').value = '';
+			<!--{/}-->
 			<!--{? _is_anonymous}-->
 			if (document.getElementById('anonymous_id_'+comment_id).value)
 				document.getElementById('anonymous').checked = true;
