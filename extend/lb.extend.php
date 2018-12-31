@@ -1,6 +1,11 @@
 <?php
 	if (!defined('_GNUBOARD_')) exit;
 
+	// CSS, JS 캐시 대응 Ver 설정
+	$fileDate = date("YmdH", G5_SERVER_TIME);
+	define('G5_CSS_VER', $fileDate);
+	define('G5_JS_VER',  $fileDate);
+
 	// 게시판 관리자 여러명 정하기 
 	if ($is_member && $board['bo_admin']) {
 		$tmpArr= explode(',', $board['bo_admin']);
@@ -10,7 +15,7 @@
 		}
 	}
 
-	//그룹 관리자 여러명 정하기 
+	// 그룹 관리자 여러명 정하기 
 	if ($is_member && $group['gr_admin']) {
 		$tmpArr= explode(',', $group['gr_admin']);
 		if (in_array($member[mb_id], $tmpArr)) {
