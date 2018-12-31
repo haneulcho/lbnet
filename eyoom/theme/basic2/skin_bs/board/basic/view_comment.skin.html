@@ -25,6 +25,9 @@ var char_max = parseInt({_comment_max}); // 최대
 					<i class="fa fa-clock-o color-grey"></i>{eb->date_format('m.d H:i',.datetime)}</span>
 					<!--{/}-->
 					<!--{? _is_ip_view && _is_admin}--> <span class="comment-ip">&nbsp;{.ip}</span><!--{/}-->
+
+					<!--{* 공지사항에는 댓글 못달게 *}-->
+					<!--{? _is_comment_write && (view.ca_name != '공지' || _is_admin) }-->
 					<span class="comment-time">
 						<ul class="lbcbtn">
 						<!--{? .is_edit}--><li><a href="{.c_edit_href}" onclick="comment_box('{.comment_id}', 'cu'); return false;"><i class="fa fa-pencil"></i></a></li><!--{/}-->
@@ -32,6 +35,7 @@ var char_max = parseInt({_comment_max}); // 최대
 						<!--{? .is_reply}--><li><a href="{.c_reply_href}" onclick="comment_box('{.comment_id}', 'c'); return false;"><i class="fa fa-comment-o"></i>댓글</a></li><!--{/}-->
 						</ul>
 					</span>
+					<!--{/}-->
 				</div>
 
 				<div class="comment-item-contents" style="{? .cmt_depth && !.is_cmt_best}padding-left:{.cmt_depth}px;{/}">
@@ -100,7 +104,7 @@ var char_max = parseInt({_comment_max}); // 최대
 
 
 	<!--{* 댓글 쓰기 시작 *}-->
-	<!--{? _is_comment_write}-->
+	<!--{? _is_comment_write && (view.ca_name != '공지' || _is_admin) }-->
 	<div id="view-comment-write">
 		<form name="fviewcomment" action="./write_comment_update.php" onsubmit="return fviewcomment_submit(this);" method="post" autocomplete="off" class="eyoom-form view-comment-write-box" enctype="multipart/form-data">
 			<input type="hidden" name="w" value="{? !_w}c{:}{_w}{/}" id="w">
