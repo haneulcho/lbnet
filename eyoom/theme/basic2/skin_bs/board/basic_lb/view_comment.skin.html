@@ -17,14 +17,13 @@ var char_max = parseInt({_comment_max}); // 최대
 			<div class="comment-item-body-pn">
 				<div style="padding:10px 12px 6px">
 				<div class="comment-item-info lbdes" style="{? .cmt_depth && !.is_cmt_best}padding-left:{.cmt_depth}px;{/}">
-					<span class="comment-name{? .cmt_depth && !.is_cmt_best} lbdepth{/}"><!--{?.is_origin}--><b>{=eb_lbnameview('basic', .comment_id, .wr_name)}</b><!--{:}-->{=eb_lbnameview('basic', .comment_id, .wr_name)}<!--{/}--><!--{?.is_mine}--><b class="color-red">*</b><!--{/}--><!--{? _is_admin}-->&nbsp;({.lb_id})<!--{/}--></span> <!--{? .is_cmt_best}--><span class="badge badge-purple">BEST {.index_+1}</span><!--{/}-->
+					<span class="comment-name{? .cmt_depth && !.is_cmt_best} lbdepth{/}"><!--{?.is_origin}--><b>{=eb_lbnameview('basic', .comment_id, .wr_name)}</b><!--{:}-->{=eb_lbnameview('basic', .comment_id, .wr_name)}<!--{/}--><!--{?.is_mine}--><b class="color-red">*</b><!--{/}--></span> <!--{? .is_cmt_best}--><span class="badge badge-purple">BEST {.index_+1}</span><!--{/}-->
 					<span class="lbctime lbdes">
 					<!--{? eyoom_board.bo_sel_date_type == '1'}-->
 					<i class="fa fa-clock-o color-grey"></i>{eb->date_time('y-m-d H:i',.datetime)}
 					<!--{: eyoom_board.bo_sel_date_type == '2'}-->
 					<i class="fa fa-clock-o color-grey"></i>{eb->date_format('m.d H:i',.datetime)}</span>
 					<!--{/}-->
-					<!--{? _is_ip_view && _is_admin}--> <span class="comment-ip">&nbsp;{.ip}</span><!--{/}-->
 
 					<!--{* 공지사항에는 댓글 못달게 *}-->
 					<!--{? _is_comment_write && (view.ca_name != '공지' || _is_admin) }-->
@@ -39,6 +38,9 @@ var char_max = parseInt({_comment_max}); // 최대
 				</div>
 
 				<div class="comment-item-contents" style="{? .cmt_depth && !.is_cmt_best}padding-left:{.cmt_depth}px;{/}">
+				<!--{? _is_ip_view && _is_admin}-->
+					<div class="comment-item-info lbdes margin-bottom-0"><span class="comment-ip">({.lb_nickname} / {.ip})</span></div>
+				<!--{/}-->
 				<!--{? .yc_blind && .yc_cannotsee}-->
 				<p>이글은 블라인드 처리된 댓글입니다.</p>
 				<!--{:}-->
