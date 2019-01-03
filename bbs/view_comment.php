@@ -1,5 +1,7 @@
 <?php
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
+
+// TODO: 그누보드 튜닝 19.01.03
 include_once(G5_CAPTCHA_PATH.'/captcha.lib.php');
 
 $captcha_html = "";
@@ -45,29 +47,36 @@ for ($i=0; $row=sql_fetch_array($result); $i++)
     //     $list[$i]['content'] = conv_content($row['wr_content'], 0, 'wr_content');
     //     $list[$i]['content'] = search_font($stx, $list[$i]['content']);
 
-    //댓글의 비밀 댓글을 원댓글 작성자에게도 보여주기 시작
-    $pre_comment_info = substr($row['wr_comment_reply'],0,-1);
-    $pre_comment = sql_fetch(" select mb_id from {$write_table} where wr_parent = '{$wr_id}' and wr_is_comment = 1 and wr_comment = '{$row['wr_comment']}' and wr_comment_reply = '{$pre_comment_info}' ");
-
     $list[$i]['content'] = $list[$i]['content1']= '비밀글 입니다.';
     if (!strstr($row['wr_option'], 'secret') ||
-        $is_admin ||
-        ($pre_comment['mb_id']==$member['mb_id'] && $member['mb_id']) ||        //댓글의 비밀 댓글을 원댓글 작성자에게 보여주기
-        ($write['mb_id']==$member['mb_id'] && $member['mb_id']) ||
-        ($row['mb_id']==$member['mb_id'] && $member['mb_id'])) {
+        $is_admin || ($write['mb_id'] == $member['mb_id'] && $member['mb_id']) ||
+        ($row['mb_id'] == $member['mb_id'] && $member['mb_id'])) {
         $list[$i]['content1'] = $row['wr_content'];
         $list[$i]['content'] = conv_content($row['wr_content'], 0, 'wr_content');
         $list[$i]['content'] = search_font($stx, $list[$i]['content']);
-    } else {        //댓글의 비밀 댓글을 원댓글 작성자에게도 보여주기 끝
+    } else {
         $ss_name = 'ss_secret_comment_'.$bo_table.'_'.$list[$i]['wr_id'];
-
-        if(!get_session($ss_name))
+    
+        if(!get_session($ss_name)) {
             $list[$i]['content'] = '<span style="color:#aaaaaa">비밀글 입니다.</span>';
             // $list[$i]['content'] = '<a href="./password.php?w=sc&amp;bo_table='.$bo_table.'&amp;wr_id='.$list[$i]['wr_id'].$qstr.'" class="s_cmt">비밀글 입니다.</a>';
-        else {
+        } else {
             $list[$i]['content'] = conv_content($row['wr_content'], 0, 'wr_content');
             $list[$i]['content'] = search_font($stx, $list[$i]['content']);
         }
+
+        // 댓글의 비밀 댓글을 원댓글 작성자에게 보여주기
+        for ($j=$i-1; $j>=0; $j--) {
+            if ($list[$j]['wr_comment'] == $list[$i]['wr_comment'] && $list[$j]['wr_comment_reply'] == substr($list[$i]['wr_comment_reply'], 0, strlen($list[$i]['wr_comment_reply'])-1)) {
+                if ($list[$j]['mb_id'] == $member['mb_id'] && $member['mb_id']) {
+                    $list[$i]['content1'] = $row['wr_content'];
+                    $list[$i]['content'] = conv_content($row['wr_content'], 0, 'wr_content');
+                    $list[$i]['content'] = search_font($stx, $list[$i]['content']);
+                }
+                break;
+            } 
+        }
+        // 댓글의 비밀 댓글을 원댓글 작성자에게도 보여주기 끝
     }
 
     $list[$i]['datetime'] = substr($row['wr_datetime'],2,14);

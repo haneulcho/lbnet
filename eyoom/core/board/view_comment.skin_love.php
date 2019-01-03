@@ -1,6 +1,8 @@
 <?php
 	if (!defined('_GNUBOARD_')) exit;
 
+	// TODO: 그누보드 튜닝 19.01.03
+
 	if($eyoom_board['bo_use_yellow_card'] == '1') {
 		// 바로 블라인드 처리할 수 있는 권한인지 체크
 		if($is_admin || $member['mb_level'] >= $eyoom_board['bo_blind_direct'] ) {
@@ -15,8 +17,9 @@
 		$comment[$i]['cmt_depth'] = "";
 		$comment[$i]['cmt_depth'] = strlen($list[$i]['wr_comment_reply']) * 15;
 		$content = $list[$i]['content'];
-		$comment[$i]['comment'] = preg_replace("/\[\<a\s.*href\=\"(http|https|ftp|mms)\:\/\/([^[:space:]]+)\.(mp3|wma|wmv|asf|asx|mpg|mpeg)\".*\<\/a\>\]/i", "<script>doc_write(obj_movie('$1://$2.$3'));</script>", $content);
-		$comment[$i]['comment'] = $eb->eyoom_content($comment[$i]['comment']);
+		// $comment[$i]['comment'] = preg_replace("/\[\<a\s.*href\=\"(http|https|ftp|mms)\:\/\/([^[:space:]]+)\.(mp3|wma|wmv|asf|asx|mpg|mpeg)\".*\<\/a\>\]/i", "<script>doc_write(obj_movie('$1://$2.$3'));</script>", $content);
+		// $comment[$i]['comment'] = $eb->eyoom_content($comment[$i]['comment']);
+		$comment[$i]['comment'] = $content;
 		$comment[$i]['cmt_sv'] = $cmt_amt - $i + 1; // 댓글 헤더 z-index 재설정 ie8 이하 사이드뷰 겹침 문제 해결
 		$comment[$i]['wr_name'] = get_text($list[$i]['wr_name']);
 		$comment[$i]['name'] = $list[$i]['name'];
@@ -108,8 +111,11 @@
 			$query_string = str_replace("&", "&amp;", $_SERVER['QUERY_STRING']);
 
 			if($w == 'cu') {
-				$sql = " select wr_id, wr_content from $write_table where wr_id = '$c_id' and wr_is_comment = '1' ";
+				$sql = " select wr_id, wr_content, mb_id from $write_table where wr_id = '$c_id' and wr_is_comment = '1' ";
 				$cmt = sql_fetch($sql);
+				if (!($is_admin || ($member['mb_id'] == $cmt['mb_id'] && $cmt['mb_id']))) {
+					$cmt['wr_content'] = '';
+				}
 				$comment[$i]['c_wr_content'] = $cmt['wr_content'];
 			}
 			$comment[$i]['c_reply_href'] = './board.php?'.$query_string.'&amp;c_id='.$comment[$i]['comment_id'].'&amp;w=c#bo_vc_w';
@@ -119,19 +125,19 @@
 	}
 
 	// paging 처리 및 댓글 무한스크롤 기능 구현
-	if ($eyoom_board['bo_use_cmt_infinite'] == '1' && is_array($comment) ) {
-		$cpage = (int)$_GET['cpage'];
-		if(!$cpage) $cpage = 1;
-		if(!$page_rows) $page_rows = $board['bo_page_rows'] ? $board['bo_page_rows'] : 15;
-		$from_record = ($cpage - 1) * $page_rows; // 시작 열을 구함
-		$comment = array_slice($comment,$from_record,$page_rows);
-	}
+	// if ($eyoom_board['bo_use_cmt_infinite'] == '1' && is_array($comment) ) {
+	// 	$cpage = (int)$_GET['cpage'];
+	// 	if(!$cpage) $cpage = 1;
+	// 	if(!$page_rows) $page_rows = $board['bo_page_rows'] ? $board['bo_page_rows'] : 15;
+	// 	$from_record = ($cpage - 1) * $page_rows; // 시작 열을 구함
+	// 	$comment = array_slice($comment,$from_record,$page_rows);
+	// }
 
 	// 댓글에 이미지 첨부파일 용량 제한
 	$upload_max_filesize = ini_get('upload_max_filesize') . ' 바이트';
 
 	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/board/view_comment.skin.php');
+	// @include_once(EYOOM_USER_PATH.'/board/view_comment.skin.php');
 
 	// Template assign
 	@include EYOOM_INC_PATH.'/tpl.assign.php';
