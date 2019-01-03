@@ -15,11 +15,11 @@
 	}
 
 	// 나의 활동
-	$act_contents = array();
-	$act_contents['bo_table'] = $bo_table;
-	$act_contents['bo_name'] = $board['bo_subject'];
-	$act_contents['wr_id'] = $wr_id;
-	$eb->insert_activity($member['mb_id'],$good,$act_contents);
+	// $act_contents = array();
+	// $act_contents['bo_table'] = $bo_table;
+	// $act_contents['bo_name'] = $board['bo_subject'];
+	// $act_contents['wr_id'] = $wr_id;
+	// $eb->insert_activity($member['mb_id'],$good,$act_contents);
 
 	// 추천 비추천 포인트 지급 및 추천수 이윰NEW에 업데이트
 	switch($good) {

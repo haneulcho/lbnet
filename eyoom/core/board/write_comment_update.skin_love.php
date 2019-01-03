@@ -75,13 +75,13 @@
 		";
 
 		// 나의 활동
-		$act_contents = array();
-		$act_contents['bo_table'] = $bo_table;
-		$act_contents['bo_name'] = $board['bo_subject'];
-		$act_contents['wr_id'] = $comment_id;
-		$act_contents['wr_parent'] = $wr_id;
-		$act_contents['content'] = $wr_content;
-		$eb->insert_activity($mb_id,$type,$act_contents);
+		// $act_contents = array();
+		// $act_contents['bo_table'] = $bo_table;
+		// $act_contents['bo_name'] = $board['bo_subject'];
+		// $act_contents['wr_id'] = $comment_id;
+		// $act_contents['wr_parent'] = $wr_id;
+		// $act_contents['content'] = $wr_content;
+		// $eb->insert_activity($mb_id,$type,$act_contents);
 		$eb->level_point($levelset['cmt']);
 
 	} else if($w == 'cu') {

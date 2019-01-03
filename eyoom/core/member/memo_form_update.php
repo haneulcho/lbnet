@@ -109,11 +109,11 @@
 		}
 
 		// 나의 활동
-		$act_contents = array();
-		$act_contents['mb_nick'] = $recv_mb_nick;
-		$act_contents['mb_id'] = $recv_mb_id;
-		$act_contents['me_id'] = $me_id;
-		$eb->insert_activity($member['mb_id'],'memo',$act_contents);
+		// $act_contents = array();
+		// $act_contents['mb_nick'] = $recv_mb_nick;
+		// $act_contents['mb_id'] = $recv_mb_id;
+		// $act_contents['me_id'] = $me_id;
+		// $eb->insert_activity($member['mb_id'],'memo',$act_contents);
 
 		// 실시간 쪽지 알림 기능
 		$sql = " update {$g5['member_table']} set mb_memo_call = '{$member['mb_id']}' where mb_id = '$recv_mb_id' ";

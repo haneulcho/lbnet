@@ -6,9 +6,9 @@
 	$qfile->del_file($push_file);
 
 	//나의 활동에 로그인 정보등록
-	$act_contents = array();
-	$act_contents['ip'] = $_SERVER['REMOTE_ADDR'];
-	$eb->insert_activity($mb['mb_id'],'login',$act_contents);
+	// $act_contents = array();
+	// $act_contents['ip'] = $_SERVER['REMOTE_ADDR'];
+	// $eb->insert_activity($mb['mb_id'],'login',$act_contents);
 
 	// 사용자 프로그램
 	@include_once(EYOOM_USER_PATH.'/member/login_check.skin.php');

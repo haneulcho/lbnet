@@ -209,13 +209,13 @@
 			default  : $act_type = 'new'; $eb->level_point($levelset['write']); break;
 			case 'r' : $act_type = 'reply'; $eb->level_point($levelset['reply']); break;
 		}
-		$act_contents = array();
-		$act_contents['bo_table'] = $bo_table;
-		$act_contents['bo_name'] = $board['bo_subject'];
-		$act_contents['wr_id'] = $wr_id;
-		$act_contents['subject'] = $wr_subject;
-		$act_contents['content'] = $content;
-		$eb->insert_activity($member['mb_id'],$act_type,$act_contents);
+		// $act_contents = array();
+		// $act_contents['bo_table'] = $bo_table;
+		// $act_contents['bo_name'] = $board['bo_subject'];
+		// $act_contents['wr_id'] = $wr_id;
+		// $act_contents['subject'] = $wr_subject;
+		// $act_contents['content'] = $content;
+		// $eb->insert_activity($member['mb_id'],$act_type,$act_contents);
 
 	} else if($w == 'u') {
 		// 새글 정보가 이미 있다면 업데이트
