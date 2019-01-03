@@ -21,11 +21,6 @@ else {
     $g5_head_title = $config['cf_display_title'];
 }
 
-if (!$is_admin) {
-    header("Location: /under_construction.php");
-    exit;
-}
-
 // 현재 접속자
 // 게시판 제목에 ' 포함되면 오류 발생
 $g5['lo_location'] = addslashes($g5['title']);
