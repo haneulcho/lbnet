@@ -2,7 +2,6 @@
 add_stylesheet('<link rel="stylesheet" href="../../../plugins/bootstrap/css/bootstrap.min.css" type="text/css" media="screen">',0);
 add_stylesheet('<link rel="stylesheet" href="../../../plugins/font-awesome/css/font-awesome.min.css" type="text/css" media="screen">',0);
 add_stylesheet('<link rel="stylesheet" href="../../../plugins/eyoom-form/css/eyoom-form.min.css" type="text/css" media="screen">',0);
-add_stylesheet('<link rel="stylesheet" href="../../../plugins/scrollbar/src/perfect-scrollbar.css" id="style_color" type="text/css" media="screen">',0);
 add_stylesheet('<link rel="stylesheet" href="../../../css/style.min.css" type="text/css" media="screen">',0);
 ?>
 
@@ -121,6 +120,7 @@ add_stylesheet('<link rel="stylesheet" href="../../../css/style.min.css" type="t
 </div>
 
 <style>
+body {background-color:#f0f0f0}
 .member-login {width:380px;padding:20px;margin:40px auto 20px;background:#fff;border-top:solid 1px #f44455}
 .member-login .eyoom-form {border:0}
 .member-login .eyoom-form fieldset {padding:0}
@@ -128,7 +128,6 @@ add_stylesheet('<link rel="stylesheet" href="../../../css/style.min.css" type="t
 .member-login-header {padding-bottom:5px;margin-bottom:20px;border-bottom:solid 1px #eee}
 .member-login-header h4 {padding-bottom:15px;text-align:center;margin-bottom:15px}
 .main-comeback {text-align: center;margin-top:0}
-.main-comeback a {color:#fff}
 .member-login-notmb {width:380px;padding:20px;margin:0px auto 20px;background:#fff}
 .member-login-notmb .eyoom-form {border:0}
 .member-login-notmb .panel {padding:10px;border:1px solid #eee;box-shadow: none;margin-bottom:10px}
@@ -142,26 +141,8 @@ add_stylesheet('<link rel="stylesheet" href="../../../css/style.min.css" type="t
 	.member-login-order {width:280px}
 }
 </style>
-
-<script type="text/javascript" src="../../../plugins/backstretch/jquery.backstretch.min.js"></script>
 <script type="text/javascript" src="../../../plugins/eyoom-form/plugins/jquery-ui/jquery-ui.min.js"></script>
 <script type="text/javascript" src="../../../plugins/eyoom-form/plugins/jquery-form/jquery.form.min.js"></script>
-<script type="text/javascript" src="../../../plugins/scrollbar/src/jquery.mousewheel.js"></script>
-<script type="text/javascript" src="../../../plugins/scrollbar/src/perfect-scrollbar.js"></script>
-<script type="text/javascript">
-    $.backstretch([
-      "img/login_bg_2.jpg",
-      "img/login_bg_1.jpg",
-      ], {
-        fade: 1000,
-        duration: 7000
-    });
-
-    jQuery(document).ready(function ($) {
-        "use strict";
-        $('.contentHolder').perfectScrollbar();
-    });
-</script>
 <!--[if lt IE 9]>
     <script src="../../../js/respond.js"></script>
     <script src="../../../js/html5shiv.js"></script>

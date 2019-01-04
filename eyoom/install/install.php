@@ -297,7 +297,7 @@ $qfile->save_file('levelinfo',$levelinfo_config,$levelinfo,true);
 
 <?php
 // 템플릿 폴더 생성
-$template_dir = '../..'.G5_DATA_PATH.'/_complie';
+$template_dir = '../..'.G5_DATA_PATH.'/_compile';
 $cache_dir = '../..'.G5_DATA_PATH.'/_cache';
 @mkdir($template_dir,0755,true);
 @mkdir($cache_dir,0755,true);
