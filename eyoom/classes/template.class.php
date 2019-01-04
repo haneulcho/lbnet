@@ -26,7 +26,7 @@ class Template extends Template_
 
 		// 템플릿 기본설정
 		$this->template_dir	= EYOOM_PATH."/theme";
-		$this->compile_dir	= G5_DATA_PATH."/_complie";
+		$this->compile_dir	= G5_DATA_PATH."/_compile";
 		$this->cache_dir	= G5_DATA_PATH."/_cache";
 		$this->prefilter	= 'adjustPath';
 		$this->cfg			= $eyoom;
