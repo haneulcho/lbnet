@@ -1,3 +1,14 @@
 config.php
-data/
+data/_cache/
+data/_compile/
+data/banner/
+data/cache/
+data/content/
+data/editor/
+data/faq/
+data/file/
+data/log/
+data/member/
+data/session/
+data/tmp/
 .DS_Store
