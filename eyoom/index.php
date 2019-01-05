@@ -9,9 +9,8 @@
 
 	// 이윰 헤더 디자인 출력
 	@include_once(EYOOM_PATH.'/head.php');
-	
-	// 회원의 지정한 페이지 홈으로 보여주기
-	$eb->print_page($eyoomer['main_index']);
+
+	$eb->print_page();
 
 	// 이윰 테일 디자인 출력
 	@include_once(EYOOM_PATH.'/tail.php');

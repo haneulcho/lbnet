@@ -19,80 +19,9 @@ class eyoom extends qfile
 	}
 
 	// 메인페이지 설정
-	public function print_page($target) {
-		global $g5, $tpl, $tpl_name, $eyoom, $member, $user, $eyoomer, $eb, $config, $levelset, $is_admin, $is_member;
-
-		if(count($_GET) > 0 && !$_GET['theme']) {
-			// 마이홈 주소 체계 - /?user_id&permit_string
-			$permit = array('page','following','follower','friends','guest');
-			$index = false; $i=0;
-			foreach($_GET as $k => $v) {
-				if($i==0) { $dummy_id = $k; $i++; continue; } // 첫번째 변수는 dummy_id
-				if(!in_array($k,$permit)) {
-					$index = true; // 허용하지 않은 키값은 무시하고 기본 홈으로
-					break;
-				} else {
-					if($v && $k=='page') ${$k} = (int)$v;
-					else $userpage = $k;
-				}
-				if($i==2) break; // GET변수는 3개까지만 허용
-				$i++;
-			}
-			if($index || $dummy_id == 'home' || $dummy_id == 'auto_login' || $dummy_id == 'device') {
-				// 홈으로 이동
-				$this->go_index_page();
-			} else {
-				include_once(G5_LIB_PATH.'/register.lib.php');
-
-				// 사용자 아이디 유효성 체크
-				if(empty_mb_id($dummy_id)) { $this->go_index_page(); exit; }
-				if(valid_mb_id($dummy_id)) { $this->go_index_page(); exit; }
-				if(count_mb_id($dummy_id)) { $this->go_index_page(); exit; }
-				if(exist_mb_id($dummy_id)) {
-					$user = $this->get_user_info($dummy_id);
-
-					// 공개여부, 비회원여부, 공개하지 않았으나 마이홈으로 이동일 경우 등
-					if($user['open_page']=='y' || ($user['mb_id'] == $member['mb_id'] && $user['mb_id']) ) {
-						include_once(EYOOM_CORE_PATH.'/mypage/myhome.php');
-						$tpl->define_template('mypage',$eyoom['mypage_skin'],'myhome.skin.html');
-						$tpl_index = $tpl_name;
-					} else {
-						$msg = "회원이 아니거나 마이홈을 공개하지 않은 회원입니다.";
-						alert($msg, G5_URL);
-					}
-				}
-			}
-		} else {
-			switch($target) {
-				case 'index':
-					$tpl_index = 'index_'.$tpl_name;
-					break;
-				case 'mypage':
-					if(!$member['mb_id']) break;
-					include_once(EYOOM_CORE_PATH.'/mypage/mypage.php');
-					break;
-				case 'myhome':
-					if(!$member['mb_id']) break;
-					$user = $eyoomer;
-					include_once(EYOOM_CORE_PATH.'/mypage/myhome.php');
-					break;
-				default:
-					$tpl_index = 'index_'.$tpl_name;
-					break;
-			}
-			if(!$tpl_index) $tpl_index = 'index_'.$tpl_name;
-
-			// 마이페이지, 마이홈 중복출력 방지
-			if($target == 'index' || $target == '') {
-				$tpl->print_($tpl_index);
-			}
-		}
-	}
-
-	// 기본홈
-	private function go_index_page() {
+	public function print_page() {
 		global $tpl, $tpl_name;
-		$tpl_index = 'index_'.$tpl_name;
+		if(!$tpl_index) $tpl_index = 'index_'.$tpl_name;
 		$tpl->print_($tpl_index);
 	}
 

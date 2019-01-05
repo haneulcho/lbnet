@@ -172,52 +172,55 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
 						<div class="menu-container">
 							<ul class="nav navbar-nav">
 								<!--{* Menu *}-->
-								<!--{? _is_member && member.mb_woman == 3}-->
-									<!--{* <li><a href="{C.G5_BBS_URL}/levelup.php"><i class="fa fa-pencil-square-o"></i> 기존 회원 등업</a></li> *}-->
+								<!--{? _is_member}-->
+									<!--{? member.mb_woman == 0 || member.mb_woman == 3}-->
 									<li><a href="{C.G5_BBS_URL}/board.php?bo_table=levelup"><i class="fa fa-pencil-square-o"></i> 등업신청</a></li>
-								<!--{/}-->
-								<!--{? (_is_member && member.mb_woman == 0) || _is_admin}-->
-									<li><a href="{C.G5_BBS_URL}/board.php?bo_table=levelup"><i class="fa fa-pencil-square-o"></i> 등업신청</a></li>
-								<!--{/}-->
-
-								<!--{@ menu}-->
-								<!--{? .active}-->
-									<?php $liClass = 'active' ?>
-								<!--{/}-->
-								<!--{? menu.submenu}-->
-									<?php $space = '' ?>
-									<!--{? .active}-->
-									<?php $space = ' ' ?>
-									<!--{/}-->
-									<?php $liClass = $space.'dropdown' ?>
-								<!--{/}-->
-								<li<!--{? .active}--> class="<?php echo $liClass; ?>"<!--{/}-->>
-									<a href="{.me_link}" target="_{.me_target}" class="dropdown-toggle" data-hover="dropdown">
-										<!--{? .me_icon}--><i class="fa {.me_icon}"></i> <!--{/}-->{.me_name}<!--{? .new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}-->
-									</a>
-									<!--{@ submenu}-->
-									<!--{? ..index_ == 0}-->
-									<ul class="dropdown-menu">
-									<!--{/}-->
-										<li class="dropdown-submenu {? ..active}active{/}">
-											<a href="{..me_link}" target="_{..me_target}"><!--{? ..me_icon}--><i class="fa {..me_icon}"></i> <!--{/}-->{..me_name}<!--{? ..new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ..sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
-											<!--{@ subsub}-->
-											<!--{? ...index_ == 0}-->
-											<ul class="dropdown-menu {? ...active}active{/}">
+									<!--{:}-->
+										<!--{? _is_admin}-->
+										<li><a href="{C.G5_BBS_URL}/board.php?bo_table=levelup"><i class="fa fa-pencil-square-o"></i> 등업신청</a></li>
+										<!--{/}-->
+										<!--{@ menu}-->
+										<!--{? .active}-->
+											<?php $liClass = 'active' ?>
+										<!--{/}-->
+										<!--{? menu.submenu}-->
+											<?php $space = '' ?>
+											<!--{? .active}-->
+											<?php $space = ' ' ?>
 											<!--{/}-->
-												<li class="dropdown-submenu">
-													<a href="{...me_link}" target="_{...me_target}"><!--{? ...me_icon}--><i class="fa {...me_icon}"></i> <!--{/}-->{...me_name}<!--{? ...new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ...sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
+											<?php $liClass = $space.'dropdown' ?>
+										<!--{/}-->
+										<li<!--{? .active}--> class="<?php echo $liClass; ?>"<!--{/}-->>
+											<a href="{.me_link}" target="_{.me_target}" class="dropdown-toggle" data-hover="dropdown">
+												<!--{? .me_icon}--><i class="fa {.me_icon}"></i> <!--{/}-->{.me_name}<!--{? .new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}-->
+											</a>
+											<!--{@ submenu}-->
+											<!--{? ..index_ == 0}-->
+											<ul class="dropdown-menu">
+											<!--{/}-->
+												<li class="dropdown-submenu {? ..active}active{/}">
+													<a href="{..me_link}" target="_{..me_target}"><!--{? ..me_icon}--><i class="fa {..me_icon}"></i> <!--{/}-->{..me_name}<!--{? ..new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ..sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
+													<!--{@ subsub}-->
+													<!--{? ...index_ == 0}-->
+													<ul class="dropdown-menu {? ...active}active{/}">
+													<!--{/}-->
+														<li class="dropdown-submenu">
+															<a href="{...me_link}" target="_{...me_target}"><!--{? ...me_icon}--><i class="fa {...me_icon}"></i> <!--{/}-->{...me_name}<!--{? ...new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ...sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
+														</li>
+													<!--{? ...index_ == ...size_-1}-->
+													</ul>
+													<!--{/}-->
+													<!--{/}-->
 												</li>
-											<!--{? ...index_ == ...size_-1}-->
+											<!--{? ..index_ == ..size_-1}-->
 											</ul>
 											<!--{/}-->
 											<!--{/}-->
 										</li>
-									<!--{? ..index_ == ..size_-1}-->
-									</ul>
+										<!--{/}-->
+										<!--{* End Menu 반복 *}-->
 									<!--{/}-->
-									<!--{/}-->
-								</li>
+									<!--{* End Menu is_member *}-->
 								<!--{/}-->
 								<!--{* End Menu *}-->
 							</ul>
@@ -335,52 +338,55 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
 				<div class="lb_m_nav_menu">
 					<ul>
 						<!--{* Menu *}-->
-						<!--{? _is_member && member.mb_woman == 3}-->
-							<!--{* <li><a href="{C.G5_BBS_URL}/levelup.php"><i class="fa fa-pencil-square-o"></i> 기존 회원 등업</a></li> *}-->
-							<li><a href="{C.G5_BBS_URL}/board.php?bo_table=levelup"><i class="fa fa-pencil-square-o"></i> 등업신청</a></li>
-						<!--{/}-->
-						<!--{? (_is_member && member.mb_woman == 0) || _is_admin}-->
-							<li><a href="{C.G5_BBS_URL}/board.php?bo_table=levelup"><i class="fa fa-pencil-square-o"></i> 등업신청</a></li>
-						<!--{/}-->
-	
-						<!--{@ menu}-->
-						<!--{? .active}-->
-							<?php $liClass = 'active' ?>
-						<!--{/}-->
-						<!--{? menu.submenu}-->
-							<?php $space = '' ?>
-							<!--{? .active}-->
-							<?php $space = ' ' ?>
-							<!--{/}-->
-							<?php $liClass = $space.'dropdown' ?>
-						<!--{/}-->
-						<li<!--{? .active}--> class="<?php echo $liClass; ?>"<!--{/}-->>
-							<a href="{.me_link}" target="_{.me_target}" class="dropdown-toggle"{? menu.submenu} data-toggle="dropdown"{/}>
-								<!--{? .me_icon}--><i class="fa {.me_icon}"></i> <!--{/}-->{.me_name}<!--{? .new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}-->
-							</a>
-							<!--{@ submenu}-->
-							<!--{? ..index_ == 0}-->
-							<ul class="dropdown-menu">
-							<!--{/}-->
-								<li class="dropdown-submenu {? ..active}active{/}">
-									<a href="{..me_link}" target="_{..me_target}"><!--{? ..me_icon}--><i class="fa {..me_icon}"></i> <!--{/}-->{..me_name}<!--{? ..new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ..sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
-									<!--{@ subsub}-->
-									<!--{? ...index_ == 0}-->
-									<ul class="dropdown-menu {? ...active}active{/}">
+						<!--{? _is_member}-->
+							<!--{? member.mb_woman == 0 || member.mb_woman == 3}-->
+								<li><a href="{C.G5_BBS_URL}/board.php?bo_table=levelup"><i class="fa fa-pencil-square-o"></i> 등업신청</a></li>
+							<!--{:}-->
+								<!--{? _is_admin}-->
+								<li><a href="{C.G5_BBS_URL}/board.php?bo_table=levelup"><i class="fa fa-pencil-square-o"></i> 등업신청</a></li>
+								<!--{/}-->
+								<!--{@ menu}-->
+								<!--{? .active}-->
+									<?php $liClass = 'active' ?>
+								<!--{/}-->
+								<!--{? menu.submenu}-->
+									<?php $space = '' ?>
+									<!--{? .active}-->
+									<?php $space = ' ' ?>
 									<!--{/}-->
-										<li class="dropdown-submenu">
-											<a href="{...me_link}" target="_{...me_target}"><!--{? ...me_icon}--><i class="fa {...me_icon}"></i> <!--{/}-->{...me_name}<!--{? ...new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ...sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
+									<?php $liClass = $space.'dropdown' ?>
+								<!--{/}-->
+								<li<!--{? .active}--> class="<?php echo $liClass; ?>"<!--{/}-->>
+									<a href="{.me_link}" target="_{.me_target}" class="dropdown-toggle"{? menu.submenu} data-toggle="dropdown"{/}>
+										<!--{? .me_icon}--><i class="fa {.me_icon}"></i> <!--{/}-->{.me_name}<!--{? .new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}-->
+									</a>
+									<!--{@ submenu}-->
+									<!--{? ..index_ == 0}-->
+									<ul class="dropdown-menu">
+									<!--{/}-->
+										<li class="dropdown-submenu {? ..active}active{/}">
+											<a href="{..me_link}" target="_{..me_target}"><!--{? ..me_icon}--><i class="fa {..me_icon}"></i> <!--{/}-->{..me_name}<!--{? ..new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ..sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
+											<!--{@ subsub}-->
+											<!--{? ...index_ == 0}-->
+											<ul class="dropdown-menu {? ...active}active{/}">
+											<!--{/}-->
+												<li class="dropdown-submenu">
+													<a href="{...me_link}" target="_{...me_target}"><!--{? ...me_icon}--><i class="fa {...me_icon}"></i> <!--{/}-->{...me_name}<!--{? ...new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ...sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
+												</li>
+											<!--{? ...index_ == ...size_-1}-->
+											</ul>
+											<!--{/}-->
+											<!--{/}-->
 										</li>
-									<!--{? ...index_ == ...size_-1}-->
+									<!--{? ..index_ == ..size_-1}-->
 									</ul>
 									<!--{/}-->
 									<!--{/}-->
 								</li>
-							<!--{? ..index_ == ..size_-1}-->
-							</ul>
+								<!--{/}-->
+								<!--{* End Menu 반복 *}-->
 							<!--{/}-->
-							<!--{/}-->
-						</li>
+							<!--{* End Menu is_member *}-->
 						<!--{/}-->
 						<!--{* End Menu *}-->
 					</ul>
