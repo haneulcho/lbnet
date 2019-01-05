@@ -58,22 +58,12 @@
 			<!--{* 투표 *}-->
 			<!--{? eyoom.use_gnu_poll == 'y'}-->{=poll('basic')}<!--{:}-->{=eb_poll(eyoom.poll_skin)}<!--{/}-->
 		</div>
-		<!--{? eyoom.use_tag == 'y'}-->
-		<!--{* 태그메뉴 *}-->
-		<div class="margin-bottom-20">
-			{=eb_tagmenu(eyoom.tag_skin)}
-		</div>
-		<!--{/}-->
 		<!--{? _is_admin // 관리자일때만 보입니다.}-->
 		<div class="margin-bottom-20">
 			<!--{* 방문자 통계 *}-->
 			<!--{? eyoom.use_gnu_visit == 'y'}-->{=visit('basic')}<!--{:}-->{=eb_visit(eyoom.visit_skin)}<!--{/}-->
 		</div>
 		<!--{/}-->
-	<!--{:}-->
-	  <div class="guest_msg">
-		<p></p>
-	  </div>
 	<!--{/}-->
 </div>
 

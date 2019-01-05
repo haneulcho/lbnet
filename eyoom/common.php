@@ -50,36 +50,36 @@
 		(array)$bo_automove = unserialize($eyoom_board['bo_automove']);
 
 		// 사이트 내 게시판 정보 일괄 가져오기
-		$sql = "select bo_table, bo_subject from {$g5['board_table']} where 1 order by bo_subject asc";
-		$result = sql_query($sql);
-		for($i=0; $row=sql_fetch_array($result); $i++) {
-			$binfo[$i] = $row;
-		}
+		// $sql = "select bo_table, bo_subject from {$g5['board_table']} where 1 order by bo_subject asc";
+		// $result = sql_query($sql);
+		// for($i=0; $row=sql_fetch_array($result); $i++) {
+		// 	$binfo[$i] = $row;
+		// }
 
 		// EXIF정보보기 사용시
-		if($eyoom_board['bo_use_exif'] || $is_admin == 'super') {
-			$exif_item = array(
-				'maker'		=> '제조사',
-				'model'		=> '모델',
-				'datetime'	=> '촬영일',
-				'size'		=> '사이즈',
-				'exprogram'	=> '촬영모드',
-				'metermode'	=> '측광모드',
-				'focallen'	=> '초점거리',
-				'focal35mm'	=> '35mm환산거리',
-				'fnumber'	=> '조리개',
-				'iso'		=> 'ISO',
-				'whitebal'	=> '화이트밸러스',
-				'exptime'	=> '노출시간',
-				'expbias'	=> '노출보정(EV)',
-				'ccd'		=> 'CCD',
-				'flash'		=> 'Flash'
-			);
+		// if($eyoom_board['bo_use_exif'] || $is_admin == 'super') {
+		// 	$exif_item = array(
+		// 		'maker'		=> '제조사',
+		// 		'model'		=> '모델',
+		// 		'datetime'	=> '촬영일',
+		// 		'size'		=> '사이즈',
+		// 		'exprogram'	=> '촬영모드',
+		// 		'metermode'	=> '측광모드',
+		// 		'focallen'	=> '초점거리',
+		// 		'focal35mm'	=> '35mm환산거리',
+		// 		'fnumber'	=> '조리개',
+		// 		'iso'		=> 'ISO',
+		// 		'whitebal'	=> '화이트밸러스',
+		// 		'exptime'	=> '노출시간',
+		// 		'expbias'	=> '노출보정(EV)',
+		// 		'ccd'		=> 'CCD',
+		// 		'flash'		=> 'Flash'
+		// 	);
 
-			// EXIF Class Object
-			include_once(EYOOM_CLASS_PATH . '/exif.class.php');
-			$exif = new exif;
-		}
+		// 	// EXIF Class Object
+		// 	include_once(EYOOM_CLASS_PATH . '/exif.class.php');
+		// 	$exif = new exif;
+		// }
 
 		// 익명글쓰기 체크
 		$is_anonymous = $eyoom_board['bo_use_anonymous'] == 1 ? true:false;
@@ -117,13 +117,13 @@
 			$target_url = G5_BBS_URL.'/board.php?bo_table='.$bo_table.'&amp;wr_id='.$wr_id;
 			$contents = cut_str(trim(str_replace(array("\r\n","\r","\n"),'',strip_tags(preg_replace("/\?/","",$write['wr_content'])))),200, '…');
 		}
-		if($it_id) {
-			$sitem = sql_fetch("select * from {$g5['g5_shop_item_table']} where it_id = '".$it_id."'");
-			$head_title = strip_tags(conv_subject($sitem['it_name'], 255)) . ' | ' . $config['cf_title'];
-			$sns_image = G5_DATA_URL . '/item/'.$sitem['it_img1'];
-			$target_url = G5_SHOP_URL.'/item.php?it_id='.$it_id;
-			$contents = cut_str(trim(str_replace(array("\r\n","\r","\n"),'',strip_tags(preg_replace("/\?/","",$sitem['it_explan'])))),200, '…');
-		}
+		// if($it_id) {
+		// 	$sitem = sql_fetch("select * from {$g5['g5_shop_item_table']} where it_id = '".$it_id."'");
+		// 	$head_title = strip_tags(conv_subject($sitem['it_name'], 255)) . ' | ' . $config['cf_title'];
+		// 	$sns_image = G5_DATA_URL . '/item/'.$sitem['it_img1'];
+		// 	$target_url = G5_SHOP_URL.'/item.php?it_id='.$it_id;
+		// 	$contents = cut_str(trim(str_replace(array("\r\n","\r","\n"),'',strip_tags(preg_replace("/\?/","",$sitem['it_explan'])))),200, '…');
+		// }
 		$config['cf_add_meta'] .= '
 			<meta property="og:id" content="'.G5_URL.'" />
 			<meta property="og:url" content="'.$target_url.'" />
@@ -217,7 +217,7 @@
 	}
 
 	// 일정 기간이 지난 DB 데이터 삭제 및 최적화
-	include_once(EYOOM_INC_PATH.'/db_table.optimize.php');
+	// include_once(EYOOM_INC_PATH.'/db_table.optimize.php');
 
 	// common.php 파일을 수정할 필요가 없도록 확장
 	$extend_file = array();
