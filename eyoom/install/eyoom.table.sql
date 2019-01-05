@@ -37,22 +37,11 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_member` (
   `photo` varchar(100) NOT NULL,
   `myhome_cover` varchar(100) NOT NULL,
   `main_index` enum('index','mypage','myhome','shop') NOT NULL default 'index',
-  `mypage_main` enum('respond','timeline') NOT NULL default 'respond',
-  `myhome_hit` mediumint(11) NOT NULL default '0',
-  `open_page` enum('y','n') NOT NULL default 'y',
   `respond` mediumint(5) NOT NULL default '0',
-  `onoff_push` enum('on','off') NOT NULL default 'on',
-  `onoff_push_respond` enum('on','off') NOT NULL default 'on',
-  `onoff_push_memo` enum('on','off') NOT NULL default 'on',
-  `onoff_push_social` enum('on','off') NOT NULL default 'on',
-  `onoff_push_likes` enum('on','off') NOT NULL default 'on',
-  `onoff_push_guest` enum('on','off') NOT NULL default 'on',
-  `onoff_social` enum('on','off') NOT NULL default 'on',
   `open_email` enum('y','n') NOT NULL default 'y',
   `open_homepage` enum('y','n') NOT NULL default 'y',
   `open_tel` enum('y','n') NOT NULL default 'y',
   `open_hp` enum('y','n') NOT NULL default 'y',
-  `view_timeline` char(1) NOT NULL default '1',
   UNIQUE KEY `mb_id` (`mb_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 

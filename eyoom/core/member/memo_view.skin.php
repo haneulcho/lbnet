@@ -11,14 +11,6 @@
 		$kind_str = "받는";
 		$kind_date = "보낸";
 	}
-	
-	// 푸쉬 알람 파일 삭제
-	$push_file = G5_DATA_PATH.'/member/push/push.'.$member['mb_id'].'.php';
-	
-	// 푸쉬파일 삭제
-	if(@file_exists($push_file)) {
-		@unlink($push_file);
-	}
 
 	// 사용자 프로그램
 	@include_once(EYOOM_USER_PATH.'/member/memo_view.skin.php');

@@ -174,11 +174,6 @@ class eyoom extends qfile
 				sql_query(" insert into {$g5['eyoom_member']} set mb_id = '{$wr_mb_id}', respond=1", false);
 			}
 		}
-
-		// 푸시등록
-		$user = sql_fetch("select onoff_push_respond from {$g5['eyoom_member']} where mb_id = '{$wr_mb_id}'");
-		if($user['onoff_push_respond'] == 'on') $this->set_push("respond",$rid,$wr_mb_id,$mb_nick,$type);
-
 	}
 
 	// 내글반응의 종류에 따라 출력될 메세지 결정
@@ -236,15 +231,6 @@ class eyoom extends qfile
 		return $output;
 	}
 
-	// 푸쉬 생성
-	public function set_push($item,$val,$target_id,$mb_name,$re_type='') {
-		$push_file = $this->member_path.'/push/push.'.$target_id.'.php';
-		$push[$item]['val'] = $val;
-		$push[$item]['nick'] = $mb_name;
-		$push[$item]['type'] = $re_type;
-		$this->save_file('push',$push_file,$push);
-	}
-
 	// 회원 프로필 사진
 	public function mb_photo($mb_id,$photo_filename='') {
 		$photo = '';
@@ -268,21 +254,6 @@ class eyoom extends qfile
 				}
 			}
 		}
-		return $photo;
-	}
-
-	// 회원 마이홈 커버이미지
-	private function myhome_cover($mb_id,$photo_filename='') {
-		$photo = '';
-		$dest_path = G5_DATA_PATH.'/member/cover/';
-		$dest_url = G5_DATA_URL.'/member/cover/';
-		$permit = array('jpg','gif','png');
-		if($photo_filename) {
-			$photo_file = $dest_path.$photo_filename;
-			if(file_exists($photo_file)) {
-				$photo = '<img src="'.$dest_url.$photo_filename.'">';
-			}
-		} else return false;
 		return $photo;
 	}
 

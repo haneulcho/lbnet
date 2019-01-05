@@ -29,10 +29,4 @@
 		sql_query(" OPTIMIZE TABLE `{$g5['eyoom_member']}` ");
 	}
 
-	if($member['mb_id'] && substr($member['mb_today_login'], 0, 10) != G5_TIME_YMD) {
-		// 누적된 푸시파일 자동삭제
-		$push_file_dir = G5_DATA_PATH . '/member/push';
-		$qfile->del_timeover_file($push_file_dir,86400,'push');
-	}
-
 ?>

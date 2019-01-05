@@ -98,16 +98,6 @@
 		$sql = " insert into {$g5['memo_table']} ( me_id, me_recv_mb_id, me_send_mb_id, me_recv_anonymous, me_send_anonymous, me_send_datetime, me_memo ) values ( '$me_id', '$recv_mb_id', '{$member['mb_id']}', '{$me_recv_anonymous}', '{$_POST['me_send_anonymous']}', '".G5_TIME_YMDHIS."', '{$_POST['me_memo']}' ) ";
 		sql_query($sql);
 
-		// 푸시등록
-		$user = sql_fetch("select onoff_push_memo from {$g5['eyoom_member']} where mb_id = '{$recv_mb_id}'");
-		if($user['onoff_push_memo'] == 'on') {
-			if($me_recv_anonymous == 1) {
-				$eb->set_push("memo",$me_id,$recv_mb_id,'익명의 니니');
-			} else {
-				$eb->set_push("memo",$me_id,$recv_mb_id,$member['mb_nick']);
-			}
-		}
-
 		// 나의 활동
 		// $act_contents = array();
 		// $act_contents['mb_nick'] = $recv_mb_nick;

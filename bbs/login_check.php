@@ -90,7 +90,7 @@ if ($config['cf_use_email_certify'] && !preg_match("/[1-9]/", $mb['mb_email_cert
     confirm("{$mb['mb_email']} 메일로 메일인증을 받으셔야 로그인 가능합니다. 다른 메일주소로 변경하여 인증하시려면 취소를 클릭하시기 바랍니다.", G5_URL, G5_BBS_URL.'/register_email.php?mb_id='.$mb_id.'&ckey='.$ckey);
 }
 
-@include_once($member_skin_path.'/login_check.skin.php');
+// @include_once($member_skin_path.'/login_check.skin.php');
 
 // 회원아이디 세션 생성
 set_session('ss_mb_id', $mb['mb_id']);
