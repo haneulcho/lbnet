@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_member` (
   `photo` varchar(100) NOT NULL,
   `myhome_cover` varchar(100) NOT NULL,
   `main_index` enum('index','mypage','myhome','shop') NOT NULL default 'index',
-  `mypage_main` enum('respond','timeline','favorite','followinggul') NOT NULL default 'respond',
+  `mypage_main` enum('respond','timeline') NOT NULL default 'respond',
   `myhome_hit` mediumint(11) NOT NULL default '0',
   `open_page` enum('y','n') NOT NULL default 'y',
   `respond` mediumint(5) NOT NULL default '0',
@@ -53,12 +53,6 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_member` (
   `open_tel` enum('y','n') NOT NULL default 'y',
   `open_hp` enum('y','n') NOT NULL default 'y',
   `view_timeline` char(1) NOT NULL default '1',
-  `view_favorite` char(1) NOT NULL default '1',
-  `view_followinggul` char(1) NOT NULL default '1',
-  `favorite` text NOT NULL,
-  `following` longtext NOT NULL,
-  `follower` longtext NOT NULL,
-  `likes` longtext NOT NULL,
   UNIQUE KEY `mb_id` (`mb_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 

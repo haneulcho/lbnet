@@ -57,8 +57,6 @@ $frm_submit = '
 					<li><span class="point_item">쪽지쓰기 포인트</span> : <input type="text" name="levelset[memo]" id="levelset[memo]" value="<?php echo $levelset['memo']?>" class="frm_input"> </li>
 					<!--li><span class="point_item">쪽지받기 포인트</span> : <input type="text" name="levelset[rememo]" id="levelset[rememo]" value="<?php echo $levelset['rememo']?>" class="frm_input"> </li>
 					<li><span class="point_item">스크랩하기 포인트</span> : <input type="text" name="levelset[scrap]" id="levelset[scrap]" value="<?php echo $levelset['scrap']?>" class="frm_input"> </li-->
-					<li><span class="point_item">팔로우하기 포인트</span> : <input type="text" name="levelset[following]" id="levelset[following]" value="<?php echo $levelset['following']?>" class="frm_input"> </li>
-					<li><span class="point_item">팔로우받기 포인트</span> : <input type="text" name="levelset[follower]" id="levelset[follower]" value="<?php echo $levelset['follower']?>" class="frm_input"> </li>
 					<li><span class="point_item">배너/광고클릭 포인트</span> : <input type="text" name="levelset[banner]" id="levelset[banner]" value="<?php echo $levelset['banner']?>" class="frm_input"> </li>
 					<!--li><span class="point_item">1:1문의하기 포인트</span> : <input type="text" name="levelset[qa]" id="levelset[qa]" value="<?php echo $levelset['qa']?>" class="frm_input"> </li>
 					<li><span class="point_item">설문참여 포인트</span> : <input type="text" name="levelset[poll]" id="levelset[poll]" value="<?php echo $levelset['poll']?>" class="frm_input"> </li-->

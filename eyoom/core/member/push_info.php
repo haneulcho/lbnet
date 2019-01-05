@@ -20,12 +20,7 @@
 	// 푸시적용 항목
 	$push_item = array(
 		'respond',
-		'memo',
-		'following',
-		'unfollow',
-		'likes',
-		'guest',
-		'levelup',
+		'memo'
 	);
 
 	foreach($push_item as $val) {

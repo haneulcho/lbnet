@@ -382,9 +382,7 @@ class eyoom extends qfile
 			$user = sql_fetch($sql, false);
 			if($user['mb_id']) {
 				$user['mb_photo'] = $this->mb_photo($user['mb_id'],$user['photo']);
-				$user['wallpaper'] = $this->myhome_cover($user['mb_id'],$user['myhome_cover']);
-				$snsinfo = $this->get_sns_info($user['following'],$user['follower'],$user['likes']);
-				$userinfo = $snsinfo + $user;
+				$userinfo = $user;
 				return $userinfo;
 			} else {
 				// 이윰 멤버로 등록이 안되어 있다면 등록 후, 등록한 정보를 넘겨줌
@@ -395,33 +393,11 @@ class eyoom extends qfile
 		} else {
 			$res = sql_query($sql, false);
 			for($i=0;$row=sql_fetch_array($res);$i++) {
-				$_following	= unserialize($row['following']);
-				$_follower	= unserialize($row['follower']);
 				$snsinfo[$i] = $row;
 				$snsinfo[$i]['mb_photo'] = $this->mb_photo($row['mb_id'],$row['photo']);
-				$snsinfo[$i]['following'] = $_following ? count($_following):0;
-				$snsinfo[$i]['follower'] = $_follower ? count($_follower):0;
 			}
 			return $snsinfo;
 		}
-	}
-
-	// 소셜 정보
-	private function get_sns_info($following, $follower, $likes) {
-		$_following	= unserialize($following);
-		$_follower	= unserialize($follower);
-		$_likes		= unserialize($likes);
-		$_friends	= is_array($_following) && is_array($_follower) ? array_intersect($_following,$_follower):array();
-
-		$user['cnt_following']	= $_following ? count($_following):0;
-		$user['cnt_follower']	= $_follower ? count($_follower):0;
-		$user['cnt_friends']	= $_friends ? count($_friends):0;
-		$user['cnt_likes']		= $_likes ? count($_likes):0;
-		$user['following']		= $_following;
-		$user['follower']		= $_follower;
-		$user['friends']		= $_friends;
-		$user['likes']			= $_likes;
-		return $user;
 	}
 
 	// 레벨 포인트

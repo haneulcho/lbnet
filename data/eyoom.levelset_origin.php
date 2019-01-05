@@ -13,8 +13,6 @@
 		"nogood" => "0",
 		"renogood" => "0",
 		"memo" => "1",
-		"following" => "0",
-		"follower" => "0",
 		"banner" => "5",
 		"goodsview" => "1",
 		"cart" => "1",

@@ -21,12 +21,6 @@
 	$eyoomer = array();
 	if($member['mb_id']) {
 		$eyoomer = $eb->get_user_info($member['mb_id']);
-		if(!$eyoomer['following']) $eyoomer['following'] = array();
-		if(!$eyoomer['follower']) $eyoomer['follower'] = array();
-
-		// 관심게시판
-		$favorite = unserialize($eyoomer['favorite']);
-		if($favorite) $my_favorite = implode(',', $favorite);
 
 		// 그누레벨 자동조정
 		// 180523 로그인 시, 레벨 자동 조정되지 않도록 수정
