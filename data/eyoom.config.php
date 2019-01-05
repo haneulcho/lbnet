@@ -41,7 +41,6 @@
 		"use_eyoom_menu" => "y",
 		"use_eyoom_shopmenu" => "n",
 		"use_sideview" => "y",
-		"use_switcher" => "",
 		"use_main_side_layout" => "y",
 		"use_sub_side_layout" => "y",
 		"use_shop_mobile" => "n",

@@ -114,49 +114,6 @@
 		}
 	}
 
-	// switcher 설정
-	if($theme!='basic') {
-		$switcher_path = G5_DATA_PATH.'/member/switcher';
-		$switcher_admin = G5_DATA_PATH.'/member/switcher/'.$config['cf_admin'].'.config.php';
-		if(file_exists($switcher_admin)) {
-			if($eyoom['use_switcher'] == 'on') {
-				if($is_member) {
-					$switcher_member = $switcher_path.'/'.$member['mb_id'].'.config.php';
-					if(file_exists($switcher_member)) @include $switcher_member;
-					else @include $switcher_admin;
-				} else {
-					@include $switcher_admin;
-				}
-			} else @include $switcher_admin;
-		}
-		if(!$_switcher[$theme]) {
-			if(preg_match('/community/',$theme)) {
-				$_switcher[$theme] = array(
-					"sw_color"	=> "default",
-					"sw_fixed"	=> "",
-					"sw_boxed"	=> "",
-					"usemember" => "",
-					"sw_use"	=> ""
-				);
-			}
-			if(preg_match('/dynamic/',$theme)) {
-				$_switcher[$theme] = array(
-					"sw_color"		=> "default",
-					"sw_fixed"		=> "fixed",
-					"sw_boxed"		=> "boxed",
-					"sw_sideopen"	=> "closed",
-					"sw_sidebar"	=> "default",
-					"sw_sidemenu"	=> "accordion",
-					"sw_sidepos"	=> "left",
-					"sw_footer"		=> "default",
-					"usemember"		=> "on",
-					"sw_use"		=> "off"
-				);
-			}
-		}
-		$switcher = $_switcher[$theme];
-	}
-
 	// SNS용 이미지/제목/내용 추가 메타태그
 	if(($bo_table && $wr_id) || $it_id) {
 		if($bo_table && $wr_id) {

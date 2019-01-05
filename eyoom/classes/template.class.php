@@ -16,7 +16,7 @@ class Template extends Template_
 	public $auto_constant	= false;
 
 	public $caching			= true;
-	public $cache_expire	= 0;
+	public $cache_expire	= 300; // 5 Minutes
 
 	// 템플릿 환경설정 및 기본 템플릿 파일 정의하기
 	public function __construct($skin='') {
@@ -28,6 +28,8 @@ class Template extends Template_
 		$this->template_dir	= EYOOM_PATH."/theme";
 		$this->compile_dir	= G5_DATA_PATH."/_compile";
 		$this->cache_dir	= G5_DATA_PATH."/_cache";
+		$this->caching		= true;
+		$this->cache_expire = 300;
 		$this->prefilter	= 'adjustPath';
 		$this->cfg			= $eyoom;
 
@@ -43,7 +45,6 @@ class Template extends Template_
 			'side_mo'	=> 'layout/side_mo.html',
 			'side_bs'	=> 'layout/side_bs.html',
 			'tail_sub'	=> 'layout/tail_sub.html',
-			'switcher'	=> 'layout/switcher.html',
 			'index_pc'	=> 'main/index_pc.html',
 			'index_mo'	=> 'main/index_mo.html',
 			'index_bs'	=> 'main/index_bs.html',

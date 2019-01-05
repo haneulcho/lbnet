@@ -149,7 +149,7 @@ if ($eb_version >= $eb->version_score('1.1.2')) {
 	if(is_array($eyoom)) {
 		foreach($eyoom as $key => $val) {
 			$_eyoom[$key] = $val;
-			if($key == 'use_switcher' && !isset($eyoom['use_main_side_layout'])) {
+			if(!isset($eyoom['use_main_side_layout'])) {
 				$_eyoom['use_main_side_layout'] = 'y';
 				$_eyoom['use_sub_side_layout'] = 'y';
 				$_eyoom['pos_side_layout'] = 'right';
