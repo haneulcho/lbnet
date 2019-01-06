@@ -38,6 +38,38 @@ if($eyoom_board['bo_use_addon_cmtimg'] == '1') $checked['bo_use_addon_cmtimg'] =
 if($eyoom_board['bo_use_extimg'] == '1') $checked['bo_use_extimg'] = true; else $checked['bo_use_extimg'] = false;
 if($eyoom_board['bo_cmtpoint_target'] == '2') $checked['bo_cmtpoint_target2'] = true; else $checked['bo_cmtpoint_target1'] = true;
 
+// 사이트 내 게시판 정보 일괄 가져오기
+$sql = "select bo_table, bo_subject from {$g5['board_table']} where 1 order by bo_subject asc";
+$result = sql_query($sql);
+for($i=0; $row=sql_fetch_array($result); $i++) {
+    $binfo[$i] = $row;
+}
+
+// EXIF정보보기 사용시
+if($eyoom_board['bo_use_exif'] || $is_admin == 'super') {
+    $exif_item = array(
+        'maker'		=> '제조사',
+        'model'		=> '모델',
+        'datetime'	=> '촬영일',
+        'size'		=> '사이즈',
+        'exprogram'	=> '촬영모드',
+        'metermode'	=> '측광모드',
+        'focallen'	=> '초점거리',
+        'focal35mm'	=> '35mm환산거리',
+        'fnumber'	=> '조리개',
+        'iso'		=> 'ISO',
+        'whitebal'	=> '화이트밸러스',
+        'exptime'	=> '노출시간',
+        'expbias'	=> '노출보정(EV)',
+        'ccd'		=> 'CCD',
+        'flash'		=> 'Flash'
+    );
+
+    // EXIF Class Object
+    include_once(EYOOM_CLASS_PATH . '/exif.class.php');
+    $exif = new exif;
+}
+
 // EXIF 상세설정값
 if(!$eyoom_board['bo_exif_detail']) {
 	$exif_detail = $exif->get_exif_default();
