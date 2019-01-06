@@ -5,11 +5,11 @@ include_once('./_common.php');
 
 // 자바스크립트 사용가능할 때
 if($_POST['js'] == "on") {
-    $error = $count = "";
+    $msg = $error = $count = $move_href = "";
 
-    function print_result($error, $count)
+    function print_result($error, $count, $msg, $move_href)
     {
-        echo '{ "error": "' . $error . '", "count": "' . $count . '" }';
+        echo '{ "error": "' . $error . '", "count": "' . $count . '", "msg": "' . $msg . '", "move_href": "' . $move_href . '" }';
         if($error)
             exit;
     }
@@ -17,41 +17,46 @@ if($_POST['js'] == "on") {
     if (!$is_member)
     {
         $error = '회원만 가능합니다.';
-        print_result($error, $count);
+        print_result($error, $count, $msg, $move_href);
+    }
+
+    if (!$write['wr_id']) {
+        $msg = '글이 존재하지 않습니다.\\n\\n글이 삭제되었거나 이동된 경우입니다.';
+        $move_href = './board.php?bo_table='.$bo_table;
     }
 
     if (!($bo_table && $wr_id)) {
         $error = '값이 제대로 넘어오지 않았습니다.';
-        print_result($error, $count);
+        print_result($error, $count, $msg, $move_href);
     }
 
     $ss_name = 'ss_view_'.$bo_table.'_'.$wr_id;
     if (!get_session($ss_name)) {
         $error = '해당 게시물에서만 추천 또는 비추천 하실 수 있습니다.';
-        print_result($error, $count);
+        print_result($error, $count, $msg, $move_href);
     }
 
     $row = sql_fetch(" select count(*) as cnt from {$g5['write_prefix']}{$bo_table} ", FALSE);
     if (!$row['cnt']) {
         $error = '존재하는 게시판이 아닙니다.';
-        print_result($error, $count);
+        print_result($error, $count, $msg, $move_href);
     }
 
     if ($good == 'good' || $good == 'nogood')
     {
         if($write['mb_id'] == $member['mb_id']) {
             $error = '자신의 글에는 추천 또는 비추천 하실 수 없습니다.';
-            print_result($error, $count);
+            print_result($error, $count, $msg, $move_href);
         }
 
         if (!$board['bo_use_good'] && $good == 'good') {
             $error = '이 게시판은 추천 기능을 사용하지 않습니다.';
-            print_result($error, $count);
+            print_result($error, $count, $msg, $move_href);
         }
 
         if (!$board['bo_use_nogood'] && $good == 'nogood') {
             $error = '이 게시판은 비추천 기능을 사용하지 않습니다.';
-            print_result($error, $count);
+            print_result($error, $count, $msg, $move_href);
         }
 
         $sql = " select bg_flag from {$g5['board_good_table']}
@@ -68,7 +73,7 @@ if($_POST['js'] == "on") {
                 $status = '비추천';
 
             $error = "이미 $status 하신 글 입니다.";
-            print_result($error, $count);
+            print_result($error, $count, $msg, $move_href);
         }
         else
         {
@@ -82,7 +87,8 @@ if($_POST['js'] == "on") {
 
             $count = $row['count'];
 
-            print_result($error, $count);
+            @include_once($board_skin_path.'/good.tail.skin.php');
+            print_result($error, $count, $msg, $move_href);
         }
     }
 } else {
@@ -146,10 +152,9 @@ if($_POST['js'] == "on") {
 
             $href = './board.php?bo_table='.$bo_table.'&amp;wr_id='.$wr_id;
 
+            @include_once($board_skin_path.'/good.tail.skin.php');
             alert("이 글을 $status 하셨습니다.", '', false);
         }
     }
 }
-
-@include_once($board_skin_path.'/good.tail.skin.php');
 ?>

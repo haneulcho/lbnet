@@ -20,6 +20,6 @@
 	// 나의 활동에는 적용하지 않기로 함. - DB 부하가 많아질 수 있기 때문
 	
 	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/board/goodcmt.tail.skin.php');
+	// @include_once(EYOOM_USER_PATH.'/board/goodcmt.tail.skin.php');
 
 ?>

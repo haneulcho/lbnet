@@ -34,6 +34,7 @@
 	}
 	
 	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/board/good.tail.skin.php');
-
+	if ($eyoom_board['bo_use_automove'] && $bo_automove['count'] && $bo_automove['target'] && $bo_table && $wr_id) {
+		@include_once(EYOOM_CORE_PATH . "/board/automove.php");
+	}
 ?>

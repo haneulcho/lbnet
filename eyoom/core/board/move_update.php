@@ -107,7 +107,6 @@
 					$save_parent = $insert_id;
 
 					// 이윰뉴에서 해당 게시물 정보 가져옮
-					$eyoom_tag = sql_fetch("select * from {$g5['eyoom_tag_write']} where tw_theme='{$theme}' and bo_table='$bo_table' and wr_id='{$row2['wr_id']}'");
 					$eyoom_new = sql_fetch("select * from {$g5['eyoom_new']} where bo_table='$bo_table' and wr_id='{$row2['wr_id']}'");
 					$en_image = unserialize($eyoom_new['wr_image']);
 					unset($en_image['bf']);
@@ -147,7 +146,7 @@
 
 					if ($sw == 'move' && $i == 0) {
 						// 스크랩 이동
-						sql_query(" update {$g5['scrap_table']} set bo_table = '$move_bo_table', wr_id = '$save_parent' where bo_table = '$bo_table' and wr_id = '{$row2['wr_id']}' ");
+						// sql_query(" update {$g5['scrap_table']} set bo_table = '$move_bo_table', wr_id = '$save_parent' where bo_table = '$bo_table' and wr_id = '{$row2['wr_id']}' ");
 
 						// 최신글 이동
 						sql_query(" update {$g5['board_new_table']} set bo_table = '$move_bo_table', wr_id = '$save_parent', wr_parent = '$save_parent' where bo_table = '$bo_table' and wr_id = '{$row2['wr_id']}' ");
@@ -160,13 +159,6 @@
 
 						// 이윰 내글반응 이동
 						sql_query(" update {$g5['eyoom_respond']} set bo_table = '$move_bo_table', wr_id = '$save_parent', pr_id = '$save_parent' where bo_table = '$bo_table' and wr_id = '{$row2['wr_id']}' ");
-						
-						// 이윰 태그글
-						if($eyoom_tag['wr_tag']) {
-							sql_query(" update {$g5['eyoom_tag_write']} set bo_table = '$move_bo_table', wr_id = '$save_parent', wr_image='{$wr_image}' where bo_table = '$bo_table' and wr_id = '{$row2['wr_id']}' and tw_theme = '{$theme}' ");
-						} else {
-							sql_query(" delete from {$g5['eyoom_tag_write']} where bo_table = '$bo_table' and wr_id = '{$row2['wr_id']}' and tw_theme = '{$theme}' ");
-						}
 					}
 
 					// 이윰 새글 복사
@@ -188,26 +180,6 @@
 							}
 							$copy_set .= "bn_datetime='".G5_TIME_YMDHIS."'";
 							sql_query("insert into {$g5['eyoom_new']} set {$copy_set}");
-						}
-						
-						if($eyoom_tag['wr_tag']) {
-							unset($copy_set);
-							foreach($eyoom_tag as $key => $val) {
-								if($key=='tw_id' || $key == 'wr_datetime') continue;
-								else {
-									if($key == 'bo_table') $val = $move_bo_table;
-									if($key == 'wr_id') $val = $insert_id;
-									if($key == 'wr_image') $val = $wr_image;
-									if($key == 'wr_subject' || $key == 'wr_content') {
-										$val = addslashes(stripslashes($val));
-									}
-									$copy_set .= "{$key} = '{$val}', ";
-								}
-							}
-							$copy_set .= "tw_datetime='".G5_TIME_YMDHIS."'";
-							sql_query("insert into {$g5['eyoom_tag_write']} set {$copy_set}");
-						} else {
-							sql_query(" delete from {$g5['eyoom_tag_write']} where bo_table = '$bo_table' and wr_id = '{$row2['wr_id']}' and tw_theme = '{$theme}' ");
 						}
 					}
 				} else {
@@ -283,21 +255,7 @@
 		";
 		exit;
 	} else {
-		$msg = '조건을 충족하여 해당 게시물을 ['.$binfo['bo_subject'].']으로 '.$act.' 하였습니다.';
-		$href = './board.php?bo_table='.$tg_table;
-	
-		echo "
-			<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">
-			<script>
-			alert(\"".$msg."\");
-			document.location.href = '".$href."';
-			</script>
-			<noscript>
-			<p>
-				\"".$msg."\"
-			</p>
-			<a href=\"".$href."\">돌아가기</a>
-			</noscript>
-		";
+		$msg = '조건을 충족하여 해당 게시물을 [인기글]로 '.$act.'하였습니다.';
+		$move_href = './board.php?bo_table='.$tg_table;
 	}
 ?>

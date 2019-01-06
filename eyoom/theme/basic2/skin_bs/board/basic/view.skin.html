@@ -494,6 +494,7 @@ function excute_good(href, $el, $tx)
 {
     var msg = ($tx.attr("class").search("nogood") > -1) ? '비추천' : '추천';
     var confirmed = confirm('이 글을 ' + msg + ' 하시겠습니까?');
+    $tx.html('처리 중입니다.').show();
     if (confirmed) {
         $.post(
             href,
@@ -501,17 +502,30 @@ function excute_good(href, $el, $tx)
             function(data) {
                 if(data.error) {
                     alert(data.error);
-                    return false;
+                    if (data.move_href) {
+                        window.location.href = data.move_href;
+                    } else {
+                        $tx.delay(100).fadeOut(350);
+                        return false;
+                    }
                 }
-    
                 if(data.count) {
                     $el.find("span").text(number_format(String(data.count)));
                     if($tx.attr("class").search("nogood") > -1) {
                         $tx.html('<i class="fa fa-thumbs-down"></i> 이 글을 비추천했어요!');
-                        $tx.fadeIn(200).delay(2500).fadeOut(200);
+                        setTimeout(function () {
+                            $tx.fadeOut(350);
+                        }, 400);
                     } else {
                         $tx.html('<i class="fa fa-thumbs-up"></i> 이 글을 추천했어요!');
-                        $tx.fadeIn(200).delay(2500).fadeOut(200);
+                        setTimeout(function () {
+                            $tx.fadeOut(350);
+                        }, 400);
+                    }
+                    if (data.msg && data.move_href) {
+                        alert(data.msg);
+                        $tx.fadeOut(350);
+                        window.location.href = data.move_href;
                     }
                 }
             }, "json"

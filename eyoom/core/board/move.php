@@ -65,7 +65,7 @@
 	}
 
 	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/board/move.skin.php');
+	// @include_once(EYOOM_USER_PATH.'/board/move.skin.php');
 
 	// Template define
 	$tpl->define_template('board',$eyoom_board['bo_skin'],'move.skin.html');
