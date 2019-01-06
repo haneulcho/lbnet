@@ -16,7 +16,7 @@
 		// 읽지 않은 쪽지
 		$memo_not_read = $eb->get_memo($member['mb_id']);
 
-		// 내글 반응
+		// 내글 반응이 음수라면 0 으로 셋팅
 		$respond = $eyoomer['respond'];
 		if($respond < 0) {
 			$respond = 0;

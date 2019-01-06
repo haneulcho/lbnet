@@ -6,12 +6,6 @@
 		<div class="member-info">
 			<div class="member-name">
 				<h6>
-					<!--{? lv.gnu_icon}-->
-					<span style='display:inline-block;margin-right:2px;'><img src="{lv.gnu_icon}" align="absmiddle"></span>
-					<!--{/}-->
-					<!--{? lv.eyoom_icon}-->
-					<span style='display:inline-block;margin-right:2px;'><img src="{lv.eyoom_icon}" align="absmiddle"></span>
-					<!--{/}-->
 					<strong>{nick}</strong> <span class="font-size-11 pull-right"><!--{? _is_admin}-->최고관리자<!--{:}-->{lvinfo.gnu_name}/{lvinfo.name}<!--{/}--></span>
 				</h6>
 	        </div>
@@ -28,7 +22,7 @@
 					<!--{? _is_member && member.mb_woman == 1}-->
 					<p class="color-red">{eyoomer.level} (인증회원)</p>
 					<!--{:}-->
-					<p class="color-red">{eyoomer.level}</p>
+					<p class="color-red">{eyoomer.level} (미인증회원)</p>
 					<!--{/}-->
 	            </div>
 	            <div class="widht-50 pull-right text-right">
@@ -56,21 +50,14 @@
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu" role="menu">
-            	<li><a href="{C.G5_BBS_URL}/respond.php">내글반응 <span class="badge badge-red rounded-2x">{respond}</span></a></li>
-                <li>
-                	<a href="{C.G5_BBS_URL}/memo.php" target="_blank" id="ol_after_memo" class="win_memo">
-                    	쪽지 <span class="badge badge-red rounded-2x">{memo_not_read}</span>
-                    </a>
-				</li>
-				<!--{? _is_member && member.mb_woman == 3}-->
-								<!-- {* <li><a href="{C.G5_BBS_URL}/levelup.php">기존 회원 등업</a></li> *} -->
-								<li><a href="{C.G5_BBS_URL}/board.php?bo_table=levelup">등업신청</a></li>
+				<!--{? member.mb_woman == 0 || member.mb_woman == 3 || _is_admin}-->
+				<li><a href="{C.G5_BBS_URL}/board.php?bo_table=levelup">등업신청</a></li>
+				<li class="divider"></li>
 				<!--{/}-->
-				<!--{? _is_member && member.mb_woman == 0}-->
-								<li><a href="{C.G5_BBS_URL}/board.php?bo_table=levelup">등업신청</a></li>
-				<!--{/}-->
-								<li><a href="{C.G5_BBS_URL}/mine.php">내가 쓴 글</a></li>
-								<li><a href="{C.G5_BBS_URL}/mine.php?type=cmt">내가 쓴 댓글</a></li>
+                <li><a href="{C.G5_BBS_URL}/memo.php" target="_blank" id="ol_after_memo" class="win_memo">쪽지</a></li>
+				<li><a href="{C.G5_BBS_URL}/respond.php">내글반응</a></li>
+				<li><a href="{C.G5_BBS_URL}/mine.php">내가 쓴 글</a></li>
+				<li><a href="{C.G5_BBS_URL}/mine.php?type=cmt">내가 쓴 댓글</a></li>
                 <!--{? _is_admin == 'super' || _is_auth}-->
                 <li class="divider"></li>
                 <li><a href="{C.G5_ADMIN_URL}">관리자페이지</a></li>

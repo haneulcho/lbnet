@@ -28,12 +28,6 @@
 		// 3: 인증 대기 회원 (인증 게시판에 글 작성 시 3레벨로 자동 조절, 로그인 시 매회 확인처리)
 		// 4: 인증 회원
 		//if(!$is_admin && $member['mb_level'] <= $levelset['max_use_gnu_level']) $eb->set_gnu_level($eyoomer['level']);
-
-		// 오늘 처음 로그인 이라면 로그인 레벨포인트 적용
-		if (substr($member['mb_today_login'], 0, 10) != G5_TIME_YMD) {
-			// 첫 로그인 레벨포인트 지급
-			$eb->level_point($levelset['login']);
-		}
 	}
 
 	// Eyoom Board 설정
