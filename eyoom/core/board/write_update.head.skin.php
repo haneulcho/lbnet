@@ -8,6 +8,6 @@
 	*/
 
 	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/board/write_update.head.skin.php');
+	// @include_once(EYOOM_USER_PATH.'/board/write_update.head.skin.php');
 
 ?>

@@ -65,13 +65,11 @@
 	$upset = $eb->make_sql_set($update_set);;
 
 	$update_new = "update {$g5['eyoom_new']} set {$cmset},{$upset} where {$where}";
-	sql_query($update_new, false);
 	unset($update_set, $upset);
 
 	// Eyoom 새글
 	if ($w == '' || $w == 'r') {
 		$new_query = $insert_new;
-		if(isset($wr_tag)) $tag_query = $insert_tag;
 
 		// 나의활동
 		switch($w) {
@@ -92,11 +90,10 @@
 		$new_query = $new_post['bn_id'] ? $update_new : $insert_new;
 	}
 	if(isset($new_query)) sql_query($new_query, false);
-	if(isset($tag_query)) sql_query($tag_query, false);
-	unset($cmset, $new_query, $tag_query, $insert_new, $update_new, $insert_tag, $update_tag);
+	unset($cmset, $new_query, $insert_new, $update_new);
 
 	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/board/write_update.skin.php');
+	// @include_once(EYOOM_USER_PATH.'/board/write_update.skin.php');
 
 	// 무한스크롤 리스트에서 뷰창을 띄웠을 경우
 	$qstr .= $wmode ? $qstr.'&wmode=1':'';

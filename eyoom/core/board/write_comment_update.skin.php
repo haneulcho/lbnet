@@ -192,16 +192,6 @@
 		// $eb->insert_activity($mb_id,$type,$act_contents);
 		$eb->level_point($levelset['cmt']);
 
-		// 댓글 포인트
-		if($eyoom_board['bo_firstcmt_point'] || $eyoom_board['bo_bomb_point'] || $eyoom_board['bo_lucky_point']) {
-			$point = $eb->point_comment();
-			if(is_array($point)) {
-				$point = serialize($point);
-				// 댓글의 경우 wr_link1을 사용하지 않기에 활용
-				sql_query(" update $write_table set wr_link1 = '{$point}' where wr_id='{$comment_id}'");
-			}
-		}
-
 	} else if($w == 'cu') {
 		$set = "
 			bo_table	= '{$bo_table}',
@@ -214,8 +204,6 @@
 			mb_level	= '{$wr_1}',
 		";
 		if($wr_image) $set .= " wr_image = '{$wr_image}', ";
-		if($wr_video) $set .= " wr_video = '{$wr_video}', ";
-		if($wr_sound) $set .= " wr_sound = '{$wr_sound}', ";
 		$set .= " bn_datetime = bn_datetime ";
 		
 		$query = "update {$g5['eyoom_new']} set {$set} where bo_table = '{$bo_table}' and wr_id = '{$comment_id}'";
@@ -224,7 +212,7 @@
 	unset($query);
 
 	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/board/write_comment_update.skin.php');
+	// @include_once(EYOOM_USER_PATH.'/board/write_comment_update.skin.php');
 
 	// 무한스크롤 리스트에서 뷰창을 띄웠을 경우
 	$qstr .= $wmode ? $qstr.'&wmode=1':'';
