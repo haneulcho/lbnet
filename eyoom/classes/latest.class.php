@@ -712,7 +712,7 @@ class latest extends eyoom
 		$result = sql_query($sql, false);
 		for($i=0; $row = sql_fetch_array($result); $i++) {
 			// 게시판 익명내글반응 설정 시 익명 닉네임 출력
-			$row2 = sql_fetch("select * from {$g5['eyoom_board']} where bo_table = '{$row['bo_table']}'", false);
+			$row2 = sql_fetch("select bo_use_anonymous_respond from {$g5['eyoom_board']} where bo_table = '{$row['bo_table']}'", false);
 			$is_anonymous_respond = $row2['bo_use_anonymous_respond'] == 1 ? true : false;
 			if ($is_anonymous_respond) {
 				$reinfo = $eb->respond_mention($row['re_type'],'익명',$row['re_cnt']);

@@ -11,116 +11,65 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
 }
 ?>
 
-<?php
-// ------------- 테마 디자인 설정 옵션 시작 ------------- //
-
-/**
- * Design Layout 종류 : wide or boxed
- */
-{layout} = 'wide';
-
-/**
- * Design Color 종류 : white or black
- */
-{color} = 'white';
-
-/**
- * Mega Menu 설정 : yes or no
- */
-{is_megamenu} = 'yes';
-
-/**
- * Side Sticky 설정 : yes or no
- */
-{is_side_sticky} = 'yes';
-
-/**
- * Header Slider 설정 : yes or no
- */
-{is_slider} = 'yes';
-
-/**
- * Logo Type 종류 : image or text
- */
-{logo} = 'text';
-
-/**
- * Header Banner 종류 : image or text
- */
-{hbanner} = 'text';
-
-// ------------- 테마 디자인 설정 옵션 끝 ------------- //
-?>
-
 <!--{? !_wmode }-->
 <div class="wrapper">
 <!--{? !C.G5_IS_MOBILE}-->
 <!--{* PC 화면 시작 *}-->
-	<!--{? layout == 'wide'}-->
 	<div class="header-fixed basic-layout">
-	<!--{: layout == 'boxed'}-->
-	<div class="header-fixed boxed-layout container">
-	<!--{/}-->
 		<!--{* Header Nav *}-->
-		<!--{? color == 'white'}-->
 		<div class="header-nav nav-background-light header-sticky">
-		<!--{: color == 'black'}-->
-		<div class="header-nav nav-background-dark header-sticky">
-		<!--{/}-->
-	<!--{* Header Topbar *}-->
-	<div class="header-topbar">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6">
-					<ul class="list-unstyled topbar-left">
-						<li><a id="bookmarkme" href="javascript:void(0);" rel="sidebar" title="bookmark this page">즐겨찾기</a></li>
-						<!--{? _is_admin //관리자일 경우}-->
-						<li><a href="{C.G5_BBS_URL}/current_connect_admin.php">접속자 {connect.total_cnt}{? connect.mb_cnt} (<span>{connect.mb_cnt}</span>){/}</a></li>
-						<li><a href="{C.G5_BBS_URL}/new_admin.php">새글</a></li>
-						<!--{/}-->
-						<li><a href="{C.G5_BBS_URL}/faq.php">FAQ</a></li>
-						<li><a href="{C.G5_BBS_URL}/qalist.php">1:1문의</a></li>
-					</ul>
-				</div>
+			<!--{* Header Topbar *}-->
+			<div class="header-topbar">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<ul class="list-unstyled topbar-left">
+								<li><a id="bookmarkme" href="javascript:void(0);" rel="sidebar" title="bookmark this page">즐겨찾기</a></li>
+								<!--{? _is_admin //관리자일 경우}-->
+								<li><a href="{C.G5_BBS_URL}/current_connect_admin.php">접속자 {connect.total_cnt}{? connect.mb_cnt} (<span>{connect.mb_cnt}</span>){/}</a></li>
+								<li><a href="{C.G5_BBS_URL}/new_admin.php">새글</a></li>
+								<!--{/}-->
+								<li><a href="{C.G5_BBS_URL}/faq.php">FAQ</a></li>
+								<li><a href="{C.G5_BBS_URL}/qalist.php">1:1문의</a></li>
+							</ul>
+						</div>
+						<div class="col-md-6">
+							<ul class="list-unstyled topbar-right">
+								<!--{? _is_member //회원일 경우}-->
+									<!--{? _is_admin == 'super' //관리자일 경우}-->
+									<li><a href="{C.G5_ADMIN_URL}">관리자</a></li>
+									<!--{/}-->
+									<li><a href="{C.G5_BBS_URL}/member_confirm.php?url={C.G5_BBS_URL}/register_form.php">정보수정</a></li>
+									<li><a href="{C.G5_BBS_URL}/logout.php">로그아웃</a></li>
+									<!--{* 쪽지 최신글 *}-->
 
-				<div class="col-md-6">
-					<ul class="list-unstyled topbar-right">
-						<!--{? _is_member //회원일 경우}-->
-							<!--{? _is_admin == 'super' //관리자일 경우}-->
-							<li><a href="{C.G5_ADMIN_URL}">관리자</a></li>
-							<!--{/}-->
-							<li><a href="{C.G5_BBS_URL}/member_confirm.php?url={C.G5_BBS_URL}/register_form.php">정보수정</a></li>
-							<li><a href="{C.G5_BBS_URL}/logout.php">로그아웃</a></li>
-							<!--{* 쪽지 최신글 *}-->
-							{latest->latest_memo('memo_latest','count=8||cut_subject=20||photo=y')}
-							<!--{* 내글반응 최신글 *}-->
-							{latest->latest_respond('respond_latest','count=8||cut_subject=20||photo=y')}
-						<!--{: //비회원일 경우}-->
-							<li><a href="{C.G5_BBS_URL}/register.php">회원가입</a></li>
-							<li><a href="{C.G5_BBS_URL}/login.php">로그인</a></li>
-						<!--{/}-->
-					</ul>
+									{latest->latest_memo('memo_latest','count=6||cut_subject=20||photo=y')}
+									<!--{* 내글반응 최신글 *}-->
+
+									{latest->latest_respond('respond_latest','count=6||cut_subject=20||photo=y')}
+								<!--{: //비회원일 경우}-->
+									<li><a href="{C.G5_BBS_URL}/register.php">회원가입</a></li>
+									<li><a href="{C.G5_BBS_URL}/login.php">로그인</a></li>
+								<!--{/}-->
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<!--{* End Header Topbar *}-->
+			<!--{* End Header Topbar *}-->
 			<div class="navbar mega-menu" role="navigation">
 				<div class="container">
 					<div class="menu-container">
-					<!--{* ------------- Header Logo 영역 시작 ------------- *}-->
-					<div class="header-logo">
-						<a class="navbar-brand" href="{C.G5_URL}"><img src="../image/lebolution_logo.png" class="img-responsive" alt="{config.cf_title} LOGO"></a>
-					</div>
-					<!--{? defined('_INDEX_') || defined('_EYOOM_MYPAGE_')}-->
-					<!--{:}-->
-					<!--{/}-->
-					<!--{* ------------- Header Logo 영역 끝 ------------- *}-->
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="fa fa-align-justify"></span>
-					</button>
-					<!--{? _is_admin //관리자일 경우}-->
+						<!--{* ------------- Header Logo 영역 시작 ------------- *}-->
+						<div class="header-logo">
+							<a class="navbar-brand" href="{C.G5_URL}"><img src="../image/lebolution_logo.png" class="img-responsive" alt="{config.cf_title} LOGO"></a>
+						</div>
+						<!--{* ------------- Header Logo 영역 끝 ------------- *}-->
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="fa fa-align-justify"></span>
+						</button>
+						<!--{? _is_admin //관리자일 경우}-->
 						<div class="nav-in-right">
 							<ul class="menu-icons-list">
 								<li class="menu-icons">
@@ -128,7 +77,7 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
 								</li>
 							</ul>
 						</div>
-					<!--{/}-->
+						<!--{/}-->
 					</div>
 					<!--{? _is_admin //관리자일 경우}-->
 					<div class="menu-container">
@@ -168,54 +117,54 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
 							<ul class="nav navbar-nav">
 								<!--{* Menu *}-->
 								<!--{? _is_member}-->
-									<!--{? member.mb_woman == 0 || member.mb_woman == 3}-->
+									<!--{? _is_admin || member.mb_woman == 0 || member.mb_woman == 3}-->
 									<li><a href="{C.G5_BBS_URL}/board.php?bo_table=levelup"><i class="fa fa-pencil-square-o"></i> 등업신청</a></li>
-									<!--{:}-->
-										<!--{? _is_admin}-->
-										<li><a href="{C.G5_BBS_URL}/board.php?bo_table=levelup"><i class="fa fa-pencil-square-o"></i> 등업신청</a></li>
-										<!--{/}-->
+									<!--{/}-->
+
+									<!--{? member.mb_level > 2}-->
 										<!--{@ menu}-->
-										<!--{? .active}-->
-											<?php $liClass = 'active' ?>
-										<!--{/}-->
-										<!--{? menu.submenu}-->
-											<?php $space = '' ?>
 											<!--{? .active}-->
-											<?php $space = ' ' ?>
+												<?php $liClass = 'active' ?>
 											<!--{/}-->
-											<?php $liClass = $space.'dropdown' ?>
-										<!--{/}-->
-										<li<!--{? .active}--> class="<?php echo $liClass; ?>"<!--{/}-->>
-											<a href="{.me_link}" target="_{.me_target}" class="dropdown-toggle" data-hover="dropdown">
-												<!--{? .me_icon}--><i class="fa {.me_icon}"></i> <!--{/}-->{.me_name}<!--{? .new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}-->
-											</a>
-											<!--{@ submenu}-->
-											<!--{? ..index_ == 0}-->
-											<ul class="dropdown-menu">
+											<!--{? menu.submenu}-->
+												<?php $space = '' ?>
+												<!--{? .active}-->
+												<?php $space = ' ' ?>
+												<!--{/}-->
+												<?php $liClass = $space.'dropdown' ?>
 											<!--{/}-->
-												<li class="dropdown-submenu {? ..active}active{/}">
-													<a href="{..me_link}" target="_{..me_target}"><!--{? ..me_icon}--><i class="fa {..me_icon}"></i> <!--{/}-->{..me_name}<!--{? ..new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ..sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
-													<!--{@ subsub}-->
-													<!--{? ...index_ == 0}-->
-													<ul class="dropdown-menu {? ...active}active{/}">
+											<li<!--{? .active}--> class="<?php echo $liClass; ?>"<!--{/}-->>
+												<a href="{.me_link}" target="_{.me_target}" class="dropdown-toggle"<!--{? menu.submenu}--> data-hover="dropdown"<!--{/}-->>
+													<!--{? .me_icon}--><i class="fa {.me_icon}"></i> <!--{/}-->{.me_name}<!--{? .new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}-->
+												</a>
+												<!--{@ submenu}-->
+													<!--{? ..index_ == 0}-->
+													<ul class="dropdown-menu">
 													<!--{/}-->
-														<li class="dropdown-submenu">
-															<a href="{...me_link}" target="_{...me_target}"><!--{? ...me_icon}--><i class="fa {...me_icon}"></i> <!--{/}-->{...me_name}<!--{? ...new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ...sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
+														<li class="dropdown-submenu {? ..active}active{/}">
+															<a href="{..me_link}" target="_{..me_target}"><!--{? ..me_icon}--><i class="fa {..me_icon}"></i> <!--{/}-->{..me_name}<!--{? ..new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ..sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
+															<!--{@ subsub}-->
+																<!--{? ...index_ == 0}-->
+																<ul class="dropdown-menu {? ...active}active{/}">
+																<!--{/}-->
+																	<li class="dropdown-submenu">
+																		<a href="{...me_link}" target="_{...me_target}"><!--{? ...me_icon}--><i class="fa {...me_icon}"></i> <!--{/}-->{...me_name}<!--{? ...new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ...sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
+																	</li>
+																<!--{? ...index_ == ...size_-1}-->
+																</ul>
+																<!--{/}-->
+															<!--{/}-->
+															<!--{* End subsubMenu 반복 *}-->
 														</li>
-													<!--{? ...index_ == ...size_-1}-->
+													<!--{? ..index_ == ..size_-1}-->
 													</ul>
 													<!--{/}-->
-													<!--{/}-->
-												</li>
-											<!--{? ..index_ == ..size_-1}-->
-											</ul>
-											<!--{/}-->
-											<!--{/}-->
-										</li>
+												<!--{/}-->
+												<!--{* End subMenu 반복 *}-->
+											</li>
 										<!--{/}-->
 										<!--{* End Menu 반복 *}-->
 									<!--{/}-->
-									<!--{* End Menu is_member *}-->
 								<!--{/}-->
 								<!--{* End Menu *}-->
 							</ul>
@@ -229,8 +178,7 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
 
 		<div class="header-sticky-space"></div>
 
-		<!--{? defined('_INDEX_') || defined('_EYOOM_MYPAGE_')}-->
-		<!--{:}-->
+		<!--{? !defined('_INDEX_')}-->
 		<!--{* Page Title *}-->
   		<div class="board-title">
   			<div class="container">
@@ -239,15 +187,11 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
   		</div>
 		<!--{* End Board Title *}-->
 		<!--{/}-->
-
 		<!--{* Basic Body *}-->
 		<div class="basic-body container">
 			<div class="row">
-				<!--{? (defined('_INDEX_') && eyoom.use_main_side_layout == 'y') || (!defined('_INDEX_') && eyoom.use_sub_side_layout == 'y' && subinfo.sidemenu != 'n')}-->
-				<!--{? eyoom.pos_side_layout == 'left'}-->
-				{# side_bs}
-				<!--{/}-->
-				<div class="basic-body-main {? eyoom.pos_side_layout == 'left'}right{:}left{/}-main col-sm-9">
+				<!--{? eyoom.use_main_side_layout == 'y'}-->
+				<div class="basic-body-main col-sm-9">
 				<!--{:}-->
 				<div class="basic-body-main col-md-12">
 				<!--{/}-->
@@ -296,7 +240,8 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
 			<!--{* End Header Topbar *}-->
 			<div class="lb_m_header">
 				<!--{* ------------- Header Logo 영역 시작 ------------- *}-->
-				<!--{? defined('_INDEX_') || defined('_EYOOM_MYPAGE_')}-->
+				<!--{? defined('_INDEX_')}-->
+
 				<div class="header-logo"><a class="navbar-brand" href="{C.G5_URL}"><img src="../image/lebolution_logo.png" class="img-responsive" alt="{config.cf_title} LOGO"></a></div>
 				<!--{:}-->
 				<span class="lbbread"><a href="{subinfo.title_link}">{subinfo.title}</a></span>
@@ -334,54 +279,51 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
 					<ul>
 						<!--{* Menu *}-->
 						<!--{? _is_member}-->
-							<!--{? member.mb_woman == 0 || member.mb_woman == 3}-->
-								<li><a href="{C.G5_BBS_URL}/board.php?bo_table=levelup"><i class="fa fa-pencil-square-o"></i> 등업신청</a></li>
-							<!--{:}-->
-								<!--{? _is_admin}-->
-								<li><a href="{C.G5_BBS_URL}/board.php?bo_table=levelup"><i class="fa fa-pencil-square-o"></i> 등업신청</a></li>
-								<!--{/}-->
+							<!--{? _is_admin || member.mb_woman == 0 || member.mb_woman == 3}-->
+							<li><a href="{C.G5_BBS_URL}/board.php?bo_table=levelup"><i class="fa fa-pencil-square-o"></i> 등업신청</a></li>
+							<!--{/}-->
+							<!--{? member.mb_level > 2}-->
 								<!--{@ menu}-->
-								<!--{? .active}-->
-									<?php $liClass = 'active' ?>
-								<!--{/}-->
-								<!--{? menu.submenu}-->
-									<?php $space = '' ?>
 									<!--{? .active}-->
-									<?php $space = ' ' ?>
+										<?php $liClass = 'active' ?>
 									<!--{/}-->
-									<?php $liClass = $space.'dropdown' ?>
-								<!--{/}-->
-								<li<!--{? .active}--> class="<?php echo $liClass; ?>"<!--{/}-->>
-									<a href="{.me_link}" target="_{.me_target}" class="dropdown-toggle"{? menu.submenu} data-toggle="dropdown"{/}>
-										<!--{? .me_icon}--><i class="fa {.me_icon}"></i> <!--{/}-->{.me_name}<!--{? .new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}-->
-									</a>
-									<!--{@ submenu}-->
-									<!--{? ..index_ == 0}-->
-									<ul class="dropdown-menu">
+									<!--{? menu.submenu}-->
+										<?php $space = '' ?>
+										<!--{? .active}-->
+										<?php $space = ' ' ?>
+										<!--{/}-->
+										<?php $liClass = $space.'dropdown' ?>
 									<!--{/}-->
-										<li class="dropdown-submenu {? ..active}active{/}">
-											<a href="{..me_link}" target="_{..me_target}"><!--{? ..me_icon}--><i class="fa {..me_icon}"></i> <!--{/}-->{..me_name}<!--{? ..new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ..sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
-											<!--{@ subsub}-->
-											<!--{? ...index_ == 0}-->
-											<ul class="dropdown-menu {? ...active}active{/}">
+									<li<!--{? .active}--> class="<?php echo $liClass; ?>"<!--{/}-->>
+										<a href="{.me_link}" target="_{.me_target}" class="dropdown-toggle"<!--{? menu.submenu}--> data-toggle="dropdown"<!--{/}-->>
+											<!--{? .me_icon}--><i class="fa {.me_icon}"></i> <!--{/}-->{.me_name}<!--{? .new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}-->
+										</a>
+										<!--{@ submenu}-->
+											<!--{? ..index_ == 0}-->
+											<ul class="dropdown-menu">
 											<!--{/}-->
-												<li class="dropdown-submenu">
-													<a href="{...me_link}" target="_{...me_target}"><!--{? ...me_icon}--><i class="fa {...me_icon}"></i> <!--{/}-->{...me_name}<!--{? ...new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ...sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
+												<li class="dropdown-submenu {? ..active}active{/}">
+													<a href="{..me_link}" target="_{..me_target}"><!--{? ..me_icon}--><i class="fa {..me_icon}"></i> <!--{/}-->{..me_name}<!--{? ..new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ..sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
+													<!--{@ subsub}-->
+														<!--{? ...index_ == 0}-->
+														<ul class="dropdown-menu {? ...active}active{/}">
+														<!--{/}-->
+															<li class="dropdown-submenu">
+																<a href="{...me_link}" target="_{...me_target}"><!--{? ...me_icon}--><i class="fa {...me_icon}"></i> <!--{/}-->{...me_name}<!--{? ...new}-->&nbsp;<i class="fa fa-check-circle color-red"></i><!--{/}--><!--{? ...sub=='on'}--><i class="fa fa-angle-right sub-caret hidden-sm hidden-xs"></i><i class="fa fa-angle-down sub-caret hidden-md hidden-lg"></i><!--{/}--></a>
+															</li>
+														<!--{? ...index_ == ...size_-1}-->
+														</ul>
+														<!--{/}-->
+													<!--{/}-->
 												</li>
-											<!--{? ...index_ == ...size_-1}-->
+											<!--{? ..index_ == ..size_-1}-->
 											</ul>
 											<!--{/}-->
-											<!--{/}-->
-										</li>
-									<!--{? ..index_ == ..size_-1}-->
-									</ul>
-									<!--{/}-->
-									<!--{/}-->
-								</li>
+										<!--{/}-->
+									</li>
 								<!--{/}-->
 								<!--{* End Menu 반복 *}-->
 							<!--{/}-->
-							<!--{* End Menu is_member *}-->
 						<!--{/}-->
 						<!--{* End Menu *}-->
 					</ul>
@@ -396,9 +338,11 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
 					<a href="#" class="btn_navClose"><span class="sr-only">메뉴 닫기</span><i class="fa fa-times"></i></a>
 				</div>
 				<div class="lb_m_nav_myinfo">
-					<!--{* 아웃로그인 모바일에서는 회원 로그인 시에만 아웃로그인 스킨을 보여준다 *}-->
-					<!--{? eyoom.use_gnu_outlogin == 'y'}-->{=outlogin('basic')}<!--{:}-->{=eb_outlogin(eyoom.outlogin_skin)}<!--{/}-->
-					<div class="lb_m_nav_menu">
+						<!--{* 아웃로그인 모바일에서는 회원 로그인 시에만 아웃로그인 스킨을 보여준다 *}-->
+						<!--{? _is_member}-->
+							<!--{? eyoom.use_gnu_outlogin == 'y'}-->{=outlogin('basic')}<!--{:}-->{=eb_outlogin(eyoom.outlogin_skin)}<!--{/}-->
+						<!--{/}-->
+						<div class="lb_m_nav_menu">
 						<ul>
 							<li class="open">
 								<a href="/bbs/board.php?bo_table=meet" target="_self" class="dropdown-toggle" data-toggle="dropdown">
@@ -428,31 +372,14 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
 		</div>
 		<!--{/}-->
 
-		<!--{? defined('_INDEX_') || defined('_EYOOM_MYPAGE_')}-->
-		<!--{:}-->
-		<!--{* Page Title *}-->
-		<!--{? !C.G5_IS_MOBILE}-->
-  		<div class="board-title">
-  			<div class="container">
-  				<h3 class="pull-left"><i class="fa fa-map-marker"></i> <a href="{subinfo.title_link}">{subinfo.title}</a></h3>
-  			</div>
-  		</div>
-		<!--{/}-->
-		<!--{* End Board Title *}-->
-		<!--{/}-->
-
 		<!--{* Basic Body *}-->
 		<div class="basic-body container">
 			<div class="row">
-				<!--{? (defined('_INDEX_') && eyoom.use_main_side_layout == 'y') || (!defined('_INDEX_') && eyoom.use_sub_side_layout == 'y' && subinfo.sidemenu != 'n')}-->
-				<!--{? eyoom.pos_side_layout == 'left'}-->
-				{# side_bs}
-				<!--{/}-->
-				<div class="basic-body-main {? eyoom.pos_side_layout == 'left'}right{:}left{/}-main col-sm-9">
+				<!--{? eyoom.use_main_side_layout == 'y'}-->
+				<div class="basic-body-main col-sm-9">
 				<!--{:}-->
 				<div class="basic-body-main col-md-12">
 				<!--{/}-->
-				<!--{* 상단 배너 끝 *}-->
 <!--{* 모바일 화면 끝 *}-->
 <!--{/}-->
 
