@@ -225,9 +225,9 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
 									<li><a href="{C.G5_ADMIN_URL}">관리자</a></li>
 									<!--{/}-->
 									<!--{* 쪽지 최신글 *}-->
-									{latest->latest_memo('memo_latest','count=8||cut_subject=20||photo=y')}
+									{latest->latest_memo('memo_latest','count=6||cut_subject=20||photo=y')}
 									<!--{* 내글반응 최신글 *}-->
-									{latest->latest_respond('respond_latest','count=8||cut_subject=20||photo=y')}
+									{latest->latest_respond('respond_latest','count=6||cut_subject=20||photo=y')}
 								<!--{: //비회원일 경우}-->
 									<li><a href="{C.G5_BBS_URL}/register.php">회원가입</a></li>
 									<li><a href="{C.G5_BBS_URL}/login.php">로그인</a></li>
@@ -349,10 +349,10 @@ add_stylesheet('<link rel="stylesheet" href="../css/style.min.css" type="text/cs
 								<i class="fa fa-heart"></i> 내 메뉴</a>
 								<ul class="dropdown-menu">
 									<li class="dropdown-submenu">
-										<a href="{C.G5_BBS_URL}/memo.php" target="_blank">쪽지 <span class="badge badge-red rounded-2x">{memo_not_read}</span></a>
+										<a href="{C.G5_BBS_URL}/memo.php" target="_blank">쪽지</span></a>
 									</li>
 									<li class="dropdown-submenu">
-										<a href="{C.G5_BBS_URL}/respond.php" target="_blank">내글반응 <span class="badge badge-red rounded-2x">{respond}</span></a>
+										<a href="{C.G5_BBS_URL}/respond.php" target="_blank">내글반응</span></a>
 									</li>
 									<li class="dropdown-submenu">
 										<a href="{C.G5_BBS_URL}/mine.php">내가 쓴 글</a>
