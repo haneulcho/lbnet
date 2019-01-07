@@ -170,12 +170,6 @@ var char_max = parseInt({_comment_max}); // 최대
 				<section>
 					<div id="comment-option">
 						<div class="panel panel-default" style="border:0;margin-bottom:0;box-shadow:none">
-							<!--{? eyoom_board.bo_use_addon_video == '1'}-->
-							<a class="btn-e btn-e-xs btn-e-default" data-toggle="collapse" data-parent="#comment-option" href="#collapse-video-cm">동영상</a>
-							<!--{/}-->
-							<!--{? eyoom_board.bo_use_addon_soundcloud== '1'}-->
-							<a class="btn-e btn-e-xs btn-e-default" data-toggle="collapse" data-parent="#comment-option" href="#collapse-sound-cm">사운드클라우드</a>
-							<!--{/}-->
 							<div class="clearfix"></div>
 							<div id="collapse-image-cm" class="panel-collapse collapse">
 								<div class="comment-function-box">
@@ -185,35 +179,6 @@ var char_max = parseInt({_comment_max}); // 최대
 		                            <div id="del_cmtimg"></div>
 								</div>
 							</div>
-							<!--{? eyoom_board.bo_use_addon_video == '1'}-->
-							<div id="collapse-video-cm" class="panel-collapse collapse">
-								<div class="comment-function-box">
-									<label class="input input-file">
-										<a href="javascript:;" class="button bg-color-light-grey color-white" id="btn_video" onclick="return false;">확인</a>
-										<input type="text" id="video_url" class="form-control" placeholder="동영상주소">
-									</label>
-								</div>
-							</div>
-							<!--{/}-->
-							<!--{? eyoom_board.bo_use_addon_soundcloud == '1'}-->
-							<div id="collapse-sound-cm" class="panel-collapse collapse">
-								<div class="comment-function-box">
-									<div class="row">
-										<div class="col col-8 left">
-											<label class="input input-file">
-												<a href="javascript:;" class="button bg-color-light-grey color-white" id="btn_scloud" onclick="return false;">확인</a>
-												<input type="text" id="scloud_url" class="form-control" placeholder="사운드클라우드 음원주소">
-											</label>
-										</div>
-										<div class="col col-4 right text-right">
-											<a href="https://soundcloud.com/" target="_blank" class="btn-e btn-e-xs btn-e-light-grey"><i class="fa fa-location-arrow"></i> 사운드클라우드 GO</a>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</div>
-							</div>
-							<!--{/}-->
-
 						</div>
 					</div>
 					<label class="textarea textarea-resizable">
@@ -258,28 +223,6 @@ var char_max = parseInt({_comment_max}); // 최대
 <script>
 var save_before = '';
 var save_html = document.getElementById('view-comment-write').innerHTML;
-
-function set_textarea_contents(type,value) {
-	var type_text = '';
-	var content = '';
-	var mobile = {? C.G5_IS_MOBILE}true{:}false{/};
-	switch(type) {
-		case 'emoticon': type_text = '이모티콘'; break;
-		case 'video': type_text = '동영상'; break;
-		case 'code': type_text = 'code'; break;
-		case 'sound': type_text = 'soundcloud'; break;
-		case 'map': type_text = '지도'; break;
-	}
-	if(type_text != 'code') {
-		content = '{'+type_text+':'+value+'}';
-	} else {
-		content = '{code:'+value+'}\n\n{/code}\n'
-	}
-	var wr_html = $("#wr_content").val();
-	var wr_emo = content;
-	wr_html += wr_emo;
-	$("#wr_content").val(wr_html);
-}
 
 function good_and_write()
 {
@@ -442,41 +385,11 @@ function comment_box(comment_id, work)
 		document.getElementById('comment_id').value = comment_id;
 		document.getElementById('w').value = work;
 
-		<!--{? eyoom_board.bo_use_addon_emoticon == '1'}-->
-		$(".emoticon").venobox({border:'3px'});
-		<!--{/}-->
-
-		<!--{? eyoom_board.bo_use_addon_video == '1'}-->
-		//동영상 추가
-		$("#btn_video").click(function(){
-			var v_url = $("#video_url").val();
-			if(!v_url) alert('동영상 주소를 입력해 주세요.');
-			else set_textarea_contents('video',v_url);
-			$("#video_url").val('');
-		});
-		<!--{/}-->
-
-		<!--{? eyoom_board.bo_use_addon_coding == '1'}-->
-		//코드 추가
-		$(".ch_code").click(function(){
-			var ch = $(this).text();
-			var val = ch.toLowerCase();
-			set_textarea_contents('code',val);
-		});
-		<!--{/}-->
-
-		<!--{? eyoom_board.bo_use_addon_soundcloud == '1'}-->
-		//사운드크라우드 추가
-		$("#btn_scloud").click(function(){
-			var s_url = $("#scloud_url").val();
-			if(!s_url) alert('사운드크라우드 주소를 입력해 주세요.');
-			else set_textarea_contents('sound',s_url);
-			$("#scloud_url").val('');
-		});
-		<!--{/}-->
-
-		if(save_before)
+		<!--{? _is_guest}-->
+		if(save_before) {
 			$("#captcha_reload").trigger("click");
+		}
+		<!--{/}-->
 
 		save_before = el_id;
 	}
@@ -488,18 +401,6 @@ function comment_delete()
 }
 
 comment_box('', 'c'); // 댓글 입력폼이 보이도록 처리하기위해서 추가 (root님)
-
-<!--{? board.bo_use_sns && (config.cf_facebook_appid || config.cf_twitter_key)}-->
-// sns 등록
-$(function() {
-	$("#bo_vc_send_sns").load(
-		"{C.G5_SNS_URL}/view_comment_write.sns.skin.php?bo_table={_bo_table}",
-		function() {
-			save_html = document.getElementById('view-comment-write').innerHTML;
-		}
-	);
-});
-<!--{/}-->
 </script>
 
 <script>
@@ -543,36 +444,3 @@ function excute_goodcmt(href, $el)
 	}
 }
 </script>
-<!--{? eyoom_board.bo_use_cmt_infinite == '1'}-->
-<script>
-$(document).ready(function(){
-    var $container = $('.view-comment');
-
-	$container.infinitescroll({
-		navSelector  : "#infinite_pagination",
-		nextSelector : "#infinite_pagination .next",
-		itemSelector : ".view-comment-item",
-		loading: {
-			finishedMsg: 'END',
-			img: '../../../image/loading.gif'
-		}
-	},
-
-	function( newElements ) {
-		var $newElems = $( newElements ).css({ opacity: 0 });
-		$newElems.imagesLoaded(function(){
-			$newElems.animate({ opacity: 1 });
-			$container.append($newElems);
-		});
-	});
-
-	$(window).unbind('.infscr');
-
-	$('#view-comment-more').click(function(){
-	   $container.infinitescroll('retrieve');
-	   $('#infinite_pagination').show();
-		return false;
-	});
-});
-</script>
-<!--{/}-->

@@ -185,67 +185,67 @@ if ($w == 'c') // 댓글 입력
     insert_point($member['mb_id'], $board['bo_comment_point'], "{$board['bo_subject']} {$wr_id}-{$comment_id} 댓글쓰기", $bo_table, $comment_id, '댓글');
 
     // 메일발송 사용
-    if ($config['cf_email_use'] && $board['bo_use_email'])
-    {
-        // 관리자의 정보를 얻고
-        $super_admin = get_admin('super');
-        $group_admin = get_admin('group');
-        $board_admin = get_admin('board');
+    // if ($config['cf_email_use'] && $board['bo_use_email'])
+    // {
+    //     // 관리자의 정보를 얻고
+    //     $super_admin = get_admin('super');
+    //     $group_admin = get_admin('group');
+    //     $board_admin = get_admin('board');
 
-        $wr_content = nl2br(get_text(stripslashes("원글\n{$wr['wr_subject']}\n\n\n댓글\n$wr_content")));
+    //     $wr_content = nl2br(get_text(stripslashes("원글\n{$wr['wr_subject']}\n\n\n댓글\n$wr_content")));
 
-        $warr = array( ''=>'입력', 'u'=>'수정', 'r'=>'답변', 'c'=>'댓글 ', 'cu'=>'댓글 수정' );
-        $str = $warr[$w];
+    //     $warr = array( ''=>'입력', 'u'=>'수정', 'r'=>'답변', 'c'=>'댓글 ', 'cu'=>'댓글 수정' );
+    //     $str = $warr[$w];
 
-        $subject = '['.$config['cf_title'].'] '.$board['bo_subject'].' 게시판에 '.$str.'글이 올라왔습니다.';
-        // 4.00.15 - 메일로 보내는 댓글의 바로가기 링크 수정
-        $link_url = G5_BBS_URL."/board.php?bo_table=".$bo_table."&amp;wr_id=".$wr_id."&amp;".$qstr."#c_".$comment_id;
+    //     $subject = '['.$config['cf_title'].'] '.$board['bo_subject'].' 게시판에 '.$str.'글이 올라왔습니다.';
+    //     // 4.00.15 - 메일로 보내는 댓글의 바로가기 링크 수정
+    //     $link_url = G5_BBS_URL."/board.php?bo_table=".$bo_table."&amp;wr_id=".$wr_id."&amp;".$qstr."#c_".$comment_id;
 
-        include_once(G5_LIB_PATH.'/mailer.lib.php');
+    //     include_once(G5_LIB_PATH.'/mailer.lib.php');
 
-        ob_start();
-        include_once ('./write_update_mail.php');
-        $content = ob_get_contents();
-        ob_end_clean();
+    //     ob_start();
+    //     include_once ('./write_update_mail.php');
+    //     $content = ob_get_contents();
+    //     ob_end_clean();
 
-        $array_email = array();
-        // 게시판관리자에게 보내는 메일
-        if ($config['cf_email_wr_board_admin']) $array_email[] = $board_admin['mb_email'];
-        // 게시판그룹관리자에게 보내는 메일
-        if ($config['cf_email_wr_group_admin']) $array_email[] = $group_admin['mb_email'];
-        // 최고관리자에게 보내는 메일
-        if ($config['cf_email_wr_super_admin']) $array_email[] = $super_admin['mb_email'];
+    //     $array_email = array();
+    //     // 게시판관리자에게 보내는 메일
+    //     if ($config['cf_email_wr_board_admin']) $array_email[] = $board_admin['mb_email'];
+    //     // 게시판그룹관리자에게 보내는 메일
+    //     if ($config['cf_email_wr_group_admin']) $array_email[] = $group_admin['mb_email'];
+    //     // 최고관리자에게 보내는 메일
+    //     if ($config['cf_email_wr_super_admin']) $array_email[] = $super_admin['mb_email'];
 
-        // 원글게시자에게 보내는 메일
-        if ($config['cf_email_wr_write']) $array_email[] = $wr['wr_email'];
+    //     // 원글게시자에게 보내는 메일
+    //     if ($config['cf_email_wr_write']) $array_email[] = $wr['wr_email'];
 
-        // 댓글 쓴 모든이에게 메일 발송이 되어 있다면 (자신에게는 발송하지 않는다)
-        if ($config['cf_email_wr_comment_all']) {
-            $sql = " select distinct wr_email from {$write_table}
-                        where wr_email not in ( '{$wr['wr_email']}', '{$member['mb_email']}', '' )
-                        and wr_parent = '$wr_id' ";
-            $result = sql_query($sql);
-            while ($row=sql_fetch_array($result))
-                $array_email[] = $row['wr_email'];
-        }
+    //     // 댓글 쓴 모든이에게 메일 발송이 되어 있다면 (자신에게는 발송하지 않는다)
+    //     if ($config['cf_email_wr_comment_all']) {
+    //         $sql = " select distinct wr_email from {$write_table}
+    //                     where wr_email not in ( '{$wr['wr_email']}', '{$member['mb_email']}', '' )
+    //                     and wr_parent = '$wr_id' ";
+    //         $result = sql_query($sql);
+    //         while ($row=sql_fetch_array($result))
+    //             $array_email[] = $row['wr_email'];
+    //     }
 
-        // 중복된 메일 주소는 제거
-        $unique_email = array_unique($array_email);
-        $unique_email = array_values($unique_email);
-        for ($i=0; $i<count($unique_email); $i++) {
-            mailer($wr_name, $wr_email, $unique_email[$i], $subject, $content, 1);
-        }
-    }
+    //     // 중복된 메일 주소는 제거
+    //     $unique_email = array_unique($array_email);
+    //     $unique_email = array_values($unique_email);
+    //     for ($i=0; $i<count($unique_email); $i++) {
+    //         mailer($wr_name, $wr_email, $unique_email[$i], $subject, $content, 1);
+    //     }
+    // }
 
     // SNS 등록
-    include_once("./write_comment_update.sns.php");
-    if($wr_facebook_user || $wr_twitter_user) {
-        $sql = " update $write_table
-                    set wr_facebook_user = '$wr_facebook_user',
-                        wr_twitter_user  = '$wr_twitter_user'
-                    where wr_id = '$comment_id' ";
-        sql_query($sql);
-    }
+    // include_once("./write_comment_update.sns.php");
+    // if($wr_facebook_user || $wr_twitter_user) {
+    //     $sql = " update $write_table
+    //                 set wr_facebook_user = '$wr_facebook_user',
+    //                     wr_twitter_user  = '$wr_twitter_user'
+    //                 where wr_id = '$comment_id' ";
+    //     sql_query($sql);
+    // }
 }
 else if ($w == 'cu') // 댓글 수정
 {
