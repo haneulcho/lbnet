@@ -205,9 +205,9 @@
                     <form name="fycard">
                     <input type="hidden" name="modal_cmt_id" id="modal_cmt_id" value="">
                     <label for="sfl" class="sound_only">신고사유</label>
-                    <label class="label">이 게시물을 신고하시겠습니까? 신고사유를 선택해 주세요.</label>
+                    <label class="label">신고 항목을 선택하고 사유를 적어 주세요.</label>
                     <section class="bg-light">
-                        <div class="inline-group">
+                        <div class="inline-group margin-bottom-0">
                             <label class="radio" for="ycard_reason_1">
                                 <input type="radio" name="ycard_reason" id="ycard_reason_1" value="1"><i class="rounded-x"></i>광고성
                             </label>
@@ -224,7 +224,11 @@
                                 <input type="radio" name="ycard_reason" id="ycard_reason_5" value="5"><i class="rounded-x"></i>기타
                             </label>
                         </div>
+                        <textarea rows="7" id="ycard_memo" class="textarea" style="width:100%" name="ycard_memo" maxlength="10000" required="required" title="신고 상세사유"></textarea>
                     </section>
+                    <div class="alert alert-danger padding-all-10 margin-top-10 margin-bottom-15">
+                        <strong>Note:</strong> 반드시 신고 사유를 적어 주세요. (미기입 시 운영진 확인 후 신고 취소 처리)
+                    </div>
                     <div class="text-center margin-top-20 margin-bottom-10">
                         <button type="button" class="btn-e btn-e-red">신고하기</button>
                     </div>
@@ -331,8 +335,12 @@ $(function() {
     $('.yellowcard-modal .modal-body button').click(function () {
         var cmt_id = $("#modal_cmt_id").val();
         var yc_reason = $(':radio[name="ycard_reason"]:checked').val();
-        if(!yc_reason) {
-            alert('신고사유를 선택해 주세요.');
+        var yc_memo = $('#ycard_memo').val();
+        if (!yc_reason) {
+            alert('신고 항목을 선택해 주세요.');
+            return;
+        } else if (!yc_memo) {
+            alert('신고 사유를 작성해 주세요.');
             return;
         } else {
             $.post(

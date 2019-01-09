@@ -266,8 +266,11 @@ if ($eb_version >= $eb->version_score('1.1.10')) {
 		  `yc_id` int(11) unsigned NOT NULL auto_increment,
 		  `bo_table` varchar(20) NOT NULL default '',
 		  `wr_id` int(11) NOT NULL default '0',
+		  `pr_id` int(11) NOT NULL,
 		  `mb_id` varchar(20) NOT NULL default '',
+		  `mb_ip` varchar(255) NOT NULL,
 		  `yc_reason` char(1) NOT NULL,
+		  `yc_memo` longtext NOT NULL,
 		  `yc_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
 		  PRIMARY KEY  (`yc_id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
