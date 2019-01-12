@@ -10,7 +10,7 @@
           <span class="lbtime"><i class="fa fa-clock-o"></i><!--{? eyoom_board.bo_sel_date_type == '1'}-->
           {eb->date_time('m-d H:i',view.wr_datetime)}<!--{: eyoom_board.bo_sel_date_type == '2'}-->{eb->date_format('Y.m.d',view.wr_datetime)}<!--{/}--></span>
           <!--{? _is_ip_view && _is_admin}-->
-          <div class="margin-bottom-0 margin-top-10"><span>({view.lb_nickname} / {_ip})</span></div>
+          <div class="margin-bottom-0 margin-top-10"><span>({view.lb_id} / {view.lb_nickname} / {_ip})</span></div>
           <!--{/}-->
         </div>
       </div>

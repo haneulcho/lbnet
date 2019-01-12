@@ -35,7 +35,7 @@ var char_max = parseInt({_comment_max}); // 최대
 
 				<div class="comment-item-contents" style="{? .cmt_depth && !.is_cmt_best}padding-left:{.cmt_depth}px;{/}">
 				<!--{? _is_ip_view && _is_admin}-->
-					<div class="comment-item-info lbdes"><span class="comment-ip">({.lb_nickname} / {.ip})</span></div>
+					<div class="comment-item-info lbdes"><span class="comment-ip">({.lb_id} / {.lb_nickname} / {.ip})</span></div>
 				<!--{/}-->
 				<p>
 					<!--{? strstr(.wr_option, 'secret')}--><i class="fa fa-lock" style="color:#aaa;"></i> <!--{/}-->
