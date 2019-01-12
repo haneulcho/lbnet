@@ -2,7 +2,7 @@
 	if (!defined('_GNUBOARD_')) exit;
 
 	// CSS, JS 캐시 대응 Ver 설정
-	$fileDate = date("Ymd", G5_SERVER_TIME);
+	$fileDate = date("YmdHis", G5_SERVER_TIME);
 	define('G5_CSS_VER', $fileDate);
 	define('G5_JS_VER',  $fileDate);
 

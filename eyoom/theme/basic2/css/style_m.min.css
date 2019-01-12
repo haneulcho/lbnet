@@ -748,7 +748,7 @@ body {color:rgba(0, 0, 0, .87);min-width:330px}
 .lb_m_nav_menu > ul > li > ul > li.active > a > i {color:#fff}
 .dropdown-menu {box-shadow:0 2px 3px rgba(0, 0, 0, .12), 0 1px 0 rgba(0, 0, 0, .02);border:none!important;padding:0}
 .header-nav .navbar {min-height:40px!important}
-.header-topbar {position:relative;background:#a7a7a7}
+.header-topbar {position:relative;background:#484848}
 .header-topbar ul {margin:0}
 .header-topbar ul li a {font-size:11px;padding:6px 12px;display:inline-block}
 .header-topbar .topbar-left>li>a, .header-topbar .topbar-right>li>a {color:rgba(255, 255, 255, 0.8)}
@@ -1029,7 +1029,8 @@ fieldset legend {border-bottom:0}
 .sch_word {color:#dc143c}
 .lbbox {box-shadow:0 0 1px rgba(0, 0, 0, .15);background-color:#fff;border-radius:3px}
 .lbbox .headline > h6 {background-color:#f9f9f9}
-.header-topbar.chk {background-color:#484848;-webkit-transition:all ease-in-out .2s;-moz-transition:all ease-in-out .2s;-o-transition:all ease-in-out .2s;transition:all ease-in-out .2s}
+.header-topbar.chk {background-color:#f44455;-webkit-transition:all ease-in-out .2s;-moz-transition:all ease-in-out .2s;-o-transition:all ease-in-out .2s;transition:all ease-in-out .2s}
+.header-topbar.chk_admin {background-color:#00bcd4}
 .basic-latest {position:relative;overflow:hidden;min-height:30px}
 .basic-latest ul {margin-bottom:0}
 .basic-latest li {position:relative;overflow:hidden;border-top:1px solid rgba(120, 130, 140, .13)}
