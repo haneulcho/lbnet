@@ -11,10 +11,13 @@
 	$wr_id 		= $_POST['wr_id'];
 	$cmt_id 	= $_POST['cmt_id'];
 	$yc_reason 	= $_POST['reason'];
+	$yc_memo	= $_POST['memo'];
+	$mb_ip = $_SERVER['REMOTE_ADDR'];
 
 	if(!$action) exit;
 	if(!$bo_table) exit;
 	if(!$wr_id) exit;
+	if(!$yc_memo && $action == 'add') exit;
 	if(!$yc_reason && $action == 'add') exit;
 
 	$tocken = true;
@@ -41,7 +44,7 @@
 		// 이미 블라인드 처리된 글은 신고처리되지 않도록 처리
 		if($ycard['yc_blind'] == 'y' && !$is_admin && $member['mb_level'] < $eyoom_board['bo_blind_direct']) {
 			$yc_count = $count['cnt'];
-			$msg = "이미 블라인드 처리된 글은 신고 또는 신고취소 처리하실 수 없습니다.";
+			$msg = "이미 블라인드 처리된 글은 신고 또는 신고 취소 하실 수 없습니다.";
 			$error = true;
 		} else {
 
@@ -49,7 +52,7 @@
 				case 'add':
 					if(!$data['mb_id']) {
 						$ycard['yc_count'] = $yc_count = $count['cnt'] + 1;
-						sql_query("insert into {$g5['eyoom_yellowcard']} set bo_table = '{$bo_table}', {$wrid}, pr_id = '{$wr_id}', mb_id = '{$member['mb_id']}', yc_reason = '{$yc_reason}',  yc_datetime = '". G5_TIME_YMDHIS ."' ");
+						sql_query("insert into {$g5['eyoom_yellowcard']} set bo_table = '{$bo_table}', {$wrid}, pr_id = '{$wr_id}', mb_id = '{$member['mb_id']}', mb_ip = '{$mb_ip}', yc_reason = '{$yc_reason}', yc_memo = '{$yc_memo}',  yc_datetime = '". G5_TIME_YMDHIS ."' ");
 						if($yc_count >= $eyoom_board['bo_blind_limit']) {
 							$ycard['yc_blind'] = 'y';
 						} else {
@@ -57,13 +60,12 @@
 						}
 						$wr_4 = serialize($ycard);
 						sql_query("update {$write_table} set wr_4 = '{$wr_4}' where {$wrid} ");
-						sql_query("update {$g5['eyoom_new']} set wr_4 = '{$wr_4}' where  bo_table = '{$bo_table}' and {$wrid} ");
-						sql_query("update {$g5['eyoom_tag_write']} set wr_4 = '{$wr_4}' where  bo_table = '{$bo_table}' and {$wrid} and tw_theme='{$theme}' ");
+						sql_query("update {$g5['eyoom_new']} set wr_4 = '{$wr_4}' where bo_table = '{$bo_table}' and {$wrid} ");
 
-						$msg = "정상적으로 신고처리 하였습니다.";
+						$msg = "정상적으로 신고 하였습니다.";
 					} else {
 						$yc_count = $count['cnt'];
-						$msg = "이미 신고처리 하였습니다.";
+						$msg = "이미 신고 하였습니다.";
 					}
 					break;
 
@@ -81,10 +83,9 @@
 						}
 						$wr_4 = serialize($ycard);
 						sql_query("update {$write_table} set wr_4 = '{$wr_4}' where {$wrid} ");
-						sql_query("update {$g5['eyoom_new']} set wr_4 = '{$wr_4}' where  bo_table = '{$bo_table}' and {$wrid} ");
-						sql_query("update {$g5['eyoom_tag_write']} set wr_4 = '{$wr_4}' where  bo_table = '{$bo_table}' and {$wrid} and tw_theme='{$theme}' ");
+						sql_query("update {$g5['eyoom_new']} set wr_4 = '{$wr_4}' where bo_table = '{$bo_table}' and {$wrid} ");
 
-						$msg = "정상적으로 신고취소처리 하였습니다.";
+						$msg = "정상적으로 신고취소 하였습니다.";
 					}
 					break;
 			}

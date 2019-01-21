@@ -22,17 +22,27 @@
 		$ycard = $wr_4;
 		if($ycard['yc_blind'] == 'y') {
 			if(!$is_admin && $member['mb_level'] < $eyoom_board['bo_blind_view']) {
-				$mb_ycard = $eb->mb_yellow_card($member['mb_id'],$bo_table, $wr_id);
-				if(!$mb_ycard['mb_id']) {
+				// $mb_ycard = $eb->mb_yellow_card($member['mb_id'],$bo_table, $wr_id);
+				// if(!$mb_ycard['mb_id']) {
 					alert('이 게시물은 블라인드 처리된 게시물입니다.');
 					exit;
-				}
+				// }
 			}
 		}
 
 		// 바로 블라인드 처리할 수 있는 권한인지 체크
 		if($is_admin || $member['mb_level'] >= $eyoom_board['bo_blind_direct'] ) {
 			$blind_direct = true;
+		}
+
+		// 한 번이라도 신고된 글이면, 글 수정 및 글 삭제가 불가능하게
+		if (!$is_admin && $ycard['yc_count'] > 0) {
+			if ($update_href != '') {
+				$update_href = '';
+			}
+			if ($delete_href != '') {
+				$delete_href = '';
+			}
 		}
 	}
 

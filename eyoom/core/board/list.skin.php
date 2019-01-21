@@ -182,8 +182,9 @@
 		 * 게시물 블라인드 처리
 		 */
 		if(isset($wr_4['yc_blind']) && $wr_4['yc_blind'] == 'y') {
-			$yc_data = sql_fetch("select mb_id from {$g5['eyoom_yellowcard']} where bo_table = '{$bo_table}' and wr_id = '{$list[$key]['wr_id']}' and mb_id = '{$member['mb_id']}' ");
-			if(!$is_admin && $member['mb_level'] < $eyoom_board['bo_blind_view'] && !$yc_data['mb_id']) $list[$key]['href'] = 'javascript:;';
+			// $yc_data = sql_fetch("select mb_id from {$g5['eyoom_yellowcard']} where bo_table = '{$bo_table}' and wr_id = '{$list[$key]['wr_id']}' and mb_id = '{$member['mb_id']}' ");
+			// if(!$is_admin && $member['mb_level'] < $eyoom_board['bo_blind_view'] && !$yc_data['mb_id']) $list[$key]['href'] = 'javascript:;';
+			if(!$is_admin && $member['mb_level'] < $eyoom_board['bo_blind_view']) $list[$key]['href'] = 'javascript:;';
 			$list[$key]['subject'] = '이 게시물은 블라인드 처리된 글입니다.';
 			$list[$key]['content'] = '이 게시물은 블라인드 처리된 글입니다.';
 		}

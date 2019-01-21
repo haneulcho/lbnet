@@ -10,6 +10,8 @@
 	$bo_table 	= $_POST['bo_table'];
 	$wr_id 		= $_POST['wr_id'];
 	$cmt_id 	= $_POST['cmt_id'];
+	$yc_memo	= '[블라인드 처리] 처리 운영진: '.$member['mb_id'];
+	$mb_ip = $_SERVER['REMOTE_ADDR'];
 
 	if(!$action) exit;
 	if(!$bo_table) exit;
@@ -53,12 +55,11 @@
 		
 			switch($action) {
 				case 'db': // direct blind
-					sql_query("insert into {$g5['eyoom_yellowcard']} set bo_table = '{$bo_table}', {$wrid}, pr_id = '{$wr_id}', mb_id = '{$member['mb_id']}', yc_reason = 'd',  yc_datetime = '". G5_TIME_YMDHIS ."' ");
+					sql_query("insert into {$g5['eyoom_yellowcard']} set bo_table = '{$bo_table}', {$wrid}, pr_id = '{$wr_id}', mb_id = '{$member['mb_id']}', mb_ip = '{$mb_ip}', yc_reason = 'd', yc_memo = '{$yc_memo}', yc_datetime = '". G5_TIME_YMDHIS ."' ");
 					$ycard['yc_blind'] = 'y';
 					$wr_4 = serialize($ycard);
 					sql_query("update {$write_table} set wr_4 = '{$wr_4}' where {$wrid} ");
 					sql_query("update {$g5['eyoom_new']} set wr_4 = '{$wr_4}' where bo_table = '{$bo_table}' and {$wrid} ");
-					sql_query("update {$g5['eyoom_tag_write']} set wr_4 = '{$wr_4}' where tw_theme ='{$theme}' and bo_table = '{$bo_table}' and {$wrid} ");
 					
 					$msg = "정상적으로 블라인드 처리하였습니다.";
 					break;
@@ -70,7 +71,6 @@
 					$wr_4 = serialize($ycard);
 					sql_query("update {$write_table} set wr_4 = '{$wr_4}' where {$wrid} ");
 					sql_query("update {$g5['eyoom_new']} set wr_4 = '{$wr_4}' where  bo_table = '{$bo_table}' and {$wrid} ");
-					sql_query("update {$g5['eyoom_tag_write']} set wr_4 = '{$wr_4}' where tw_theme ='{$theme}' and bo_table = '{$bo_table}' and {$wrid} ");
 					
 					$msg = "정상적으로 블라인드 취소 처리하였습니다.";
 					break;
