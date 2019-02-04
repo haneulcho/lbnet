@@ -214,7 +214,7 @@ class theme extends qfile
 
 		// 새글정보 가져오기
 		$new = $this->eyoom_menu_new();
-		$ca_new = $this->eyoom_menu_ca_new();
+		//$ca_new = $this->eyoom_menu_ca_new();
 
 		// 5단계까지 가능하지만 3단계까지 표현
 		foreach($menu_package as $key => $menuset) {
@@ -283,11 +283,11 @@ class theme extends qfile
 							if($sub['me_type'] == 'board' && $sub['me_pid']) {
 								$tmp_bo_table = $sub['me_pid'];
 								if($sub['me_sca']) {
-									if($ca_new[$sub['me_sca']]>0) {
-										$cate2[$mk3]['new'] = true;
-										$cate1[$mk2]['new'] = true;
-										$menu[$mk1]['new'] = true;
-									}
+									// if($ca_new[$sub['me_sca']]>0) {
+									// 	$cate2[$mk3]['new'] = true;
+									// 	$cate1[$mk2]['new'] = true;
+									// 	$menu[$mk1]['new'] = true;
+									// }
 								} else {
 									if($new[$tmp_bo_table]>0) {
 										$cate2[$mk3]['new'] = true;
@@ -301,10 +301,10 @@ class theme extends qfile
 					if($menu_sub['me_type'] == 'board' && $menu_sub['me_pid']) {
 						$tmp_bo_table = $menu_sub['me_pid'];
 						if($menu_sub['me_sca']) {
-							if($ca_new[$menu_sub['me_sca']]>0) {
-								$cate1[$mk2]['new'] = true;
-								$menu[$mk1]['new'] = true;
-							}
+							// if($ca_new[$menu_sub['me_sca']]>0) {
+							// 	$cate1[$mk2]['new'] = true;
+							// 	$menu[$mk1]['new'] = true;
+							// }
 						} else {
 							if($new[$tmp_bo_table]>0) {
 								$cate1[$mk2]['new'] = true;
@@ -317,9 +317,9 @@ class theme extends qfile
 			if($menuset['me_type'] == 'board' && $menuset['me_pid']) {
 				$tmp_bo_table = $menuset['me_pid'];
 				if($menuset['me_sca']) {
-					if($ca_new[$menuset['me_sca']]>0) {
-						$menu[$mk1]['new'] = true;
-					}
+					// if($ca_new[$menuset['me_sca']]>0) {
+					// 	$menu[$mk1]['new'] = true;
+					// }
 				} else {
 					if($new[$tmp_bo_table]>0) {
 						$menu[$mk1]['new'] = true;

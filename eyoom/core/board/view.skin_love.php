@@ -15,10 +15,10 @@
       set_session($spv_name, TRUE);
 
 		// 이윰뉴 테이블에 wr_hit 적용
-		$where = "wr_id = '{$wr_id}' ";
-		$parent = sql_fetch("select wr_hit, wr_comment from {$write_table} where $where");
-		sql_query("update {$g5['eyoom_new']} set wr_hit = '{$parent['wr_hit']}', wr_comment = '{$parent['wr_comment']}' where $where and bo_table='{$bo_table}'");
-		sql_query("update {$g5['eyoom_tag_write']} set wr_hit = '{$parent['wr_hit']}' where $where and bo_table='{$bo_table}' and tw_theme='{$theme}'");
+		// $where = "wr_id = '{$wr_id}' ";
+		// $parent = sql_fetch("select wr_hit, wr_comment from {$write_table} where $where");
+		// sql_query("update {$g5['eyoom_new']} set wr_hit = '{$parent['wr_hit']}', wr_comment = '{$parent['wr_comment']}' where $where and bo_table='{$bo_table}'");
+		// sql_query("update {$g5['eyoom_tag_write']} set wr_hit = '{$parent['wr_hit']}' where $where and bo_table='{$bo_table}' and tw_theme='{$theme}'");
     }
 
 	// 짤은주소 체크 및 생성

@@ -27,8 +27,8 @@
 			$eb->level_point($levelset['good'],$write['mb_id'],$levelset['regood']);
 			
 			// 이윰NEW에 추천 기록 적용
-			$sql = "update {$g5['eyoom_new']} as a set a.wr_good=(select b.wr_good from {$g5['write_prefix']}{$bo_table} as b where b.wr_id='{$wr_id}') where a.bo_table='{$bo_table}' and a.wr_id = a.wr_parent and a.wr_id='{$wr_id}'";
-			sql_query($sql,false);
+			// $sql = "update {$g5['eyoom_new']} as a set a.wr_good=(select b.wr_good from {$g5['write_prefix']}{$bo_table} as b where b.wr_id='{$wr_id}') where a.bo_table='{$bo_table}' and a.wr_id = a.wr_parent and a.wr_id='{$wr_id}'";
+			// sql_query($sql,false);
 			break;
 		case 'nogood' : $eb->level_point($levelset['nogood'],$write['mb_id'],$levelset['renogood']); break;
 	}

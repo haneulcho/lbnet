@@ -89,7 +89,7 @@
 		$new_post = sql_fetch("select * from {$g5['eyoom_new']} where $where");
 		$new_query = $new_post['bn_id'] ? $update_new : $insert_new;
 	}
-	if(isset($new_query)) sql_query($new_query, false);
+	// if(isset($new_query)) sql_query($new_query, false);
 	unset($cmset, $new_query, $insert_new, $update_new);
 
 	// 사용자 프로그램

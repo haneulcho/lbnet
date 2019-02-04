@@ -79,10 +79,10 @@
 			sql_query(" delete from {$g5['board_new_table']} where bo_table = '$bo_table' and wr_parent = '{$write['wr_id']}' ");
 
 			// 이윰 NEW 삭제
-			sql_query(" delete from {$g5['eyoom_new']} where bo_table = '$bo_table' and wr_parent = '{$write['wr_id']}' ");
+			// sql_query(" delete from {$g5['eyoom_new']} where bo_table = '$bo_table' and wr_parent = '{$write['wr_id']}' ");
 
 			// 스크랩 삭제
-			sql_query(" delete from {$g5['scrap_table']} where bo_table = '$bo_table' and wr_id = '{$write['wr_id']}' ");
+			// sql_query(" delete from {$g5['scrap_table']} where bo_table = '$bo_table' and wr_id = '{$write['wr_id']}' ");
 
 			// 공지사항 삭제
 			$notice_array = explode(",", trim($board['bo_notice']));
@@ -140,7 +140,7 @@
 			sql_query(" delete from {$g5['board_new_table']} where bo_table = '$bo_table' and wr_id = '$comment_id' ");
 
 			// 이윰 NEW 삭제
-			sql_query(" delete from {$g5['eyoom_new']} where bo_table = '$bo_table' and wr_id = '$comment_id' ");
+			// sql_query(" delete from {$g5['eyoom_new']} where bo_table = '$bo_table' and wr_id = '$comment_id' ");
 		}
 	}
 

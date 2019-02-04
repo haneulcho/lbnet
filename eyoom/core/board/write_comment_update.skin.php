@@ -151,25 +151,25 @@
 	// Eyoom 새글에 등록
 	if ($w == 'c') {
 		// 원글관련 댓글수 증가
-		sql_query(" update {$g5['eyoom_new']} set wr_comment = wr_comment + 1 where bo_table = '{$bo_table}' and wr_id = '{$wr_id}' ");
-		$query = "
-			insert into {$g5['eyoom_new']} set 
-				bo_table	= '{$bo_table}',
-				pr_id		= '{$respond['pr_id']}',
-				wr_id		= '{$comment_id}',
-				wr_parent	= '{$wr_id}',
-				ca_name		= '{$wr['ca_name']}',
-				wr_content	= '{$wr_content}',
-				wr_option	= '{$wr_secret}',
-				bn_datetime = '".G5_TIME_YMDHIS."',
-				mb_id		= '{$mb_id}',
-				mb_name		= '{$member['mb_name']}',
-				mb_nick		= '{$member['mb_nick']}',
-				mb_level	= '{$wr_1}',
-				wr_image	= '{$wr_image}',
-				wr_video	= '{$wr_video}',
-				wr_sound	= '{$wr_sound}'
-		";
+		// sql_query(" update {$g5['eyoom_new']} set wr_comment = wr_comment + 1 where bo_table = '{$bo_table}' and wr_id = '{$wr_id}' ");
+		// $query = "
+		// 	insert into {$g5['eyoom_new']} set 
+		// 		bo_table	= '{$bo_table}',
+		// 		pr_id		= '{$respond['pr_id']}',
+		// 		wr_id		= '{$comment_id}',
+		// 		wr_parent	= '{$wr_id}',
+		// 		ca_name		= '{$wr['ca_name']}',
+		// 		wr_content	= '{$wr_content}',
+		// 		wr_option	= '{$wr_secret}',
+		// 		bn_datetime = '".G5_TIME_YMDHIS."',
+		// 		mb_id		= '{$mb_id}',
+		// 		mb_name		= '{$member['mb_name']}',
+		// 		mb_nick		= '{$member['mb_nick']}',
+		// 		mb_level	= '{$wr_1}',
+		// 		wr_image	= '{$wr_image}',
+		// 		wr_video	= '{$wr_video}',
+		// 		wr_sound	= '{$wr_sound}'
+		// ";
 
 		// 나의 활동
 		// $act_contents = array();
@@ -182,23 +182,23 @@
 		$eb->level_point($levelset['cmt']);
 
 	} else if($w == 'cu') {
-		$set = "
-			bo_table	= '{$bo_table}',
-			pr_id		= '{$respond['pr_id']}',
-			wr_id		= '{$comment_id}',
-			wr_parent	= '{$wr_id}',
-			ca_name		= '{$wr['ca_name']}',
-			wr_content	= '{$wr_content}',
-			wr_option	= '{$wr_secret}',
-			mb_level	= '{$wr_1}',
-		";
-		if($wr_image) $set .= " wr_image = '{$wr_image}', ";
-		$set .= " bn_datetime = bn_datetime ";
+		// $set = "
+		// 	bo_table	= '{$bo_table}',
+		// 	pr_id		= '{$respond['pr_id']}',
+		// 	wr_id		= '{$comment_id}',
+		// 	wr_parent	= '{$wr_id}',
+		// 	ca_name		= '{$wr['ca_name']}',
+		// 	wr_content	= '{$wr_content}',
+		// 	wr_option	= '{$wr_secret}',
+		// 	mb_level	= '{$wr_1}',
+		// ";
+		// if($wr_image) $set .= " wr_image = '{$wr_image}', ";
+		// $set .= " bn_datetime = bn_datetime ";
 		
-		$query = "update {$g5['eyoom_new']} set {$set} where bo_table = '{$bo_table}' and wr_id = '{$comment_id}'";
+		// $query = "update {$g5['eyoom_new']} set {$set} where bo_table = '{$bo_table}' and wr_id = '{$comment_id}'";
 	}
-	if($query) sql_query($query);
-	unset($query);
+	// if($query) sql_query($query);
+	// unset($query);
 
 	// 사용자 프로그램
 	// @include_once(EYOOM_USER_PATH.'/board/write_comment_update.skin.php');
