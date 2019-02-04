@@ -72,7 +72,7 @@
         <!--{? view.ca_name == '공지' }-->
         {_file_conts}
         <!--{:}-->
-            <!--{? member.mb_id == 'lebolution' || member.mb_id == 'lbadmin_col' || view.is_mine }-->
+            <!--{? _is_admin || view.is_mine }-->
             {_file_conts}
             <!--{/}-->
         <!--{/}-->
@@ -89,7 +89,7 @@
             <!--{? view.ca_name == '공지' }-->
                 {_view_content}
             <!--{:}-->
-                <!--{? member.mb_id == 'lebolution' || member.mb_id == 'lbadmin_col' || view.is_mine }-->
+                <!--{? _is_admin || view.is_mine }-->
                 {_view_content}
                 <!--{:}-->
                     <p>* 글쓴이와 운영진만 게시글 내용을 확인할 수 있습니다!</p>
@@ -97,7 +97,7 @@
             <!--{/}-->
           <!--{/}-->
         </div>
-        <!--{? (member.mb_id == 'lebolution' || member.mb_id == 'lbadmin_col') && view.ca_name != '공지' }-->
+        <!--{? (_is_admin) && view.ca_name != '공지' }-->
             <div class="lbvinfo lbvinfo_default">
                 <h2><i class="fa fa-star"></i>레볼루션에 등록된 정보</h2>
                 <dl>
@@ -109,7 +109,7 @@
                     <dd>{view.lb_email}</dd>
                 </dl>
             </div>
-            <!--{? (member.mb_id == 'lebolution' || member.mb_id == 'lbadmin_col') && view.ca_name != '완료' }-->
+            <!--{? (_is_admin) && view.ca_name != '완료' }-->
                 <form name="flevelup" id="flevelup" action="./levelup_update.php" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form margin-bottom-20">
                 <input type="hidden" name="bo_table" value="{_bo_table}">
                     <input type="hidden" name="mb_id" value="{view.lb_id}">
@@ -185,33 +185,35 @@
             <!--{? _update_href}--><a href="{_update_href}" class="lbbtn_light" type="button"><i class="fa fa-pencil"></i>수정</a><!--{/}-->
             <!--{? _delete_href}--><a href="{_delete_href}" class="lbbtn_light" type="button" onclick="del(this.href); return false;"><i class="fa fa-trash-o"></i>삭제</a><!--{/}-->
         <!--{/}-->
+
         <!--{? eyoom_board.bo_use_yellow_card == '1' }-->
             <!--{? eyoom_board.bo_use_yellow_card == '1' && _is_member }-->
-                <!--{? !mb_ycard.mb_id }-->
-            <button id="yellow_card" class="lbbtn_light" data-toggle="modal" data-target=".yellowcard-modal"><i class="fa fa-exclamation-triangle"></i>신고 <span>{=number_format(ycard.yc_count)}</span></button>
+
+                <!--{? view.is_mine}-->
+                    <button id="yellow_card" class="lbbtn_light" onclick="javascript:alert('자신의 글은 신고할 수 없습니다!')"><i class="fa fa-exclamation-triangle"></i>신고 <span>{=number_format(ycard.yc_count)}</span></button>
                 <!--{:}-->
-            <button id="cancel_yellow_card" class="lbbtn_light">신고 취소 <span>{=number_format(ycard.yc_count)}</span></button>
+                    <!--{? !mb_ycard.mb_id }-->
+                        <button id="yellow_card" class="lbbtn_light" data-toggle="modal" data-target=".yellowcard-modal"><i class="fa fa-exclamation-triangle"></i>신고 <span>{=number_format(ycard.yc_count)}</span></button>
+                    <!--{:}-->
+                        <button id="cancel_yellow_card" class="lbbtn_light">신고 취소 <span>{=number_format(ycard.yc_count)}</span></button>
+                    <!--{/}-->
                 <!--{/}-->
+
                 <!--{? _is_admin}-->
-                  <!--{? _blind_direct}-->
-                      <!--{? ycard.yc_blind != 'y'}-->
-              <button id="direct_blind" class="lbbtn_light">블라인드</button>
-                      <!--{: ycard.yc_blind == 'y'}-->
-              <button id="cancel_blind" class="lbbtn_light">블라인드 취소</button>
-                      <!--{/}-->
-                  <!--{/}-->
+                    <!--{? _blind_direct}-->
+                        <!--{? ycard.yc_blind != 'y'}-->
+                            <button id="direct_blind" class="lbbtn_light btn-blind">블라인드</button>
+                        <!--{: ycard.yc_blind == 'y'}-->
+                            <button id="cancel_blind" class="btn-e btn-e-red btn-blind">블라인드 취소</button>
+                        <!--{/}-->
+                    <!--{/}-->
                 <!--{/}-->
+
             <!--{/}-->
         <!--{/}-->
       </div>
         <!--{* 스크랩 신고 블라인드 끝 *}-->
     </section>
-
-    <!--{* 소셜버튼 시작 *}-->
-    <!--{? board.bo_use_sns}-->
-    {# sns_bs}
-    <!--{/}-->
-    <!--{* 소셜버튼 끝 *}-->
 
     <!--{* 댓글 시작 *}-->
     {# cmt_bs}
@@ -257,9 +259,9 @@
                     <form name="fycard">
                     <input type="hidden" name="modal_cmt_id" id="modal_cmt_id" value="">
                     <label for="sfl" class="sound_only">신고사유</label>
-                    <label class="label">이 게시물을 신고하시겠습니까? 신고사유를 선택해 주세요.</label>
+                    <label class="label">신고 항목을 선택하고 사유를 적어 주세요.</label>
                     <section class="bg-light">
-                        <div class="inline-group">
+                        <div class="inline-group margin-bottom-0">
                             <label class="radio" for="ycard_reason_1">
                                 <input type="radio" name="ycard_reason" id="ycard_reason_1" value="1"><i class="rounded-x"></i>광고성
                             </label>
@@ -276,7 +278,11 @@
                                 <input type="radio" name="ycard_reason" id="ycard_reason_5" value="5"><i class="rounded-x"></i>기타
                             </label>
                         </div>
+                        <textarea rows="7" id="ycard_memo" class="textarea" style="width:100%" name="ycard_memo" maxlength="10000" required="required" title="신고 상세사유"></textarea>
                     </section>
+                    <div class="alert alert-danger padding-all-10 margin-top-10 margin-bottom-15">
+                        <strong>Note:</strong> 반드시 신고 사유를 적어 주세요. (미기입 시 운영진 확인 후 신고 취소 처리)
+                    </div>
                     <div class="text-center margin-top-20 margin-bottom-10">
                         <button type="button" class="btn-e btn-e-red">신고하기</button>
                     </div>
@@ -380,16 +386,21 @@ $(function() {
 
     <!--{? eyoom_board.bo_use_yellow_card == '1' && _is_member}-->
     // 게시물 신고
-    $('.yellowcard-modal .modal-body button').click(function () {
+    $('body').on('click', '.yellowcard-modal .modal-body button', function () {
         var cmt_id = $("#modal_cmt_id").val();
         var yc_reason = $(':radio[name="ycard_reason"]:checked').val();
-        if(!yc_reason) {
-            alert('신고사유를 선택해 주세요.');
+        var yc_memo = $('#ycard_memo').val();
+        if (!yc_reason) {
+            alert('신고 항목을 선택해 주세요.');
+            return;
+        } else if (!yc_memo) {
+            alert('신고 사유를 작성해 주세요.');
+            $('#ycard_memo').focus();
             return;
         } else {
             $.post(
                 '{C.EYOOM_CORE_URL}/board/yellow_card.php',
-                { bo_table: "{_bo_table}", wr_id: "{_wr_id}", cmt_id: cmt_id, action: "add", reason: yc_reason },
+                { bo_table: "{_bo_table}", wr_id: "{_wr_id}", cmt_id: cmt_id, action: "add", reason: yc_reason, memo: yc_memo },
                 function(data) {
                     if(data.count && !data.error) {
                         if(!cmt_id) {
@@ -399,14 +410,14 @@ $(function() {
                                 $('#yc_card').html('');
                             }
                             $('#yellow_card').remove();
-                            var yc_html = '<button id="cancel_yellow_card" class="btn-e btn-e-dark">신고 취소 <span>' + number_format(String(data.count)) + '</span></button>';
+                            var yc_html = '<button id="cancel_yellow_card" class="btn-e btn-e-dark"><i class="fa fa-exclamation-triangle"></i> 신고 취소 <span>' + number_format(String(data.count)) + '</span></button>';
                             $('#yc_card').html(yc_html);
                         } else {
                             var obj = $("#cmt_yellow_card_li_"+cmt_id);
                             obj.html('');
                             obj.attr('data-original-title','신고취소');
                             $("#modal_cmt_id").val('');
-                            var yc_html = '<button id="cancel_cmt_yellow_card_'+cmt_id+'" class="btn-e btn-e-dark btn-e-xs cancel_cmt_yellow_card" data-cmt-id="'+cmt_id+'"><i class="fa fa-trash"></i> <span>' + number_format(String(data.count)) + '</span></button>';
+                            var yc_html = '<button id="cancel_cmt_yellow_card_'+cmt_id+'" class="btn-e btn-e-dark btn-e-xs cancel_cmt_yellow_card" data-cmt-id="'+cmt_id+'"><i class="fa fa-exclamation-triangle"></i> <span>' + number_format(String(data.count)) + '</span></button>';
                             obj.html(yc_html);
                         }
                     }
@@ -418,9 +429,9 @@ $(function() {
     });
 
     // 게시물 신고 취소
-    $('#cancel_yellow_card, .cancel_yellow_card, .cancel_cmt_yellow_card').click(function() {
+    $('body').on('click', '#cancel_yellow_card, .cancel_yellow_card, .cancel_cmt_yellow_card', function () {
         var cmt_id = $("#modal_cmt_id").val();
-        if(confirm('신고취소 처리하시겠습니까?')) {
+        if(confirm('신고를 취소하시겠습니까?')) {
             $.post(
                 '{C.EYOOM_CORE_URL}/board/yellow_card.php',
                 { bo_table: "{_bo_table}", wr_id: "{_wr_id}", cmt_id: cmt_id, action: "cancel" },
@@ -433,13 +444,13 @@ $(function() {
                                 $('#yc_card').html('');
                             }
                             $('#cancel_yellow_card').remove();
-                            var yc_html = '<button id="yellow_card" class="btn-e btn-e-yellow" data-toggle="modal" data-target=".yellowcard-modal">신고 <span>' + number_format(String(data.count)) + '</span></button>';
+                            var yc_html = '<button id="yellow_card" class="lbbtn_light" data-toggle="modal" data-target=".yellowcard-modal"><i class="fa fa-exclamation-triangle"></i>신고 <span>' + number_format(String(data.count)) + '</span></button>';
                         } else {
                             var obj = $("#cancel_cmt_yellow_card_li_"+cmt_id);
                             obj.html('');
                             obj.attr('data-original-title','신고');
                             $("#modal_cmt_id").val('');
-                            var yc_html = '<button id="cmt_yellow_card_'+cmt_id+'" class="btn-e btn-e-red btn-e-xs cmt_yellow_card" data-toggle="modal" data-target=".yellowcard-modal" data-cmt-id="'+cmt_id+'"><i class="fa fa-trash"></i> <span>' + number_format(String(data.count)) + '</span></button>';
+                            var yc_html = '<button id="cmt_yellow_card_'+cmt_id+'" class="btn-e btn-e-red btn-e-xs cmt_yellow_card" data-toggle="modal" data-target=".yellowcard-modal" data-cmt-id="'+cmt_id+'"><i class="fa fa-exclamation-triangle"></i> <span>' + number_format(String(data.count)) + '</span></button>';
                             obj.html(yc_html);
                         }
                         $('#yc_card').html(yc_html);
@@ -451,13 +462,13 @@ $(function() {
     });
 
     // 원글의 신고취소를 위해 modal_cmt_id 값을 리셋
-    $('#yellow_card').click(function() {
+    $('body').on('click', '#yellow_card', function () {
         $("#modal_cmt_id").val('');
     });
 
     <!--{? _blind_direct}-->
     // 블라인드 처리 권한을 가진 회원
-    $('.btn-blind, .btn-cmt-blind').click(function() {
+    $('body').on('click', '.btn-blind, .btn-cmt-blind', function () {
         var id = $(this).attr('id');
         var cmt_id = $(this).attr('data-cmt-id');
         if(typeof(cmt_id) == 'undefined') var cmt_id = '';
@@ -475,7 +486,7 @@ $(function() {
                 if(confirm('본 게시물을 블라인드 취소처리합니다.\n\n계속 진행하시겠습니까?'))     {
                     var action = 'cb'; // cancel blind
                     var re_id = !cmt_id ? 'direct_blind' : 'direct_cmt_blind_li_'+cmt_id;
-                    var re_class = !cmt_id ? 'btn btn-default btn-blind' : 'btn-e btn-e-red btn-e-xs btn-blind';
+                    var re_class = !cmt_id ? 'lbbtn_light btn-blind' : 'btn-e btn-e-red btn-e-xs btn-blind';
                     var re_text = '블라인드';
                 }
                 break;
@@ -537,6 +548,7 @@ function excute_good(href, $el, $tx)
 {
     var msg = ($tx.attr("class").search("nogood") > -1) ? '비추천' : '추천';
     var confirmed = confirm('이 글을 ' + msg + ' 하시겠습니까?');
+    $tx.html('처리 중입니다.').show();
     if (confirmed) {
         $.post(
             href,
@@ -544,17 +556,30 @@ function excute_good(href, $el, $tx)
             function(data) {
                 if(data.error) {
                     alert(data.error);
-                    return false;
+                    if (data.move_href) {
+                        window.location.href = data.move_href;
+                    } else {
+                        $tx.delay(100).fadeOut(350);
+                        return false;
+                    }
                 }
-    
                 if(data.count) {
                     $el.find("span").text(number_format(String(data.count)));
                     if($tx.attr("class").search("nogood") > -1) {
                         $tx.html('<i class="fa fa-thumbs-down"></i> 이 글을 비추천했어요!');
-                        $tx.fadeIn(200).delay(2500).fadeOut(200);
+                        setTimeout(function () {
+                            $tx.fadeOut(350);
+                        }, 400);
                     } else {
                         $tx.html('<i class="fa fa-thumbs-up"></i> 이 글을 추천했어요!');
-                        $tx.fadeIn(200).delay(2500).fadeOut(200);
+                        setTimeout(function () {
+                            $tx.fadeOut(350);
+                        }, 400);
+                    }
+                    if (data.msg && data.move_href) {
+                        alert(data.msg);
+                        $tx.fadeOut(350);
+                        window.location.href = data.move_href;
                     }
                 }
             }, "json"
@@ -564,33 +589,3 @@ function excute_good(href, $el, $tx)
     }
 }
 </script>
-<!--{? eyoom_board.bo_use_addon_coding == '1'}-->
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shCore.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shLegacy.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushAppleScript.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushAS3.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushBash.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushColdFusion.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushCpp.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushCSharp.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushCss.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushDelphi.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushDiff.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushErlang.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushGroovy.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushJava.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushJScript.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushPerl.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushPhp.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushPlain.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushPowerShell.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushPython.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushRuby.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushSass.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushScala.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushSql.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushVb.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushXml.js"></script>
-<link type="text/css" rel="stylesheet" href="../../../plugins/syntaxhighlighter/styles/shCoreDefault.css"/>
-<script type="text/javascript">SyntaxHighlighter.all();</script>
-<!--{/}-->
