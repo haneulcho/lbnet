@@ -64,14 +64,36 @@ var char_max = parseInt({_comment_max}); // 최대
 				</div>
 
 				<div class="comment-btn">
-					<!--{? .is_reply || .is_edit || .is_del || .c_good_href || .c_nogood_href}-->
+					<!--{? .c_good_href || .c_nogood_href }-->
 					<ul class="list-inline reply-list pull-right">
 						<!--{? .c_good_href}-->
-						<li class="margin-left-5"><a href="{.c_good_href}" id="goodcmt_button_{.comment_id}" class="goodcmt_button" type="button" title="공감"><i class="fa fa-thumbs-up"></i> <strong>{? .good}<span class="wow">{.good}</span>{:}<span>0</span>{/}</strong></a></li>
+						<li class="margin-left-5"><a href="{.c_good_href}" id="goodcmt_button_{.comment_id}" class="goodcmt_button" type="button" title="추천"><i class="fa fa-thumbs-up"></i> <strong>{? .good}<span class="wow">{.good}</span>{:}<span>0</span>{/}</strong></a></li>
 						<!--{/}-->
 						<!--{? .c_nogood_href}-->
-						<li><a href="{.c_nogood_href}" id="nogoodcmt_button_{.comment_id}" class="nogoodcmt_button" type="button" title="비공감"><i class="fa fa-thumbs-down"></i> <strong>{? .nogood}<span>{.nogood}</span>{:}<span>0</span>{/}</strong></a></li>
+						<li><a href="{.c_nogood_href}" id="nogoodcmt_button_{.comment_id}" class="nogoodcmt_button" type="button" title="비추천"><i class="fa fa-thumbs-down"></i> <strong>{? .nogood}<span>{.nogood}</span>{:}<span>0</span>{/}</strong></a></li>
 						<!--{/}-->
+
+						<!--{* 댓글 신고 블라인드 시작 *}-->
+						<!--{? eyoom_board.bo_use_yellow_card == '1' && _is_member }-->
+							<!--{? .is_mine}-->
+								<li id="cmt_yellow_card_li_{.comment_id}"><button class="lbbtn_light" onclick="javascript:alert('자신의 댓글은 신고할 수 없습니다!')"><i class="fa fa-exclamation-triangle"></i> <span>{=number_format(.yc_count)}</span></button></li>
+							<!--{:}-->
+								<!--{? !mb_ycard.mb_id }-->
+								<li id="cmt_yellow_card_li_{.comment_id}"><button id="cmt_yellow_card_{.comment_id}" class="lbbtn_light cmt_yellow_card" data-toggle="modal" data-target=".yellowcard-modal" data-cmt-id="{.comment_id}"><i class="fa fa-exclamation-triangle"></i> <span>{=number_format(.yc_count)}</span></button></li>
+								<!--{:}-->
+								<li id="cancel_cmt_yellow_card_li_{.comment_id}"><button id="cancel_cmt_yellow_card_{.comment_id}" class="lbbtn_light cancel_cmt_yellow_card" data-cmt-id="{.comment_id}"><i class="fa fa-exclamation-triangle"></i> <span>{=number_format(.yc_count)}</span></button></li>
+								<!--{/}-->
+							<!--{/}-->
+
+							<!--{? _is_admin && _blind_direct}-->
+								<!--{? .yc_blind != 'y'}-->
+								<li data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Blind"><button id="direct_cmt_blind_li_{.comment_id}" class="btn-e btn-e-light-grey btn-e-xs btn-cmt-blind" data-cmt-id="{.comment_id}"><i class="fa fa-eye-slash"></i></button></li>
+								<!--{: .yc_blind == 'y'}-->
+								<li data-placement="top" data-toggle="tooltip" class="tooltips" data-original-title="Cancel"><button id="cancel_cmt_blind_li_{.comment_id}" class="btn-e btn-e-dark btn-e-xs btn-cmt-blind" data-cmt-id="{.comment_id}"><i class="fa fa-eye"></i></button></li>
+								<!--{/}-->
+							<!--{/}-->
+						<!--{/}-->
+						<!--{* 댓글 신고 블라인드 끝 *}-->
 					</ul>
 					<!--{/}-->
 				</div>
@@ -90,16 +112,6 @@ var char_max = parseInt({_comment_max}); // 최대
 			</div>
 		</div>
 	</div>
-		<!--{/}-->
-	<!--{? eyoom_board.bo_use_cmt_infinite == '1'}-->
-	<div id="infinite_pagination">
-	    <a class="next" href="{C.G5_BBS_URL}/board.php?bo_table={_bo_table}&wr_id={_wr_id}&sca={_sca}&cpage={cpage+1}"></a>
-	</div>
-	<!--{? count(cmt_list) > 0 }-->
-	<div class="view-comment-more">
-		<a id="view-comment-more" href="#" class="btn-e btn-e-red btn-e-lg">댓글 더보기</a>
-	</div>
-	<!--{/}-->
 	<!--{/}-->
 	<!--{* 댓글 끝 *}-->
 
@@ -174,9 +186,9 @@ var char_max = parseInt({_comment_max}); // 최대
 							<div id="collapse-image-cm" class="panel-collapse collapse">
 								<div class="comment-function-box">
 									<label for="file" class="input input-file">
-		                                <div class="button bg-color-light-grey"><input type="file" id="file" name="cmt_file[]" value="이미지선택" title="파일첨부 : 용량 {_upload_max_filesize} 이하만 업로드 가능" onchange="this.parentNode.nextSibling.value = this.value">Image</div><input type="text" readonly>
-		                            </label>
-		                            <div id="del_cmtimg"></div>
+										<div class="button bg-color-light-grey"><input type="file" id="file" name="cmt_file[]" value="이미지선택" title="파일첨부 : 용량 {_upload_max_filesize} 이하만 업로드 가능" onchange="this.parentNode.nextSibling.value = this.value">Image</div><input type="text" readonly>
+									</label>
+									<div id="del_cmtimg"></div>
 								</div>
 							</div>
 						</div>
@@ -413,7 +425,7 @@ $(function() {
 
 	<!--{? eyoom_board.bo_use_yellow_card == '1'}-->
 	// 신고버튼 클릭시, 댓글 cmt_id 설정
-	$(".cmt_yellow_card, .cancel_cmt_yellow_card").click(function() {
+	$('body').on('click', '.cmt_yellow_card, .cancel_cmt_yellow_card', function () {
 		var cmt_id = $(this).attr('data-cmt-id');
 		$(".yellowcard-modal #modal_cmt_id").val(cmt_id);
 	});
@@ -422,9 +434,9 @@ $(function() {
 
 function excute_goodcmt(href, $el)
 {
-    var msg = ($el.hasClass('nogoodcmt_button')) ? '비추천' : '추천';
-    var confirmed = confirm('이 댓글을 ' + msg + ' 하시겠습니까?');
-    if (confirmed) {
+	var msg = ($el.hasClass('nogoodcmt_button')) ? '비추천' : '추천';
+	var confirmed = confirm('이 댓글을 ' + msg + ' 하시겠습니까?');
+	if (confirmed) {
 		$.post(
 			href,
 			{ js: "on" },

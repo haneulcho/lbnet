@@ -126,12 +126,17 @@
 			$cmt_ycard = unserialize($list[$i]['wr_4']);
 			if(!$cmt_ycard) $cmt_ycard = array();
 			$comment[$i]['yc_count'] = $cmt_ycard['yc_count'];
+			// 한 번이라도 신고된 댓글이거나 블라인드 처리된 댓글이면, 댓글 수정 및 댓글 삭제가 불가능하게
+			if (!$is_admin && ($cmt_ycard['yc_count'] > 0 || $cmt_ycard['yc_blind'] == 'y')) {
+				$comment[$i]['is_edit'] = '';
+				$comment[$i]['is_del'] = '';
+			}
 			if($cmt_ycard['yc_blind'] == 'y') {
 				if(!$is_admin && $member['mb_level'] < $eyoom_board['bo_blind_view']) {
-					$comment[$i]['mb_ycard'] = $eb->mb_yellow_card($member['mb_id'],$bo_table, $comment[$i]['comment_id']);
-					if(!$comment[$i]['mb_ycard']) {
+					// $comment[$i]['mb_ycard'] = $eb->mb_yellow_card($member['mb_id'],$bo_table, $comment[$i]['comment_id']);
+					// if(!$comment[$i]['mb_ycard']) {
 						$comment[$i]['yc_cannotsee'] = true;
-					}
+					// }
 				}
 				$comment[$i]['yc_blind'] = true;
 			}
