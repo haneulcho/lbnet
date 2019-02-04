@@ -179,7 +179,7 @@
 	}
 
 	// 일정 기간이 지난 DB 데이터 삭제 및 최적화
-	// include_once(EYOOM_INC_PATH.'/db_table.optimize.php');
+	include_once(EYOOM_INC_PATH.'/db_table.optimize.php');
 
 	// common.php 파일을 수정할 필요가 없도록 확장
 	$extend_file = array();
