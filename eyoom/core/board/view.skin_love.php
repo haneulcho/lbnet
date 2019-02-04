@@ -61,7 +61,8 @@
 		}
 		$file_conts .= "</div>\n";
 	}
-	$view_content = $eb->eyoom_content($view['content']);
+	// $view_content = $eb->eyoom_content($view['content']);
+	$view_content = $view['content'];
 
 	// 작성자 레벨정보 가져오기
 	if($view['wr_1']) {
