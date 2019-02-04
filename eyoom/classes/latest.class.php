@@ -305,6 +305,9 @@ class latest extends eyoom
 			if(is_array($level)) {
 				if(!$level['anonymous']) {
 					$list[$i]['mb_photo'] = $eb->mb_photo($list[$i]['mb_id']);
+					if($direct == 'y') {
+						$list[$i]['mb_nick'] = $list[$i]['wr_name'];
+					}
 				} else {
 					$list[$i]['mb_photo'] = '';
 					$list[$i]['mb_id'] = 'anonymous';
