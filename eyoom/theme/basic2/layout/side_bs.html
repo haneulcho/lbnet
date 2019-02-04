@@ -29,31 +29,6 @@
 	<!--{* ------------- Side Nav 영역 끝 ------------- *}-->
 
 	<!--{? _is_member && member.mb_level > 1}-->
-		<!--{* ------------- 새글 새댓글 영역 시작 ------------- *}-->
-		<div class="margin-bottom-20">
-			<div class="side-tab margin-bottom-20">
-				<div class="tab-e2">
-					<ul class="nav nav-tabs">
-						<li class="active"><a href="#side-tn-1" data-toggle="tab"><i class="fa fa-list-alt"></i>새로운 글</a></li>
-						<li class="last"><a href="#side-tn-2" data-toggle="tab"><i class="fa fa-commenting"></i>새로운 댓글</a></li>
-					</ul>
-					<div class="tab-content">
-						<div class="tab-pane fade active in" id="side-tn-1">
-							<div class="tab-content-wrap">
-								{latest->latest_newpost('tab_newpost_lb', 'count=5||cut_subject=18||photo=n')}
-							</div>
-						</div>
-						<div class="tab-pane fade in" id="side-tn-2">
-							<div class="tab-content-wrap">
-								{latest->latest_newpost('tab_newcomment_lb', 'count=5||cut_content=20||photo=n')}
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--{* ------------- 새글 새댓글 영역 끝 ------------- *}-->
-
 		<div class="margin-bottom-20">
 			<!--{* 투표 *}-->
 			<!--{? eyoom.use_gnu_poll == 'y'}-->{=poll('basic')}<!--{:}-->{=eb_poll(eyoom.poll_skin)}<!--{/}-->
