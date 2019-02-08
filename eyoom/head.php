@@ -43,6 +43,11 @@
 			// 접속자 정보
 			$connect = $eb->get_connect();
 		}
+	} else {
+		// 비회원인 경우 서브페이지 메뉴정보, 타이틀 및 Path만 불러오기
+		if(!defined('_INDEX_'))	{
+			$subinfo = $thema->subpage_info($menu);
+		}
 	}
 
 	// 사용자 프로그램
