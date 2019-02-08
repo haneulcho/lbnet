@@ -108,6 +108,7 @@
 	$poll_skin_path		= EYOOM_CORE_PATH.'/poll';
 	$respond_skin_path	= EYOOM_CORE_PATH.'/respond';
 	$mine_skin_path	= EYOOM_CORE_PATH.'/mine';
+	$declare_skin_path	= EYOOM_CORE_PATH.'/declare';
 	$levelup_skin_path	= EYOOM_CORE_PATH.'/levelup';
 	$mypage_skin_path	= EYOOM_CORE_PATH.'/mypage';
 	$page_skin_path		= EYOOM_CORE_PATH.'/page';

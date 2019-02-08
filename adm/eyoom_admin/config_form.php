@@ -458,6 +458,23 @@ $frm_submit = '
 				}
 				unset($arr);
                 ?>
+			</td>
+            <th scope="row"><label for="declare_skin">신고글 관리 스킨</label></th>
+            <td>
+                <?php
+                $arr = $eb->get_skin_dir('declare',EYOOM_THEME_PATH.'/'.$_theme.'/skin_'.$_tpl_name);
+				if($arr) {
+					echo '<select name="declare_skin" id="declare_skin" required class="required">';
+					for ($i=0; $i<count($arr); $i++) {
+						if ($i == 0) echo "<option value=\"\">선택</option>";
+						echo "<option value=\"".$arr[$i]."\"".get_selected($_eyoom['declare_skin'], $arr[$i]).">".$arr[$i]."</option>\n";
+					}
+					echo '</select>';
+				} else {
+					echo "현재 테마에는 신고글 관리 스킨이 존재하지 않습니다.";
+				}
+				unset($arr);
+                ?>
             </td>
 		</tr>
         </tbody>
