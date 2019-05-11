@@ -44,6 +44,9 @@
 			if ($member['mb_id'] == $list[$key]['mb_id']) {
 				$list[$key]['is_mine'] = true; // 내가 쓴 글 여부 변수에 담기
 			}
+			// 익명 여부 관계 없이 원글 아이디, 닉네임 변수에 담기
+			$list[$key]['lb_id'] = $list[$key]['mb_id'];
+			$list[$key]['lb_nickname'] = $list[$key]['wr_name'];
 			if(!$level['anonymous']) {
 				// 운영진 여부 변수에 담기
 				if ($list[$key]['mb_id'] == 'lebolution') {

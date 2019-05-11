@@ -231,7 +231,7 @@ function fwrite_submit(f)
 								<!--{? !.is_notice && _is_category && .ca_name}-->
 								<span class="lbcate">{.ca_name}</span>
 								<!--{/}-->
-								<!--{? .is_notice }--><i class="fa fa-smile-o"></i> <b>{.subject}</b><!--{:}--><!--{? .icon_file}--><i class="fa fa-picture-o color-red"></i><!--{/}--> <!--{? _bo_table != 'qna' }-->{.subject}<!--{:}-->할 말 있어요.<!--{/}--><!--{/}-->
+								<!--{? .is_notice }--><i class="fa fa-smile-o"></i> <b>{.subject}</b><!--{:}--><!--{? .icon_file}--><i class="fa fa-picture-o color-red"></i><!--{/}--> <!--{? _bo_table == 'qna' && !_is_admin }-->할 말 있어요.<!--{:}-->{.subject}<!--{/}--><!--{/}-->
 	              <!--{?.icon_new}-->&nbsp;<i class="fa fa-circle"></i>&nbsp;<!--{/}-->
 	              <!--{?.icon_secret}-->&nbsp;<i class="fa fa-lock"></i>&nbsp;<!--{/}-->
 								<!--{? .comment_cnt}-->
@@ -240,7 +240,11 @@ function fwrite_submit(f)
 							</div>
 							<!--{? !.is_notice}-->
 							<div class="lbdes txtonly">
+								<!--{? _bo_table == 'qna' && _is_admin }-->
+								<span class="lbnick"><i class="fa fa-user"></i><!--{?.is_mine}-->{.wr_name}({.lb_id})<b class="color-red">*</b><!--{:}-->{.wr_name}({.lb_id})<!--{/}--></span>
+								<!--{:}-->
 								<span class="lbnick"><i class="fa fa-user"></i><!--{?.is_mine}-->{.wr_name}<b class="color-red">*</b><!--{:}-->{.wr_name}<!--{/}--></span>
+								<!--{/}-->
 		            <span class="lbhit"><i class="fa fa-eye"></i>{=number_format(.wr_hit)}
 		            </span>
 		            <span class="lbtime"><i class="fa fa-clock-o"></i><!--{? eyoom_board.bo_sel_date_type == '1'}-->{eb->date_time('y-m-d H:i',.wr_datetime)}<!--{: eyoom_board.bo_sel_date_type == '2'}-->{eb->date_format('Y.m.d',.wr_datetime)}<!--{/}-->
