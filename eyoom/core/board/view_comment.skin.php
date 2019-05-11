@@ -75,8 +75,8 @@
 			if(!$level['anonymous']) {
 				if ($comment[$i]['mb_id'] == 'lebolution') {
 					$comment[$i]['is_lb_admin'] = true;
-				} else if ($group['gr_admin']) {
-					$tmpArr= explode(',', $group['gr_admin']);
+				} else if ($gr_admin_tmp) {
+					$tmpArr= explode(',', $gr_admin_tmp);
 					if (in_array($comment[$i]['mb_id'], $tmpArr)) {
 						$comment[$i]['is_lb_admin'] = true;
 					}

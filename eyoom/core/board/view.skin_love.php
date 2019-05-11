@@ -91,8 +91,8 @@
 		$view['mb_photo'] = $eb->mb_photo($view['mb_id']);
 		if ($view['mb_id'] == 'lebolution') {
 			$view['is_lb_admin'] = true;
-		} else if ($group['gr_admin']) {
-			$tmpArr= explode(',', $group['gr_admin']);
+		} else if ($gr_admin_tmp) {
+			$tmpArr= explode(',', $gr_admin_tmp);
 			if (in_array($view['mb_id'], $tmpArr)) {
 				$view['is_lb_admin'] = true;
 			}

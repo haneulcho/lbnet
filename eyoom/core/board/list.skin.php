@@ -51,8 +51,8 @@
 				// 운영진 여부 변수에 담기
 				if ($list[$key]['mb_id'] == 'lebolution') {
 					$list[$key]['is_lb_admin'] = true;
-				} else if ($group['gr_admin']) {
-					$tmpArr= explode(',', $group['gr_admin']);
+				} else if ($gr_admin_tmp) {
+					$tmpArr= explode(',', $gr_admin_tmp);
 					if (in_array($list[$key]['mb_id'], $tmpArr)) {
 						$list[$key]['is_lb_admin'] = true;
 					}

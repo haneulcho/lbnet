@@ -23,6 +23,8 @@
 
 	// 그룹 관리자 여러명 정하기 
 	if ($is_member && $group['gr_admin']) {
+		// 기존 그룹 관리자 배열 저장
+		$gr_admin_tmp = $group['gr_admin'];
 		$tmpArr= explode(',', $group['gr_admin']);
 		if (in_array($member[mb_id], $tmpArr)) {
 			$group['gr_admin'] = $member[mb_id];
