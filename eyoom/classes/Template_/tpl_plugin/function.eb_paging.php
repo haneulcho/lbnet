@@ -1,6 +1,6 @@
 <?php
 	function eb_paging($skin_dir="") {
-		global $paging, $page, $total_page, $tpl;
+		global $paging, $page, $total_page, $tpl, $prev_part_href, $next_part_href;
 
 		if(!$skin_dir) $skin_dir = "basic";
 		$cur_page	= $page;
@@ -31,13 +31,15 @@
 			'bs' => 'skin_bs/paging/' . $skin_dir . '/paging.skin.html',
 		));
 		$tpl->assign(array(
-			'paging'	 => $str,
-			'url'		 => $pg_url,
-			'cur_page'	 => $cur_page,
-			'start_page' => $start_page,
-			'total_page' => $total_page,
-			'end_page'	 => $end_page,
-			'add'		 => $add,
+			'paging'	 		=> $str,
+			'url'		 		=> $pg_url,
+			'cur_page'	 		=> $cur_page,
+			'start_page' 		=> $start_page,
+			'total_page' 		=> $total_page,
+			'end_page'	 		=> $end_page,
+			'add'		 		=> $add,
+			'prev_search_part'	=> $prev_part_href,
+			'next_search_part'	=> $next_part_href
 		));
 		$tpl->print_($tpl_name);
 	}
