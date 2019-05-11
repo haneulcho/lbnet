@@ -206,8 +206,16 @@ function fwrite_submit(f)
 	<div class="table-list-eb margin-bottom-20">
 	    <div class="board-list-body">
         <ul id="lbboard" class="txtonly">
-        <!--{@ list}-->
-        <!--{? .is_notice}--><li class="notice"><!--{: _wr_id == .wr_id}--><li class="active"><!--{:}--><li><!--{/}-->
+		<!--{@ list}-->
+		<!--{? .is_notice || .is_lb_admin || _wr_id == .wr_id }-->
+			<!--{? _bo_table == 'notice' }-->
+				<li class="<!--{? .is_notice}-->notice <!--{/}--><!--{? _wr_id == .wr_id}-->active <!--{/}-->">
+			<!--{:}-->
+				<li class="<!--{? .is_notice}-->notice <!--{/}--><!--{? .is_lb_admin}-->admin <!--{/}--><!--{? _wr_id == .wr_id}-->active <!--{/}-->">
+			<!--{/}-->
+		<!--{:}-->
+			<li>
+		<!--{/}-->
             <!--{? _is_checkbox && _is_admin }-->
 						<div class="lbcheck">
             <span class="lst_chk">

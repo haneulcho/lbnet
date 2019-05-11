@@ -13,7 +13,7 @@ var char_max = parseInt({_comment_max}); // 최대
 	<!--{* 댓글 시작 *}-->
 	<!--{@ cmt_list}-->
 	<div class="view-comment">
-		<div id="c_{.comment_id}" class="view-comment-item {? .is_cmt_best}cmt-best{/}">
+		<div id="c_{.comment_id}" class="view-comment-item{? .is_lb_admin} admin{/}{? .is_cmt_best} cmt-best{/}">
 			<div class="comment-item-body-pn">
 				<div style="padding:10px 12px 6px">
 				<div class="comment-item-info lbdes" style="{? .cmt_depth && !.is_cmt_best}padding-left:{.cmt_depth}px;{/}">

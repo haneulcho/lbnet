@@ -70,6 +70,7 @@
 
 		$level = $list[$i]['wr_1'] ? $eb->level_info($list[$i]['wr_1']):'';
 		if(is_array($level)) {
+			$comment[$i]['is_lb_admin'] = false; // 운영진 여부 변수에 담기
 			if ($member['mb_id'] == $view['lb_id'] ) {
 				$comment[$i]['is_myarticle'] = true; // 내가 쓴 글 여부 변수에 담기
 			}
@@ -82,6 +83,14 @@
 			$comment[$i]['lb_id'] = $comment[$i]['mb_id']; // 익명 여부 관계 없이 댓글 아이디 변수에 담기
 			$comment[$i]['lb_nickname'] = $comment[$i]['wr_name']; // 익명 여부 관계 없이 댓글 닉네임 변수에 담기
 			if(!$level['anonymous']) {
+				if ($comment[$i]['mb_id'] == 'lebolution') {
+					$comment[$i]['is_lb_admin'] = true;
+				} else if ($group['gr_admin']) {
+					$tmpArr= explode(',', $group['gr_admin']);
+					if (in_array($comment[$i]['mb_id'], $tmpArr)) {
+						$comment[$i]['is_lb_admin'] = true;
+					}
+				}
 				$comment[$i]['mb_photo'] = $eb->mb_photo($list[$i]['mb_id']);
 				$comment[$i]['gnu_level'] = $level['gnu_level'];
 				$comment[$i]['eyoom_level'] = $level['eyoom_level'];

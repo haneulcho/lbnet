@@ -40,10 +40,20 @@
 	foreach($list as $key => $val) {
 		$level = $list[$key]['wr_1'] ? $eb->level_info($list[$key]['wr_1']):'';
 		if(is_array($level)) {
-      if ($member['mb_id'] == $list[$key]['mb_id']) {
-        $list[$key]['is_mine'] = true; // 내가 쓴 글 여부 변수에 담기
-      }
+			$list[$key]['is_lb_admin'] = false; // 운영진 여부 변수에 담기
+			if ($member['mb_id'] == $list[$key]['mb_id']) {
+				$list[$key]['is_mine'] = true; // 내가 쓴 글 여부 변수에 담기
+			}
 			if(!$level['anonymous']) {
+				// 운영진 여부 변수에 담기
+				if ($list[$key]['mb_id'] == 'lebolution') {
+					$list[$key]['is_lb_admin'] = true;
+				} else if ($group['gr_admin']) {
+					$tmpArr= explode(',', $group['gr_admin']);
+					if (in_array($list[$key]['mb_id'], $tmpArr)) {
+						$list[$key]['is_lb_admin'] = true;
+					}
+				}
 				$list[$key]['mb_photo'] = $eb->mb_photo($list[$key]['mb_id']);
 				$list[$key]['gnu_level'] = $level['gnu_level'];
 				$list[$key]['eyoom_level'] = $level['eyoom_level'];
@@ -166,11 +176,11 @@
 			if($eyoom_board['bo_use_addon_soundcloud'] == '1') {
 				$wr_content = $eb->remove_editor_sound($wr_content);
 			}
-      if($eyoom_board['bo_use_addon_video'] == '1') {
-        $list[$key]['content'] = cut_str(trim(strip_tags(preg_replace("/\?/","",$wr_content))),$content_length, '…');
-      } else {
-        $list[$key]['content'] = cut_str(trim(strip_tags($wr_content)),$content_length, '…');
-      }
+			if($eyoom_board['bo_use_addon_video'] == '1') {
+				$list[$key]['content'] = cut_str(trim(strip_tags(preg_replace("/\?/","",$wr_content))),$content_length, '…');
+			} else {
+				$list[$key]['content'] = cut_str(trim(strip_tags($wr_content)),$content_length, '…');
+			}
 		}
 
 		// 게시물 view페이지의 wmode(Window Mode) 설정

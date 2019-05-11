@@ -22,7 +22,11 @@
 	    <div class="board-list-body">
         <ul id="lbboard">
         <!--{@ list}-->
-        <!--{? .is_notice}--><li class="notice"><!--{: _wr_id == .wr_id}--><li class="active"><!--{:}--><li><!--{/}-->
+		<!--{? .is_notice || .is_lb_admin || _wr_id == .wr_id }-->
+			<li class="<!--{? .is_notice}-->notice<!--{/}--><!--{? .is_lb_admin}--> admin<!--{/}--><!--{? _wr_id == .wr_id}--> active<!--{/}-->">
+		<!--{:}-->
+			<li>
+		<!--{/}-->
             <!--{? _is_checkbox && _is_admin }-->
 						<div class="lbcheck">
             <span class="lst_chk">

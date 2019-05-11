@@ -3,7 +3,7 @@
 <article class="board-view">
   <section class="board-view-info">
 	  <div class="pull-left">
-		<div class="lbdes">
+		<div class="lbdes{? view.is_lb_admin} admin{/}">
 		  <span class="lbnick"><!--{?view.is_mine}-->{=eb_lbnameview('basic', view.wr_id, view.wr_name)}<b class="color-red">*</b><!--{:}-->{=eb_lbnameview('basic', view.wr_id, view.wr_name)}<!--{/}--></span>
 		  <span class="lbhit"><i class="fa fa-eye"></i>{=number_format(view.wr_hit)}
 		  </span>

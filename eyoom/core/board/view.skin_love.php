@@ -75,6 +75,9 @@
 		$lv['name'] = '';
 	}
 
+	// 운영진 여부 변수에 담기
+	$view['is_lb_admin'] = false;
+
 	// 익명 여부 관계 없이 원글 아이디 변수에 담기
 	$view['lb_id'] = $view['mb_id'];
 
@@ -86,6 +89,14 @@
 	if(!$lv['anonymous']) {
 		// 작성자 프로필 사진
 		$view['mb_photo'] = $eb->mb_photo($view['mb_id']);
+		if ($view['mb_id'] == 'lebolution') {
+			$view['is_lb_admin'] = true;
+		} else if ($group['gr_admin']) {
+			$tmpArr= explode(',', $group['gr_admin']);
+			if (in_array($view['mb_id'], $tmpArr)) {
+				$view['is_lb_admin'] = true;
+			}
+		}
 	} else {
 		$view['mb_photo'] = '';
 		if ($member['mb_id'] == $view['mb_id']) {

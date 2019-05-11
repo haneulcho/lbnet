@@ -1042,6 +1042,8 @@ fieldset legend {border-bottom:0}
 #lbboard .lbcheck {float:left;padding:0;margin-top:8px}
 #lbboard .lblink.admin {margin-left:25px}
 #lbboard .lblink {position:relative;-webkit-box-sizing:border-box;box-sizing:border-box;background-color:#fff;padding:14px 16px}
+#lbboard li.admin .lblink {background-color:#f8f6ff}
+#lbboard li.admin .lblink .lbdes > span.lbnick {color:#8165e2;font-weight:bold}
 #lbboard li:hover .lblink,
 #lbboard li.active .lblink {background-color:#f8f8f8}
 #lbboard li:hover .lblink .lbtitle {font-weight:bold}
@@ -1064,6 +1066,7 @@ fieldset legend {border-bottom:0}
 .lbcontents {margin-top:6px;margin-bottom:12px;color:#777}
 .lbtitle .lbcomment, .lbtitle .lbup, .lbdes {font-size:11px;color:#818a91;line-height:1}
 .board-view-info .lbdes {color:#666}
+.board-view-info .lbdes.admin .sv_wrap > a {color:#8165e2;font-weight:bold}
 .lbtitle .lbcomment i, .lbtitle .lbup i, .lbdes>span i {margin-right:2px}
 .lbdes>span {margin-right:7px}
 .lbcbtn li {float:left;display:inline-block}
@@ -1191,6 +1194,8 @@ fieldset legend {border-bottom:0}
 .view-comment {position:relative;font-size:13px;padding:0;border-top:1px solid rgba(120, 130, 140, .13)}
 .view-comment h2 {position:absolute;font-size:0;line-height:0;overflow:hidden}
 .view-comment-item {position:relative}
+.view-comment-item.admin {background:#f8f6ff}
+.view-comment-item.admin .comment-name .sv_wrap > a {color:#8165e2;font-weight:bold}
 .view-comment-item .no-comment {text-align:center;padding:10px 0 20px;border-bottom:1px solid #e5e5e5}
 .view-comment-no-item {position:relative;padding:10px 0;border-top:1px solid #e5e5e5}
 .view-comment-no-item .no-comment {text-align:center;padding:10px 0 20px;border-bottom:1px solid #e5e5e5}
