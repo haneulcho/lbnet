@@ -1,5 +1,14 @@
 <?php
 include_once('./_common.php');
+include_once(EYOOM_PATH.'/common.php');
+
+if (!$is_member) {
+	alert('로그인해 주세요.', G5_BBS_URL.'/login.php?url='.urlencode(G5_BBS_URL.'/current_connect_admin.php'));
+} else {
+	if (!$is_admin) {
+		alert('잘못된 접근을 통한 정보 탈취는 불법입니다. \n3회 이상 시도시 법적 처벌을 받을 수 있습니다!', G5_URL);
+	}
+}
 
 $g5['title'] = '현재접속자';
 include_once('./_head.php');
