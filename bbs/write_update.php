@@ -83,7 +83,7 @@ if ($w == 'u' || $w == 'r') {
 
 // 외부에서 글을 등록할 수 있는 버그가 존재하므로 비밀글은 사용일 경우에만 가능해야 함
 if (!$is_admin && !$board['bo_use_secret'] && (stripos($_POST['html'], 'secret') !== false || stripos($_POST['secret'], 'secret') !== false || stripos($_POST['mail'], 'secret') !== false)) {
-	alert('비밀글 미사용 게시판 이므로 비밀글로 등록할 수 없습니다.');
+    alert('비밀글 미사용 게시판 이므로 비밀글로 등록할 수 없습니다.');
 }
 
 $secret = '';
@@ -133,9 +133,9 @@ if ($w == '' || $w == 'u') {
         alert('글을 쓸 권한이 없습니다.');
     }
 
-	// 외부에서 글을 등록할 수 있는 버그가 존재하므로 공지는 관리자만 등록이 가능해야 함
-	if (!$is_admin && $notice) {
-		alert('관리자만 공지할 수 있습니다.');
+    // 외부에서 글을 등록할 수 있는 버그가 존재하므로 공지는 관리자만 등록이 가능해야 함
+    if (!$is_admin && $notice) {
+        alert('관리자만 공지할 수 있습니다.');
     }
 
 } else if ($w == 'r') {
@@ -286,7 +286,12 @@ if ($w == '' || $w == 'r') {
             sql_query(" update {$g5['board_table']} set bo_notice = '{$bo_notice}' where bo_table = '{$bo_table}' ");
         }
 
-        insert_point($member['mb_id'], $board['bo_write_point'], "{$board['bo_subject']} {$wr_id} 글쓰기", $bo_table, $wr_id, '쓰기');
+        // 전광판 사용자 포인트 차감하기 (wr_2 기반)
+        if ($wr_2 == '1' && !$is_admin) {
+            insert_point($member['mb_id'], -200, "{$board['bo_subject']} {$wr_id} 글쓰기(전광판 등록)", $bo_table, $wr_id, '전광판쓰기');
+        } else {
+            insert_point($member['mb_id'], $board['bo_write_point'], "{$board['bo_subject']} {$wr_id} 글쓰기", $bo_table, $wr_id, '쓰기');
+        }
     } else {
         // 답변은 코멘트 포인트를 부여함
         // 답변 포인트가 많은 경우 코멘트 대신 답변을 하는 경우가 많음

@@ -17,13 +17,9 @@
 
 <!--{/}-->
 
-
-
-
-
 <!--{? !_wr_id && _bo_table == 'free2' }-->
 <section class="board-write">
-	<form name="fwrite" id="fwrite" action="./write_update.php" onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form">
+	<form name="fwrite" id="fwrite" action="./write_update.php" onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form margin-bottom-20">
 	<input type="hidden" name="uid" value="<?php echo get_uniqid(); ?>">
 	<input type="hidden" name="w" value="{_w}">
 	<input type="hidden" name="bo_table" value="{_bo_table}">
@@ -142,6 +138,11 @@ function fwrite_submit(f)
 	font-size:13px;line-height:1.35;}
 #wr_content:focus {height:120px !important;}
 </style>
+<!--{/}-->
+
+<!--{* 전광판 등록 게시글 *}-->
+<!--{? eyoom_board.bo_use_hotgul == 1 && _bo_table == 'free2'}-->
+{latest->latest_userad('basic_lb_ad','title=전광판||bo_table=free2||period=30||count=15||cut_subject=38||img_view=y||bo_direct=y')}
 <!--{/}-->
 <div class="board-list">
     <!--{* 게시판 페이지 정보 및 버튼 시작 *}-->

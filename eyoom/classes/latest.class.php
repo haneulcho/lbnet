@@ -51,6 +51,22 @@ class latest extends eyoom
 		}
 	}
 
+	// 전광판 최신글 추출
+	public function latest_userad($skin, $option, $print=true) {
+		$where = 1;
+		$opt = $this->get_option($option);
+		$where .= $opt['where'];
+		$where .= " and wr_id = wr_parent and wr_2 != ''";
+		$orderby = $opt['best']=='y'? " wr_2 desc ":"";
+		$list = $this->latest_assign($where, $opt['count'], $opt['cut_subject'], $opt['cut_content'], $orderby, $opt['bo_direct']);
+		if($print === null) $print = true;
+		if($print) {
+			$this->latest_print($skin, $list,'single','latest');
+		} else {
+			return $list;
+		}
+	}
+
 	// 랜덤으로 게시물 추출
 	public function latest_random($skin, $option) {
 		$where = 1;

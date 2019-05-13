@@ -20,6 +20,12 @@
 			}
 		}
 	}
+
+	// wr_2에 전광판 사용여부 입력
+	$userad_checked = "";
+	if($is_member && $write['wr_2'] != '') {
+		$userad_checked = 'checked';
+	}
 	
 	// wr_4 변수값 암호화
 	$wr_4 = $eb->encrypt_md5($wr_4);

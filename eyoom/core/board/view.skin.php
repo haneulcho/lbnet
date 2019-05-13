@@ -36,10 +36,13 @@
 		}
 
 		// 한 번이라도 신고된 글이면, 글 수정 및 글 삭제가 불가능하게
-		if (!$is_admin && $ycard['yc_count'] > 0) {
+		// 또는 전광판에 올라간 글이면, 글 수정이 불가능하게
+		if (!$is_admin && ($ycard['yc_count'] > 0 || $view['wr_2'] == '1')) {
 			if ($update_href != '') {
 				$update_href = '';
 			}
+		}
+		if (!$is_admin && $ycard['yc_count'] > 0) {
 			if ($delete_href != '') {
 				$delete_href = '';
 			}

@@ -31,7 +31,6 @@ $(document).ready(function(){
 	<input type="hidden" name="page" value="{_page}">
 	<input type="hidden" name="board_skin_path" value="{C.EYOOM_CORE_PATH}/board">
 	<input type="hidden" name="wr_1" id="wr_1" value="{_wr_1}">
-	<input type="hidden" name="wr_2" id="wr_2" value="{_wr_2}">
 	<input type="hidden" name="wr_3" id="wr_3" value="{_wr_3}">
 	<input type="hidden" name="wr_4" id="wr_4" value="{_wr_4}">
 	<input type="hidden" name="wr_5" id="wr_5" value="{_wr_5}">
@@ -180,6 +179,14 @@ $(document).ready(function(){
 				<!--{/}-->
 			</div>
 		</section>
+		<!--{? eyoom_board.bo_use_hotgul == 1 && _bo_table == 'free2'}-->
+			<!--{? _is_admin || (!_is_admin && (!_w || _w == ''))}-->
+			<label for="userad" class="checkbox" style="padding-left:22px !important;"><input type="checkbox" id="userad" name="wr_2" value="1" {_userad_checked}><i></i>전광판 (200포인트 차감)</label>
+			<div class="alert alert-danger padding-all-10 margin-top-10 margin-bottom-15">
+				<strong>Note:</strong> 전광판 등록은 글쓰기 시 '최초 1회'만 가능하며, 전광판에 등록된 글은 수정할 수 없으니 신중히 선택해 주세요.<br>수다방에 맞지 않는 글은 운영진 판단 하에 삭제될 수 있습니다.
+			</div>
+			<!--{/}-->
+		<!--{/}-->
 		<div class="margin-hr-10"></div>
 
 		<section>
