@@ -141,7 +141,7 @@ function fwrite_submit(f)
 <!--{/}-->
 
 <!--{* 전광판 등록 게시글 *}-->
-<!--{? eyoom_board.bo_use_hotgul == 1 && _bo_table == 'free2'}-->
+<!--{? eyoom_board.bo_use_hotgul == 1 && !_wr_id && _bo_table == 'free2'}-->
 {latest->latest_userad('basic_lb_ad','title=전광판||bo_table=free2||period=30||count=15||cut_subject=38||img_view=y||bo_direct=y')}
 <!--{/}-->
 <div class="board-list">
