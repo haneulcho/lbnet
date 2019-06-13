@@ -4,7 +4,7 @@ include_once('./_common.php');
 $g5['title'] = '전체검색 결과';
 include_once('./_head.php');
 
-if ($is_admin != 'super') {
+if (!$is_admin) {
   alert('잘못된 접근을 통한 정보 탈취는 불법입니다. \n3회 이상 시도시 법적 처벌을 받을 수 있습니다!', G5_URL);
 } else {
 $search_table = Array();
@@ -35,7 +35,7 @@ if ($stx) {
     $result = sql_query($sql);
     for ($i=0; $row=sql_fetch_array($result); $i++)
     {
-        if ($is_admin != 'super')
+        if (!$is_admin)
         {
             // 그룹접근 사용에 대한 검색 차단
             $sql2 = " select gr_use_access, gr_admin from {$g5['group_table']} where gr_id = '{$row['gr_id']}' ";

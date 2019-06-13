@@ -5,7 +5,10 @@
 <?php  ob_start(); ?>
 	<span class="sv dropdown-menu" role="menu">
 	<!--{? mb_id && member.mb_id}-->
-		<a href="{C.G5_BBS_URL}/memo_form.php?bt={bo_table}&amp;mid={mb_id}" class="win_memo" id="ol_after_memo"><i class="fa fa-envelope-o"></i> 쪽지보내기</a>
+		<a href="{C.G5_BBS_URL}/memo_form.php?bt={bo_table}&amp;mid={wr_id}" class="win_memo" id="ol_after_memo"><i class="fa fa-envelope-o"></i> 쪽지보내기</a>
+		<!--{? is_admin}-->
+		<a href="{C.G5_BBS_URL}/search.php?gr_id=leb&amp;sfl=mb_id&amp;stx={mb_id}&amp;sop=and"><i class="fa fa-search"></i> 게시물 확인</a>
+		<!--{/}-->
 	<!--{/}-->
 	</span>
 <?php
