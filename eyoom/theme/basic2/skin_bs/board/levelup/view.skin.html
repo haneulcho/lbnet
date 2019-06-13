@@ -183,7 +183,13 @@
         <!--{/}-->
         <!--{? view.ca_name != '완료' || _is_admin }-->
             <!--{? _update_href}--><a href="{_update_href}" class="lbbtn_light" type="button"><i class="fa fa-pencil"></i>수정</a><!--{/}-->
-            <!--{? _delete_href}--><a href="{_delete_href}" class="lbbtn_light" type="button" onclick="del(this.href); return false;"><i class="fa fa-trash-o"></i>삭제</a><!--{/}-->
+            <!--{? _delete_href}-->		
+                <!--{? view.is_declared}-->
+                <a href="{_delete_href}" class="lbbtn_light" type="button" onclick="alert('신고된 댓글이 존재하여 삭제할 수 없습니다.\n글 삭제 요청은 문의방에 부탁드립니다.'); return false;"><i class="fa fa-trash-o"></i>삭제</a>
+                <!--{:}-->
+                <a href="{_delete_href}" class="lbbtn_light" type="button" onclick="del(this.href); return false;"><i class="fa fa-trash-o"></i>삭제</a>
+                <!--{/}-->
+            <!--{/}-->
         <!--{/}-->
 
         <!--{? eyoom_board.bo_use_yellow_card == '1' }-->

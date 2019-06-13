@@ -139,6 +139,9 @@
 			if (!$is_admin && ($cmt_ycard['yc_count'] > 0 || $cmt_ycard['yc_blind'] == 'y')) {
 				$comment[$i]['is_edit'] = '';
 				$comment[$i]['is_del'] = '';
+
+				// 한 번이라도 신고된 댓글이 존재하면 원글 is_declared 변수값 true로 변경
+				$view['is_declared'] = true;
 			}
 			if($cmt_ycard['yc_blind'] == 'y') {
 				if(!$is_admin && $member['mb_level'] < $eyoom_board['bo_blind_view']) {
