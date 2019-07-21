@@ -5,15 +5,10 @@
 	define('_EYOOM_',true);
 
 	// Eyoom Builder 경로 정의
-	define('EYOOM_SITE','http://eyoom.net');
 	define('EYOOM_PATH', G5_PATH.'/eyoom');
 	define('EYOOM_URL', G5_URL.'/eyoom');
 	define('EYOOM_THEME_PATH', EYOOM_PATH.'/theme');
 	define('EYOOM_THEME_URL', EYOOM_URL.'/theme');
-	define('EYOOM_AJAX_URL', EYOOM_SITE.'/eyoom/eyoom.ajax.php');
-	
-	// Gnuboard Site URL
-	define('GNU_URL', 'http://sir.kr');
 	
 	// Eyoom Core & Class 외 경로 정의
 	define('EYOOM_CORE_PATH', EYOOM_PATH.'/core');
@@ -43,13 +38,11 @@
 	$g5['eyoom_member']		= G5_TABLE_PREFIX.'eyoom_member';
 	$g5['eyoom_new']		= G5_TABLE_PREFIX.'eyoom_new';
 	$g5['eyoom_activity']	= G5_TABLE_PREFIX.'eyoom_activity';
-	$g5['eyoom_guest']		= G5_TABLE_PREFIX.'eyoom_guest';
 	$g5['eyoom_theme']		= G5_TABLE_PREFIX.'eyoom_theme';
 	$g5['eyoom_board']		= G5_TABLE_PREFIX.'eyoom_board';
 	$g5['eyoom_banner']		= G5_TABLE_PREFIX.'eyoom_banner';
 	$g5['eyoom_menu']		= G5_TABLE_PREFIX.'eyoom_menu';
 	$g5['eyoom_link']		= G5_TABLE_PREFIX.'eyoom_link';
-	$g5['eyoom_attendance'] = G5_TABLE_PREFIX.'eyoom_attendance'; 
 	$g5['eyoom_yellowcard']	= G5_TABLE_PREFIX.'eyoom_yellowcard';
 	$g5['eyoom_rating']		= G5_TABLE_PREFIX.'eyoom_rating';
 	$g5['eyoom_tag']		= G5_TABLE_PREFIX.'eyoom_tag';

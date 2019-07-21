@@ -2,74 +2,12 @@
 	$sub_key = substr($sub_menu,3,3);
 	if(!$sub_key) exit;
 
-	$sql="select * from {$g5['eyoom_theme']} where 1 ";
-	$res=sql_query($sql,false);
-	for($i=0;$row=sql_fetch_array($res);$i++) {
-		$tminfo[$row['tm_name']] = $row;
-	}
 	if(defined('_EYOOM_VESION_')) {
-		$builder_score = $eb->version_score(str_replace("EyoomBuilder_", "", _EYOOM_VESION_));
-
 		if (!ini_get("allow_url_fopen")) ini_set("allow_url_fopen", 1);
-		if (ini_get("allow_url_fopen") == 1) {
-			// 이윰넷에서 버전 가져오기
-			$url = EYOOM_SITE . '/bbs/rss.php?bo_table=eyoom';
-			$xml = simplexml_load_file($url);
-			$builder = $xml->channel->item;
-			$builder = $builder[0];
 
-			preg_match("/\d+\.\d+\.\d+/", $builder->title, $match);
-			$eyoom_score = $eb->version_score($match[0]);
-
-			if($builder_score < $eyoom_score) {
-				$new_version = "<a href='{$builder->link}' target='_blank' class='eb_new'>{$builder->title} 바로가기</a>";
-			}
-
-			if (defined('G5_YOUNGCART_VER')) {
-				$url = GNU_URL . '/rss/yc5_pds';
-				$xml = simplexml_load_file($url);
-				$sir = $xml->channel->item;
-				$sir = $sir[0];
-
-				preg_match("/\d+\.\d+\.\d+/", $sir->title, $match);
-				$sir_score = $eb->version_score($match[0]);
-				$gnu_score = $eb->version_score(G5_YOUNGCART_VER);
-				if($gnu_score < $sir_score) {
-					$gnu_version = "<a href='{$sir->link}' target='_blank' class='gnu_new'>{$sir->title} 바로가기</a>";
-				}
-			} else {
-				$url = GNU_URL . '/rss/g5_pds';
-				$xml = simplexml_load_file($url);
-				$sir = $xml->channel->item;
-				$sir = $sir[0];
-
-				preg_match("/\d+\.\d+\.\d+/", $sir->title, $match);
-				$sir_score = $eb->version_score($match[0]);
-				$gnu_score = $eb->version_score(G5_GNUBOARD_VER);
-				if($gnu_score < $sir_score) {
-					$gnu_version = "<a href='{$sir->link}' target='_blank' class='gnu_new'>{$sir->title} 바로가기</a>";
-				}
-			}
-		}
 ?>
-<style>
-	.eb_new, .gnu_new {
-		display: inline-block;
-		margin:2px 10px;
-		padding:5px 10px;
-		color:#fff;
-		font-weight: normal;
-		font-size: 12px;
-	}
-	.eb_new {
-		background: #d96c41;
-	}
-	.gnu_new {
-		background: #b041d9;
-	}
-</style>
 <section>
-	<h2><strong style="color:#f30;">설치 버전</strong> : <?php echo _EYOOM_VESION_;?> <?php echo $new_version;?> <?php echo $gnu_version;?></h2>
+	<h2><strong style="color:#f30;">설치 버전</strong> : <?php echo _EYOOM_VESION_;?></h2>
     <div class="tbl_frm01 tbl_wrap">
         <table style="background:#fafafa;border:1px solid #eaeaea;">
         <caption>테마설정</caption>
@@ -123,22 +61,12 @@
 				<?php if(defined('G5_USE_SHOP')) {?><div><a href="./shopmenu_list.php?thema=<?php echo $arr[$i];?>" <?php if($_theme == $arr[$i] && $sub_key=='400') echo "class='active'";?>>쇼핑몰메뉴</a></div><?php }?>
 				<div><a href="./banner_list.php?thema=<?php echo $arr[$i];?>" <?php if($_theme == $arr[$i] && $sub_key=='500') echo "class='active'";?>>배너/광고</a></div>
 				<div><a href="./tag_list.php?thema=<?php echo $arr[$i];?>" <?php if($_theme == $arr[$i] && $sub_key=='600') echo "class='active'";?>>태그</a></div>
-				<div class="btn_clone"><a href="./theme_clone.php?thema=<?php echo $arr[$i];?>" class="clone_theme" onclick="return false;">복사</a></div>
-				<div class="btn_delete"><a href="./theme_delete.php?thema=<?php echo $arr[$i];?>" class="delete_theme" onclick="return false;">삭제</a></div>
 				<div class="btn_chname"><a href="./theme_alias.php?thema=<?php echo $arr[$i];?>" class="alias_theme" onclick="return false;">별칭설정</a></div>
 				<div class="btn_community"><a href="<?php echo G5_URL;?>/?theme=<?php if($tminfo[$arr[$i]]['tm_alias']) echo $tminfo[$arr[$i]]['tm_alias']; else echo $arr[$i];?>" target="_blank">커뮤니티</a></div>
 				<?php if(defined('G5_USE_SHOP')) {?><div class="btn_shop"><a href="<?php echo G5_URL;?>/<?php echo G5_SHOP_DIR;?>/?theme=<?php if($tminfo[$arr[$i]]['tm_alias']) echo $tminfo[$arr[$i]]['tm_alias']; else echo $arr[$i];?>" target="_blank">쇼핑몰</a></div><?php }?>
 			</div>
 			<?php
 					unset($eyoom);
-				} else {
-			?>
-			<div class="themes">
-				<div class="theme_name"><?php echo $arr[$i];?></div>
-				<div class="theme_setup"><a href="./theme_form.php?thema=<?php echo $arr[$i];?>" class="install_theme" onclick="return false;">테마설치하기</a></div>
-				<div class="btn_delete"><a href="./theme_delete.php?thema=<?php echo $arr[$i];?>" class="delete_theme" onclick="return false;">삭제</a></div>
-			</div>
-			<?php
 				}
 			}
 			unset($arr);

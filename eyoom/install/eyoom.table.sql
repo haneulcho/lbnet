@@ -204,23 +204,6 @@ CREATE TABLE IF NOT EXISTS `g5_eyoom_board` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `g5_eyoom_guest`
---
-
-DROP TABLE IF EXISTS `g5_eyoom_guest`;
-CREATE TABLE IF NOT EXISTS `g5_eyoom_guest` (
-  `gu_no` mediumint(11) unsigned NOT NULL auto_increment,
-  `mb_id` varchar(40) NOT NULL,
-  `gu_id` varchar(40) NOT NULL,
-  `gu_name` varchar(20) NOT NULL,
-  `content` text NOT NULL,
-  `gu_regdt` datetime NOT NULL,
-  PRIMARY KEY  (`gu_no`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `g5_eyoom_menu`
 --
 
