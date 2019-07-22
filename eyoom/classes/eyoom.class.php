@@ -18,13 +18,6 @@ class eyoom extends qfile
 		return $num;
 	}
 
-	// 메인페이지 설정
-	public function print_page() {
-		global $tpl, $tpl_name;
-		if(!$tpl_index) $tpl_index = 'index_'.$tpl_name;
-		$tpl->print_($tpl_index);
-	}
-
 	// 공사중 설정 시간 변환하여 리턴
 	public function mktime_countdown_date($cd_datetime) {
 

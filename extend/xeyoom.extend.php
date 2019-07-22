@@ -146,94 +146,15 @@
 			$tm = sql_fetch("select * from {$g5['eyoom_theme']} where tm_name = '{$theme}'",false);
 		}
 
-		// 언어정의
-		if($eyoom['theme_lang_type']=='m') { // 다국어 테마일 경우
-			if(!$eyoom['language']) {
-				$eyoom['language'] = 'kr';
-			}
-			$g5['language'] = $eyoom['language'];
-			$language_theme_file = G5_DATA_PATH.'/language/theme.'.$g5['language'].'.php';
-			if(file_exists($language_theme_file)) {
-				include_once($language_theme_file);
-			}
-			$language_alert_file = G5_DATA_PATH.'/language/alert.'.$g5['language'].'.php';
-			if(file_exists($language_alert_file)) {
-				include_once($language_alert_file);
-			}
-		}
-
-		// 템플릿 클래스 오프젝트 생성
-		include_once(EYOOM_CLASS_PATH.'/template.class.php');
-		$tpl = new Template($theme);
-
 		// 이윰 common 파일
 		@include_once(EYOOM_PATH.'/common.php');
 
-		// 스킨화작업이 어려운 파일은 File Hooking
-		if($exchange_file = $tpl->exchange_file()) {
-			@include_once(EYOOM_INC_PATH.'/hookedfile.header.php');
-			@include_once($exchange_file);
-			return;
-		}
+		// 그누보드5 테마 상수 및 레이아웃 변수 정의
+		define('G5_THEME_PATH', EYOOM_PATH);
+		$config['cf_include_head'] = 'eyoom/head.php';
+		$config['cf_include_tail'] = 'eyoom/tail.php';
+		$config['cf_include_index'] = 'eyoom/index.php';
 
-		// 쇼핑몰일 경우 Eyoom Core에서 파일 제어하기
-		// Eyoom Core에 파일이 없을 경우에는 영카트 파일 실행
-		$path = $tpl->get_filename_from_url();
-		if(G5_USE_SHOP && $path['dirname'] == G5_SHOP_DIR) {
-			if($eyoom_shop_core = $tpl->eyoom_control()) {
-				
-				define('_SHOP_',true);
-				// 샵테마를 별도로 지정하고 있는가?
-				if($shop_theme && !$preview && $shop_theme!=$theme) {
-					unset($tpl, $eyoom);
-					if($shop_theme == 'basic') {
-						include(G5_DATA_PATH."/eyoom.config.php");
-					} else {
-						$theme = $shop_theme;
-						include(G5_DATA_PATH."/eyoom.".$shop_theme.".config.php");
-					}
-				} else if($preview) {
-					// 미리보기일 경우, 샵테마를 미리보기 지정 테마로 강제 지정
-					$shop_theme = $theme;
-				}
-				
-				// 이윰테마에 샵스킨이 있는지 체크 후, 없다면 영카트5 기본 스킨을 뿌리도록 처리
-				$shop_skin_for_theme = EYOOM_THEME_PATH . '/' . $shop_theme . '/skin_' . $tpl_name . '/shop/';
-				if(!is_dir($shop_skin_for_theme)) return;
-				else {
-					// 그누보드5 테마 상수 및 레이아웃 변수 정의
-					define('G5_THEME_PATH', EYOOM_PATH);
-					$config['cf_include_head'] = 'eyoom/head.php';
-					$config['cf_include_tail'] = 'eyoom/tail.php';
-					$config['cf_include_index'] = 'eyoom/index.php';
-				}
-
-				if($eyoom['use_gnu_shop'] == 'n') {
-					// 템플릿명 결정
-					$tpl_name = G5_IS_MOBILE ? 'mo':'pc';
-					if($eyoom['bootstrap'])  $tpl_name = 'bs';
-					$tpl = new Template($shop_theme);
-
-					@include_once(EYOOM_INC_PATH.'/hookedfile.header.php');
-					include_once($eyoom_shop_core);
-					exit;
-				}
-			}
-		} else {
-			// 그누보드5 테마 상수 및 레이아웃 변수 정의
-			define('G5_THEME_PATH', EYOOM_PATH);
-			$config['cf_include_head'] = 'eyoom/head.php';
-			$config['cf_include_tail'] = 'eyoom/tail.php';
-			$config['cf_include_index'] = 'eyoom/index.php';
-		}
-
-		// 쇼핑몰의 레이아웃을 커뮤니티에 적용하기
-		if((isset($default['de_shop_layout_use']) && $default['de_shop_layout_use']) || $eyoom_board['use_shop_skin'] == 'y') {
-			(int)$shop_layout_use = 1;
-			if(!preg_match("/adm\//i",$_SERVER['SCRIPT_NAME'])) {
-				unset($default['de_shop_layout_use']);
-			}
-		}
 	} else {
 		// 이윰 설정파일이 없으면 설치하기
 		header("location:".EYOOM_URL."/install/");

@@ -4,12 +4,6 @@
 	// 그누 헤더정보 출력
 	@include_once(G5_PATH.'/head.sub.php');
 
-	// 쇼핑몰 레이아웃을 커뮤니티에 적용하기
-	// if((isset($shop_layout_use) && $shop_layout_use)) {
-	// 	@include_once(EYOOM_CORE_PATH.'/shop/shop.head.php');
-	// 	return;
-	// }
-
 	if(!defined('_EYOOM_COMMON_') || $qaconfig) @include EYOOM_PATH.'/common.php';
 
 	if($is_member) {
@@ -50,14 +44,7 @@
 		}
 	}
 
-	// 사용자 프로그램
-	// @include_once(EYOOM_USER_PATH.'/head.php');
-
-	// 템플릿에 변수 할당
-	@include EYOOM_INC_PATH.'/tpl.assign.php';
-
-	// 템플릿 출력
-	$tpl_head = 'head_' . $tpl_name;
-	$tpl->print_($tpl_head);
+	// head 템플릿 출력
+	@include_once(EYOOM_THEME_PATH.'/'.$theme.'/layout/head.php');
 
 ?>

@@ -1,7 +1,6 @@
 <?php
 	if (!defined('_GNUBOARD_')) exit;
-	
-	include_once(EYOOM_CLASS_PATH.'/Template_/Template_.class.php');
+
 	include_once(EYOOM_CLASS_PATH.'/qfile.class.php');
 	include_once(EYOOM_CLASS_PATH.'/theme.class.php');
 	include_once(EYOOM_CLASS_PATH.'/eyoom.class.php');
