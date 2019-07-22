@@ -430,29 +430,25 @@ class latest extends eyoom
 
 	// 스킨파일 위치에 출력하기
 	protected function latest_print($skin, $arr, $mode='single', $folder='latest') {
-		global $tpl, $tpl_name, $board;
+		global $theme, $board;
 
 		if(!$mode) $mode='single';
 		if(!$folder) $folder='latest';
 
-		$tpl->define_template($folder,$skin,'latest.skin.html');
-		$tpl->assign(array(
-			'bo_table' => $this->bo_table,
-			'photo' => $this->photo,
-			'content' => $this->content,
-			'cols' => $this->cols,
-			'title' => $this->header_title,
-			'respond' => $this->respond,
-			'use_star' => $this->use_star,
-		));
+		$latest_skin_path = EYOOM_THEME_PATH.'/'.$theme.'/skin_bs/'.$folder.'/'.$skin;
+		$bo_table = $this->bo_table;
+		$photo = $this->photo;
+		$content = $this->content;
+		$cols = $this->cols;
+		$title = $this->header_title;
+		$respond = $this->respond;
+		$use_star = $this->use_star;
+
 		if($mode=='single') {
-			$tpl->assign(array(
-				'loop' => $arr,
-			));
-		} else if($mode='multiple') {
-			$tpl->assign($arr);
+			$loop = $arr;
 		}
-		$tpl->print_($tpl_name);
+
+		include($latest_skin_path.'/latest.skin.php');
 	}
 
 	// 회원 랭킹
@@ -485,7 +481,7 @@ class latest extends eyoom
 				}
 				break;
 
-			// 전체 포인트 랭키
+			// 전체 포인트 랭킹
 			case "total_point":
 				$result = sql_query("select a.level, b.* from {$g5['eyoom_member']} as a left join {$g5['member_table']} as b on a.mb_id=b.mb_id where b.mb_email_certify!='0000-00-00 00:00:00' and b.mb_level!='10' order by b.mb_point desc limit {$opt['count']}", false);
 				for ($i=0; $row=sql_fetch_array($result); $i++) {
