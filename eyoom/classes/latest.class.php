@@ -430,7 +430,7 @@ class latest extends eyoom
 
 	// 스킨파일 위치에 출력하기
 	protected function latest_print($skin, $arr, $mode='single', $folder='latest') {
-		global $theme, $board;
+		global $g5, $theme, $board, $eb, $memo_not_read;
 
 		if(!$mode) $mode='single';
 		if(!$folder) $folder='latest';
