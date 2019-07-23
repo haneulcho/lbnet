@@ -2,19 +2,19 @@
 
 function eb_visit($skin_dir='basic')
 {
-    global $config, $g5, $tpl, $is_admin, $connect, $tpl_name;
+	global $config, $g5, $theme, $is_admin, $connect;
 
-    // visit 배열변수에
-    // $visit[1] = 오늘
-    // $visit[2] = 어제
-    // $visit[3] = 최대
-    // $visit[4] = 전체
-    // 숫자가 들어감
-    preg_match("/오늘:(.*),어제:(.*),최대:(.*),전체:(.*)/", $config['cf_visit'], $visit);
-    settype($visit[1], "integer");
-    settype($visit[2], "integer");
-    settype($visit[3], "integer");
-    settype($visit[4], "integer");
+	// visit 배열변수에
+	// $visit[1] = 오늘
+	// $visit[2] = 어제
+	// $visit[3] = 최대
+	// $visit[4] = 전체
+	// 숫자가 들어감
+	preg_match("/오늘:(.*),어제:(.*),최대:(.*),전체:(.*)/", $config['cf_visit'], $visit);
+	settype($visit[1], "integer");
+	settype($visit[2], "integer");
+	settype($visit[3], "integer");
+	settype($visit[4], "integer");
 
 	// 속도 개선을 위해 DB 커넥션 없이 하는 방법을 강구해야 함.
 	$write	 = sql_fetch("select sum(bo_count_write) as total from {$g5['board_table']}", false);
@@ -33,17 +33,12 @@ function eb_visit($skin_dir='basic')
 	$counter['write'] = number_format($write['total']);
 	$counter['comment'] = number_format($comment['total']);
 
+	$visit_skin_path = EYOOM_THEME_PATH.'/'.$theme.'/skin_bs/visit/'.$skin_dir;
 
-	$tpl->define(array(
-		'pc' => 'skin_pc/visit/' . $skin_dir . '/visit.skin.html',
-		'mo' => 'skin_mo/visit/' . $skin_dir . '/visit.skin.html',
-		'bs' => 'skin_bs/visit/' . $skin_dir . '/visit.skin.html',
-	));
-	$tpl->assign(array(
-		"visit" => $visit,
-		"is_admin" => $is_admin,
-		"connect" => $connect,
-		"counter" => $counter,
-	));
-	$tpl->print_($tpl_name);
+	ob_start();
+	include_once($visit_skin_path.'/visit.skin.php');
+	$content = ob_get_contents();
+	ob_end_clean();
+
+	return $content;
 }
