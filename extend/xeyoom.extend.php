@@ -30,10 +30,6 @@
 	define('EYOOM_MSHOP_PATH', EYOOM_CORE_PATH.'/shop_mobile');
 	define('EYOOM_MSHOP_URL', EYOOM_CORE_URL.'/shop_mobile');
 
-	// User Program 경로 정의
-	define('EYOOM_USER_PATH', EYOOM_PATH.'/user_program');
-	define('EYOOM_USER_URL', EYOOM_URL.'/user_program');
-
 	// Eyoom DB Table
 	$g5['eyoom_respond']	= G5_TABLE_PREFIX.'eyoom_respond';
 	$g5['eyoom_member']		= G5_TABLE_PREFIX.'eyoom_member';
