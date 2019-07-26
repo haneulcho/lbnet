@@ -1542,5 +1542,57 @@ class eyoom extends qfile
 		return $output;
 	}
 
+	// 파일 후킹 - 이윰빌더로 강제 파일 지정하기
+	public function exchange_file() {
+		global $is_admin, $eyoom;
+
+		$path = $this->get_filename_from_exchange_url();
+
+		// 게시물 이동/복사 - File Hooking
+		if($is_admin && $this->pattern_match_url("/bbs\/move/i")) {
+			return EYOOM_CORE_PATH.'/board/'.$path['filename'];
+		}
+		// 그룹 최근게시물 - File Hooking
+		if($this->pattern_match_url("/bbs\/group/i")) {
+			return EYOOM_CORE_PATH.'/board/'.$path['filename'];
+		}
+		// SNS 연동
+		if($this->pattern_match_url("/bbs\/sns_send/i")) {
+			return EYOOM_CORE_PATH.'/board/'.$path['filename'];
+		}
+		// 새글삭제하기 - File Hooking
+		if($this->pattern_match_url("/bbs\/new_delete/i")) {
+			return EYOOM_CORE_PATH.'/new/'.$path['filename'];
+		}
+		// 쪽지보내기 기능 - File Hooking
+		if($this->pattern_match_url("/bbs\/memo_form_update/i")) {
+			return EYOOM_CORE_PATH.'/member/'.$path['filename'];
+		}
+		// 이메일 보내기 기능 - File Hooking
+		if($this->pattern_match_url("/bbs\/register_email/i")) {
+			return EYOOM_CORE_PATH.'/member/'.$path['filename'];
+		}
+		// 설문조사 결과보기 기능 - File Hooking
+		if($this->pattern_match_url("/bbs\/poll_result/i") && $eyoom['use_gnu_poll'] == 'n') {
+			return EYOOM_CORE_PATH.'/poll/'.$path['filename'];
+		}
+	}
+
+	// URL로 부터 파일명 추출
+	public function get_filename_from_exchange_url() {
+		$file_tmp = explode("/",$_SERVER['SCRIPT_NAME']);
+		$cnt = count($file_tmp);
+		$path['dirname'] = $file_tmp[($cnt-2)];
+		$path['filename'] = $file_tmp[($cnt-1)];
+		return $path;
+	}
+
+	// 지정된 패턴과 일치여부 체크
+	private function pattern_match_url($pattern) {
+		if(preg_match($pattern, $_SERVER['SCRIPT_NAME'])) {
+			return true;
+		} else return false;
+	}
+
 }
 ?>

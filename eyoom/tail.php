@@ -6,4 +6,7 @@
 
 	// tail 템플릿 출력
 	@include_once(EYOOM_THEME_PATH.'/'.$theme.'/layout/tail.php');
+
+	// tail_sub 템플릿 출력
+	@include_once(EYOOM_THEME_PATH.'/'.$theme.'/layout/tail_sub.php');
 ?>

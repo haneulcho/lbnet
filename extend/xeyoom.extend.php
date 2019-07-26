@@ -15,6 +15,7 @@
 	define('EYOOM_CORE_URL', EYOOM_URL.'/core');
 	define('EYOOM_CLASS_PATH', EYOOM_PATH.'/classes');
 	define('EYOOM_CLASS_URL', EYOOM_URL.'/classes');
+	define('EYOOM_FUNCTION_PATH', EYOOM_CLASS_PATH.'/lib');
 	define('EYOOM_THEME_PATH', EYOOM_PATH.'/theme');
 	define('EYOOM_THEME_URL', EYOOM_URL.'/theme');
 	define('EYOOM_INC_PATH', EYOOM_PATH.'/inc');
@@ -148,6 +149,13 @@
 
 		// 이윰 common 파일
 		@include_once(EYOOM_PATH.'/common.php');
+
+		// 스킨화작업이 어려운 파일은 File Hooking
+		if($exchange_file = $eb->exchange_file()) {
+			@include_once(EYOOM_INC_PATH.'/hookedfile.header.php');
+			@include_once($exchange_file);
+			return;
+		}
 
 		// 그누보드5 테마 상수 및 레이아웃 변수 정의
 		define('G5_THEME_PATH', EYOOM_PATH);

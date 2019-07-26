@@ -21,11 +21,6 @@
 	</div><!--{* End Header Fixed *}-->
 </div><!--{* End wrapper *}-->
 
-<?php
-	if ($config['cf_analytics']) {
-		echo $config['cf_analytics'];
-	}
-?>
 <script type="text/javascript" src="/eyoom/theme/basic2/js/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="/eyoom/theme/basic2/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/eyoom/theme/basic2/js/jquery.bootstrap-hover-dropdown.min.js"></script>
@@ -45,6 +40,3 @@
 	});
 </script>
 <?php } // !$wmode ?>
-</body>
-</html>
-<?php echo html_end(); exit; ?>
