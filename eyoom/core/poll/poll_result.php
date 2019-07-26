@@ -87,19 +87,11 @@
 		$list3[$i]['subject'] = cut_str($row2['po_subject'],60,"…");
 	}
 
-	@include_once(G5_PATH.'/head.sub.php');
+	$poll_skin_path = EYOOM_THEME_PATH.'/'.$theme.'/skin_bs/poll/'.$skin_dir;
 
-	// Template define
-	$tpl->define_template('poll',$skin_dir,'poll_result.skin.html');
-	$tpl->assign(array(
-		'list' => $list,
-		'list2' => $list2,
-		'list3' => $list3,
-		'po' => $po,
-		'member' => $member,
-		"lang_alert" => $lang_alert,
-		"lang_theme" => $lang_theme,
-	));
-	$tpl->print_($tpl_name);
+	include_once(G5_PATH.'/head.sub.php');
+
+	if (!file_exists($poll_skin_path.'/poll_result.skin.php')) die('skin error');
+	include_once($poll_skin_path.'/poll_result.skin.php');
 
 ?>
