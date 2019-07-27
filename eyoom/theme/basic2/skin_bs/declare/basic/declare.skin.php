@@ -1,4 +1,7 @@
-<?php if (!defined('_GNUBOARD_')) exit; ?>
+<?php if (!defined('_GNUBOARD_')) exit;
+$lists = empty($list) || !is_array($list) ? 0 : count($list);
+include_once(EYOOM_FUNCTION_PATH.'/eb_paging.php');
+?>
 
 <div class="new-list">
 
@@ -15,36 +18,37 @@
 					</tr>
 				</thead>
 				<tbody>
-					<!--{@ list}-->
+					<?php if ($lists) { foreach ($list as $item) { ?>
 					<tr>
-						<td class="text-center hidden-xs"><!--{? .is_cmt}-->댓글<!--{:}-->글<!--{/}--> <!--{? .is_blind}-->블라인드<!--{:}-->신고<!--{/}--></td>
+						<td class="text-center hidden-xs"><?php if ($item["is_cmt"]) { ?>댓글<?php } else { ?>글<?php } ?> <?php if ($item["is_blind"]) { ?>블라인드<?php } else { ?>신고<?php } ?></td>
 						<td class="td-width">
-							<a href="{.href}">
+							<a href="<?php echo $item["href"] ?>">
 								<div class="td-mention">
-								<!--{? !.is_blind}-->[{.yc_reason}] {=stripslashes(.yc_memo)}<!--{/}-->
+								<?php if (!$item["is_blind"]) { ?>[<?php echo $item["yc_reason"] ?>] <?php echo stripslashes($item["yc_memo"])?><?php } ?>
 								</div>
-								<div class="td-subject sc"><!--{? !.is_delected}-->원글 제목: {=stripslashes(.wr_subject)}<!--{? .is_cmt}--><br>댓글 내용: {=stripslashes(.wr_content)}<!--{/}--><!--{:}--><i class="fa fa-exclamation-triangle"></i> 피신고자가 글/댓글을 삭제하였습니다.<!--{/}-->
+								<div class="td-subject sc"><?php if (!$item["is_delected"]) { ?>원글 제목: <?php echo stripslashes($item["wr_subject"])?><?php if ($item["is_cmt"]) { ?><br>댓글 내용: <?php echo stripslashes($item["wr_content"])?><?php } ?><?php } else { ?><i class="fa fa-exclamation-triangle"></i> 피신고자가 글/댓글을 삭제하였습니다.<?php } ?>
 								</div>
 							</a>
 						</td>
-						<td class="text-center hidden-xs"><a href="./board.php?bo_table={.bo_table}">{.bo_subject}</a></td>
-						<td class="text-center hidden-xs"><div>{.yc_id} <i class="fa fa-caret-right" aria-hidden="true"></i> <span class="color-red"><!--{? !.is_delected}-->{.yc_pr_id}<!--{:}--><i class="fa fa-exclamation-triangle"></i><!--{/}--></span></div></td>
-						<td class="text-center hidden-xs">{.yc_datetime}</td>
+						<td class="text-center hidden-xs"><a href="./board.php?bo_table=<?php echo $item["bo_table"] ?>"><?php echo $item["bo_subject"] ?></a></td>
+						<td class="text-center hidden-xs"><div><?php echo $item["yc_id"] ?> <i class="fa fa-caret-right" aria-hidden="true"></i> <span class="color-red"><?php if (!$item["is_delected"]) { ?><?php echo $item["yc_pr_id"] ?><?php } else { ?><i class="fa fa-exclamation-triangle"></i><?php } ?></span></div></td>
+						<td class="text-center hidden-xs"><?php echo $item["yc_datetime"] ?></td>
 					</tr>
 					<tr class="td-mobile visible-xs"><!--{* 767px 이하에서만 보임 *}-->
 						<td colspan="5">
-							<span><a href="./board.php?bo_table={.bo_table}">[{.bo_subject}]</a></span>
-							<span><i class="fa fa-user"></i> {.yc_id} <i class="fa fa-caret-right" aria-hidden="true"></i> <span class="color-red"><!--{? !.is_delected}-->{.yc_pr_id}<!--{:}--><i class="fa fa-exclamation-triangle"></i><!--{/}--></span></span><span><i class="fa fa-clock-o"></i> {.yc_datetime_mobile}</span>
+							<span><a href="./board.php?bo_table=<?php echo $item["bo_table"] ?>">[<?php echo $item["bo_subject"] ?>]</a></span>
+							<span><i class="fa fa-user"></i> <?php echo $item["yc_id"] ?> <i class="fa fa-caret-right" aria-hidden="true"></i> <span class="color-red"><?php if (!$item["is_delected"]) { ?><?php echo $item["yc_pr_id"] ?><?php } else { ?><i class="fa fa-exclamation-triangle"></i><?php } ?></span></span><span><i class="fa fa-clock-o"></i> <?php echo $item["yc_datetime_mobile"] ?></span>
 						</td>
 					</tr>
-					<!--{:}-->
+					<?php } } else { ?>
 					<tr><td colspan="5" class="text-center">신고/블라인드 내역이 없습니다.</td></tr>
-					<!--{/}-->
+					<?php } ?>
 				</tbody>
 			</table>
 		</div>
 	</div>
 
+	<?php echo eb_paging('basic') ?>
 </div>
 
 <style>
@@ -73,6 +77,3 @@
 .table-list-eb .td-mobile td {border-top:1px solid #f0f0f0;padding:4px 5px !important;font-size:10px;color:#999;background:#fcfcfc}
 .table-list-eb .td-mobile td span {margin-right:5px}
 </style>
-
-{=eb_paging('basic')}
-<!--{* 전체게시물 목록 끝 *}-->
