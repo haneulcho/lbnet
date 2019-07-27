@@ -117,9 +117,6 @@
 		}
 	}
 
-	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/member/memo_form_update.php');
-
 	if ($member_list) {
 		if ($me_recv_anonymous == 1) {
 			$str_nick_list = implode(',', $member_list['nick']);

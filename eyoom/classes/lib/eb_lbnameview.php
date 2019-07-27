@@ -5,7 +5,7 @@ function eb_lbnameview($skin_dir, $wr_id, $mb_id, $name='')
 {
 	global $config;
 	global $g5;
-	global $bo_table, $is_admin, $member, $tpl_name, $tpl;
+	global $bo_table, $is_admin, $member, $g5, $theme;
 
 	$head['name'] = get_text($name);
 
@@ -17,19 +17,12 @@ function eb_lbnameview($skin_dir, $wr_id, $mb_id, $name='')
 		$link['point'] = G5_ADMIN_URL."/point_list.php?sfl=mb_id&amp;stx=".$mb_id;
 	}
 
-	$tpl->define(array(
-		'pc' => 'skin_pc/nameview/' . $skin_dir . '/lbnameview.skin.html',
-		'mo' => 'skin_mo/nameview/' . $skin_dir . '/lbnameview.skin.html',
-		'bs' => 'skin_bs/nameview/' . $skin_dir . '/lbnameview.skin.html',
-	));
-	$tpl->assign(array(
-		"head" => $head,
-		"link" => $link,
-		"wr_id" => $wr_id,
-		"mb_id" => $mb_id,
-		"bo_table" => $bo_table,
-		"g5" => $g5,
-		"is_admin" => $is_admin
-	));
-	$tpl->print_($tpl_name);
+	$nameview_skin_path = EYOOM_THEME_PATH.'/'.$theme.'/skin_bs/nameview/'.$skin_dir;
+
+	ob_start();
+	include_once($nameview_skin_path.'/lbnameview.skin.php');
+	$content = ob_get_contents();
+	ob_end_clean();
+
+	return $content;
 }

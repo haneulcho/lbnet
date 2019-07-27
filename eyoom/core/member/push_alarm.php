@@ -1,4 +1,4 @@
-<?php 
+<?php
 	$g5_path = '../../..';
 	include_once($g5_path.'/common.php');
 	include_once(EYOOM_PATH.'/common.php');
@@ -17,5 +17,4 @@
 		echo "<embed src='{$sound}'></embed>";
 	}
 	exit;
-	
 ?>

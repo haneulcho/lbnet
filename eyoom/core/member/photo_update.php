@@ -37,9 +37,6 @@
 		sql_query("update {$g5[eyoom_member]} set photo = '".$rename."' where mb_id='".$member['mb_id']."'");
 	}
 
-	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/member/photo_update.php');
-
 	goto_url($back_url);
 	
 ?>

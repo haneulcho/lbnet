@@ -1,4 +1,4 @@
-<?php 
+<?php
 	if (!defined('_GNUBOARD_')) exit;
 
 	$g5['title'] = $member['mb_nick'].' 님의 '.$levelset['gnu_name'].' 내역';
@@ -34,18 +34,5 @@
 	// Paging 
 	$paging = $thema->pg_pages($tpl_name,$_SERVER['PHP_SELF'].'?'.$qstr.'&amp;page=');
 
-	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/member/point.skin.php');
-
-	// Template define
-	$tpl->define_template('member',$eyoom['member_skin'],'point.skin.html');
-
-	$tpl->assign(array(
-		'levelset'	=>	$levelset,
-	));
-
-	// Template assign
-	@include EYOOM_INC_PATH.'/tpl.assign.php';
-	$tpl->print_($tpl_name);
-
+	include_once(EYOOM_THEME_PATH.'/'.$theme.'/skin_bs/member/'.$eyoom['member_skin'].'/point.skin.php');
 ?>

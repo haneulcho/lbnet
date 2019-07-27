@@ -1,12 +1,11 @@
 <?php
 	function eb_paging($skin_dir="") {
-		global $paging, $page, $total_page, $tpl, $prev_part_href, $next_part_href;
+		global $paging, $page, $total_page, $g5, $theme, $prev_part_href, $next_part_href;
 
 		if(!$skin_dir) $skin_dir = "basic";
 		$cur_page	= $page;
 		$pg_pages	= $paging['pages'];
 		$pg_url		= $paging['url'];
-		$tpl_name	= $paging['tpl'];
 
 		$pg_url		= preg_replace('#&amp;page=[0-9]*#', '', $pg_url).'&amp;page=';
 		$start_page = (((int)(($cur_page-1)/$pg_pages))*$pg_pages)+1;
@@ -25,22 +24,13 @@
 			}
 		}
 
-		$tpl->define(array(
-			'pc' => 'skin_pc/paging/' . $skin_dir . '/paging.skin.html',
-			'mo' => 'skin_mo/paging/' . $skin_dir . '/paging.skin.html',
-			'bs' => 'skin_bs/paging/' . $skin_dir . '/paging.skin.html',
-		));
-		$tpl->assign(array(
-			'paging'	 		=> $str,
-			'url'		 		=> $pg_url,
-			'cur_page'	 		=> $cur_page,
-			'start_page' 		=> $start_page,
-			'total_page' 		=> $total_page,
-			'end_page'	 		=> $end_page,
-			'add'		 		=> $add,
-			'prev_search_part'	=> $prev_part_href,
-			'next_search_part'	=> $next_part_href
-		));
-		$tpl->print_($tpl_name);
+		$paging_skin_path = EYOOM_THEME_PATH.'/'.$theme.'/skin_bs/paging/'.$skin_dir;
+
+		ob_start();
+		include_once($paging_skin_path.'/paging.skin.php');
+		$content = ob_get_contents();
+		ob_end_clean();
+	
+		return $content;
 	}
 ?>

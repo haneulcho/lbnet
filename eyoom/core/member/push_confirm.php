@@ -14,5 +14,4 @@
 	// 푸쉬파일 삭제
 	$qfile->del_file($push_file);
 	exit;
-	
 ?>
