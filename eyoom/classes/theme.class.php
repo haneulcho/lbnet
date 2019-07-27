@@ -745,7 +745,7 @@ class theme extends qfile
 			case 'qalist'	:
 			case 'qawrite'	:
 			case 'qaview'	: $title = $eyoom['theme_lang_type']=='m' ? $lang_theme[619] : '1:1문의'; break;
-			case 'current_connect'	: $title = $eyoom['theme_lang_type']=='m' ? $lang_theme[1085] : '현재접속자'; break;
+			case 'current_connect_admin'	: $title = $eyoom['theme_lang_type']=='m' ? $lang_theme[1085] : '현재접속자'; break;
 			case 'register'	: $cate_name = $eyoom['theme_lang_type']=='m' ? $lang_theme[616] : '회원가입'; $title = $eyoom['theme_lang_type']=='m' ? 'Agreement' : '약관동의'; break;
 			case 'register_form' : 
 				if($is_member) {

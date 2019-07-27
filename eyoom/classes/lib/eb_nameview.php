@@ -5,7 +5,7 @@ function eb_nameview($skin_dir, $mb_id, $name='', $email='', $homepage='')
 {
 	global $config;
 	global $g5;
-	global $bo_table, $sca, $is_admin, $member, $g5, $theme, $eyoomer;
+	global $bo_table, $sca, $is_admin, $member, $theme, $eyoomer, $levelset;
 	
 	// 익명일 경우, 네임뷰 
 	if($mb_id == 'anonymous') {
