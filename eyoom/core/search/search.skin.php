@@ -1,5 +1,4 @@
 <?php
- 
 	if (!defined('_GNUBOARD_')) exit;
 
 	// 그룹정보 가져오기
@@ -12,13 +11,10 @@
 		$loop2 = &$loop1[$idx]['list'];
 
 		for ($i=0; $i<count($list[$idx]) && $k<$rows; $i++, $k++) {
-			if ($list[$idx][$i]['wr_is_comment'])
-			{
+			if ($list[$idx][$i]['wr_is_comment']) {
 				$comment_def = '<span class="cmt_def">댓글 | </span>';
 				$comment_href = '#c_'.$list[$idx][$i]['wr_id'];
-			}
-			else
-			{
+			} else {
 				$comment_def = '';
 				$comment_href = '';
 			}
@@ -40,19 +36,10 @@
 		}
 	}
 
-	//var_dump($str_board_list);
+	$loop = $loop1;
 
 	// Paging 
 	$paging = $thema->pg_pages($tpl_name,$_SERVER['PHP_SELF'].'?'.$search_query.'&amp;gr_id='.$gr_id.'&amp;srows='.$srows.'&amp;onetable='.$onetable.'&amp;page=');
 
-	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/search/search.skin.php');
-
-	// Template define
-	$tpl->define_template('search',$eyoom['search_skin'],'search.skin.html');
-
-	// Template assign
-	@include EYOOM_INC_PATH.'/tpl.assign.php';
-	$tpl->print_($tpl_name);
-
+	include_once(EYOOM_THEME_PATH.'/'.$theme.'/skin_bs/search/'.$eyoom['search_skin'].'/search.skin.php');
 ?>
