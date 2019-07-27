@@ -212,9 +212,4 @@
 	// 	ob_end_clean();
 	// }
 
-	// 사용자 프로그램
-	// @include_once(EYOOM_USER_PATH.'/board/view_comment.skin.php');
-
-	// Template assign
-	@include EYOOM_INC_PATH.'/tpl.assign.php';
 ?>

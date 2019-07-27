@@ -11,9 +11,6 @@
 	 * 태그 사용여부와 상관없이 처리 - 태그사용 후, 사용안한 게시물들의 태그글도 삭제하기 위함
 	 */
 	// sql_query(" delete from {$g5['eyoom_tag_write']} where tw_theme = '{$theme}' and bo_table = '$bo_table' and wr_id = '{$write['wr_id']}' ", false);
-	
-	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/board/delete.tail.skin.php');
 
 	// 무한스크롤 모달창 닫기
 	if($wmode) {

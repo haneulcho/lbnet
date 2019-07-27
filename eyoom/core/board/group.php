@@ -52,13 +52,6 @@
 		}
 	}
 
-	// Template define
-	$tpl->define_template('board',$eyoom['board_skin'],'group.skin.html');
-
-	// Template assign
-	@include EYOOM_INC_PATH.'/tpl.assign.php';
-	$tpl->print_($tpl_name);
-
 	// 이윰 테일 디자인 출력
 	@include_once(EYOOM_PATH.'/tail.php');
 ?>

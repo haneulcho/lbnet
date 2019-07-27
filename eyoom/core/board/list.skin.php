@@ -206,34 +206,25 @@
 	// 카테고리
 	if ($board['bo_use_category']) {
 		// 카테고리별 게시글수 출력 표시 - 비즈팔님이 아이디어를 제공해 주셨습니다.
-		$res = sql_query("select distinct ca_name, count(*) as cnt from {$write_table} where wr_id = wr_parent group by ca_name",false);
-		$ca_total=0;
-		for($i=0;$row=sql_fetch_array($res);$i++) {
-			$ca_name = $row['ca_name'] ? $row['ca_name'] : '미분류';
-			$ca_count[$ca_name] = $row['cnt'];
-			$ca_total += $row['cnt'];
-		}
+		// $res = sql_query("select distinct ca_name, count(*) as cnt from {$write_table} where wr_id = wr_parent group by ca_name",false);
+		// $ca_total=0;
+		// for($i=0;$row=sql_fetch_array($res);$i++) {
+		// 	$ca_name = $row['ca_name'] ? $row['ca_name'] : '미분류';
+		// 	$ca_count[$ca_name] = $row['cnt'];
+		// 	$ca_total += $row['cnt'];
+		// }
 
 		// 카테고리 정보 재구성
-		foreach($categories as $key => $val) {
-			$bocate[$key]['ca_name'] = trim($val);
-			$bocate[$key]['ca_sca'] = urlencode($bocate[$key]['ca_name']);
-			$bocate[$key]['ca_count'] = number_format($ca_count[$val]);
-		}
+		// foreach($categories as $key => $val) {
+		// 	$bocate[$key]['ca_name'] = trim($val);
+		// 	$bocate[$key]['ca_sca'] = urlencode($bocate[$key]['ca_name']);
+		// 	$bocate[$key]['ca_count'] = number_format($ca_count[$val]);
+		// }
 		$decode_sca =urldecode($sca);
 	}
 
 	// Paging
 	$paging = $thema->pg_pages($tpl_name,"./board.php?bo_table=".$bo_table.$qstr."&amp;page=");
 
-	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/board/list.skin.php');
-
-	// Template define
-	$tpl->define_template('board',$eyoom_board['bo_skin'],'list.skin.html');
-
-	// Template assign
-	@include EYOOM_INC_PATH.'/tpl.assign.php';
-	$tpl->print_($tpl_name);
-
+	include_once(EYOOM_THEME_PATH.'/'.$theme.'/skin_bs/board/'.$eyoom_board['bo_skin'].'/list.skin.php');
 ?>

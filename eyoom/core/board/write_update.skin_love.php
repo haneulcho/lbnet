@@ -92,9 +92,6 @@
 	// if(isset($new_query)) sql_query($new_query, false);
 	unset($cmset, $new_query, $insert_new, $update_new);
 
-	// 사용자 프로그램
-	// @include_once(EYOOM_USER_PATH.'/board/write_update.skin.php');
-
 	// 무한스크롤 리스트에서 뷰창을 띄웠을 경우
 	$qstr .= $wmode ? $qstr.'&wmode=1':'';
 

@@ -5,7 +5,7 @@ function eb_lbnameview($skin_dir, $wr_id, $mb_id, $name='')
 {
 	global $config;
 	global $g5;
-	global $bo_table, $is_admin, $member, $g5, $theme;
+	global $bo_table, $is_admin, $member, $theme;
 
 	$head['name'] = get_text($name);
 
@@ -20,7 +20,7 @@ function eb_lbnameview($skin_dir, $wr_id, $mb_id, $name='')
 	$nameview_skin_path = EYOOM_THEME_PATH.'/'.$theme.'/skin_bs/nameview/'.$skin_dir;
 
 	ob_start();
-	include_once($nameview_skin_path.'/lbnameview.skin.php');
+	include($nameview_skin_path.'/lbnameview.skin.php');
 	$content = ob_get_contents();
 	ob_end_clean();
 

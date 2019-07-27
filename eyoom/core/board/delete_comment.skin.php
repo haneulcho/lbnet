@@ -26,9 +26,6 @@
 	// 이윰 새글 테이블에서 댓글내용 삭제
 	// sql_query("delete from {$g5['eyoom_new']} where bo_table = '{$bo_table}' and wr_id = '{$comment_id}'");
 
-	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/board/delete_comment.skin.php');
-
 	// 무한스크롤 리스트에서 뷰창을 띄웠을 경우
 	$qstr .= $wmode ? $qstr.'&wmode=1':'';
 

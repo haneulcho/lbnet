@@ -135,9 +135,6 @@
 	// 	sql_query("update $write_table set " . implode(',', $set) ." where wr_id='{$wr_id}'");
 	// }
 
-	// 사용자 프로그램
-	// @include_once(EYOOM_USER_PATH.'/board/write_update.skin.php');
-
 	// 무한스크롤 리스트에서 뷰창을 띄웠을 경우
 	$qstr .= $wmode ? $qstr.'&wmode=1':'';
 

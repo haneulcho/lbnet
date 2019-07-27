@@ -48,8 +48,4 @@
 		 */
 		// sql_query(" delete from {$g5['eyoom_tag_write']} where tw_theme = '{$theme}' and bo_table = '$bo_table' and wr_id = '{$tmp_array[$i]}' ", false);
 	}
-	
-	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/board/delete_all.tail.skin.php');
-
 ?>

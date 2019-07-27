@@ -144,10 +144,4 @@
 
 	// 댓글에 이미지 첨부파일 용량 제한
 	$upload_max_filesize = ini_get('upload_max_filesize') . ' 바이트';
-
-	// 사용자 프로그램
-	// @include_once(EYOOM_USER_PATH.'/board/view_comment.skin.php');
-
-	// Template assign
-	@include EYOOM_INC_PATH.'/tpl.assign.php';
 ?>

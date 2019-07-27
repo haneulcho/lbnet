@@ -44,14 +44,5 @@
 		$wr_file[$i]['bf_content'] = $file[$i]['bf_content'];
 	}
 
-	// 사용자 프로그램
-	// @include_once(EYOOM_USER_PATH.'/board/write.skin.php');
-
-	// Template define
-	$tpl->define_template('board',$eyoom_board['bo_skin'],'write.skin.html');
-
-	// Template assign
-	@include EYOOM_INC_PATH.'/tpl.assign.php';
-	$tpl->print_($tpl_name);
-
+	include_once(EYOOM_THEME_PATH.'/'.$theme.'/skin_bs/board/'.$eyoom_board['bo_skin'].'/write.skin.php');
 ?>

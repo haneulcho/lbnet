@@ -12,8 +12,4 @@
 			if($row['wr_link2']) $eb->delete_comment_image($row['wr_link2'], $bo_table);
 		}
 	}
-
-	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/board/delete.skin.php');
-
 ?>

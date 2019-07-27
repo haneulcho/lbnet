@@ -55,7 +55,4 @@
 		}
 	}
 
-	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/board/delete.skin.php');
-
 ?>

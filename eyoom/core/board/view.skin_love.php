@@ -10,16 +10,16 @@
 	$lvuser = $eb->user_level_info($user);
 
 	// 읽는사람 포인트 주기 및 이윰뉴 테이블의 히트수/댓글수 일치 시키기
-    $spv_name = 'spv_board_'.$bo_table.'_'.$wr_id;
-    if (!get_session($spv_name)) {
-      set_session($spv_name, TRUE);
+	$spv_name = 'spv_board_'.$bo_table.'_'.$wr_id;
+	if (!get_session($spv_name)) {
+	  set_session($spv_name, TRUE);
 
 		// 이윰뉴 테이블에 wr_hit 적용
 		// $where = "wr_id = '{$wr_id}' ";
 		// $parent = sql_fetch("select wr_hit, wr_comment from {$write_table} where $where");
 		// sql_query("update {$g5['eyoom_new']} set wr_hit = '{$parent['wr_hit']}', wr_comment = '{$parent['wr_comment']}' where $where and bo_table='{$bo_table}'");
 		// sql_query("update {$g5['eyoom_tag_write']} set wr_hit = '{$parent['wr_hit']}' where $where and bo_table='{$bo_table}' and tw_theme='{$theme}'");
-    }
+	}
 
 	// 짤은주소 체크 및 생성
 	if(!($short_url = $eb->get_short_url())) {
@@ -146,20 +146,7 @@
 
 	include_once(G5_BBS_PATH.'/view_comment.php');
 
-	$tpl->define(array(
-		'cmt_pc'	=> 'skin_pc/board/' . $eyoom_board['bo_skin'] . '/view_comment.skin.html',
-		'cmt_mo'	=> 'skin_mo/board/' . $eyoom_board['bo_skin'] . '/view_comment.skin.html',
-		'cmt_bs'	=> 'skin_bs/board/' . $eyoom_board['bo_skin'] . '/view_comment.skin.html',
-	));
+	$cmt_bs = '/skin_bs/board/'.$eyoom_board['bo_skin'].'/view_comment.skin.php';
 
-	// 사용자 프로그램
-	@include_once(EYOOM_USER_PATH.'/board/view.skin.php');
-
-	// Template define
-	$tpl->define_template('board',$eyoom_board['bo_skin'],'view.skin.html');
-
-	// Template assign
-	@include EYOOM_INC_PATH.'/tpl.assign.php';
-	$tpl->print_($tpl_name);
-
+	include_once(EYOOM_THEME_PATH.'/'.$theme.'/skin_bs/board/'.$eyoom_board['bo_skin'].'/view.skin.php');
 ?>
