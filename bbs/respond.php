@@ -58,6 +58,7 @@
 		// 게시판 익명내글반응 설정 시 익명 닉네임 출력
 		$row2 = sql_fetch("select * from {$g5['eyoom_board']} where bo_table = '{$row['bo_table']}'", false);
 		$is_anonymous_respond = $row2['bo_use_anonymous_respond'] == 1 ? true : false;
+		$num = $total_count - ($page - 1) * $rows - $i;
 		if ($is_anonymous_respond) {
 			$reinfo = $eb->respond_mention($row['re_type'],'익명',$row['re_cnt']);
 		} else {
@@ -72,6 +73,7 @@
 		} else {
 			$datetime2 = substr($datetime2,5,5);
 		}
+		$list[$i]['num'] = $num;
 		$list[$i]['rid'] = $row['rid'];
 		$list[$i]['mb_name'] = $row['mb_name'];
 		$list[$i]['mention'] = $reinfo['mention'];
