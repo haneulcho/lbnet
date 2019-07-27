@@ -728,7 +728,6 @@ class theme extends qfile
 		switch($key) {
 			case 'new'		: $title = $eyoom['theme_lang_type']=='m' ? $lang_theme[990] : '새글모음'; break;
 			case 'respond'	: $title = $eyoom['theme_lang_type']=='m' ? $lang_theme[647] : '내글반응'; break;
-			case 'levelup'	: $title = $eyoom['theme_lang_type']=='m' ? $lang_theme[651] : '기존 회원 등업 (~ 07.31)'; break;
 			case 'declare'	: $title = $eyoom['theme_lang_type']=='m' ? $lang_theme[652] : '신고/블라인드'; break;
 			case 'mine'	:
 				if (isset($query['type']) && $query['type'] == 'cmt') {

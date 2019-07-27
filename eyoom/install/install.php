@@ -67,7 +67,6 @@ $eyoom = array(
 	"signature_skin" => "basic",
 	"respond_skin" => "basic",
   "mine_skin" => "basic",
-  "levelup_skin" => "basic",
   "declare_skin" => "basic",
 	"push_skin" => "basic",
 	"board_skin" => "basic",
