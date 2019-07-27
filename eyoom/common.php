@@ -182,22 +182,4 @@
 	// 일정 기간이 지난 DB 데이터 삭제 및 최적화
 	include_once(EYOOM_INC_PATH.'/db_table.optimize.php');
 
-	// common.php 파일을 수정할 필요가 없도록 확장
-	$extend_file = array();
-	$tmp = dir(EYOOM_EXTEND_PATH);
-	while ($entry = $tmp->read()) {
-	    // php 파일만 include 함
-	    if (preg_match("/(\.php)$/i", $entry))
-	        $extend_file[] = $entry;
-	}
-
-	if(!empty($extend_file) && is_array($extend_file)) {
-	    natsort($extend_file);
-
-	    foreach($extend_file as $exfile) {
-	        include_once(EYOOM_EXTEND_PATH.'/'.$exfile);
-	    }
-	}
-	unset($extend_file);
-
 ?>
