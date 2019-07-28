@@ -140,8 +140,8 @@ font-size:13px;line-height:1.35;}
 <?php } ?>
 
 <!--{* 전광판 등록 게시글 *}-->
-<?php if ($eyoom_board["bo_use_hotgul"] == 1 && !$wr_id && $bo_table == 'free2') { ?>
-<?php echo $latest->latest_userad('basic_lb_ad','title=전광판||bo_table=free2||period=30||count=15||cut_subject=38||img_view=y||bo_direct=y') ?>
+<?php if ($eyoom_board["bo_use_hotgul"] == 1 && $bo_table == 'free2') { ?>
+<?php echo $latest->latest_userad('basic_lb_ad','title=전광판||bo_table=free2||period=30||count=15||cut_subject=38||img_view=y||bo_direct=y||cache_time=6') ?>
 <?php } ?>
 <div class="board-list">
 	<!--{* 게시판 페이지 정보 및 버튼 시작 *}-->

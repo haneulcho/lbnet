@@ -52,19 +52,9 @@ class latest extends eyoom
 	}
 
 	// 전광판 최신글 추출
-	public function latest_userad($skin, $option, $print=true) {
-		$where = 1;
+	public function latest_userad($skin, $option) {
 		$opt = $this->get_option($option);
-		$where .= $opt['where'];
-		$where .= " and wr_id = wr_parent and wr_2 != ''";
-		$orderby = $opt['best']=='y'? " wr_2 desc ":"";
-		$list = $this->latest_assign($where, $opt['count'], $opt['cut_subject'], $opt['cut_content'], $orderby, $opt['bo_direct']);
-		if($print === null) $print = true;
-		if($print) {
-			$this->latest_print($skin, $list,'single','latest');
-		} else {
-			return $list;
-		}
+		$this->latest_print_cache($skin, 'single', 'latest', $opt);
 	}
 
 	// 랜덤으로 게시물 추출
@@ -242,6 +232,9 @@ class latest extends eyoom
 
 			// 별점기능 표시
 			if($optset['use_star']) $this->use_star = $optset['use_star'];
+
+			// 캐시 사용 여부
+			if($optset['cache_time']) $opt['cache_time'] = $optset['cache_time'];
 
 			return $opt;
 
@@ -448,6 +441,60 @@ class latest extends eyoom
 			$loop = $arr;
 		}
 
+		include($latest_skin_path.'/latest.skin.php');
+	}
+	
+	// 캐시 설정한 경우 스킨파일 위치에 출력하기
+	protected function latest_print_cache($skin, $mode='single', $folder='latest', $opt) {
+		global $g5, $theme, $board, $eb, $memo_not_read;
+
+		if (!$mode) $mode = 'single';
+		if (!$folder) $folder = 'latest';
+		$cache_time = (!$opt['cache_time']) ? 1 : $opt['cache_time'];
+
+		$latest_skin_path = EYOOM_THEME_PATH.'/'.$theme.'/skin_bs/'.$folder.'/'.$skin;
+		$bo_table = $this->bo_table;
+		$photo = $this->photo;
+		$content = $this->content;
+		$cols = $this->cols;
+		$title = $this->header_title;
+		$respond = $this->respond;
+		$use_star = $this->use_star;
+
+		$cache_fwrite = false;
+		if(G5_USE_CACHE) {
+			$cache_file = G5_DATA_PATH."/cache/latest-{$bo_table}-userad.php";
+	
+			if(!file_exists($cache_file)) {
+				$cache_fwrite = true;
+			} else {
+				if($cache_time > 0) {
+					$filetime = filemtime($cache_file);
+					if($filetime && $filetime < (G5_SERVER_TIME - 3600 * $cache_time)) {
+						@unlink($cache_file);
+						$cache_fwrite = true;
+					}
+				}
+	
+				if(!$cache_fwrite)
+					include($cache_file);
+			}
+		}
+	
+		if(!G5_USE_CACHE || $cache_fwrite) {
+			$where = 1;
+			$where .= $opt['where'];
+			$where .= " and wr_id = wr_parent and wr_2 != ''";
+			$orderby = $opt['best']=='y'? " wr_2 desc ":"";
+			$loop = $this->latest_assign($where, $opt['count'], $opt['cut_subject'], $opt['cut_content'], $orderby, $opt['bo_direct']);
+	
+			if($cache_fwrite) {
+				$handle = fopen($cache_file, 'w');
+				$cache_content = "<?php\nif (!defined('_GNUBOARD_')) exit;\n\$bo_subject='".$bo_subject."';\n\$loop=".var_export($loop, true)."?>";
+				fwrite($handle, $cache_content);
+				fclose($handle);
+			}
+		}
 		include($latest_skin_path.'/latest.skin.php');
 	}
 
