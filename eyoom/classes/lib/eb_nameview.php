@@ -92,7 +92,7 @@ function eb_nameview($skin_dir, $mb_id, $name='', $email='', $homepage='')
 	$nameview_skin_path = EYOOM_THEME_PATH.'/'.$theme.'/skin_bs/nameview/'.$skin_dir;
 
 	ob_start();
-	include_once($nameview_skin_path.'/nameview.skin.php');
+	include($nameview_skin_path.'/nameview.skin.php');
 	$content = ob_get_contents();
 	ob_end_clean();
 

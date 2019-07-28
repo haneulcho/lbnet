@@ -46,11 +46,7 @@ include_once(EYOOM_FUNCTION_PATH.'/eb_paging.php');
 			<?php } ?>
 			<a class="lblink<?php if ($is_admin) { ?> admin<?php } ?>" href="<?php echo $item["href"] ?>">
 				<div class="lbtitle<?php if ($item["wr_comment"] > 10) { ?> lbhot<?php } elseif ($item["wr_comment"] > 30) { ?> lbbest<?php } ?>">
-					<?php if ($item["is_notice"]) { ?><i class="fa fa-smile-o"></i> <b><?php echo $item["subject"] ?></b><?php } else { ?><?php if ($item["icon_file"]) { ?><i class="fa fa-picture-o color-red"></i><?php } ?> <?php echo $item["subject"] ?><?php } ?>
-					<?php if ($item["icon_new"]) { ?><i class="fa fa-circle"></i>&nbsp;<?php } ?>
-					<?php if ($item["icon_secret"]) { ?><i class="fa fa-lock"></i>&nbsp;<?php } ?>
-					<?php if ($item["comment_cnt"]) { ?>
-					<span class="lbcomment"><i class="fa fa-comment-o"></i><?php echo number_format($item["wr_comment"]) ?></span><?php } ?>
+					<?php if ($item["is_notice"]) { ?><i class="fa fa-smile-o"></i> <b><?php echo $item["subject"] ?></b><?php } else { ?><?php if ($item["icon_file"]) { ?><i class="fa fa-picture-o color-red"></i><?php } ?> <?php echo $item["subject"] ?><?php } ?><?php if ($item["icon_new"]) { ?><i class="fa fa-circle"></i>&nbsp;<?php } ?><?php if ($item["icon_secret"]) { ?><i class="fa fa-lock"></i>&nbsp;<?php } ?><?php if ($item["comment_cnt"]) { ?><span class="lbcomment"><i class="fa fa-comment-o"></i><?php echo number_format($item["wr_comment"]) ?></span><?php } ?>
 				</div>
 				<?php if (!$item["is_notice"]) { ?>
 				<div class="lbcontents">

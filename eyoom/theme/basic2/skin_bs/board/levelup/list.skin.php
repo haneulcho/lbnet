@@ -42,7 +42,7 @@ include_once(EYOOM_FUNCTION_PATH.'/eb_paging.php');
 			<div class="eyoom-form">
 				<label class="select">
 					<select name="ca_name" id="ca_name" required onchange="return category_view(this.value);">
-						<option value="">전체 (<?php echo $ca_total ?>)</option>
+						<option value="">전체 카테고리</option>
 						<?php if ($bocate) { foreach ($categories as $key => $val) { ?>
 						<option value="<?php echo urlencode($val) ?>" <?php if ($decode_sca == trim($val)) { ?>selected<?php } ?>><?php echo trim($val) ?></option>
 						<?php } } ?>
@@ -89,11 +89,7 @@ include_once(EYOOM_FUNCTION_PATH.'/eb_paging.php');
 					<?php if (!$item["is_notice"] && $is_category && $item["ca_name"]) { ?>
 					<span class="lbcate"><?php echo $item["ca_name"] ?></span>
 					<?php } ?>
-					<?php if ($item["is_notice"]) { ?><i class="fa fa-smile-o"></i> <b><?php echo $item["subject"] ?></b><?php } else { ?><?php if ($item["icon_file"]) { ?><i class="fa fa-picture-o color-red"></i><?php } ?> <?php echo $item["subject"] ?><?php } ?>
-					<?php if ($item["icon_new"]) { ?>&nbsp;<i class="fa fa-circle"></i>&nbsp;<?php } ?>
-					<?php if ($item["icon_secret"]) { ?>&nbsp;<i class="fa fa-lock"></i>&nbsp;<?php } ?>
-					<?php if ($item["comment_cnt"]) { ?><span class="lbcomment"><i class="fa fa-comment-o"></i><?php echo number_format($item["wr_comment"])?></span><?php } ?>
-					<?php if (!$item["is_notice"] && $is_good && $item["wr_good"]> 0) { ?><span class="lbup"><i class="fa fa-thumbs-up"></i><?php echo number_format($item["wr_good"])?></span><?php } ?>
+					<?php if ($item["is_notice"]) { ?><i class="fa fa-smile-o"></i> <b><?php echo $item["subject"] ?></b><?php } else { ?><?php if ($item["icon_file"]) { ?><i class="fa fa-picture-o color-red"></i><?php } ?> <?php echo $item["subject"] ?><?php } ?><?php if ($item["icon_new"]) { ?>&nbsp;<i class="fa fa-circle"></i>&nbsp;<?php } ?><?php if ($item["icon_secret"]) { ?>&nbsp;<i class="fa fa-lock"></i><?php } ?><?php if ($item["comment_cnt"]) { ?><span class="lbcomment"><i class="fa fa-comment-o"></i><?php echo number_format($item["wr_comment"])?></span><?php } ?><?php if (!$item["is_notice"] && $is_good && $item["wr_good"]> 0) { ?><span class="lbup"><i class="fa fa-thumbs-up"></i><?php echo number_format($item["wr_good"])?></span><?php } ?>
 				</div>
 			<?php if (!$item["is_notice"]) { ?>
 				<div class="lbdes txtonly">
