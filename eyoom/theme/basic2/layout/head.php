@@ -195,13 +195,11 @@ $subsubmenus=empty($menu_v2["subsub"])||!is_array($menu_v2["subsub"])?0:count($m
 
 				<?php if (defined('_INDEX_')) { ?>
 				<!--{* 상단 배너 시작 *}-->
-				<?php if (is_array($banners=eb_banner(1)) && !empty($banners)) { foreach ($banners as $item) { ?>
 				<div class="row banner_top margin-bottom-20">
 					<div class="col-sm-12">
-						<?php echo $item["html"]?>
+						<?php echo eb_banner(1, 48) ?>
 					</div>
 				</div>
-				<?php } } ?>
 				<!--{* 상단 배너 끝 *}-->
 				<?php } ?>
 <!--{* PC 화면 끝 *}-->
@@ -392,13 +390,11 @@ $subsubmenus=empty($menu_v2["subsub"])||!is_array($menu_v2["subsub"])?0:count($m
 				<?php } ?>
 				<?php if (defined('_INDEX_')) { ?>
 				<!--{* 상단 배너 시작 *}-->
-				<?php if (is_array($banners=eb_banner(1)) && !empty($banners)) { foreach ($banners as $item) { ?>
 				<div class="row banner_top">
 					<div class="col-sm-12 margin-bottom-10">
-						<?php echo $item["html"]?>
+						<?php echo eb_banner(1, 48) ?>
 					</div>
 				</div>
-				<?php } } ?>
 				<!--{* 상단 배너 끝 *}-->
 				<?php } ?>
 <?php } ?>
