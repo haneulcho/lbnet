@@ -44,24 +44,11 @@ function eb_banner($loccd, $cache_time=1) {
 				$banner[$i] = $row;
 			}
 			if (is_array($banner[$i]) && !empty($banner[$i])) {
-				if($banner[$i]['bn_type'] == 'intra') {
+				if ($banner[$i]['bn_type'] == 'intra') {
 					$img = $banner[$i]['bn_img'];
-					$banner[$i]['image'] = $link_path.$theme .'/'. $img;
-	
-					if($banner[$i]['bn_link'] == '') $banner[$i]['bn_link'] = 'nolink';
-	
+					$banner[$i]['image'] = $link_path.$theme .'/'. $img;	
+					if ($banner[$i]['bn_link'] == '') $banner[$i]['bn_link'] = 'nolink';
 					$banner[$i]['tag_img'] = '<img class="img-responsive full-width" src="'.$banner[$i]['image'].'" align="absmiddle">';
-	
-					if ( $banner[$i]['bn_link'] != '' && $banner[$i]['bn_link'] != 'nolink' ){
-						$tocken = $eb->encrypt_md5($bn_no . "||" . $_SERVER['REMOTE_ADDR'] . "||" . $banner[$i]['bn_link']);
-						$banner[$i]['html'] = '<a id="banner_' . $banner[$i]['bn_no'] . '" href="' . G5_BBS_URL . '/banner.php?tocken=' . $tocken . '" target="' . $banner[$i]['bn_target'] . '">';
-						$banner[$i]['html'] .= $banner[$i]['tag_img'];
-						$banner[$i]['html'] .= '</a>';
-					} else {
-						$banner[$i]['html'] = $banner[$i]['tag_img'];
-					}
-				} else if($banner[$i]['bn_type'] == 'extra') {
-					$banner[$i]['html'] = stripslashes($banner[$i]['bn_code']);
 				}
 			}
 		}
@@ -77,10 +64,25 @@ function eb_banner($loccd, $cache_time=1) {
 	}
 
 	if (is_array($banners) && !empty($banners)) {
+		$prefix = '<div class="row banner_top"><div class="col-sm-12 margin-bottom-10">';
+		$sufix = '</div></div>';
 		foreach ($banners as $item) {
 			$bn_no = $item['bn_no'];
-			echo '<div class="row banner_top"><div class="col-sm-12 margin-bottom-10">'.$item['html'].'</div></div>';
+			if ($item['bn_type'] == 'intra') {
+				if ( $item['bn_link'] != '' && $item['bn_link'] != 'nolink' ) {
+					$tocken = $eb->encrypt_md5($bn_no . "||" . $_SERVER['REMOTE_ADDR'] . "||" . $item['bn_link']);
+					$result = $prefix.'<a id="banner_'.$bn_no.'" href="'.G5_BBS_URL.'/banner.php?tocken='.$tocken.'" target="'.$item['bn_target'].'">'.$item['tag_img'].'</a>'.$sufix;
+				} else {
+					$result = $prefix.$item['tag_img'].$sufix;
+				}
+			} else if ($item['bn_type'] == 'extra') {
+				$result = $prefix.stripslashes($item['bn_code']).$sufix;
+			} else {
+				$result = '';
+			}
 			sql_query("update {$g5['eyoom_banner']} set bn_exposed = bn_exposed + 1 where bn_no = '{$bn_no}'");
+
+			echo $result;
 		}
 	}
 }
