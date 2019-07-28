@@ -11,7 +11,7 @@ $polls = empty($poll) || !is_array($poll) ? 0 : count($poll);
 	<input type="hidden" name="po_id" value="<?php echo $po_id ?>">
 	<input type="hidden" name="skin_dir" value="<?php echo $skin_dir ?>">
 	<section class="poll-box">
-		<h6><span class="qq">Q.</span> <?php echo $po["po_subject"]?></h6>
+		<h6><span class="qq">Q.</span> <?php echo $po_subject?></h6>
 		<div class="margin-hr-5"></div>
 		<ul class="list-unstyled">
 		<?php if ($polls) { foreach ($poll as $k => $v) { ?>

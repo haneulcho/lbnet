@@ -62,6 +62,9 @@ else if ($w == 'd')
 $row = sql_fetch(" select max(po_id) as max_po_id from {$g5['poll_table']} ");
 sql_query(" update {$g5['config_table']} set cf_max_po_id = '{$row['max_po_id']}' ");
 
+// 설문조사 등록, 수정 시 설문조사 캐시 삭제하도록 설정
+delete_cache_latest('polllist');
+
 if ($w == 'd')
     goto_url('./poll_list.php?'.$qstr);
 else
