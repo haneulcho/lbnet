@@ -1,132 +1,131 @@
 <?php if (!defined('_GNUBOARD_')) exit;
-add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.css" type="text/css" media="screen">',0);
+add_stylesheet('<link rel="stylesheet" href="/eyoom/theme/basic2/plugins/venobox/venobox.css" type="text/css" media="screen">', 0);
+$comments = empty($comment) || !is_array($comment) ? 0 : count($comment);
+include_once(EYOOM_FUNCTION_PATH.'/eb_lbnameview.php');
 ?>
-
 <script>
 // 글자수 제한
-var char_min = parseInt({_comment_min}); // 최소
-var char_max = parseInt({_comment_max}); // 최대
+var char_min = parseInt(<?php echo $comment_min ?>); // 최소
+var char_max = parseInt(<?php echo $comment_max ?>); // 최대
 </script>
-<script type="text/javascript" src="../../../plugins/venobox/venobox.min.js"></script>
+<script type="text/javascript" src="/eyoom/theme/basic2/plugins/venobox/venobox.min.js"></script>
 
 <div class="comment-area">
 	<!--{* 댓글 시작 *}-->
-	<!--{@ cmt_list}-->
+	<?php if ($comments) { $i = - 1; foreach ($comment as $item) { $i++; ?>
 	<div class="view-comment">
-		<div id="c_{.comment_id}" class="view-comment-item{? .is_lb_admin} admin{/}{? .is_cmt_best} cmt-best{/}">
+		<div id="c_<?php echo $item["comment_id"] ?>" class="view-comment-item<?php if ($item["is_lb_admin"]) { ?> admin<?php } ?><?php if ($item["is_cmt_best"]) { ?> cmt-best<?php } ?>">
 			<div class="comment-item-body-pn">
 				<div style="padding:10px 12px 6px">
-				<div class="comment-item-info lbdes" style="{? .cmt_depth && !.is_cmt_best}padding-left:{.cmt_depth}px;{/}">
-					<span class="comment-name{? .cmt_depth && !.is_cmt_best} lbdepth{/}"><!--{?.is_origin}--><b>{=eb_lbnameview('basic', .comment_id, .lb_id, .wr_name)}</b><!--{:}-->{=eb_lbnameview('basic', .comment_id, .lb_id, .wr_name)}<!--{/}--><!--{?.is_mine}--><b class="color-red">*</b><!--{/}--><!--{? _is_admin}-->&nbsp;({.lb_id})<!--{/}--></span> <!--{? .is_cmt_best}--><span class="badge badge-purple">BEST {.index_+1}</span><!--{/}-->
+				<div class="comment-item-info lbdes" style="<?php if ($item["cmt_depth"] && !$item["is_cmt_best"]) { ?>padding-left:<?php echo $item["cmt_depth"] ?>px;<?php } ?>">
+					<span class="comment-name<?php if ($item["cmt_depth"] && !$item["is_cmt_best"]) { ?> lbdepth<?php } ?>"><?php if ($item["is_origin"]) { ?><b><?php echo eb_lbnameview('basic', $item["comment_id"], $item["lb_id"], $item["wr_name"]) ?></b><?php } else { ?><?php echo eb_lbnameview('basic', $item["comment_id"], $item["lb_id"], $item["wr_name"]) ?><?php } ?><?php if ($item["is_mine"]) { ?><b class="color-red">*</b><?php } ?><?php if ($is_admin) { ?>&nbsp;(<?php echo $item["lb_id"] ?>)<?php } ?></span> <?php if ($item["is_cmt_best"]) { ?><span class="badge badge-purple">BEST <?php echo $i + 1 ?></span><?php } ?>
 					<span class="lbctime lbdes">
-					<!--{? eyoom_board.bo_sel_date_type == '1'}-->
-					<i class="fa fa-clock-o color-grey"></i>{eb->date_time('y-m-d H:i',.datetime)}
-					<!--{: eyoom_board.bo_sel_date_type == '2'}-->
-					<i class="fa fa-clock-o color-grey"></i>{eb->date_format('m.d H:i',.datetime)}</span>
-					<!--{/}-->
-					<!--{? _is_ip_view && _is_admin}--> <span class="comment-ip">&nbsp;{.ip}</span><!--{/}-->
+					<?php if ($eyoom_board["bo_sel_date_type"] == '1') { ?>
+					<i class="fa fa-clock-o color-grey"></i><?php echo $eb->date_time('y-m-d H:i', $item["datetime"]) ?>
+					<?php } elseif ($eyoom_board["bo_sel_date_type"] == '2') { ?>
+					<i class="fa fa-clock-o color-grey"></i><?php echo $eb->date_format('m.d H:i', $item["datetime"]) ?></span>
+					<?php } ?>
+					<?php if ($is_ip_view && $is_admin) { ?> <span class="comment-ip">&nbsp;<?php echo $item["ip"] ?></span><?php } ?>
 					<span class="comment-time">
 						<ul class="lbcbtn">
-						<!--{? .is_edit}--><li><a href="{.c_edit_href}" onclick="comment_box('{.comment_id}', 'cu'); return false;"><i class="fa fa-pencil"></i></a></li><!--{/}-->
-						<!--{? .is_del}--><li><a href="{.del_link}" onclick="return comment_delete();"><i class="fa fa-trash-o"></i></a></li><!--{/}-->
-						<!--{? .is_reply}--><li><a href="{.c_reply_href}" onclick="comment_box('{.comment_id}', 'c'); return false;"><i class="fa fa-comment-o"></i>댓글</a></li><!--{/}-->
+						<?php if ($item["is_edit"]) { ?><li><a href="<?php echo $item["c_edit_href"] ?>" onclick="comment_box('<?php echo $item["comment_id"] ?>', 'cu'); return false;"><i class="fa fa-pencil"></i></a></li><?php } ?>
+						<?php if ($item["is_del"]) { ?><li><a href="<?php echo $item["del_link"] ?>" onclick="return comment_delete();"><i class="fa fa-trash-o"></i></a></li><?php } ?>
+						<?php if ($item["is_reply"]) { ?><li><a href="<?php echo $item["c_reply_href"] ?>" onclick="comment_box('<?php echo $item["comment_id"] ?>', 'c'); return false;"><i class="fa fa-comment-o"></i>댓글</a></li><?php } ?>
 						</ul>
 					</span>
 				</div>
 
-				<div class="comment-item-contents" style="{? .cmt_depth && !.is_cmt_best}padding-left:{.cmt_depth}px;{/}">
-				<!--{? .yc_blind && .yc_cannotsee}-->
+				<div class="comment-item-contents" style="<?php if ($item["cmt_depth"] && !$item["is_cmt_best"]) { ?>padding-left:<?php echo $item["cmt_depth"] ?>px;<?php } ?>">
+				<?php if ($item["yc_blind"] && $item["yc_cannotsee"]) { ?>
 				<p>이글은 블라인드 처리된 댓글입니다.</p>
-				<!--{:}-->
+				<?php } else { ?>
 				<p>
-					<!--{? .yc_blind}-->
+					<?php if ($item["yc_blind"]) { ?>
 					<p>이글은 블라인드 처리된 댓글입니다.</p>
-					<!--{/}-->
-					<!--{? strstr(.wr_option, 'secret')}--><i class="fa fa-lock" style="color:#aaa;"></i> <!--{/}-->
-					<!--{? .imgsrc}-->
-						<!--{? strstr(.wr_option, 'secret')}-->
-							<!--{? .is_myarticle || .is_mine}-->
-							<a href="{.imgsrc}" class="venobox" data-gall="lbgall" title="{view.wr_subject}"><img src="{.imgsrc}" class="img-responsive"></a><br>
-							<!--{/}-->
-						<!--{:}-->
-						<a href="{.imgsrc}" class="venobox" data-gall="lbgall" title="{view.wr_subject}"><img src="{.imgsrc}" class="img-responsive"></a><br>
-						<!--{/}-->
-					<!--{/}-->
-					{.comment}
+					<?php } ?>
+					<?php if (strstr($item["wr_option"], 'secret')) { ?><i class="fa fa-lock" style="color:#aaa;"></i> <?php } ?>
+					<?php if ($item["imgsrc"]) { ?>
+						<?php if (strstr($item["wr_option"], 'secret')) { ?>
+							<?php if ($item["is_myarticle"] || $item["is_mine"]) { ?>
+							<a href="<?php echo $item["imgsrc"] ?>" class="venobox" data-gall="lbgall" title="<?php echo $view["wr_subject"] ?>"><img src="<?php echo $item["imgsrc"] ?>" class="img-responsive"></a><br>
+							<?php } ?>
+						<?php } else { ?>
+						<a href="<?php echo $item["imgsrc"] ?>" class="venobox" data-gall="lbgall" title="<?php echo $view["wr_subject"] ?>"><img src="<?php echo $item["imgsrc"] ?>" class="img-responsive"></a><br>
+						<?php } ?>
+					<?php } ?>
+					<?php echo $item["comment"] ?>
 				</p>
-				<!--{/}-->
+				<?php } ?>
 				</div>
 
 				<div class="comment-btn">
-					<!--{? .is_reply || .is_edit || .is_del || .c_good_href || .c_nogood_href}-->
+					<?php if ($item["is_reply"] || $item["is_edit"] || $item["is_del"] || $item["c_good_href"] || $item["c_nogood_href"]) { ?>
 					<ul class="list-inline reply-list pull-right">
-						<!--{? .c_good_href}-->
-						<li class="margin-left-5"><a href="{.c_good_href}" id="goodcmt_button_{.comment_id}" class="goodcmt_button" type="button" title="공감"><i class="fa fa-thumbs-up"></i> <strong>{? .good}<span class="wow">{.good}</span>{:}<span>0</span>{/}</strong></a></li>
-						<!--{/}-->
-						<!--{? .c_nogood_href}-->
-						<li><a href="{.c_nogood_href}" id="nogoodcmt_button_{.comment_id}" class="nogoodcmt_button" type="button" title="비공감"><i class="fa fa-thumbs-down"></i> <strong>{? .nogood}<span>{.nogood}</span>{:}<span>0</span>{/}</strong></a></li>
-						<!--{/}-->
+						<?php if ($item["c_good_href"]) { ?>
+						<li class="margin-left-5"><a href="<?php echo $item["c_good_href"] ?>" id="goodcmt_button_<?php echo $item["comment_id"] ?>" class="goodcmt_button" type="button" title="공감"><i class="fa fa-thumbs-up"></i> <strong><?php if ($item["good"]) { ?><span class="wow"><?php echo $item["good"] ?></span><?php } else { ?><span>0</span><?php } ?></strong></a></li>
+						<?php } ?>
+						<?php if ($item["c_nogood_href"]) { ?>
+						<li><a href="<?php echo $item["c_nogood_href"] ?>" id="nogoodcmt_button_<?php echo $item["comment_id"] ?>" class="nogoodcmt_button" type="button" title="비공감"><i class="fa fa-thumbs-down"></i> <strong><?php if ($item["nogood"]) { ?><span><?php echo $item["nogood"] ?></span><?php } else { ?><span>0</span><?php } ?></strong></a></li>
+						<?php } ?>
 					</ul>
-					<!--{/}-->
+					<?php } ?>
 				</div>
 
 				</div>
 				<div class="clearfix"></div>
 
-				<span id="edit_{.comment_id}"></span><!--{* 수정 *}-->
-				<span id="reply_{.comment_id}"></span><!--{* 답변 *}-->
+				<span id="edit_<?php echo $item["comment_id"] ?>"></span>
+				<span id="reply_<?php echo $item["comment_id"] ?>"></span>
 
-				<input type="hidden" value="{=strstr(.wr_option,'secret')}" id="secret_comment_{.comment_id}">
-				<input type="hidden" value="{.anonymous_id}" id="anonymous_id_{.comment_id}">
-				<input type="hidden" value="{.imgname}" id="imgname_{.comment_id}">
-				<textarea id="save_comment_{.comment_id}" style="display:none">{.content1}</textarea>
+				<input type="hidden" value="<?php echo strstr($item["wr_option"], 'secret') ?>" id="secret_comment_<?php echo $item["comment_id"] ?>">
+				<input type="hidden" value="<?php echo $item["anonymous_id"] ?>" id="anonymous_id_<?php echo $item["comment_id"] ?>">
+				<input type="hidden" value="<?php echo $item["imgname"] ?>" id="imgname_<?php echo $item["comment_id"] ?>">
+				<textarea id="save_comment_<?php echo $item["comment_id"] ?>" style="display:none"><?php echo $item["content1"] ?></textarea>
 				<div class="clearfix"></div>
 			</div>
 		</div>
 	</div>
-		<!--{/}-->
-	<!--{? eyoom_board.bo_use_cmt_infinite == '1'}-->
+		<?php } } ?>
+	<?php if ($eyoom_board["bo_use_cmt_infinite"] == '1') { ?>
 	<div id="infinite_pagination">
-	    <a class="next" href="{C.G5_BBS_URL}/board.php?bo_table={_bo_table}&wr_id={_wr_id}&sca={_sca}&cpage={cpage+1}"></a>
+		<a class="next" href="<?php echo G5_BBS_URL ?>/board.php?bo_table=<?php echo $bo_table ?>&wr_id=<?php echo $wr_id ?>&sca=<?php echo $sca ?>&cpage=<?php echo $cpage + 1 ?>"></a>
 	</div>
-	<!--{? count(cmt_list) > 0 }-->
+	<?php if (count($cmt_list) > 0) { ?>
 	<div class="view-comment-more">
 		<a id="view-comment-more" href="#" class="btn-e btn-e-red btn-e-lg">댓글 더보기</a>
 	</div>
-	<!--{/}-->
-	<!--{/}-->
+	<?php } ?>
+	<?php } ?>
 	<!--{* 댓글 끝 *}-->
 
-
-
 	<!--{* 댓글 쓰기 시작 *}-->
-	<!--{? _is_comment_write}-->
+	<?php if ($is_comment_write) { ?>
 	<div id="view-comment-write">
 		<form name="fviewcomment" action="./write_comment_update.php" onsubmit="return fviewcomment_submit(this);" method="post" autocomplete="off" class="eyoom-form view-comment-write-box" enctype="multipart/form-data">
-			<input type="hidden" name="w" value="{? !_w}c{:}{_w}{/}" id="w">
-			<input type="hidden" name="bo_table" value="{_bo_table}">
-			<input type="hidden" name="wr_id" value="{_wr_id}">
-			<input type="hidden" name="comment_id" value="{_c_id}" id="comment_id">
-			<input type="hidden" name="sca" value="{_sca}">
-			<input type="hidden" name="sfl" value="{_sfl}">
-			<input type="hidden" name="stx" value="{_stx}">
-			<input type="hidden" name="spt" value="{_spt}">
-			<input type="hidden" name="page" value="{_page}">
+			<input type="hidden" name="w" value="<?php if (!$w) { ?>c<?php } else { ?><?php echo $w ?><?php } ?>" id="w">
+			<input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
+			<input type="hidden" name="wr_id" value="<?php echo $wr_id ?>">
+			<input type="hidden" name="comment_id" value="<?php echo $c_id ?>" id="comment_id">
+			<input type="hidden" name="sca" value="<?php echo $sca ?>">
+			<input type="hidden" name="sfl" value="<?php echo $sfl ?>">
+			<input type="hidden" name="stx" value="<?php echo $stx ?>">
+			<input type="hidden" name="spt" value="<?php echo $spt ?>">
+			<input type="hidden" name="page" value="<?php echo $page ?>">
 			<input type="hidden" name="is_good" value="">
-			<input type="hidden" name="board_skin_path" value="{C.EYOOM_CORE_PATH}/board">
-			<input type="hidden" name="wr_1" value="{_wr_1}">
-			<input type="hidden" name="cmt_amt" value="{_cmt_amt}">
-			<input type="hidden" name="wmode" value="{_wmode}">
+			<input type="hidden" name="board_skin_path" value="<?php echo EYOOM_CORE_PATH ?>/board">
+			<input type="hidden" name="wr_1" value="<?php echo $wr_1 ?>">
+			<input type="hidden" name="cmt_amt" value="<?php echo $cmt_amt ?>">
+			<input type="hidden" name="wmode" value="<?php echo $wmode ?>">
 
 <!-- 댓글 쓰기 영역 -->
 			<div class="comment-write-wrap">
 				<div class="row">
-					<!--{? !_is_member}-->
+					<?php if (!$is_member) { ?>
 					<section class="col col-4">
 						<label for="wr_name" class="label">이름<strong class="sound_only"> 필수</strong></label>
 						<label class="input">
-							<i class="icon-append fa fa-user"></i>
-							<input type="text" name="wr_name" value="{=get_cookie('ck_sns_name')}" id="wr_name" required size="5" maxLength="20">
+						<i class="icon-append fa fa-user"></i>
+						<input type="text" name="wr_name" value="<?php echo get_cookie('ck_sns_name') ?>" id="wr_name" required size="5" maxLength="20">
 						</label>
 					</section>
 					<section class="col col-4">
@@ -136,80 +135,45 @@ var char_max = parseInt({_comment_max}); // 최대
 							<input type="password" name="wr_password" id="wr_password" required size="10" maxLength="20">
 						</label>
 					</section>
-					<!--{/}-->
+					<?php } ?>
 					<section class="col lbwoption">
-						<!--{? _is_anonymous}-->
+						<?php if ($is_anonymous) { ?>
 						<label class="checkbox pull-left"><input type="checkbox" name="anonymous" value="y" id="anonymous" checked><i></i>익명글</label>
-						<!--{/}-->
+						<?php } ?>
 						<label class="checkbox pull-left" style="margin-left:15px;"><input type="checkbox" name="wr_secret" value="secret" id="wr_secret"><i></i>비밀글</label>
-						<!--{? eyoom_board.bo_use_addon_cmtimg == '1'}-->
+						<?php if ($eyoom_board["bo_use_addon_cmtimg"] == '1') { ?>
 						<span class="lbimage">
 						<a data-toggle="collapse" data-parent="#comment-option" href="#collapse-image-cm"><i class="fa fa-picture-o"></i>이미지 첨부</a>
 						</span>
-						<!--{/}-->
+						<?php } ?>
 						<div class="clearfix"></div>
 					</section>
 				</div>
 
-				<!--{? board.bo_use_sns && (config.cf_facebook_appid || config.cf_twitter_key)}-->
+				<?php if ($board["bo_use_sns"] && ($config["cf_facebook_appid"] || $config["cf_twitter_key"])) { ?>
 				<label class="label">SNS 동시등록</label>
 				<div id="bo_vc_send_sns"></div>
 				<div class="clear"></div>
-				<!--{/}-->
+				<?php } ?>
 
 				<section>
 					<div id="comment-option">
 						<div class="panel panel-default" style="border:0;margin-bottom:0;box-shadow:none">
-							<!--{? eyoom_board.bo_use_addon_video == '1'}-->
-							<a class="btn-e btn-e-xs btn-e-default" data-toggle="collapse" data-parent="#comment-option" href="#collapse-video-cm">동영상</a>
-							<!--{/}-->
-							<!--{? eyoom_board.bo_use_addon_soundcloud== '1'}-->
-							<a class="btn-e btn-e-xs btn-e-default" data-toggle="collapse" data-parent="#comment-option" href="#collapse-sound-cm">사운드클라우드</a>
-							<!--{/}-->
 							<div class="clearfix"></div>
 							<div id="collapse-image-cm" class="panel-collapse collapse">
 								<div class="comment-function-box">
 									<label for="file" class="input input-file">
-		                                <div class="button bg-color-light-grey"><input type="file" id="file" name="cmt_file[]" value="이미지선택" title="파일첨부 : 용량 {_upload_max_filesize} 이하만 업로드 가능" onchange="this.parentNode.nextSibling.value = this.value">Image</div><input type="text" readonly>
-		                            </label>
-		                            <div id="del_cmtimg"></div>
-								</div>
-							</div>
-							<!--{? eyoom_board.bo_use_addon_video == '1'}-->
-							<div id="collapse-video-cm" class="panel-collapse collapse">
-								<div class="comment-function-box">
-									<label class="input input-file">
-										<a href="javascript:;" class="button bg-color-light-grey color-white" id="btn_video" onclick="return false;">확인</a>
-										<input type="text" id="video_url" class="form-control" placeholder="동영상주소">
+										<div class="button bg-color-light-grey"><input type="file" id="file" name="cmt_file[]" value="이미지선택" title="파일첨부 : 용량 <?php echo $upload_max_filesize ?> 이하만 업로드 가능" onchange="this.parentNode.nextSibling.value = this.value">Image</div><input type="text" readonly>
 									</label>
+									<div id="del_cmtimg"></div>
 								</div>
 							</div>
-							<!--{/}-->
-							<!--{? eyoom_board.bo_use_addon_soundcloud == '1'}-->
-							<div id="collapse-sound-cm" class="panel-collapse collapse">
-								<div class="comment-function-box">
-									<div class="row">
-										<div class="col col-8 left">
-											<label class="input input-file">
-												<a href="javascript:;" class="button bg-color-light-grey color-white" id="btn_scloud" onclick="return false;">확인</a>
-												<input type="text" id="scloud_url" class="form-control" placeholder="사운드클라우드 음원주소">
-											</label>
-										</div>
-										<div class="col col-4 right text-right">
-											<a href="https://soundcloud.com/" target="_blank" class="btn-e btn-e-xs btn-e-light-grey"><i class="fa fa-location-arrow"></i> 사운드클라우드 GO</a>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</div>
-							</div>
-							<!--{/}-->
-
 						</div>
 					</div>
 					<label class="textarea textarea-resizable">
-						<!--{? _comment_min || _comment_max}--><strong id="char_cnt"><span id="char_count"></span>글자</strong><!--{/}-->
-						<textarea rows="7" id="wr_content" name="wr_content" maxlength="10000" required title="내용" {? _comment_min || _comment_max}onkeyup="check_byte('wr_content', 'char_count');"{/}>{_c_wr_content}</textarea>
-						<!--{? _comment_min || _comment_max}--><script> check_byte('wr_content', 'char_count'); </script><!--{/}-->
+						<?php if ($comment_min || $comment_max) { ?><strong id="char_cnt"><span id="char_count"></span>글자</strong><?php } ?>
+						<textarea rows="7" id="wr_content" name="wr_content" maxlength="10000" required title="내용" <?php if ($comment_min || $comment_max) { ?>onkeyup="check_byte('wr_content', 'char_count');"<?php } ?>><?php echo $c_wr_content ?></textarea>
+						<?php if ($comment_min || $comment_max) { ?><script> check_byte('wr_content', 'char_count'); </script><?php } ?>
 						<script>
 						$("textarea#wr_content[maxlength]").live("keyup change", function() {
 							var str = $(this).val()
@@ -223,12 +187,12 @@ var char_max = parseInt({_comment_max}); // 최대
 					</label>
 				</section>
 
-				<!--{? !_is_member}-->
+				<?php if (!$is_member) { ?>
 				<section>
 					<label class="label">자동등록방지</label>
-					<div class="vc-captcha">{_captcha_html}</div>
+					<div class="vc-captcha"><?php echo $captcha_html ?></div>
 				</section>
-				<!--{/}-->
+				<?php } ?>
 				<div class="comment-write-submit">
 					<button type="submit" id="btn_submit" class="btn-e btn-e-lg btn-e-yellow" value="댓글등록"><i class="fa fa-paper-plane" aria-hidden="true"></i> 입력</button>
 				</div>
@@ -236,14 +200,14 @@ var char_max = parseInt({_comment_max}); // 최대
 
 		</form>
 	</div>
-	<!--{/}-->
+	<?php } ?>
 	<!--{* 댓글 쓰기 끝 *}-->
 </div><!--{* End comment-area *}-->
 
-<!--{? eyoom_board.bo_use_cmt_infinite == '1'}-->
-<script type="text/javascript" src="../../../plugins/masonry/jquery.masonry.min.js"></script>
-<script type="text/javascript" src="../../../plugins/infinite-scroll/jquery.infinitescroll.min.js"></script>
-<!--{/}-->
+<?php if ($eyoom_board["bo_use_cmt_infinite"] == '1') { ?>
+<script type="text/javascript" src="/eyoom/theme/basic2/plugins/masonry/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="/eyoom/theme/basic2/plugins/infinite-scroll/jquery.infinitescroll.min.js"></script>
+<?php } ?>
 
 <script>
 var save_before = '';
@@ -252,7 +216,7 @@ var save_html = document.getElementById('view-comment-write').innerHTML;
 function set_textarea_contents(type,value) {
 	var type_text = '';
 	var content = '';
-	var mobile = {? C.G5_IS_MOBILE}true{:}false{/};
+	var mobile = <?php if (G5_IS_MOBILE) { ?>true<?php } else { ?>false<?php } ?>;
 	switch(type) {
 		case 'emoticon': type_text = '이모티콘'; break;
 		case 'video': type_text = '동영상'; break;
@@ -287,13 +251,13 @@ function fviewcomment_submit(f) {
 
 	f.is_good.value = 0;
 
-	<!--{? _is_anonymous}-->
-	var wr_1 = '{_wr_1}';
+	<?php if ($is_anonymous) { ?>
+	var wr_1 = '<?php echo $wr_1 ?>';
 	if($("#anonymous").is(':checked')) {
 		wr_1 = wr_1+'|y';
 		f.wr_1.value=wr_1;
 	}
-	<!--{/}-->
+	<?php } ?>
 
 	var subject = "";
 	var content = "";
@@ -364,7 +328,7 @@ function fviewcomment_submit(f) {
 		}
 	}
 
-	<?php if($is_guest) echo chk_captcha_js();  ?>
+	<?php if ($is_guest) echo chk_captcha_js(); ?>
 
 	document.getElementById("btn_submit").disabled = "disabled";
 
@@ -408,12 +372,12 @@ function comment_box(comment_id, work)
 				document.getElementById('wr_secret').checked = true;
 			else
 				document.getElementById('wr_secret').checked = false;
-			<!--{? _is_anonymous}-->
+			<?php if ($is_anonymous) { ?>
 			if (document.getElementById('anonymous_id_'+comment_id).value)
 				document.getElementById('anonymous').checked = true;
 			else
 				document.getElementById('anonymous').checked = false;
-			<!--{/}-->
+			<?php } ?>
 			var imgname = document.getElementById('imgname_' + comment_id).value;
 			if(imgname) {
 				var delchk_str = '<label class="checkbox"><input type="checkbox" name="del_cmtimg" value="1"><i></i><span class="font-size-12">파일삭제 ('+imgname+')</span></label>';
@@ -425,11 +389,11 @@ function comment_box(comment_id, work)
 		document.getElementById('comment_id').value = comment_id;
 		document.getElementById('w').value = work;
 
-		<!--{? eyoom_board.bo_use_addon_emoticon == '1'}-->
+		<?php if ($eyoom_board["bo_use_addon_emoticon"] == '1') { ?>
 		$(".emoticon").venobox({border:'3px'});
-		<!--{/}-->
+		<?php } ?>
 
-		<!--{? eyoom_board.bo_use_addon_video == '1'}-->
+		<?php if ($eyoom_board["bo_use_addon_video"] == '1') { ?>
 		//동영상 추가
 		$("#btn_video").click(function(){
 			var v_url = $("#video_url").val();
@@ -437,18 +401,18 @@ function comment_box(comment_id, work)
 			else set_textarea_contents('video',v_url);
 			$("#video_url").val('');
 		});
-		<!--{/}-->
+		<?php } ?>
 
-		<!--{? eyoom_board.bo_use_addon_coding == '1'}-->
+		<?php if ($eyoom_board["bo_use_addon_coding"] == '1') { ?>
 		//코드 추가
 		$(".ch_code").click(function(){
 			var ch = $(this).text();
 			var val = ch.toLowerCase();
 			set_textarea_contents('code',val);
 		});
-		<!--{/}-->
+		<?php } ?>
 
-		<!--{? eyoom_board.bo_use_addon_soundcloud == '1'}-->
+		<?php if ($eyoom_board["bo_use_addon_soundcloud"] == '1') { ?>
 		//사운드크라우드 추가
 		$("#btn_scloud").click(function(){
 			var s_url = $("#scloud_url").val();
@@ -456,7 +420,7 @@ function comment_box(comment_id, work)
 			else set_textarea_contents('sound',s_url);
 			$("#scloud_url").val('');
 		});
-		<!--{/}-->
+		<?php } ?>
 
 		if(save_before)
 			$("#captcha_reload").trigger("click");
@@ -472,17 +436,17 @@ function comment_delete()
 
 comment_box('', 'c'); // 댓글 입력폼이 보이도록 처리하기위해서 추가 (root님)
 
-<!--{? board.bo_use_sns && (config.cf_facebook_appid || config.cf_twitter_key)}-->
+<?php if ($board["bo_use_sns"] && ($config["cf_facebook_appid"] || $config["cf_twitter_key"])) { ?>
 // sns 등록
 $(function() {
 	$("#bo_vc_send_sns").load(
-		"{C.G5_SNS_URL}/view_comment_write.sns.skin.php?bo_table={_bo_table}",
+		"<?php echo G5_SNS_URL ?>/view_comment_write.sns.skin.php?bo_table=<?php echo $bo_table ?>",
 		function() {
 			save_html = document.getElementById('view-comment-write').innerHTML;
 		}
 	);
 });
-<!--{/}-->
+<?php } ?>
 </script>
 
 <script>
@@ -493,20 +457,20 @@ $(function() {
 		return false;
 	});
 
-	<!--{? eyoom_board.bo_use_yellow_card == '1'}-->
+	<?php if ($eyoom_board["bo_use_yellow_card"] == '1') { ?>
 	// 신고버튼 클릭시, 댓글 cmt_id 설정
 	$(".cmt_yellow_card, .cancel_cmt_yellow_card").click(function() {
 		var cmt_id = $(this).attr('data-cmt-id');
 		$(".yellowcard-modal #modal_cmt_id").val(cmt_id);
 	});
-	<!--{/}-->
+	<?php } ?>
 });
 
 function excute_goodcmt(href, $el)
 {
-    var msg = ($el.hasClass('nogoodcmt_button')) ? '비추천' : '추천';
-    var confirmed = confirm('이 댓글을 ' + msg + ' 하시겠습니까?');
-    if (confirmed) {
+	var msg = ($el.hasClass('nogoodcmt_button')) ? '비추천' : '추천';
+	var confirmed = confirm('이 댓글을 ' + msg + ' 하시겠습니까?');
+	if (confirmed) {
 		$.post(
 			href,
 			{ js: "on" },
@@ -526,10 +490,10 @@ function excute_goodcmt(href, $el)
 	}
 }
 </script>
-<!--{? eyoom_board.bo_use_cmt_infinite == '1'}-->
+<?php if ($eyoom_board["bo_use_cmt_infinite"] == '1') { ?>
 <script>
 $(document).ready(function(){
-    var $container = $('.view-comment');
+	var $container = $('.view-comment');
 
 	$container.infinitescroll({
 		navSelector  : "#infinite_pagination",
@@ -558,4 +522,4 @@ $(document).ready(function(){
 	});
 });
 </script>
-<!--{/}-->
+<?php } ?>

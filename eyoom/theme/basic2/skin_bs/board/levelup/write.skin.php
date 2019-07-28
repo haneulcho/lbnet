@@ -1,24 +1,27 @@
 <?php if (!defined('_GNUBOARD_')) exit;
-add_stylesheet('<link rel="stylesheet" href="../../../plugins/syntaxhighlighter/styles/shCoreDjango.css" type="text/css" media="screen">',0);
-add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.css" type="text/css" media="screen">',0);
+add_stylesheet('<link rel="stylesheet" href="/eyoom/theme/basic2/plugins/syntaxhighlighter/styles/shCoreDjango.css" type="text/css" media="screen">', 0);
+add_stylesheet('<link rel="stylesheet" href="/eyoom/theme/basic2/plugins/venobox/venobox.css" type="text/css" media="screen">', 0);
+
+$tags = empty($wr_tags) || !is_array($wr_tags) ? 0 : count($wr_tags);
+$wr_files = empty($wr_file) || !is_array($wr_file) ? 0 : count($wr_file);
 ?>
 
-<script type="text/javascript" src="../../../plugins/venobox/venobox.min.js"></script>
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shCore.js"></script>
-<!--{? eyoom_board.bo_use_addon_coding == '1'}-->
-<script type="text/javascript" src="../../../plugins/syntaxhighlighter/scripts/shBrushXml.js"></script>
+<script type="text/javascript" src="/eyoom/theme/basic2/plugins/venobox/venobox.min.js"></script>
+<script type="text/javascript" src="/eyoom/theme/basic2/plugins/syntaxhighlighter/scripts/shCore.js"></script>
+<?php if ($eyoom_board["bo_use_addon_coding"] == '1') { ?>
+<script type="text/javascript" src="/eyoom/theme/basic2/plugins/syntaxhighlighter/scripts/shBrushXml.js"></script>
 <script type="text/javascript">SyntaxHighlighter.all();</script>
-<!--{/}-->
-<!--{? eyoom_board.bo_use_addon_map == '1'}-->
+<?php } ?>
+<?php if ($eyoom_board["bo_use_addon_map"] == '1') { ?>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-<!--{/}-->
+<?php } ?>
 <script>
 $(document).ready(function(){
-	<!--{? eyoom_board.bo_use_addon_emoticon == '1'}-->
+	<?php if ($eyoom_board["bo_use_addon_emoticon"] == '1') { ?>
 	$(".emoticon").venobox({border:'3px'});
-	<!--{/}-->
+	<?php } ?>
 
-	<!--{? eyoom_board.bo_use_addon_video == '1'}-->
+	<?php if ($eyoom_board["bo_use_addon_video"] == '1') { ?>
 	//동영상 추가
 	$("#btn_video").click(function(){
 		var v_url = $("#video_url").val();
@@ -26,18 +29,18 @@ $(document).ready(function(){
 		else set_textarea_contents('video',v_url);
 		$("#video_url").val('');
 	});
-	<!--{/}-->
+	<?php } ?>
 
-	<!--{? eyoom_board.bo_use_addon_coding == '1'}-->
+	<?php if ($eyoom_board["bo_use_addon_coding"] == '1') { ?>
 	//코드 추가
 	$(".ch_code").click(function(){
 		var ch = $(this).text();
 		var val = ch.toLowerCase();
 		set_textarea_contents('code',val);
 	});
-	<!--{/}-->
+	<?php } ?>
 
-	<!--{? eyoom_board.bo_use_addon_soundcloud == '1'}-->
+	<?php if ($eyoom_board["bo_use_addon_soundcloud"] == '1') { ?>
 	//사운드크라우드 추가
 	$("#btn_scloud").click(function(){
 		var s_url = $("#scloud_url").val();
@@ -45,9 +48,9 @@ $(document).ready(function(){
 		else set_textarea_contents('sound',s_url);
 	});
 	$("#scloud_url").val('');
-	<!--{/}-->
+	<?php } ?>
 
-	<!--{? eyoom_board.bo_use_addon_map == '1'}-->
+	<?php if ($eyoom_board["bo_use_addon_map"] == '1') { ?>
 	//지도 추가
 	$("#btn_map").click(function(){
 		var map_type = $("input[name='map_type']:checked").val();
@@ -57,20 +60,20 @@ $(document).ready(function(){
 
 		set_map_address(map_type, map_addr1, map_addr2, map_name);
 	});
-	<!--{/}-->
+	<?php } ?>
 });
 
-<!--{? eyoom_board.bo_use_addon_emoticon == '1'}-->
+<?php if ($eyoom_board["bo_use_addon_emoticon"] == '1') { ?>
 function set_emoticon(emoticon) {
 	var type='emoticon';
 	set_textarea_contents(type,emoticon);
 }
-<!--{/}-->
+<?php } ?>
 
 function set_textarea_contents(type,value) {
 	var type_text = '';
 	var content = '';
-	var mobile = {? C.G5_IS_MOBILE}true{:}false{/};
+	var mobile = <?php if (G5_IS_MOBILE) { ?>true<?php } else { ?>false<?php } ?>;
 	switch(type) {
 		case 'emoticon': type_text = '이모티콘'; break;
 		case 'video': type_text = '동영상'; break;
@@ -99,43 +102,43 @@ function set_textarea_contents(type,value) {
 </script>
 
 <section class="board-write board-area">
-	<form name="fwrite" id="fwrite" action="{_action_url}" onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form">
-	<input type="hidden" name="uid" value="{_uid}">
-	<input type="hidden" name="w" value="{_w}">
-	<input type="hidden" name="bo_table" value="{_bo_table}">
-	<input type="hidden" name="wr_id" value="{_wr_id}">
-	<input type="hidden" name="sca" value="{_sca}">
-	<input type="hidden" name="sfl" value="{_sfl}">
-	<input type="hidden" name="stx" value="{_stx}">
-	<input type="hidden" name="spt" value="{_spt}">
-	<input type="hidden" name="sst" value="{_sst}">
-	<input type="hidden" name="sod" value="{_sod}">
-	<input type="hidden" name="page" value="{_page}">
-	<input type="hidden" name="board_skin_path" value="{C.EYOOM_CORE_PATH}/board">
-	<input type="hidden" name="wr_1" id="wr_1" value="{_wr_1}">
-	<input type="hidden" name="wr_2" id="wr_2" value="{_wr_2}">
-	<input type="hidden" name="wr_3" id="wr_3" value="{_wr_3}">
-	<input type="hidden" name="wr_4" id="wr_4" value="{_wr_4}">
-	<input type="hidden" name="wr_5" id="wr_5" value="{_wr_5}">
-	<input type="hidden" name="wmode" id="wmode" value="{_wmode}">
-	{_option_hidden}
+	<form name="fwrite" id="fwrite" action="<?php echo $action_url ?>" onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form">
+	<input type="hidden" name="uid" value="<?php echo $uid ?>">
+	<input type="hidden" name="w" value="<?php echo $w ?>">
+	<input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
+	<input type="hidden" name="wr_id" value="<?php echo $wr_id ?>">
+	<input type="hidden" name="sca" value="<?php echo $sca ?>">
+	<input type="hidden" name="sfl" value="<?php echo $sfl ?>">
+	<input type="hidden" name="stx" value="<?php echo $stx ?>">
+	<input type="hidden" name="spt" value="<?php echo $spt ?>">
+	<input type="hidden" name="sst" value="<?php echo $sst ?>">
+	<input type="hidden" name="sod" value="<?php echo $sod ?>">
+	<input type="hidden" name="page" value="<?php echo $page ?>">
+	<input type="hidden" name="board_skin_path" value="<?php echo EYOOM_CORE_PATH ?>/board">
+	<input type="hidden" name="wr_1" id="wr_1" value="<?php echo $wr_1 ?>">
+	<input type="hidden" name="wr_2" id="wr_2" value="<?php echo $wr_2 ?>">
+	<input type="hidden" name="wr_3" id="wr_3" value="<?php echo $wr_3 ?>">
+	<input type="hidden" name="wr_4" id="wr_4" value="<?php echo $wr_4 ?>">
+	<input type="hidden" name="wr_5" id="wr_5" value="<?php echo $wr_5 ?>">
+	<input type="hidden" name="wmode" id="wmode" value="<?php echo $wmode ?>">
+	<?php echo $option_hidden ?>
 	<div class="tbl_frm01 tbl_wrap" style="margin-top:-10px;">
 		<div class="clearfix"></div>
 		<section>
 			<div class="row" style="margin-bottom:0">
-				<!--{? _is_category}-->
-					<!--{? _is_admin == 'super'}-->
+					<?php if ($is_category) { ?>
+						<?php if ($is_admin == 'super') { ?>
 						<div class="col col-6" style="margin-bottom:0">
 							<label class="select">
 								<select name="ca_name" id="ca_name" required class="form-control">
 									<option value="">분류를 선택하세요 (필수)</option>
-									{_category_option}
+									<?php echo $category_option ?>
 								</select>
 								<i></i>
 							</label>
 						</div>
-					<!--{:}-->
-						<!--{? _is_admin}-->
+					<?php } else { ?>
+						<?php if ($is_admin) { ?>
 							<div class="col col-6" style="margin-bottom:0">
 								<label class="select">
 									<select name="ca_name" id="ca_name" required class="form-control">
@@ -144,7 +147,7 @@ function set_textarea_contents(type,value) {
 									<i></i>
 								</label>
 							</div>
-						<!--{:}-->
+						<?php } else { ?>
 							<div class="col col-6" style="margin-bottom:0">
 								<label class="select">
 									<select name="ca_name" id="ca_name" required class="form-control">
@@ -153,61 +156,61 @@ function set_textarea_contents(type,value) {
 									<i></i>
 								</label>
 							</div>
-						<!--{/}-->
-					<!--{/}-->
-				<!--{/}-->
-				<!--{? _is_notice || _is_secret || _is_mail}-->
+						<?php } ?>
+					<?php } ?>
+				<?php } ?>
+				<?php if ($is_notice || $is_secret || $is_mail) { ?>
 					<div class="col col-6">
-						<!--{? _is_notice}-->
-						<label for="notice" class="checkbox"><input type="checkbox" id="notice" name="notice" value="1" {_notice_checked}><i></i>공지</label>
-						<!--{/}-->
-						<!--{? _is_secret}-->
-						<!--{? _is_admin || _is_secret == 1}-->
-						<label for="secret" class="checkbox"><input type="checkbox" id="secret" name="secret" value="secret" {_secret_checked}><i></i>비밀글</label>
-						<!--{:}-->
+						<?php if ($is_notice) { ?>
+						<label for="notice" class="checkbox"><input type="checkbox" id="notice" name="notice" value="1" <?php echo $notice_checked ?>><i></i>공지</label>
+						<?php } ?>
+						<?php if ($is_secret) { ?>
+						<?php if ($is_admin || $is_secret == 1) { ?>
+						<label for="secret" class="checkbox"><input type="checkbox" id="secret" name="secret" value="secret" <?php echo $secret_checked ?>><i></i>비밀글</label>
+						<?php } else { ?>
 						<input type="hidden" name="secret" value="secret">
-						<!--{/}-->
-						<!--{/}-->
-						<!--{? _is_mail}-->
-						<label for="mail" class="checkbox"><input type="checkbox" id="mail" name="mail" value="mail" {_recv_email_checked}><i></i>답변메일받기</label>
-						<!--{/}-->
+						<?php } ?>
+						<?php } ?>
+						<?php if ($is_mail) { ?>
+						<label for="mail" class="checkbox"><input type="checkbox" id="mail" name="mail" value="mail" <?php echo $recv_email_checked ?>><i></i>답변메일받기</label>
+						<?php } ?>
 					</div>
-				<!--{/}-->
+				<?php } ?>
 			</div>
 		</section>
 
 		<div class="lbtop">
 			<div class="lbsubject">
 				<div class="lbanonymous">
-					<!--{? _is_anonymous}-->
+					<?php if ($is_anonymous) { ?>
 					<label for="anonymous" class="checkbox"><input type="checkbox" id="anonymous" name="anonymous" value="y" checked><i></i>익명글</label>
-					<!--{/}-->
-					<!--{? _is_html}-->
-						<!--{? _is_dhtml_editor}-->
+					<?php } ?>
+					<?php if ($is_html) { ?>
+						<?php if ($is_dhtml_editor) { ?>
 						<input type="hidden" value="html1" name="html">
-						<!--{:}-->
-						<label for="html" class="checkbox"><input type="checkbox" id="html" name="html" onclick="html_auto_br(this);" value="{_html_value}" {_html_checked}><i></i>HTML</label>
-						<!--{/}-->
-					<!--{/}-->
+						<?php } else { ?>
+						<label for="html" class="checkbox"><input type="checkbox" id="html" name="html" onclick="html_auto_br(this);" value="<?php echo $html_value ?>" <?php echo $html_checked ?>><i></i>HTML</label>
+						<?php } ?>
+					<?php } ?>
 				</div>
 				<label for="wr_subject" class="sound_only">제목<strong class="sound_only"> 필수</strong></label>
 				<label class="input">
 				<i class="icon-prepend fa fa-edit"></i>
-				<input type="text" name="wr_subject" value="{_subject}" id="wr_subject" required class="form-control" size="50" maxlength="255" placeholder="제목을 입력해 주세요.">
+				<input type="text" name="wr_subject" value="<?php echo $subject ?>" id="wr_subject" required class="form-control" size="50" maxlength="255" placeholder="제목을 입력해 주세요.">
 				<b class="tooltip tooltip-top-left">제목을 입력해 주세요.</b>
 				</label>
 			</div>
 		</div>
-		<!--{? eyoom.use_tag == 'y' && eyoom_board.bo_use_tag == '1' && member.mb_level >= eyoom_board.bo_tag_level}-->
+		<?php if ($eyoom["use_tag"] == 'y' && $eyoom_board["bo_use_tag"] == '1' && $member["mb_level"] >= $eyoom_board["bo_tag_level"]) { ?>
 		<section>
 			<div class="row">
 				<div class="col col-6 md-margin-bottom-10">
 					<label>태그 입력</label>
 					<label class="input">
-                        <i class="icon-append fa fa-tags"></i>
-                        <input type="text" name="tmp_tag" id="tmp_tag" class="form-control" size="50" maxlength="255">
-                        <b class="tooltip tooltip-top-right">관련 태그를 입력 후, TAB키를 누르시면 쉽게 태그를 추가할 수 있습니다.</b>
-                    </label>
+						<i class="icon-append fa fa-tags"></i>
+						<input type="text" name="tmp_tag" id="tmp_tag" class="form-control" size="50" maxlength="255">
+						<b class="tooltip tooltip-top-right">관련 태그를 입력 후, TAB키를 누르시면 쉽게 태그를 추가할 수 있습니다.</b>
+					</label>
 				</div>
 				<div class="col col-6 text-left">
 					<label class="visible-lg visible-md visible-sm">&nbsp;</label>
@@ -216,42 +219,42 @@ function set_textarea_contents(type,value) {
 			</div>
 			<div id="tag-box">
 				<div id="tag-cloud">
-				<!--{@ wr_tags}-->
-					<div id="tag_box_{.index_}">{.value_} <i class="fa fa-close" onclick="del_tags('{.value_}','{.index_}');"></i></div>
-				<!--{/}-->
+				<?php if ($tags) { $i = - 1; foreach ($wr_tags as $item) { $i++; ?>
+					<div id="tag_box_<?php echo $i ?>"><?php echo $item ?> <i class="fa fa-close" onclick="del_tags('<?php echo $item ?>','<?php echo $i ?>');"></i></div>
+				<?php } } ?>
 				</div>
 			</div>
-			<input type="hidden" name="wr_tag" id="wr_tag" value="{write.wr_tag}">
+			<input type="hidden" name="wr_tag" id="wr_tag" value="<?php echo $write["wr_tag"] ?>">
 			<input type="hidden" name="del_tag" id="del_tag" value="">
 		</section>
 		<div class="margin-hr-10"></div>
-		<!--{/}-->
+		<?php } ?>
 		<section>
 			<div class="wr_content">
-				<!--{? !_is_member //비회원일 경우}-->
+				<?php if (!$is_member) { ?>
 				<div class="alert alert-danger padding-all-10 margin-bottom-10">
 					<strong>Note!</strong> 글쓰기 시 회원만 동영상, 사운드클라우드, 코드, 이모티콘 첨부가 가능합니다.
 				</div>
-				<!--{/}-->
+				<?php } ?>
 				<div id="write-option">
 					<div class="panel panel-default" style="border:0;margin-bottom:0;box-shadow:none">
-						<!--{? eyoom_board.bo_use_addon_video == '1'}-->
+						<?php if ($eyoom_board["bo_use_addon_video"] == '1') { ?>
 						<a class="btn-e btn-e-sm btn-e-default" data-toggle="collapse" data-parent="#write-option" href="#collapse-video-wr">동영상</a>
-						<!--{/}-->
-						<!--{? eyoom_board.bo_use_addon_soundcloud== '1'}-->
+						<?php } ?>
+						<?php if ($eyoom_board["bo_use_addon_soundcloud"] == '1') { ?>
 						<a class="btn-e btn-e-sm btn-e-default" data-toggle="collapse" data-parent="#write-option" href="#collapse-sound-wr">사운드클라우드</a>
-						<!--{/}-->
-						<!--{? eyoom_board.bo_use_addon_coding== '1'}-->
+						<?php } ?>
+						<?php if ($eyoom_board["bo_use_addon_coding"] == '1') { ?>
 						<a class="btn-e btn-e-sm btn-e-default" data-toggle="collapse" data-parent="#write-option" href="#collapse-code-wr">코드</a>
-						<!--{/}-->
-						<!--{? eyoom_board.bo_use_addon_map== '1'}-->
+						<?php } ?>
+						<?php if ($eyoom_board["bo_use_addon_map"] == '1') { ?>
 						<a class="btn-e btn-e-sm btn-e-default" data-toggle="collapse" data-parent="#write-option" href="#collapse-map-wr">지도</a>
-						<!--{/}-->
-						<!--{? eyoom_board.bo_use_addon_emoticon== '1'}-->
-						<a class="btn-e btn-e-sm btn-e-dark pull-right emoticon" data-type="iframe" title="이모티콘" href="{C.EYOOM_CORE_URL}/board/emoticon.php">이모티콘</a>
-						<!--{/}-->
+						<?php } ?>
+						<?php if ($eyoom_board["bo_use_addon_emoticon"] == '1') { ?>
+						<a class="btn-e btn-e-sm btn-e-dark pull-right emoticon" data-type="iframe" title="이모티콘" href="<?php echo EYOOM_CORE_URL ?>/board/emoticon.php">이모티콘</a>
+						<?php } ?>
 						<div class="clearfix"></div>
-						<!--{? eyoom_board.bo_use_addon_video == '1'}-->
+						<?php if ($eyoom_board["bo_use_addon_video"] == '1') { ?>
 						<div id="collapse-video-wr" class="panel-collapse collapse">
 							<div class="write-function-box">
 								<label class="input input-file">
@@ -260,8 +263,8 @@ function set_textarea_contents(type,value) {
 								</label>
 							</div>
 						</div>
-						<!--{/}-->
-						<!--{? eyoom_board.bo_use_addon_soundcloud == '1'}-->
+						<?php } ?>
+						<?php if ($eyoom_board["bo_use_addon_soundcloud"] == '1') { ?>
 						<div id="collapse-sound-wr" class="panel-collapse collapse">
 							<div class="write-function-box">
 								<div class="row">
@@ -278,65 +281,65 @@ function set_textarea_contents(type,value) {
 								</div>
 							</div>
 						</div>
-						<!--{/}-->
-						<!--{? eyoom_board.bo_use_addon_map == '1'}-->
+						<?php } ?>
+						<?php if ($eyoom_board["bo_use_addon_map"] == '1') { ?>
 						<div id="collapse-map-wr" class="panel-collapse collapse">
 							<div class="write-function-box">
 								<div class="row">
-				                    <div class="col col-2 md-margin-bottom-10">
+									<div class="col col-2 md-margin-bottom-10">
 										<label class="input">
 											<i class="icon-append fa fa-question-circle"></i>
-				                        	<input type="text" name="map_zip" id="map_zip" size="5" maxlength="6">
-				                        	<b class="tooltip tooltip-top-right">우편번호</b>
+											<input type="text" name="map_zip" id="map_zip" size="5" maxlength="6">
+											<b class="tooltip tooltip-top-right">우편번호</b>
 										</label>
-				                    </div>
-				                    <div class="col col-2 text-right md-margin-bottom-10">
-				                    	<button type="button" onclick="win_zip('fwrite', 'map_zip', 'map_addr1', 'map_addr2', 'map_addr3', 'map_addr_jibeon');" class="btn-e btn-e-dark">주소 검색</button>
-				                    </div>
-				                    <div class="col col-6 inline-group">
-						                <label class="radio" for="map_type_1">
-						                	<input type="radio" name="map_type" id="map_type_1" value="1" checked="checked"><i class="rounded-x"></i> Google지도
-						                </label>
-						                <label class="radio" for="map_type_2">
-						                	<input type="radio" name="map_type" id="map_type_2" value="2"><i class="rounded-x"></i> 네이버지도
-						                </label>
-						                <label class="radio" for="map_type_3">
-						                	<input type="radio" name="map_type" id="map_type_3" value="3"><i class="rounded-x"></i> 다음지도
-						                </label>
-				                    </div>
-			                    </div>
-			                    <div class="margin-bottom-10"></div>
-			                    <div class="row">
-				                    <div class="col col-10">
-						                <label class="input">
-						                	<input type="text" name="map_addr1" id="map_addr1" size="50">
-						                </label>
-						                <div class="note margin-bottom-10"><strong>Note:</strong> 기본주소</div>
-				                    </div>
-			                    </div>
-			                    <div class="row">
-				                    <div class="col col-5">
-						                <label class="input">
-						                	<input type="text" name="map_addr2" id="map_addr2" size="50">
-						                </label>
-						                <div class="note margin-bottom-10"><strong>Note:</strong> 상세주소</div>
-				                    </div>
-				                    <div class="col col-5">
-						                <label class="input">
-						                	<input type="text" name="map_name" id="map_name" size="50">
-						                </label>
-						                <div class="note margin-bottom-10"><strong>Note:</strong> 장소명</div>
-				                    </div>
-				                    <input type="hidden" name="map_addr3" id="map_addr3" value="">
-				                    <input type="hidden" name="map_addr_jibeon" value="">
-				                    <div class="col col-2 text-right">
-					                    <a href="javascript:;" class="btn-e btn-e-yellow" style="width:60px;padding:5px 12px;text-align: center;" id="btn_map" onclick="return false;">적용</a>
-				                    </div>
-			                    </div>
+									</div>
+									<div class="col col-2 text-right md-margin-bottom-10">
+										<button type="button" onclick="win_zip('fwrite', 'map_zip', 'map_addr1', 'map_addr2', 'map_addr3', 'map_addr_jibeon');" class="btn-e btn-e-dark">주소 검색</button>
+									</div>
+									<div class="col col-6 inline-group">
+										<label class="radio" for="map_type_1">
+											<input type="radio" name="map_type" id="map_type_1" value="1" checked="checked"><i class="rounded-x"></i> Google지도
+										</label>
+										<label class="radio" for="map_type_2">
+											<input type="radio" name="map_type" id="map_type_2" value="2"><i class="rounded-x"></i> 네이버지도
+										</label>
+										<label class="radio" for="map_type_3">
+											<input type="radio" name="map_type" id="map_type_3" value="3"><i class="rounded-x"></i> 다음지도
+										</label>
+									</div>
+								</div>
+								<div class="margin-bottom-10"></div>
+								<div class="row">
+									<div class="col col-10">
+										<label class="input">
+											<input type="text" name="map_addr1" id="map_addr1" size="50">
+										</label>
+										<div class="note margin-bottom-10"><strong>Note:</strong> 기본주소</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col col-5">
+										<label class="input">
+											<input type="text" name="map_addr2" id="map_addr2" size="50">
+										</label>
+										<div class="note margin-bottom-10"><strong>Note:</strong> 상세주소</div>
+									</div>
+									<div class="col col-5">
+										<label class="input">
+											<input type="text" name="map_name" id="map_name" size="50">
+										</label>
+										<div class="note margin-bottom-10"><strong>Note:</strong> 장소명</div>
+									</div>
+									<input type="hidden" name="map_addr3" id="map_addr3" value="">
+									<input type="hidden" name="map_addr_jibeon" value="">
+									<div class="col col-2 text-right">
+										<a href="javascript:;" class="btn-e btn-e-yellow" style="width:60px;padding:5px 12px;text-align: center;" id="btn_map" onclick="return false;">적용</a>
+									</div>
+								</div>
 							</div>
 						</div>
-						<!--{/}-->
-						<!--{? eyoom_board.bo_use_addon_coding == '1'}-->
+						<?php } ?>
+						<?php if ($eyoom_board["bo_use_addon_coding"] == '1') { ?>
 						<div id="collapse-code-wr" class="panel-collapse collapse">
 							<div class="write-function-box">
 								<a href="javascript:;" class="ch_code btn-e-xs" onclick="return false;">HTML</a>
@@ -352,72 +355,72 @@ function set_textarea_contents(type,value) {
 								<a href="javascript:;" class="ch_code btn-e-xs" onclick="return false;">SQL</a>
 							</div>
 						</div>
-						<!--{/}-->
+						<?php } ?>
 					</div>
 				</div>
-				<!--{? _write_min || _write_max}-->
+				<?php if ($write_min || $write_max) { ?>
 				<!--{* 최소/최대 글자 수 사용 시 *}-->
-				<p id="char_count_desc">이 게시판은 최소 <strong>{_write_min}</strong>글자 이상, 최대 <strong>{_write_max}</strong>글자 이하까지 글을 쓰실 수 있습니다.</p>
-				<!--{/}-->
+				<p id="char_count_desc">이 게시판은 최소 <strong><?php echo $write_min ?></strong>글자 이상, 최대 <strong><?php echo $write_max ?></strong>글자 이하까지 글을 쓰실 수 있습니다.</p>
+				<?php } ?>
 
 				<!--{* 에디터 사용시는 에디터로, 아니면 textarea 로 노출 *}-->
-				{_editor_html}
+				<?php echo $editor_html ?>
 
-				<!--{? _write_min || _write_max}-->
+				<?php if ($write_min || $write_max) { ?>
 				<!--{* 최소/최대 글자 수 사용 시 *}-->
 				<div id="char_count_wrap"><span id="char_count"></span>글자</div>
-				<!--{/}-->
+				<?php } ?>
 			</div>
 		</section>
 		<div class="margin-hr-10"></div>
 
 		<section>
-			<!--{@ wr_file}-->
+			<?php if ($wr_files) { foreach ($wr_file as $k => $item) { ?>
 			<div class="row">
 				<div class="col col-12" style="margin-bottom:7px;">
-					<label for="file" class="input input-file">
-						<div class="button bg-color-light-grey"><input type="file" id="file" name="bf_file[]" value="사진선택" title="파일첨부 {.key_+1} : 용량 {_upload_max_filesize} 이하만 업로드 가능" onchange="this.parentNode.nextSibling.value = this.value">파일{.key_+1} 선택</div><input type="text" readonly>
+				<label for="file" class="input input-file">
+					<div class="button bg-color-light-grey"><input type="file" id="file" name="bf_file[]" value="사진선택" title="파일첨부 <?php echo $k + 1 ?> : 용량 <?php echo $upload_max_filesize ?> 이하만 업로드 가능" onchange="this.parentNode.nextSibling.value = this.value">파일<?php echo $k + 1 ?> 선택</div><input type="text" readonly>
+				</label>
+				</div>
+				<?php if ($is_file_content) { ?>
+				<div class="col col-12 margin-top-10">
+					<label class="input">
+						<i class="icon-append fa fa-question-circle"></i>
+						<input type="text" name="bf_content[]" value="<?php if ($w == 'u') { ?><?php echo $item["bf_content"] ?><?php } ?>" class="form-control" size="50" placeholder="파일<?php echo $k + 1 ?> 설명">
+					<b class="tooltip tooltip-top-right">파일<?php echo $k + 1 ?> 설명을 입력해 주세요.</b>
 					</label>
 				</div>
-				<!--{? _is_file_content}-->
-				<div class="col col-12 margin-top-10">
-                    <label class="input">
-                    	<i class="icon-append fa fa-question-circle"></i>
-                        <input type="text" name="bf_content[]" value="{? _w == 'u'}{.bf_content}{/}" class="form-control" size="50" placeholder="파일{.key_+1} 설명">
-                        <b class="tooltip tooltip-top-right">파일{.key_+1} 설명을 입력해 주세요.</b>
-                    </label>
-				</div>
 				<div class="clearfix"></div>
-				<!--{/}-->
-				<!--{? _w=='u' && .file}-->
+				<?php } ?>
+				<?php if ($w == 'u' && $item["file"]) { ?>
 				<div class="col col-6">
-					<label for="bf_file_del{.key_}" class="checkbox"><input type="checkbox" id="bf_file_del{.key_}" name="bf_file_del[{.key_}]" value="1"><i></i>{.source} ({.size}) 파일삭제</label>
+					<label for="bf_file_del<?php echo $k ?>" class="checkbox"><input type="checkbox" id="bf_file_del<?php echo $k ?>" name="bf_file_del[<?php echo $k ?>]" value="1"><i></i><?php echo $item["source"] ?> (<?php echo $item["size"] ?>) 파일삭제</label>
 				</div>
-				<!--{/}-->
+				<?php } ?>
 			</div>
-			<!--{/}-->
+			<?php } } ?>
 		</section>
-		<!--{? !_is_member}-->
+		<?php if (!$is_member) { ?>
 		<section>
 			<label class="label">자동등록방지</label>
-			<div class="vc-captcha">{_captcha_html}</div>
+			<div class="vc-captcha"><?php echo $captcha_html ?></div>
 			<div class="margin-bottom-20"></div>
 		</section>
-		<!--{/}-->
+		<?php } ?>
 	</div>
 
 	<div class="text-center wwbtn">
-		<a href="{? _wmode}javascript:history.go(-1){:}./board.php?bo_table={_bo_table}{/}">취소</a>
+		<a href="<?php if ($wmode) { ?>javascript:history.go(-1)<?php } else { ?>./board.php?bo_table=<?php echo $bo_table ?><?php } ?>">취소</a>
 		<button type="submit" id="btn_submit"><i class="fa fa-paper-plane"></i>작성완료</button>
 	</div>
 	</form>
 </section>
 
 <script>
-<!--{? _write_min || _write_max}-->
+<?php if ($write_min || $write_max) { ?>
 // 글자수 제한
-var char_min = parseInt({_write_min}); // 최소
-var char_max = parseInt({_write_max}>); // 최대
+var char_min = parseInt(<?php echo $write_min ?>); // 최소
+var char_max = parseInt(<?php echo $write_max ?>); // 최대
 check_byte("wr_content", "char_count");
 
 $(function() {
@@ -425,7 +428,7 @@ $(function() {
 		check_byte("wr_content", "char_count");
 	});
 });
-<!--{/}-->
+<?php } ?>
 
 function html_auto_br(obj)
 {
@@ -442,15 +445,15 @@ function html_auto_br(obj)
 
 function fwrite_submit(f)
 {
-	<!--{_editor_js}--> // 에디터 사용시 자바스크립트에서 내용을 폼필드로 넣어주며 내용이 입력되었는지 검사함
+	<?php echo $editor_js ?> // 에디터 사용시 자바스크립트에서 내용을 폼필드로 넣어주며 내용이 입력되었는지 검사함
 
-	<!--{? _is_anonymous}-->
-	var wr_1 = '{_wr_1}';
+	<?php if ($is_anonymous) { ?>
+	var wr_1 = '<?php echo $wr_1 ?>';
 	if($("#anonymous").is(':checked')) {
 		wr_1 = wr_1+'|y';
 		$("#wr_1").val(wr_1);
 	}
-	<!--{/}-->
+	<?php } ?>
 
 	var subject = "";
 	var content = "";
@@ -499,14 +502,14 @@ function fwrite_submit(f)
 		}
 	}
 
-	<!--{_captcha_js}--> // 캡챠 사용시 자바스크립트에서 입력된 캡챠를 검사함
+	<?php echo $captcha_js ?> // 캡챠 사용시 자바스크립트에서 입력된 캡챠를 검사함
 
 	document.getElementById("btn_submit").disabled = "disabled";
 
 	return true;
 }
-<!--{? eyoom.use_tag == 'y' && eyoom_board.bo_use_tag == '1' && member.mb_level >= eyoom_board.bo_tag_level}-->
-var tag_size = {? wr_tags.size_}{wr_tags.size_}{:}0{/};
+<?php if ($eyoom["use_tag"] == 'y' && $eyoom_board["bo_use_tag"] == '1' && $member["mb_level"] >= $eyoom_board["bo_tag_level"]) { ?>
+var tag_size = <?php if ($tags) { ?><?php echo $tags ?><?php } else { ?>0<?php } ?>;
 $(function(){
 	$(".add_tags").click(function(){
 		add_tags();
@@ -522,9 +525,9 @@ $(function(){
 		if(!tag) {
 			obj.focus();
 		} else {
-			<!--{? !_is_admin}-->
+			<?php if (!$is_admin) { ?>
 			var count = $('#tag-cloud > div:not(.blind)').length;
-			var limit = '{eyoom_board.bo_tag_limit}';
+			var limit = '<?php echo $eyoom_board["bo_tag_limit"] ?>';
 			var max = parseInt(limit)-1;
 			if(count > max) {
 				alert("태그는 "+limit+"개까지 등록가능합니다.");
@@ -532,7 +535,7 @@ $(function(){
 				obj.focus();
 				return;
 			}
-			<!--{/}-->
+			<?php } ?>
 			var duplicate = false;
 			$('#tag-cloud > div:not(.blind)').each(function(){
 				if($(this).text().trim() == tag) {
@@ -572,7 +575,7 @@ function del_tags(tag, num) {
 	$('#del_tag').val(del_tags);
 	$('#tag_box_'+num).addClass('blind');
 }
-<!--{/}-->
+<?php } ?>
 </script>
 
 <style>

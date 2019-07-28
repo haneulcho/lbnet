@@ -12,10 +12,7 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
 
 <div class="comment-area">
 	<!--{* 댓글 시작 *}-->
-	<?php if ($comments) {
-	$i = - 1;
-	foreach ($comment as $item) {
-		$i++; ?>
+	<?php if ($comments) { $i = - 1; foreach ($comment as $item) { ;$i++; ?>
 	<div class="view-comment">
 		<div id="c_<?php echo $item["comment_id"] ?>" class="view-comment-item<?php if ($item["is_lb_admin"]) { ?> admin<?php } ?><?php if ($item["is_cmt_best"]) { ?> cmt-best<?php } ?>">
 			<div class="comment-item-body-pn">

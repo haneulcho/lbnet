@@ -203,8 +203,7 @@ $(document).ready(function(){
 				<div class="col col-12 margin-top-10">
 					<label class="input">
 						<i class="icon-append fa fa-question-circle"></i>
-						<input type="text" name="bf_content[]" value="<?php if ($w == 'u') { ?><?php echo $item["bf_content"] ?><?php
-			} ?>" class="form-control" size="50" placeholder="파일<?php echo $k + 1 ?> 설명">
+						<input type="text" name="bf_content[]" value="<?php if ($w == 'u') { ?><?php echo $item["bf_content"] ?><?php } ?>" class="form-control" size="50" placeholder="파일<?php echo $k + 1 ?> 설명">
 					<b class="tooltip tooltip-top-right">파일<?php echo $k + 1 ?> 설명을 입력해 주세요.</b>
 					</label>
 				</div>
@@ -228,9 +227,7 @@ $(document).ready(function(){
 	</div>
 
 	<div class="text-center wwbtn">
-		<a href="<?php if ($wmode) { ?>javascript:history.go(-1)<?php
-} else { ?>./board.php?bo_table=<?php echo $bo_table ?><?php
-} ?>">취소</a>
+		<a href="<?php if ($wmode) { ?>javascript:history.go(-1)<?php } else { ?>./board.php?bo_table=<?php echo $bo_table ?><?php } ?>">취소</a>
 		<button type="submit" id="btn_submit"><i class="fa fa-paper-plane"></i>작성완료</button>
 	</div>
 	</form>

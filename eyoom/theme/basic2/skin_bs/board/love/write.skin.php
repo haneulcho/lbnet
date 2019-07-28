@@ -1,14 +1,16 @@
-<?php if (!defined('_GNUBOARD_')) exit; ?>
+<?php if (!defined('_GNUBOARD_')) exit;
+$wr_files = empty($wr_file) || !is_array($wr_file) ? 0 : count($wr_file);
+?>
 <section class="board-write board-area">
-	<form name="fwrite" id="fwrite" action="{_action_url}" onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form">
-	<input type="hidden" name="uid" value="{_uid}">
-	<input type="hidden" name="w" value="{_w}">
-	<input type="hidden" name="bo_table" value="{_bo_table}">
-	<input type="hidden" name="wr_id" value="{_wr_id}">
-	<input type="hidden" name="page" value="{_page}">
-	<input type="hidden" name="board_skin_path" value="{C.EYOOM_CORE_PATH}/board">
-	<input type="hidden" name="wr_1" id="wr_1" value="{_wr_1}">
-	{_option_hidden}
+	<form name="fwrite" id="fwrite" action="<?php echo $action_url ?>" onsubmit="return fwrite_submit(this);" method="post" enctype="multipart/form-data" autocomplete="off" class="eyoom-form">
+	<input type="hidden" name="uid" value="<?php echo $uid ?>">
+	<input type="hidden" name="w" value="<?php echo $w ?>">
+	<input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
+	<input type="hidden" name="wr_id" value="<?php echo $wr_id ?>">
+	<input type="hidden" name="page" value="<?php echo $page ?>">
+	<input type="hidden" name="board_skin_path" value="<?php echo EYOOM_CORE_PATH ?>/board">
+	<input type="hidden" name="wr_1" id="wr_1" value="<?php echo $wr_1 ?>">
+	<?php echo $option_hidden ?>
 
 	<section class="clearfix margin-bottom-20">
 		<div class="col-sm-5">
@@ -19,13 +21,13 @@
 						<dt>지역</dt>
 						<dd>
 							<label class="select">
-							<select name="wr_area" <!--{? !_is_admin}-->required <!--{/}-->class="form-control c-select">
+							<select name="wr_area" <?php if (!$is_admin) { ?>required <?php } ?>class="form-control c-select">
 								<option value="">지역을 선택하세요.</option>
 								<?php
 									$area = array('서울', '인천/경기', '대전/충청', '광주/전라', '대구/경북', '부산/경남', '강원/제주', '해외');
-									for($i=0;$i<count($area);$i++) {
+									for ($i = 0; $i < count($area); $i++) {
 								?>
-								<option value="<?php echo $area[$i]; ?>"<?php if({_wr_area} == $area[$i]){ echo ' selected';} ?>><?php echo $area[$i]; ?></option>
+								<option value="<?php echo $area[$i]; ?>"<?php if($wr_area == $area[$i]){ echo ' selected';} ?>><?php echo $area[$i]; ?></option>
 								<?php } ?>
 							</select>
 								<i></i>
@@ -37,9 +39,9 @@
 						<dd>
 							<?php
 								$type = array('팸', '부치', '전천', '무성향');
-								for($i=0;$i<count($type);$i++) {
+								for ($i = 0; $i < count($type); $i++) {
 							?>
-							<label for="wr_type<?php echo $i; ?>" class="radio"><input type="radio" id="wr_type<?php echo $i; ?>" name="wr_type" value="<?php echo $type[$i]; ?>"<?php if({_wr_type} == $type[$i]){ echo ' checked';} ?>><i class="rounded-x"></i><?php echo $type[$i]; ?></label>
+							<label for="wr_type<?php echo $i; ?>" class="radio"><input type="radio" id="wr_type<?php echo $i; ?>" name="wr_type" value="<?php echo $type[$i]; ?>"<?php if($wr_type == $type[$i]){ echo ' checked';} ?>><i class="rounded-x"></i><?php echo $type[$i]; ?></label>
 							<?php } ?>
 						</dd>
 					</dl>
@@ -48,9 +50,9 @@
 						<dd>
 							<?php
 								$age = array('20~24', '25~29', '30~34', '35 이상');
-								for($i=0;$i<count($age);$i++) {
+								for($i = 0; $i < count($age); $i++) {
 							?>
-							<label for="wr_age<?php echo $i; ?>" class="radio"><input type="radio" id="wr_age<?php echo $i; ?>" name="wr_age" value="<?php echo $age[$i]; ?>"<?php if({_wr_age} == $age[$i]){ echo ' checked';} ?>><i class="rounded-x"></i><?php echo $age[$i]; ?></label>
+							<label for="wr_age<?php echo $i; ?>" class="radio"><input type="radio" id="wr_age<?php echo $i; ?>" name="wr_age" value="<?php echo $age[$i]; ?>"<?php if($wr_age == $age[$i]){ echo ' checked';} ?>><i class="rounded-x"></i><?php echo $age[$i]; ?></label>
 							<?php } ?>
 						</dd>
 					</dl>
@@ -60,10 +62,10 @@
 				<fieldset class="lbbox">
 					<h3><i class="fa fa-plus-square"></i> <strong>추가정보 입력</strong></h3>
 					<div class="margin-bottom-15">
-						<label for="wr_send_moreinfo" class="col-sm-4 form-control-label">추가정보 입력하기</label><label class="ui-switch primary m-t-xs m-r"><input type="checkbox" id="wr_send_moreinfo" name="wr_send_moreinfo"<?php if({_wr_send_moreinfo} == '1'){ echo ' checked value="1"';} else { echo ' value="0"'; } ?>><i></i></label>
+						<label for="wr_send_moreinfo" class="col-sm-4 form-control-label">추가정보 입력하기</label><label class="ui-switch primary m-t-xs m-r"><input type="checkbox" id="wr_send_moreinfo" name="wr_send_moreinfo"<?php if ($wr_send_moreinfo == '1') { echo ' checked value="1"'; } else { echo ' value="0"'; } ?>><i></i></label>
 					</div>
 					<div class="margin-bottom-15">
-						<label for="wr_recv_moreinfo" class="col-sm-4 form-control-label">무조건 상대 추가정보 받기</label><label class="ui-switch primary m-t-xs m-r"><input type="checkbox" id="wr_recv_moreinfo" name="wr_recv_moreinfo"<?php if({_wr_recv_moreinfo} == '1'){ echo ' checked value="1"';} else { echo ' value="0"'; } ?>><i></i></label>
+						<label for="wr_recv_moreinfo" class="col-sm-4 form-control-label">무조건 상대 추가정보 받기</label><label class="ui-switch primary m-t-xs m-r"><input type="checkbox" id="wr_recv_moreinfo" name="wr_recv_moreinfo"<?php if ($wr_recv_moreinfo == '1') { echo ' checked value="1"'; } else { echo ' value="0"'; } ?>><i></i></label>
 					</div>
 					<div class="alert alert-danger padding-all-10 margin-top-10 margin-bottom-15">
 					<strong>Note:</strong> 추가정보 입력시 50포인트 적립 / 상대 추가정보 받기를 켜두면, 댓글 쓰는 상대방은 무조건 추가정보를 입력해야 합니다.
@@ -76,9 +78,9 @@
 								<option value="">직업을 선택하세요.</option>
 								<?php
 									$job = array('학생', '직장인(주5일)', '직장인(주6일)', '직장인(평일휴무)', '직장인(주말휴무)', '프리랜서', '무직');
-									for($i=0;$i<count($job);$i++) {
+									for($i = 0; $i < count($job); $i++) {
 								?>
-								<option value="<?php echo $job[$i]; ?>"<?php if({_wr_job} == $job[$i]){ echo ' selected';} ?>><?php echo $job[$i]; ?></option>
+								<option value="<?php echo $job[$i]; ?>"<?php if ($wr_job == $job[$i]) { echo ' selected'; } ?>><?php echo $job[$i]; ?></option>
 								<?php } ?>
 							</select>
 								<i></i>
@@ -91,9 +93,9 @@
 								<option value="0">키를 선택하세요.</option>
 								<?php
 									$figure1 = array('155cm 미만', '155~159cm', '160~164cm', '165~169cm', '170cm 이상');
-									for($i=0;$i<count($figure1);$i++) {
+									for($i = 0; $i < count($figure1); $i++) {
 								?>
-								<option value="<?php echo $figure1[$i]; ?>"<?php if({_wr_figure[0]} == $figure1[$i]){ echo ' selected';} ?>><?php echo $figure1[$i]; ?></option>
+								<option value="<?php echo $figure1[$i]; ?>"<?php if ($wr_figure[0] == $figure1[$i]) { echo ' selected'; } ?>><?php echo $figure1[$i]; ?></option>
 								<?php } ?>
 							</select>
 								<i></i>
@@ -106,9 +108,9 @@
 								<option value="0">체형을 선택하세요.</option>
 								<?php
 									$figure2 = array('마름', '보통', '통통', '통통 이상');
-									for($i=0;$i<count($figure2);$i++) {
+									for($i = 0; $i < count($figure2); $i++) {
 								?>
-								<option value="<?php echo $figure2[$i]; ?>"<?php if({_wr_figure[1]} == $figure2[$i]){ echo ' selected';} ?>><?php echo $figure2[$i]; ?></option>
+								<option value="<?php echo $figure2[$i]; ?>"<?php if ($wr_figure[1] == $figure2[$i]) { echo ' selected'; } ?>><?php echo $figure2[$i]; ?></option>
 								<?php } ?>
 							</select>
 								<i></i>
@@ -116,17 +118,17 @@
 						</dd>
 						<dt>흡연유무</dt>
 						<dd>
-							<label for="wr_etc1" class="radio"><input type="radio" id="wr_etc1" name="wr_etc" value="흡연"<?php if({_wr_etc} == '흡연'){ echo ' checked';} ?>><i class="rounded-x"></i>흡연</label>
-							<label for="wr_etc2" class="radio"><input type="radio" id="wr_etc2" name="wr_etc" value="비흡연"<?php if({_wr_etc} == '비흡연'){ echo ' checked';} ?>><i class="rounded-x"></i>비흡연</label>
+							<label for="wr_etc1" class="radio"><input type="radio" id="wr_etc1" name="wr_etc" value="흡연"<?php if ($wr_etc == '흡연') { echo ' checked'; } ?>><i class="rounded-x"></i>흡연</label>
+							<label for="wr_etc2" class="radio"><input type="radio" id="wr_etc2" name="wr_etc" value="비흡연"<?php if ($wr_etc == '비흡연') { echo ' checked'; } ?>><i class="rounded-x"></i>비흡연</label>
 						</dd>
 						<dt>관심사</dt>
 						<dd>
 <?php
-	$wr_interest_array = {_wr_interest};
-	$interest = array("독서/글쓰기","음악","영화/드라마","게임","운동","덕질","사진/영상","예술","정치/사회","반려동물");
-	for($i=0;$i<count($interest);$i++) {
+	$wr_interest_array = $wr_interest;
+	$interest = array("독서/글쓰기", "음악", "영화/드라마", "게임", "운동", "덕질", "사진/영상", "예술", "정치/사회", "반려동물");
+	for($i = 0; $i < count($interest); $i++) {
 ?>
-							<label for="wr_interest<?php echo $i; ?>" class="checkbox pull-left"><input type="checkbox" id="wr_interest<?php echo $i; ?>" name="wr_interest[]" value="<?php echo $interest[$i]; ?>"<?php if(in_array($interest[$i], $wr_interest_array)){ echo ' checked';} ?>><i></i><?php echo $interest[$i]; ?></label>
+							<label for="wr_interest<?php echo $i; ?>" class="checkbox pull-left"><input type="checkbox" id="wr_interest<?php echo $i; ?>" name="wr_interest[]" value="<?php echo $interest[$i]; ?>"<?php if (isset($wr_interest) && in_array($interest[$i], $wr_interest_array)) { echo ' checked'; } ?>><i></i><?php echo $interest[$i]; ?></label>
 <?php } ?>
 						</dd>
 					</dl>
@@ -139,20 +141,20 @@
 				<section>
 					<div class="row">
 						<div class="col col-8" style="margin-bottom:0">
-						<!--{? _is_notice || _is_secret || _is_mail || _is_anonymous}-->
-							<!--{? _is_notice}-->
-							<label for="notice" class="checkbox"><input type="checkbox" id="notice" name="notice" value="1" {_notice_checked}><i></i>공지</label>
-							<!--{/}-->
+						<?php if ($is_notice || $is_secret || $is_mail || $is_anonymous) { ?>
+							<?php if ($is_notice) { ?>
+							<label for="notice" class="checkbox"><input type="checkbox" id="notice" name="notice" value="1" <?php echo $notice_checked ?>><i></i>공지</label>
+							<?php } ?>
 
-							<!--{? _is_secret}-->
-							<!--{? _is_admin || _is_secret == 1}-->
-							<label for="secret" class="checkbox"><input type="checkbox" id="secret" name="secret" value="secret" {_secret_checked}><i></i>비밀글</label>
-							<!--{:}-->
+							<?php if ($is_secret) { ?>
+							<?php if ($is_admin || $is_secret == 1) { ?>
+							<label for="secret" class="checkbox"><input type="checkbox" id="secret" name="secret" value="secret" <?php echo $secret_checked ?>><i></i>비밀글</label>
+							<?php } else { ?>
 							<input type="hidden" name="secret" value="secret">
-							<!--{/}-->
-							<!--{/}-->
+							<?php } ?>
+							<?php } ?>
 
-						<!--{/}-->
+							<?php } ?>
 						</div>
 					</div>
 				</section>
@@ -161,21 +163,21 @@
 				<div class="lbtop">
 					<div class="lbsubject">
 						<div class="lbanonymous">
-							<!--{? _is_anonymous}-->
+							<?php if ($is_anonymous) { ?>
 							<label for="anonymous" class="checkbox"><input type="checkbox" id="anonymous" name="anonymous" value="y" checked><i></i>익명글</label>
-							<!--{/}-->
-							<!--{? _is_html}-->
-								<!--{? _is_dhtml_editor}-->
+							<?php } ?>
+							<?php if ($is_html) { ?>
+								<?php if ($is_dhtml_editor) { ?>
 								<input type="hidden" value="html1" name="html">
-								<!--{:}-->
-								<label for="html" class="checkbox"><input type="checkbox" id="html" name="html" onclick="html_auto_br(this);" value="{_html_value}" {_html_checked}><i></i>HTML</label>
-								<!--{/}-->
-							<!--{/}-->
+								<?php } else { ?>
+								<label for="html" class="checkbox"><input type="checkbox" id="html" name="html" onclick="html_auto_br(this);" value="<?php echo $html_value ?>" <?php echo $html_checked ?>><i></i>HTML</label>
+								<?php } ?>
+							<?php } ?>
 						</div>
 						<label for="wr_subject" class="sound_only">제목<strong class="sound_only"> 필수</strong></label>
 						<label class="input">
 						<i class="icon-prepend fa fa-edit"></i>
-						<input type="text" name="wr_subject" value="{_subject}" id="wr_subject" required class="form-control" size="50" maxlength="255" placeholder="제목을 입력해 주세요.">
+						<input type="text" name="wr_subject" value="<?php echo $subject ?>" id="wr_subject" required class="form-control" size="50" maxlength="255" placeholder="제목을 입력해 주세요.">
 						<b class="tooltip tooltip-top-left">제목을 입력해 주세요.</b>
 						</label>
 					</div>
@@ -184,47 +186,46 @@
 				<section>
 					<div class="wr_content">
 						<!--{* 에디터 사용시는 에디터로, 아니면 textarea 로 노출 *}-->
-						{_editor_html}
-
+						<?php echo $editor_html ?>
 					</div>
 				</section>
 				<div class="margin-hr-10"></div>
 				<section>
-					<!--{@ wr_file}-->
+					<?php if ($wr_files) { foreach ($wr_file as $k => $item) { ?>
 					<div class="row">
 						<div class="col col-12" style="margin-bottom:7px;">
-							<label for="file" class="input input-file">
-								<div class="button bg-color-light-grey"><input type="file" id="file" name="bf_file[]" value="사진선택" title="파일첨부 {.key_+1} : 용량 {_upload_max_filesize} 이하만 업로드 가능" onchange="this.parentNode.nextSibling.value = this.value">파일{.key_+1} 선택</div><input type="text" readonly>
+						<label for="file" class="input input-file">
+							<div class="button bg-color-light-grey"><input type="file" id="file" name="bf_file[]" value="사진선택" title="파일첨부 <?php echo $k + 1 ?> : 용량 <?php echo $upload_max_filesize ?> 이하만 업로드 가능" onchange="this.parentNode.nextSibling.value = this.value">파일<?php echo $k + 1 ?> 선택</div><input type="text" readonly>
+						</label>
+						</div>
+						<?php if ($is_file_content) { ?>
+						<div class="col col-12 margin-top-10">
+							<label class="input">
+								<i class="icon-append fa fa-question-circle"></i>
+								<input type="text" name="bf_content[]" value="<?php if ($w == 'u') { ?><?php echo $item["bf_content"] ?><?php } ?>" class="form-control" size="50" placeholder="파일<?php echo $k + 1 ?> 설명">
+							<b class="tooltip tooltip-top-right">파일<?php echo $k + 1 ?> 설명을 입력해 주세요.</b>
 							</label>
 						</div>
-						<!--{? _is_file_content}-->
-						<div class="col col-12 margin-top-10">
-		                    <label class="input">
-		                    	<i class="icon-append fa fa-question-circle"></i>
-		                        <input type="text" name="bf_content[]" value="{? _w == 'u'}{.bf_content}{/}" class="form-control" size="50" placeholder="파일{.key_+1} 설명">
-		                        <b class="tooltip tooltip-top-right">파일{.key_+1} 설명을 입력해 주세요.</b>
-		                    </label>
-						</div>
 						<div class="clearfix"></div>
-						<!--{/}-->
-						<!--{? _w=='u' && .file}-->
+						<?php } ?>
+						<?php if ($w == 'u' && $item["file"]) { ?>
 						<div class="col col-6">
-							<label for="bf_file_del{.key_}" class="checkbox"><input type="checkbox" id="bf_file_del{.key_}" name="bf_file_del[{.key_}]" value="1"><i></i>{.source} ({.size}) 파일삭제</label>
+							<label for="bf_file_del<?php echo $k ?>" class="checkbox"><input type="checkbox" id="bf_file_del<?php echo $k ?>" name="bf_file_del[<?php echo $k ?>]" value="1"><i></i><?php echo $item["source"] ?> (<?php echo $item["size"] ?>) 파일삭제</label>
 						</div>
-						<!--{/}-->
+						<?php } ?>
 					</div>
-					<!--{/}-->
+					<?php } } ?>
 				</section>
-				<!--{? !_is_member}-->
+				<?php if (!$is_member) { ?>
 				<section>
 					<label class="label">자동등록방지</label>
-					<div class="vc-captcha">{_captcha_html}</div>
+					<div class="vc-captcha"><?php echo $captcha_html ?></div>
 					<div class="margin-bottom-20"></div>
 				</section>
-				<!--{/}-->
+				<?php } ?>
 			</div>
 			<div class="text-center wwbtn">
-				<a href="{? _wmode}javascript:history.go(-1){:}./board.php?bo_table={_bo_table}{/}">취소</a>
+				<a href="<?php if ($wmode) { ?>javascript:history.go(-1)<?php } else { ?>./board.php?bo_table=<?php echo $bo_table ?><?php } ?>">취소</a>
 				<button type="submit" id="btn_submit"><i class="fa fa-paper-plane"></i>작성완료</button>
 			</div>
 		</div>
@@ -264,18 +265,18 @@ function html_auto_br(obj)
 
 function fwrite_submit(f)
 {
-	<!--{_editor_js}--> // 에디터 사용시 자바스크립트에서 내용을 폼필드로 넣어주며 내용이 입력되었는지 검사함
+	<?php echo $editor_js ?> // 에디터 사용시 자바스크립트에서 내용을 폼필드로 넣어주며 내용이 입력되었는지 검사함
 
-	<!--{? _is_anonymous}-->
-	var wr_1 = '{_wr_1}';
+	<?php if ($is_anonymous) { ?>
+	var wr_1 = '<?php echo $wr_1 ?>';
 	if($("#anonymous").is(':checked')) {
 		wr_1 = wr_1+'|y';
 		$("#wr_1").val(wr_1);
 	}
-	<!--{/}-->
+	<?php } ?>
 
 
-	<!--{? !_is_admin}-->
+	<?php if (!$is_admin) { ?>
 	if($('input:radio[name="wr_type"]').is(':checked') == false) {
 		alert('성향을 선택해 주세요!');
 		f.wr_type1.focus();
@@ -314,7 +315,7 @@ function fwrite_submit(f)
 			return false;
 		}
 	}
-	<!--{/}-->
+	<?php } ?>
 
 	var subject = "";
 	var content = "";
@@ -363,7 +364,7 @@ function fwrite_submit(f)
 		}
 	}
 
-	<!--{_captcha_js}--> // 캡챠 사용시 자바스크립트에서 입력된 캡챠를 검사함
+	<?php echo $captcha_js ?> // 캡챠 사용시 자바스크립트에서 입력된 캡챠를 검사함
 
 	document.getElementById("btn_submit").disabled = "disabled";
 

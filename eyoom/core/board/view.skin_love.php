@@ -146,7 +146,7 @@
 
 	include_once(G5_BBS_PATH.'/view_comment.php');
 
-	$cmt_bs = '/skin_bs/board/'.$eyoom_board['bo_skin'].'/view_comment.skin.php';
+	$cmt_bs = EYOOM_THEME_PATH.'/'.$theme.'/skin_bs/board/'.$eyoom_board['bo_skin'].'/view_comment.skin.php';
 
 	include_once(EYOOM_THEME_PATH.'/'.$theme.'/skin_bs/board/'.$eyoom_board['bo_skin'].'/view.skin.php');
 ?>

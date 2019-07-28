@@ -1,104 +1,105 @@
 <?php if (!defined('_GNUBOARD_')) exit;
-add_stylesheet('<link rel="stylesheet" href="../../../plugins/venobox/venobox.css" type="text/css" media="screen">',0);
+add_stylesheet('<link rel="stylesheet" href="/eyoom/theme/basic2/plugins/venobox/venobox.css" type="text/css" media="screen">', 0);
+$comments = empty($comment) || !is_array($comment) ? 0 : count($comment);
+include_once(EYOOM_FUNCTION_PATH.'/eb_lbnameview.php');
 ?>
-
 <script>
 // 글자수 제한
-var char_min = parseInt({_comment_min}); // 최소
-var char_max = parseInt({_comment_max}); // 최대
+var char_min = parseInt(<?php echo $comment_min ?>); // 최소
+var char_max = parseInt(<?php echo $comment_max ?>); // 최대
 </script>
-<script type="text/javascript" src="../../../plugins/venobox/venobox.min.js"></script>
+<script type="text/javascript" src="/eyoom/theme/basic2/plugins/venobox/venobox.min.js"></script>
 
 <div class="comment-area">
 	<!--{* 댓글 시작 *}-->
-	<!--{@ cmt_list}-->
+	<?php if ($comments) { $i = - 1; foreach ($comment as $item) { ;$i++; ?>
 	<div class="view-comment">
-		<div id="c_{.comment_id}" class="view-comment-item{? .is_lb_admin} admin{/}{? .is_cmt_best} cmt-best{/}">
+		<div id="c_<?php echo $item["comment_id"] ?>" class="view-comment-item<?php if ($item["is_lb_admin"]) { ?> admin<?php } ?><?php if ($item["is_cmt_best"]) { ?> cmt-best<?php } ?>">
 			<div class="comment-item-body-pn">
 				<div style="padding:10px 12px 6px">
-				<div class="comment-item-info lbdes" style="{? .cmt_depth && !.is_cmt_best}padding-left:{.cmt_depth}px;{/}">
-					<span class="comment-name{? .cmt_depth && !.is_cmt_best} lbdepth{/}"><!--{?.is_origin}--><b>{=eb_lbnameview('basic', .comment_id, .lb_id, .wr_name)}</b><!--{:}-->{=eb_lbnameview('basic', .comment_id, .lb_id, .wr_name)}<!--{/}--><!--{?.is_mine}--><b class="color-red">*</b><!--{/}--></span>
+				<div class="comment-item-info lbdes" style="<?php if ($item["cmt_depth"] && !$item["is_cmt_best"]) { ?>padding-left:<?php echo $item["cmt_depth"] ?>px;<?php } ?>">
+					<span class="comment-name<?php if ($item["cmt_depth"] && !$item["is_cmt_best"]) { ?> lbdepth<?php } ?>"><?php if ($item["is_origin"]) { ?><b><?php echo eb_lbnameview('basic', $item["comment_id"], $item["lb_id"], $item["wr_name"]) ?></b><?php } else { ?><?php echo eb_lbnameview('basic', $item["comment_id"], $item["lb_id"], $item["wr_name"]) ?><?php } ?><?php if ($item["is_mine"]) { ?><b class="color-red">*</b><?php } ?></span> <?php if ($item["is_cmt_best"]) { ?><span class="badge badge-purple">BEST <?php echo $i + 1 ?></span><?php } ?>
 					<span class="lbctime lbdes">
-					<!--{? eyoom_board.bo_sel_date_type == '1'}-->
-					<i class="fa fa-clock-o color-grey"></i>{eb->date_time('y-m-d H:i',.datetime)}
-					<!--{: eyoom_board.bo_sel_date_type == '2'}-->
-					<i class="fa fa-clock-o color-grey"></i>{eb->date_format('m.d H:i',.datetime)}</span>
-					<!--{/}-->
+					<?php if ($eyoom_board["bo_sel_date_type"] == '1') { ?>
+					<i class="fa fa-clock-o color-grey"></i><?php echo $eb->date_time('y-m-d H:i', $item["datetime"]) ?>
+					<?php } elseif ($eyoom_board["bo_sel_date_type"] == '2') { ?>
+					<i class="fa fa-clock-o color-grey"></i><?php echo $eb->date_format('m.d H:i', $item["datetime"]) ?></span>
+					<?php } ?>
 					<span class="comment-time">
 						<ul class="lbcbtn">
-						<!--{? .is_edit}--><li><a href="{.c_edit_href}" onclick="comment_box('{.comment_id}', 'cu'); return false;"><i class="fa fa-pencil"></i></a></li><!--{/}-->
-						<!--{? .is_del}--><li><a href="{.del_link}" onclick="return comment_delete();"><i class="fa fa-trash-o"></i></a></li><!--{/}-->
-						<!--{? .is_reply}--><li><a href="{.c_reply_href}" onclick="comment_box('{.comment_id}', 'c'); return false;"><i class="fa fa-comment-o"></i>댓글</a></li><!--{/}-->
+						<?php if ($item["is_edit"]) { ?><li><a href="<?php echo $item["c_edit_href"] ?>" onclick="comment_box('<?php echo $item["comment_id"] ?>', 'cu'); return false;"><i class="fa fa-pencil"></i></a></li><?php } ?>
+						<?php if ($item["is_del"]) { ?><li><a href="<?php echo $item["del_link"] ?>" onclick="return comment_delete();"><i class="fa fa-trash-o"></i></a></li><?php } ?>
+						<?php if ($item["is_reply"]) { ?><li><a href="<?php echo $item["c_reply_href"] ?>" onclick="comment_box('<?php echo $item["comment_id"] ?>', 'c'); return false;"><i class="fa fa-comment-o"></i>댓글</a></li><?php } ?>
 						</ul>
 					</span>
 				</div>
 
-				<div class="comment-item-contents" style="{? .cmt_depth && !.is_cmt_best}padding-left:{.cmt_depth}px;{/}">
-				<!--{? _is_ip_view && _is_admin}-->
-					<div class="comment-item-info lbdes"><span class="comment-ip">({.lb_id} / {.lb_nickname} / {.ip})</span></div>
-				<!--{/}-->
+				<div class="comment-item-contents" style="<?php if ($item["cmt_depth"] && !$item["is_cmt_best"]) { ?>padding-left:<?php echo $item["cmt_depth"] ?>px;<?php } ?>">
+				<?php if ($is_ip_view && $is_admin) { ?>
+					<div class="comment-item-info lbdes"><span class="comment-ip">(<?php echo $item["lb_id"] ?> / <?php echo $item["lb_nickname"] ?> / <?php echo $item["ip"] ?>)</span></div>
+				<?php } ?>
 				<p>
-					<!--{? strstr(.wr_option, 'secret')}--><i class="fa fa-lock" style="color:#aaa;"></i> <!--{/}-->
-					{.comment}
+					<?php if (strstr($item["wr_option"], 'secret')) { ?><i class="fa fa-lock" style="color:#aaa;"></i> <?php } ?>
+					<?php echo $item["comment"] ?>
 				</p>
-				<!--{? !.wr_is_secret}-->
-					<!--{? .wr_area != ''}-->
+				<?php if (!$item["wr_is_secret"]) { ?>
+					<?php if ($item["wr_area"] != '') { ?>
 					<div class="lbcinfo">
-						<dl><dt>지역</dt><dd>{.wr_area}</dd><dt>성향</dt><dd>{.wr_type}</dd><dt>나이</dt><dd>{.wr_age}</dd></dl>
-						<!--{? .wr_send_moreinfo == '1'}-->
-							<dl><!--{? .wr_job != ''}--><dt>직업</dt><dd>{.wr_job}</dd><!--{/}--><!--{? .wr_figure1 != ''}--><dt>키</dt><dd>{.wr_figure1}</dd><!--{/}--><!--{? .wr_figure2 != ''}--><dt>체형</dt><dd>{.wr_figure2}</dd><!--{/}--><!--{? .wr_etc != ''}--><dt>흡연유무</dt><dd>{.wr_etc}</dd><!--{/}--><!--{? .wr_interest != ''}--><dt>관심사</dt><dd>{.wr_interest}</dd><!--{/}--></dl>
-						<!--{/}-->
+						<dl><dt>지역</dt><dd><?php echo $item["wr_area"] ?></dd><dt>성향</dt><dd><?php echo $item["wr_type"] ?></dd><dt>나이</dt><dd><?php echo $item["wr_age"] ?></dd></dl>
+						<?php if ($item["wr_send_moreinfo"] == '1') { ?>
+							<dl><?php if ($item["wr_job"] != '') { ?><dt>직업</dt><dd><?php echo $item["wr_job"] ?></dd><?php } ?><?php if ($item["wr_figure1"] != '') { ?><dt>키</dt><dd><?php echo $item["wr_figure1"] ?></dd><?php } ?><?php if ($item["wr_figure2"] != '') { ?><dt>체형</dt><dd><?php echo $item["wr_figure2"] ?></dd><?php } ?><?php if ($item["wr_etc"] != '') { ?><dt>흡연유무</dt><dd><?php echo $item["wr_etc"] ?></dd><?php } ?><?php if ($item["wr_interest"] != '') { ?><dt>관심사</dt><dd><?php echo $item["wr_interest"] ?></dd><?php } ?></dl>
+						<?php } ?>
 					</div>
-					<!--{/}-->
-				<!--{/}-->
+					<?php } ?>
+				<?php } ?>
 				</div>
 
 				</div>
 				<div class="clearfix"></div>
 
-				<span id="edit_{.comment_id}"></span><!--{* 수정 *}-->
-				<span id="reply_{.comment_id}"></span><!--{* 답변 *}-->
+				<span id="edit_<?php echo $item["comment_id"] ?>"></span>
+				<span id="reply_<?php echo $item["comment_id"] ?>"></span>
 
-				<input type="hidden" value="{=strstr(.wr_option,'secret')}" id="secret_comment_{.comment_id}">
-				<input type="hidden" value="{.anonymous_id}" id="anonymous_id_{.comment_id}">
-				<input type="hidden" value="{.imgname}" id="imgname_{.comment_id}">
-				<textarea id="save_comment_{.comment_id}" style="display:none">{.content1}</textarea>
+				<input type="hidden" value="<?php echo strstr($item["wr_option"], 'secret') ?>" id="secret_comment_<?php echo $item["comment_id"] ?>">
+				<input type="hidden" value="<?php echo $item["anonymous_id"] ?>" id="anonymous_id_<?php echo $item["comment_id"] ?>">
+				<input type="hidden" value="<?php echo $item["imgname"] ?>" id="imgname_<?php echo $item["comment_id"] ?>">
+				<textarea id="save_comment_<?php echo $item["comment_id"] ?>" style="display:none"><?php echo $item["content1"] ?></textarea>
 				<div class="clearfix"></div>
 			</div>
 		</div>
 	</div>
-		<!--{/}-->
-	<!--{? eyoom_board.bo_use_cmt_infinite == '1'}-->
+		<?php } } ?>
+	<?php if ($eyoom_board["bo_use_cmt_infinite"] == '1') { ?>
 	<div id="infinite_pagination">
-	    <a class="next" href="{C.G5_BBS_URL}/board.php?bo_table={_bo_table}&wr_id={_wr_id}&sca={_sca}&cpage={cpage+1}"></a>
+		<a class="next" href="<?php echo G5_BBS_URL ?>/board.php?bo_table=<?php echo $bo_table ?>&wr_id=<?php echo $wr_id ?>&sca=<?php echo $sca ?>&cpage=<?php echo $cpage + 1 ?>"></a>
 	</div>
-	<!--{? count(cmt_list) > 0 }-->
+	<?php if (count($comment) > 0) { ?>
 	<div class="view-comment-more">
 		<a id="view-comment-more" href="#" class="btn-e btn-e-red btn-e-lg">댓글 더보기</a>
 	</div>
-	<!--{/}-->
-	<!--{/}-->
+	<?php } ?>
+	<?php } ?>
 	<!--{* 댓글 끝 *}-->
 
 
 
 	<!--{* 댓글 쓰기 시작 *}-->
-	<!--{? _is_comment_write}-->
+	<?php if ($is_comment_write) { ?>
 	<div id="view-comment-write">
 		<form name="fviewcomment" action="./write_comment_update_love.php" onsubmit="return fviewcomment_submit(this);" method="post" autocomplete="off" class="eyoom-form view-comment-write-box" enctype="multipart/form-data">
-			<input type="hidden" name="w" value="{? !_w}c{:}{_w}{/}" id="w">
-			<input type="hidden" name="bo_table" value="{_bo_table}">
-			<input type="hidden" name="wr_id" value="{_wr_id}">
-			<input type="hidden" name="comment_id" value="{_c_id}" id="comment_id">
-			<input type="hidden" name="sca" value="{_sca}">
-			<input type="hidden" name="sfl" value="{_sfl}">
-			<input type="hidden" name="stx" value="{_stx}">
-			<input type="hidden" name="spt" value="{_spt}">
-			<input type="hidden" name="page" value="{_page}">
-			<input type="hidden" name="board_skin_path" value="{C.EYOOM_CORE_PATH}/board">
-			<input type="hidden" name="wr_1" value="{_wr_1}">
-			<input type="hidden" name="cmt_amt" value="{_cmt_amt}">
-			<input type="hidden" name="wmode" value="{_wmode}">
+			<input type="hidden" name="w" value="<?php if (!$w) { ?>c<?php } else { ?><?php echo $w ?><?php } ?>" id="w">
+			<input type="hidden" name="bo_table" value="<?php echo $bo_table ?>">
+			<input type="hidden" name="wr_id" value="<?php echo $wr_id ?>">
+			<input type="hidden" name="comment_id" value="<?php echo $c_id ?>" id="comment_id">
+			<input type="hidden" name="sca" value="<?php echo $sca ?>">
+			<input type="hidden" name="sfl" value="<?php echo $sfl ?>">
+			<input type="hidden" name="stx" value="<?php echo $stx ?>">
+			<input type="hidden" name="spt" value="<?php echo $spt ?>">
+			<input type="hidden" name="page" value="<?php echo $page ?>">
+			<input type="hidden" name="board_skin_path" value="<?php echo EYOOM_CORE_PATH ?>/board">
+			<input type="hidden" name="wr_1" value="<?php echo $wr_1 ?>">
+			<input type="hidden" name="cmt_amt" value="<?php echo $cmt_amt ?>">
+			<input type="hidden" name="wmode" value="<?php echo $wmode ?>">
 			<input type="hidden" name="wr_recv_moreinfo" value="0">
 
 <!-- 댓글 쓰기 영역 -->
@@ -112,11 +113,11 @@ var char_max = parseInt({_comment_max}); // 최대
 								<dt>지역</dt>
 								<dd>
 									<label class="select">
-										<select name="wr_area" <!--{? !_is_admin}-->required <!--{/}-->class="form-control c-select">
+										<select name="wr_area" <?php if (!$is_admin) { ?>required <?php } ?>class="form-control c-select">
 											<option value="">지역을 선택하세요.</option>
 											<?php
 												$area = array('서울', '인천/경기', '대전/충청', '광주/전라', '대구/경북', '부산/경남', '강원/제주', '해외');
-												for($i=0;$i<count($area);$i++) {
+												for($i = 0; $i < count($area); $i++) {
 											?>
 											<option value="<?php echo $area[$i]; ?>"><?php echo $area[$i]; ?></option>
 											<?php } ?>
@@ -127,11 +128,11 @@ var char_max = parseInt({_comment_max}); // 최대
 								<dt>성향</dt>
 								<dd>
 									<label class="select">
-									<select name="wr_type" <!--{? !_is_admin}-->required <!--{/}-->class="form-control c-select">
+									<select name="wr_type" <?php if (!$is_admin) { ?>required <?php } ?>class="form-control c-select">
 										<option value="">성향을 선택하세요.</option>
 										<?php
 											$type = array('팸', '부치', '전천', '무성향');
-											for($i=0;$i<count($type);$i++) {
+											for($i = 0; $i < count($type); $i++) {
 										?>
 										<option value="<?php echo $type[$i]; ?>"><?php echo $type[$i]; ?></option>
 										<?php } ?>
@@ -142,11 +143,11 @@ var char_max = parseInt({_comment_max}); // 최대
 								<dt>나이</dt>
 								<dd>
 									<label class="select">
-									<select name="wr_age" <!--{? !_is_admin}-->required <!--{/}-->class="form-control c-select">
+									<select name="wr_age" <?php if (!$is_admin) { ?>required <?php } ?>class="form-control c-select">
 										<option value="">나이를 선택하세요.</option>
 										<?php
 											$age = array('20~24', '25~29', '30~34', '35 이상');
-											for($i=0;$i<count($age);$i++) {
+											for($i = 0; $i < count($age); $i++) {
 										?>
 										<option value="<?php echo $age[$i]; ?>"><?php echo $age[$i]; ?></option>
 										<?php } ?>
@@ -160,34 +161,34 @@ var char_max = parseInt({_comment_max}); // 최대
 					<div class="col-sm-6 md-margin-bottom-20">
 						<fieldset class="lbbox">
 							<h3><i class="fa fa-plus-square"></i> <strong>추가정보 입력</strong></h3>
-							<!--{? view.is_moreinfo}-->
+							<?php if ($view["is_moreinfo"]) { ?>
 								<input type="hidden" id="wr_send_moreinfo" name="wr_send_moreinfo" value="1"><i></i>
-							<!--{:}-->
+							<?php } else { ?>
 							<div class="margin-bottom-15">
 								<label for="wr_send_moreinfo" class="col-sm-4 form-control-label">추가정보 입력하기</label><label class="ui-switch primary m-t-xs m-r">
 								<input type="checkbox" id="wr_send_moreinfo" name="wr_send_moreinfo" value="0"><i></i>
 							</div>
-							<!--{/}-->
+							<?php } ?>
 							<div class="alert alert-danger padding-all-10 margin-top-10 margin-bottom-15">
-							<!--{? view.is_moreinfo}-->
+							<?php if ($view["is_moreinfo"]) { ?>
 							<strong>Note:</strong> 추가정보 입력시 50포인트 적립 / 원글 니니가 상대 추가정보 받기를 켜두었어요. 댓글 니니는 무조건 추가정보를 입력해야 해요!
-							<!--{:}-->
+							<?php } else { ?>
 							<strong>Note:</strong> 추가정보 입력시 50포인트 적립
-							<!--{/}-->
+							<?php } ?>
 							</div>
-							<!--{? view.is_moreinfo}-->
+							<?php if ($view["is_moreinfo"]) { ?>
 							<dl id="moreinfo">
-							<!--{:}-->
+							<?php } else { ?>
 							<dl id="moreinfo" style="display:none">
-							<!--{/}-->
+							<?php } ?>
 								<dt>직업</dt>
 								<dd>
 									<label class="select">
-									<select name="wr_job" <!--{? view.is_moreinfo}-->required <!--{/}-->class="form-control c-select">
+									<select name="wr_job" <?php if ($view["is_moreinfo"]) { ?>required <?php } ?>class="form-control c-select">
 										<option value="">직업을 선택하세요.</option>
 										<?php
 											$job = array('학생', '직장인(주5일)', '직장인(주6일)', '직장인(평일휴무)', '직장인(주말휴무)', '프리랜서', '무직');
-											for($i=0;$i<count($job);$i++) {
+											for($i = 0; $i < count($job); $i++) {
 										?>
 										<option value="<?php echo $job[$i]; ?>"><?php echo $job[$i]; ?></option>
 										<?php } ?>
@@ -202,7 +203,7 @@ var char_max = parseInt({_comment_max}); // 최대
 										<option value="0">키를 선택하세요.</option>
 										<?php
 											$figure1 = array('155cm 미만', '155~159cm', '160~164cm', '165~169cm', '170cm 이상');
-											for($i=0;$i<count($figure1);$i++) {
+											for($i = 0; $i < count($figure1); $i++) {
 										?>
 										<option value="<?php echo $figure1[$i]; ?>"><?php echo $figure1[$i]; ?></option>
 										<?php } ?>
@@ -217,7 +218,7 @@ var char_max = parseInt({_comment_max}); // 최대
 										<option value="0">체형을 선택하세요.</option>
 										<?php
 											$figure2 = array('마름', '보통', '통통', '통통 이상');
-											for($i=0;$i<count($figure2);$i++) {
+											for($i = 0; $i < count($figure2); $i++) {
 										?>
 										<option value="<?php echo $figure2[$i]; ?>"><?php echo $figure2[$i]; ?></option>
 										<?php } ?>
@@ -233,11 +234,11 @@ var char_max = parseInt({_comment_max}); // 최대
 								<dt>관심사</dt>
 								<dd>
 									<?php
-										$wr_interest_array = {_wr_interest};
+										$wr_interest_array = $wr_interest;
 										$interest = array("독서/글쓰기","음악","영화/드라마","게임","운동","덕질","사진/영상","예술","정치/사회","반려동물");
-										for($i=0;$i<count($interest);$i++) {
+										for($i = 0; $i < count($interest); $i++) {
 									?>
-																<label for="wr_interest<?php echo $i; ?>" class="checkbox pull-left"><input type="checkbox" id="wr_interest<?php echo $i; ?>" name="wr_interest[]" value="<?php echo $interest[$i]; ?>"><i></i><?php echo $interest[$i]; ?></label>
+										<label for="wr_interest<?php echo $i; ?>" class="checkbox pull-left"><input type="checkbox" id="wr_interest<?php echo $i; ?>" name="wr_interest[]" value="<?php echo $interest[$i]; ?>"><i></i><?php echo $interest[$i]; ?></label>
 									<?php } ?>
 								</dd>
 							</dl>
@@ -247,18 +248,18 @@ var char_max = parseInt({_comment_max}); // 최대
 
 				<div class="clearfix">
 					<section class="col lbwoption">
-						<!--{? _is_anonymous}-->
+						<?php if ($is_anonymous) { ?>
 						<label class="checkbox pull-left"><input type="checkbox" name="anonymous" value="y" id="anonymous" checked><i></i>익명글</label>
-						<!--{/}-->
+						<?php } ?>
 						<label class="checkbox pull-left" style="margin-left:15px;"><input type="checkbox" name="wr_secret" value="secret" id="wr_secret" checked readonly><i></i>비밀글</label>
 						<div class="clearfix"></div>
 					</section>
 
 					<section class="clearfix">
 						<label class="textarea textarea-resizable">
-							<!--{? _comment_min || _comment_max}--><strong id="char_cnt"><span id="char_count"></span>글자</strong><!--{/}-->
-							<textarea rows="7" id="wr_content" name="wr_content" maxlength="10000" required title="내용" {? _comment_min || _comment_max}onkeyup="check_byte('wr_content', 'char_count');"{/}>{_c_wr_content}</textarea>
-							<!--{? _comment_min || _comment_max}--><script> check_byte('wr_content', 'char_count'); </script><!--{/}-->
+							<?php if ($comment_min || $comment_max) { ?><strong id="char_cnt"><span id="char_count"></span>글자</strong><?php } ?>
+							<textarea rows="7" id="wr_content" name="wr_content" maxlength="10000" required title="내용" <?php if ($comment_min || $comment_max) { ?>onkeyup="check_byte('wr_content', 'char_count');"<?php } ?>><?php echo $c_wr_content ?></textarea>
+							<?php if ($comment_min || $comment_max) { ?><script> check_byte('wr_content', 'char_count'); </script><?php } ?>
 							<script>
 							$("textarea#wr_content[maxlength]").live("keyup change", function() {
 								var str = $(this).val()
@@ -272,12 +273,12 @@ var char_max = parseInt({_comment_max}); // 최대
 						</label>
 					</section>
 
-					<!--{? !_is_member}-->
+					<?php if (!$is_member) { ?>
 					<section>
 						<label class="label">자동등록방지</label>
-						<div class="vc-captcha">{_captcha_html}</div>
+						<div class="vc-captcha"><?php echo $captcha_html ?></div>
 					</section>
-					<!--{/}-->
+					<?php } ?>
 					<div class="comment-write-submit">
 						<button type="submit" id="btn_submit" class="btn-e btn-e-lg btn-e-yellow" value="댓글등록"><i class="fa fa-paper-plane" aria-hidden="true"></i> 입력</button>
 					</div>
@@ -286,14 +287,14 @@ var char_max = parseInt({_comment_max}); // 최대
 			</div> <!--{* comment-write-wrap END *}-->
 		</form>
 	</div>
-	<!--{/}-->
+	<?php } ?>
 	<!--{* 댓글 쓰기 끝 *}-->
 </div><!--{* End comment-area *}-->
 
-<!--{? eyoom_board.bo_use_cmt_infinite == '1'}-->
-<script type="text/javascript" src="../../../plugins/masonry/jquery.masonry.min.js"></script>
-<script type="text/javascript" src="../../../plugins/infinite-scroll/jquery.infinitescroll.min.js"></script>
-<!--{/}-->
+<?php if ($eyoom_board["bo_use_cmt_infinite"] == '1') { ?>
+<script type="text/javascript" src="/eyoom/theme/basic2/plugins/masonry/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="/eyoom/theme/basic2/plugins/infinite-scroll/jquery.infinitescroll.min.js"></script>
+<?php } ?>
 
 <script>
 var save_before = '';
@@ -302,15 +303,15 @@ var save_html = document.getElementById('view-comment-write').innerHTML;
 function fviewcomment_submit(f) {
 	var pattern = /(^\s*)|(\s*$)/g; // \s 공백 문자
 
-	<!--{? _is_anonymous}-->
-	var wr_1 = '{_wr_1}';
+	<?php if ($is_anonymous) { ?>
+	var wr_1 = '<?php echo $wr_1 ?>';
 	if($("#anonymous").is(':checked')) {
 		wr_1 = wr_1+'|y';
 		f.wr_1.value=wr_1;
 	}
-	<!--{/}-->
+	<?php } ?>
 
-	<!--{? !_is_admin}-->
+	<?php if (!$is_admin) { ?>
 	if($('#write_info').length) {
 		if($('input:checkbox[name="wr_send_moreinfo"]').is(':checked') == true || $('input[name="wr_send_moreinfo"]').val() == 1) {
 			if($('select[name="wr_job"] option:selected').val() == '' ) {
@@ -340,7 +341,7 @@ function fviewcomment_submit(f) {
 			}
 		}
 	}
-	<!--{/}-->
+	<?php } ?>
 
 	var subject = "";
 	var content = "";
@@ -461,12 +462,12 @@ function comment_box(comment_id, work)
 				document.getElementById('wr_secret').checked = true;
 			else
 				document.getElementById('wr_secret').checked = false;
-			<!--{? _is_anonymous}-->
+			<?php if ($is_anonymous) { ?>
 			if (document.getElementById('anonymous_id_'+comment_id).value)
 				document.getElementById('anonymous').checked = true;
 			else
 				document.getElementById('anonymous').checked = false;
-			<!--{/}-->
+			<?php } ?>
 		}
 
 		document.getElementById('comment_id').value = comment_id;
@@ -488,10 +489,10 @@ comment_box('', 'c'); // 댓글 입력폼이 보이도록 처리하기위해서 
 
 </script>
 
-<!--{? eyoom_board.bo_use_cmt_infinite == '1'}-->
+<?php if ($eyoom_board["bo_use_cmt_infinite"] == '1') { ?>
 <script>
 $(document).ready(function(){
-    var $container = $('.view-comment');
+	var $container = $('.view-comment');
 
 	$container.infinitescroll({
 		navSelector  : "#infinite_pagination",
@@ -520,4 +521,4 @@ $(document).ready(function(){
 	});
 });
 </script>
-<!--{/}-->
+<?php } ?>
