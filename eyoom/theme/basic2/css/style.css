@@ -1,7 +1,7 @@
 /*--------------------------------------
 	eyoom (이윰빌더)
 --------------------------------------*/
-body {color:rgba(0,0,0,.87);min-width:330px;}
+body {color:rgba(0,0,0,.87);min-width:330px;background-color:#f0f0f0}
 .wrapper {padding-top:75px;}
 /*---------- Wrapper & Basic Layout & Boxed Layout ----------*/
 .wrapper {background:#eaeaea}
