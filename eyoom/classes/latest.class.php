@@ -36,18 +36,17 @@ class latest extends eyoom
 	}
 
 	// 이윰 최신글 추출
-	public function latest_eyoom($skin, $option, $print=true) {
-		$where = 1;
+	public function latest_eyoom($skin, $option) {
 		$opt = $this->get_option($option);
-		$where .= $opt['where'];
-		$where .= " and wr_id = wr_parent";
-		$orderby = $opt['best']=='y'? " wr_hit desc ":"";
-		$list = $this->latest_assign($where, $opt['count'], $opt['cut_subject'], $opt['cut_content'], $orderby, $opt['bo_direct']);
-		if($print === null) $print = true;
-		if($print) {
+		if(!$opt['cache_time']) {
+			$where = 1;
+			$where .= $opt['where'];
+			$where .= " and wr_id = wr_parent";
+			$orderby = $opt['best']=='y'? " wr_hit desc ":"";
+			$list = $this->latest_assign($where, $opt['count'], $opt['cut_subject'], $opt['cut_content'], $orderby, $opt['bo_direct']);
 			$this->latest_print($skin, $list,'single','latest');
 		} else {
-			return $list;
+			$this->latest_print_cache($skin, 'single', 'latest', $opt);
 		}
 	}
 
@@ -463,7 +462,11 @@ class latest extends eyoom
 
 		$cache_fwrite = false;
 		if(G5_USE_CACHE) {
-			$cache_file = G5_DATA_PATH."/cache/latest-{$bo_table}-userad.php";
+			if ($skin == 'basic_lb_ad') {
+				$cache_file = G5_DATA_PATH."/cache/latest-{$bo_table}-userad.php";
+			} else {
+				$cache_file = G5_DATA_PATH."/cache/latest-{$bo_table}-main.php";
+			}
 	
 			if(!file_exists($cache_file)) {
 				$cache_fwrite = true;
@@ -484,10 +487,14 @@ class latest extends eyoom
 		if(!G5_USE_CACHE || $cache_fwrite) {
 			$where = 1;
 			$where .= $opt['where'];
-			$where .= " and wr_id = wr_parent and wr_2 != ''";
-			$orderby = $opt['best']=='y'? " wr_2 desc ":"";
+			if ($skin == 'basic_lb_ad') {
+				$where .= " and wr_id = wr_parent and wr_2 != ''";
+				$orderby = $opt['best']=='y'? " wr_2 desc ":"";
+			} else {
+				$where .= " and wr_id = wr_parent";
+				$orderby = $opt['best']=='y'? " wr_hit desc ":"";
+			}
 			$loop = $this->latest_assign($where, $opt['count'], $opt['cut_subject'], $opt['cut_content'], $orderby, $opt['bo_direct']);
-	
 			if($cache_fwrite) {
 				$handle = fopen($cache_file, 'w');
 				$cache_content = "<?php\nif (!defined('_GNUBOARD_')) exit;\n\$bo_subject='".$bo_subject."';\n\$loop=".var_export($loop, true)."?>";

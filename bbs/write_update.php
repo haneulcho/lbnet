@@ -691,8 +691,8 @@ if (!($w == 'u' || $w == 'cu') && $config['cf_email_use'] && $board['bo_use_emai
 @include_once($board_skin_path.'/write_update.skin.php');
 @include_once($board_skin_path.'/write_update.tail.skin.php');
 
-// 전광판에 새글 등록 시에만 캐시 삭제하도록 설정
-if ($w == '' && $wr_2 == '1') {
+// 수다방이 아닌 게시판 또는 전광판에 새글 등록 시에만 캐시 삭제하도록 설정
+if (($w == '' && $bo_table != 'free2') || ($w == '' && $bo_table == 'free2' && $wr_2 == '1')) {
     delete_cache_latest($bo_table);
 }
 

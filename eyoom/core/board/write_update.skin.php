@@ -87,7 +87,7 @@
 	
 	$inset = $eb->make_sql_set($insert_set);
 	
-	$insert_new = "insert into {$g5['eyoom_new']} set {$cmset},{$inset}";
+	// $insert_new = "insert into {$g5['eyoom_new']} set {$cmset},{$inset}";
 	unset($insert_set, $inset);
 	
 	// 이윰 New update set
@@ -97,12 +97,12 @@
 	
 	$upset = $eb->make_sql_set($update_set);;
 	
-	$update_new = "update {$g5['eyoom_new']} set {$cmset},{$upset} where {$where}";
+	// $update_new = "update {$g5['eyoom_new']} set {$cmset},{$upset} where {$where}";
 	unset($update_set, $upset);
 
 	// Eyoom 새글
 	if ($w == '' || $w == 'r') {
-		$new_query = $insert_new;
+		// $new_query = $insert_new;
 		
 		// 나의활동 
 		switch($w) {
@@ -119,11 +119,12 @@
 
 	} else if($w == 'u') {
 		// 새글 정보가 이미 있다면 업데이트
-		$new_post = sql_fetch("select * from {$g5['eyoom_new']} where $where");
-		$new_query = $new_post['bn_id'] ? $update_new : $insert_new;
+		// $new_post = sql_fetch("select * from {$g5['eyoom_new']} where $where");
+		// $new_query = $new_post['bn_id'] ? $update_new : $insert_new;
 	}
 	// if(isset($new_query)) sql_query($new_query, false);
-	unset($cmset, $new_query, $insert_new, $update_new);
+	// unset($cmset, $new_query, $insert_new, $update_new);
+	unset($cmset);
 	
 	// $up_set 대상이 있다면 
 	// if(count($up_set) > 0 && is_array($up_set) ) {

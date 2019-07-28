@@ -15,7 +15,7 @@
 		<div class="margin-bottom-20">
 			<div class="lbbox">
 			<!--{* 전광판 등록 게시글 *}-->
-				<?php echo $latest->latest_userad('basic_lb_ad','title=전광판||bo_table=free2||period=30||count=15||cut_subject=38||img_view=y||bo_direct=y') ?>
+				<?php echo $latest->latest_userad('basic_lb_ad','title=전광판||bo_table=free2||period=30||count=15||cut_subject=38||img_view=y||bo_direct=y||cache_time=6') ?>
 			</div>
 		</div>
 		<div class="row margin-bottom-20">
@@ -28,7 +28,7 @@
 			<div class="col-sm-6 md-margin-bottom-20 md-padding-left-0">
 			<div class="lbbox">
 			<!--{* 아래 title=게시판명, bo_table=게시판id 설정 *}-->
-				<?php echo $latest->latest_eyoom('basic_lb','title=동네번개방||bo_table=meet||period=14||count=5||cut_subject=20||bo_direct=y') ?>
+				<?php echo $latest->latest_eyoom('basic_lb','title=동네번개방||bo_table=meet||period=14||count=5||cut_subject=20||bo_direct=y||cache_time=48') ?>
 			</div>
 			</div>
 		</div>
@@ -36,13 +36,13 @@
 			<div class="col-sm-6 md-margin-bottom-20">
 			<div class="lbbox">
 			<!--{* 아래 title=게시판명, bo_table=게시판id 설정 *}-->
-				<?php echo $latest->latest_eyoom('basic_lb','title=고민방||bo_table=mind||period=14||count=5||cut_subject=20||bo_direct=y') ?>
+				<?php echo $latest->latest_eyoom('basic_lb','title=고민방||bo_table=mind||period=14||count=5||cut_subject=20||bo_direct=y||cache_time=48') ?>
 			</div>
 			</div>
 			<div class="col-sm-6 md-margin-bottom-20 md-padding-left-0">
 			<div class="lbbox">
 			<!--{* 아래 title=게시판명, bo_table=게시판id 설정 *}-->
-				<?php echo $latest->latest_eyoom('basic_lb','title=페미방||bo_table=feminist||period=14||count=5||cut_subject=20||bo_direct=y') ?>
+				<?php echo $latest->latest_eyoom('basic_lb','title=페미방||bo_table=feminist||period=14||count=5||cut_subject=20||bo_direct=y||cache_time=48') ?>
 			</div>
 			</div>
 		</div>
@@ -50,13 +50,13 @@
 			<div class="col-sm-6 md-margin-bottom-20">
 			<div class="lbbox">
 			<!--{* 아래 title=게시판명, bo_table=게시판id 설정 *}-->
-				<?php echo $latest->latest_eyoom('basic_lb','title=친구/모임/SNS방||bo_table=friends||period=14||count=5||cut_subject=20||bo_direct=y') ?>
+				<?php echo $latest->latest_eyoom('basic_lb','title=친구/모임/SNS방||bo_table=friends||period=14||count=5||cut_subject=20||bo_direct=y||cache_time=48') ?>
 			</div>
 			</div>
 			<div class="col-sm-6 md-margin-bottom-20 md-padding-left-0">
 			<div class="lbbox">
 			<!--{* 아래 title=게시판명, bo_table=게시판id 설정 *}-->
-				<?php echo $latest->latest_eyoom('basic_lb','title=인기글||bo_table=best||period=31||count=5||cut_subject=20||bo_direct=y') ?>
+				<?php echo $latest->latest_eyoom('basic_lb','title=인기글||bo_table=best||period=31||count=5||cut_subject=20||bo_direct=y||cache_time=48') ?>
 			</div>
 			</div>
 		</div>
@@ -66,7 +66,7 @@
 		<div>
 			<div class="lbbox">
 			<!--{* 아래 title=게시판명, bo_table=게시판id 설정 *}-->
-			<?php echo $latest->latest_eyoom('webzine','title=정보방||bo_table=etc||period=14||count=4||cut_subject=50||img_view=y||img_width=300||content=y||cut_content=25||secret=n||bo_direct=y') ?>
+			<?php echo $latest->latest_eyoom('webzine','title=정보방||bo_table=etc||period=14||count=4||cut_subject=50||img_view=y||img_width=300||content=y||cut_content=25||secret=n||bo_direct=y||cache_time=48') ?>
 			</div>
 		</div>
 		<!--{* ------------- Webzine 최신글 영역 끝 ------------- *}-->
