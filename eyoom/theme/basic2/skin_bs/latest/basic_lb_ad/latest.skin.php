@@ -16,7 +16,7 @@
 		<div class="ad_item">
 		<?php } ?>
 			<div class="item">
-				<a class="lblink" href="{.href}">
+				<a class="lblink" href="<?php echo $item["href"] ?>">
 					<div class="lbtitle txtonly">
 						<?php if ($item["image"]) { ?><i class="fa fa-picture-o color-red"></i> <?php } ?><?php echo $item["wr_subject"] ?><?php if ($item["wr_comment"]) { ?><span class="lbcomment"><i class="fa fa-comment-o"></i><?php echo number_format($item["wr_comment"]) ?></span><?php } ?><?php if ($item["wr_good"]) { ?><span class="lbup"><i class="fa fa-thumbs-up"></i><?php echo number_format($item["wr_good"]) ?></span><?php } ?>
 					</div>
