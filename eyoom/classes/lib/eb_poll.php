@@ -45,7 +45,7 @@ function eb_poll($skin_dir='basic', $po_id=false) {
 	
 			if($cache_fwrite) {
 				$handle = fopen($cache_file, 'w');
-				$cache_content = "<?php\nif (!defined('_GNUBOARD_')) exit;\n\$po_subject='".$po_subject."';\n\$poll=".var_export($poll, true)."?>";
+				$cache_content = "<?php\nif (!defined('_GNUBOARD_')) exit;\n\$po_subject='".$po_subject."';\n\$po_id='".$po_id."';\n\$poll=".var_export($poll, true)."?>";
 				fwrite($handle, $cache_content);
 				fclose($handle);
 			}
