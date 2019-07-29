@@ -305,6 +305,14 @@ function fwrite_submit(f)
 		return false;
 	}
 
+	if ($('#userad').length && $('#userad').is(':checked')) {
+		var mb_point = parseInt(<?php echo $member['mb_point'] ?>, 10);
+		if (mb_point < 200) {
+			alert('보유 포인트가 모자라서 전광판 등록이 불가합니다.\n포인트 적립 후 다시 시도해 주세요.');
+			return false;
+		}
+	}
+
 	if (document.getElementById("char_count")) {
 		if (char_min > 0 || char_max > 0) {
 			var cnt = parseInt(check_byte("wr_content", "char_count"));
