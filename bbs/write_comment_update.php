@@ -329,7 +329,10 @@ else if ($w == 'cu') // 댓글 수정
 @include_once($board_skin_path.'/write_comment_update.skin.php');
 @include_once($board_skin_path.'/write_comment_update.tail.skin.php');
 
-delete_cache_latest($bo_table);
+// 수다방이 아닌 게시판에 새댓글 등록 시에만 캐시 삭제하도록 설정
+if ($w == 'c' && $bo_table != 'free2') {
+    delete_cache_latest($bo_table);
+}
 
 goto_url('./board.php?bo_table='.$bo_table.'&amp;wr_id='.$wr['wr_parent'].'&amp;'.$qstr.'&amp;#c_'.$comment_id);
 ?>

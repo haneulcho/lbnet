@@ -82,7 +82,10 @@ sql_query(" delete from {$g5['board_new_table']} where bo_table = '{$bo_table}' 
 @include_once($board_skin_path.'/delete_comment.skin.php');
 @include_once($board_skin_path.'/delete_comment.tail.skin.php');
 
-delete_cache_latest($bo_table);
+// 수다방이 아닌 게시판 댓글 삭제 시에만 캐시 삭제하도록 설정
+if ($bo_table != 'free2') {
+    delete_cache_latest($bo_table);
+}
 
 goto_url('./board.php?bo_table='.$bo_table.'&amp;wr_id='.$write['wr_parent'].'&amp;page='.$page. $qstr);
 ?>

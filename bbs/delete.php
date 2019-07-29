@@ -132,7 +132,10 @@ if ($count_write > 0 || $count_comment > 0)
 
 @include_once($board_skin_path.'/delete.tail.skin.php');
 
-delete_cache_latest($bo_table);
+// 수다방이 아닌 게시판 글 삭제 시에만 캐시 삭제하도록 설정
+if ($bo_table != 'free2') {
+    delete_cache_latest($bo_table);
+}
 
 goto_url('./board.php?bo_table='.$bo_table.'&amp;page='.$page.$qstr);
 ?>
