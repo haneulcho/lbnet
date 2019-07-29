@@ -61,6 +61,7 @@ $mb_7           = isset($_POST['mb_7'])             ? trim($_POST['mb_7'])      
 $mb_8           = isset($_POST['mb_8'])             ? trim($_POST['mb_8'])           : "";
 $mb_9           = isset($_POST['mb_9'])             ? trim($_POST['mb_9'])           : "";
 $mb_10          = isset($_POST['mb_10'])            ? trim($_POST['mb_10'])          : "";
+$nickname_change_point          = isset($_POST['nickname_change_point'])            ? $_POST['nickname_change_point']          : 0;
 
 $mb_name        = clean_xss_tags($mb_name);
 $mb_email       = get_email_address($mb_email);
@@ -299,6 +300,15 @@ if ($w == '') {
 
     if (trim($_POST['mb_id']) != $mb_id)
         alert("로그인된 정보와 수정하려는 정보가 틀리므로 수정할 수 없습니다.\\n만약 올바르지 않은 방법을 사용하신다면 바로 중지하여 주십시오.");
+
+    // 닉네임 변경 시 포인트 차감하기
+    if ($nickname_change_point && !$is_admin) {
+        if ($member['mb_point'] >= $nickname_change_point) {
+            insert_point($mb_id, $nickname_change_point * (-1), "회원 닉네임 변경", '@member', $member['mb_nick'], '닉네임변경');
+        } else {
+            alert('보유 포인트가 모자라서 닉네임 변경이 불가합니다.\\n포인트 적립 후 다시 시도해 주세요.');
+        }
+    }
 
     $sql_password = "";
     if ($mb_password)

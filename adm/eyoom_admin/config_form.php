@@ -588,6 +588,12 @@ $frm_submit = '
 			</td>
 		</tr>
 		<tr>
+            <th scope="row"><label for="nickname_change_point">닉네임 변경 포인트 </label></th>
+            <td>
+				<input type="text" name="nickname_change_point" value="<?php echo $_eyoom['nickname_change_point'];?>" id="nickname_change_point" style="width:80px;" class="frm_input"> <span class="exp">설정한 포인트만큼 닉네임 변경 시 보유 포인트를 차감합니다.</span>
+			</td>
+		</tr>
+		<tr>
             <th scope="row"><label for="photo_width">프로필 사진 사이즈 </label></th>
             <td>
 				가로 : <input type="text" name="photo_width" value="<?php echo $_eyoom['photo_width'];?>" id="photo_width" class="frm_input" style="width:80px;">px, 세로 : <input type="text" name="photo_height" value="<?php echo $_eyoom['photo_height'];?>" id="photo_height" class="frm_input" style="width:80px;">px  <span class="exp">자동으로 이미지 사이즈를 지정한 사이즈로 썸네일화 합니다.</span>

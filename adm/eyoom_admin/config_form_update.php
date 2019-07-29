@@ -64,6 +64,8 @@ switch($mode) {
 				$val = !$_POST[$key] ? 'y':$_POST[$key];
 			} else if($key == 'push_time') {
 				$val = !$_POST[$key] ? '1000':$_POST[$key];
+			} else if($key == 'nickname_change_point') {
+				$val = !$_POST[$key] ? '0':$_POST[$key];
 			} else if($key == 'photo_width') {
 				$val = !$_POST[$key] ? '150':$_POST[$key];
 			} else if($key == 'photo_height') {

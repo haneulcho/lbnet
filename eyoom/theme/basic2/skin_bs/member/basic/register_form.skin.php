@@ -126,22 +126,25 @@
   						<label class="input">
 							<input type="hidden" name="mb_nick_default" value="<?php if (isset($member["mb_nick"])) { ?><?php echo $member["mb_nick"] ?><?php } ?>">
   							<i class="icon-prepend fa fa-smile-o"></i>
-				<?php if ($req_nick) { ?>
+				<?php if ($w == '' || ($req_nick && $member['mb_point'] >= $eyoom['nickname_change_point'])) { ?>
 							<input type="text" name="mb_nick" value="<?php if (isset($member["mb_nick"])) { ?><?php echo $member["mb_nick"] ?><?php } ?>" id="reg_mb_nick" required size="10" maxlength="20">
+							<input type="hidden" name="nickname_change_point" value="<?php echo $eyoom['nickname_change_point'] ?>">
 				<?php } else { ?>
 							<input type="text" name="mb_nick" value="<?php if (isset($member["mb_nick"])) { ?><?php echo $member["mb_nick"] ?><?php } ?>" id="reg_mb_nick" size="10" maxlength="20" readonly="readonly">
 				<?php } ?>
   							<?php if ($w == '') { ?><input type="hidden" name="mb_nick_duplicated" id="mb_nick_duplicated"><?php } ?>
   							<span id="msg_mb_nick"></span>
-  						</label>
+						</label>
   					</div>
   					<div class="clear"></div>
   					<div class="col col-12">
   						<div class="alert alert-warning padding-all-10 margin-top-10">
-				<?php if ($req_nick) { ?>
-							<strong>Note:</strong> 공백없이 한글,영문,숫자만 입력 가능 (한글2자, 영문4자 이상) | 닉네임을 바꾸시면 앞으로 <?php echo $config["cf_nick_modify"] * 1?>일 이내에는 변경 할 수 없습니다.
+				<?php if ($w == '' || ($req_nick && $member['mb_point'] >= $eyoom['nickname_change_point'])) { ?>
+							<strong>Note:</strong> 공백없이 한글, 영문, 숫자만 입력 가능 (한글2자, 영문4자 이상) | 닉네임을 바꾸시면 앞으로 <?php echo $config["cf_nick_modify"] * 1?>일 이내에는 변경할 수 없습니다.
+				<?php } elseif ($req_nick && $member['mb_point'] < $eyoom['nickname_change_point']) { ?>
+							<strong>Note:</strong> 보유 포인트가 모자라서 닉네임 변경이 불가합니다. 포인트 적립 후 다시 시도해 주세요.<br>(보유 포인트: <?php echo $member['mb_point'] ?>, 변경 포인트: <?php echo $eyoom['nickname_change_point'] ?> <strong class="color-red">▶ 부족한 포인트: <?php echo $eyoom['nickname_change_point'] - $member['mb_point'] ?></strong>)
 				<?php } else { ?>
-							<strong>Note:</strong> 마지막 수정 이후 <?php echo $config["cf_nick_modify"] * 1?>일이 지나지 않아 닉네임을 변경 할 수 없습니다.
+							<strong>Note:</strong> 마지막 닉네임 변경일 이후 <?php echo $config["cf_nick_modify"] * 1?>일이 지나지 않아 닉네임을 변경할 수 없습니다.
 				<?php } ?>
   						</div>
   					</div>

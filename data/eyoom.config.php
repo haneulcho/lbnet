@@ -61,6 +61,7 @@
 		"push_reaction" => "y",
 		"push_sound" => "push_sound_01.mp3",
 		"push_time" => "10000",
+		"nickname_change_point" => "0",
 		"photo_width" => "150",
 		"photo_height" => "150",
 		"cover_width" => "845",
