@@ -4,14 +4,14 @@
 ?>
 <style>
 .lb_userad .owl-nav, .lb_userad .owl-dots {display:none !important}
-.lb_userad {min-height:224px;max-height:224px;margin-bottom:15px;background-color:#fff;box-shadow:0 5px 19px rgb(232, 232, 232)}
+.lb_userad {min-height:261px;max-height:261px;margin-bottom:15px;background-color:#fff;box-shadow:0 5px 19px rgb(232, 232, 232)}
 .lb_userad .headline {position:relative;background-color:#eaeae6}
 .lb_userad .owl-navi {position:absolute;top:10px;right:10px}
 .lb_userad .owl-navi a.owl-btn {color:#fff;cursor:pointer;width:20px;height:20px;line-height:20px;font-size:12px;text-align:center;background:#a5a5a5}
 .lb_userad .owl-navi a.owl-btn:hover {color:#fff;background:#f44455;-webkit-transition:all 0.2s ease-in-out;-moz-transition:all 0.2s ease-in-out;-o-transition:all 0.2s ease-in-out;transition:all 0.2s ease-in-out}
 .lb_userad .owl-navi a.owl-btn.prev-notice-balloon {position:absolute;right:24px;z-index:1}
 .lb_userad .owl-navi a.owl-btn.next-notice-balloon {position:absolute;right:0;z-index:1}
-#userad {position:relative;overflow:hidden;width:100%;max-height:185px;margin:0;padding:0}
+#userad {position:relative;overflow:hidden;width:100%;max-height:222px;margin:0;padding:0}
 #userad:after {display:block;content:'';clear:both}
 #userad .ad_item {float:left;position:relative;width:100%;margin:0}
 #userad .ad_item .item:nth-child(1) .lblink {color:#f44455}
@@ -65,8 +65,15 @@ $(document).ready(function() {
 	</div>
 	<div id="userad" class="txtonly owl-carousel" style="display:block">
 	<?php if ($loops) { $i = -1; foreach ($loop as $item) { $i++; ?>
-		<?php if ($i % 5 == 0) { ?>
+		<?php if ($i % 5 == 0) { // 전광판에 톰빌리 콜라보 공지사항 고정 ?>
 		<div class="ad_item">
+			<div class="item">
+				<a class="lblink" style="background-color:#f44454" href="/bbs/board.php?bo_table=free2&amp;wr_id=445427">
+					<div class="lbtitle txtonly" style="color:#fff;font-weight:bold">
+						<i class="fa fa-picture-o"></i> 레볼루션 생일 축하해! x 톰빌리 이벤트 안내💕
+					</div>
+				</a>
+			</div>
 		<?php } ?>
 			<div class="item">
 				<a class="lblink" href="<?php echo $item["href"] ?>">

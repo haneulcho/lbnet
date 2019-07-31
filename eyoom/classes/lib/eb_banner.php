@@ -69,9 +69,13 @@ function eb_banner($loccd, $cache_time=1) {
 		foreach ($banners as $item) {
 			$bn_no = $item['bn_no'];
 			if ($item['bn_type'] == 'intra') {
-				if ( $item['bn_link'] != '' && $item['bn_link'] != 'nolink' ) {
+				if ($item['bn_link'] != '' && $item['bn_link'] != 'nolink') {
 					$tocken = $eb->encrypt_md5($bn_no . "||" . $_SERVER['REMOTE_ADDR'] . "||" . $item['bn_link']);
-					$result = $prefix.'<a id="banner_'.$bn_no.'" href="'.G5_BBS_URL.'/banner.php?tocken='.$tocken.'" target="'.$item['bn_target'].'">'.$item['tag_img'].'</a>'.$sufix;
+					if ($bn_no == 7) {
+						$result = $prefix.'<a id="banner_'.$bn_no.'" href="'.G5_BBS_URL.'/banner.php?tocken='.$tocken.'" target="'.$item['bn_target'].'">'.$item['tag_img'].'</a><div style="clear:both;display:block;overflow:hidden"><a style="display:block;float:left;width:50%" href="/bbs/board.php?bo_table=free2&wr_id=445427"><img src="http://lebolution.net/ad/btn_lebolution_hbd_notice.png" style="max-width:100%" alt="레볼루션 x 톰빌리의 메시지 보기"></a><a style="display:block;float:left;width:50%" href="'.G5_BBS_URL.'/banner.php?tocken='.$tocken.'" target="'.$item['bn_target'].'"><img src="http://lebolution.net/ad/btn_lebolution_hbd_go.png" style="max-width:100%" alt="지금 참여하기"></a></div>'.$sufix;
+					} else {
+						$result = $prefix.'<a id="banner_'.$bn_no.'" href="'.G5_BBS_URL.'/banner.php?tocken='.$tocken.'" target="'.$item['bn_target'].'">'.$item['tag_img'].'</a>'.$sufix;
+					}
 				} else {
 					$result = $prefix.$item['tag_img'].$sufix;
 				}
