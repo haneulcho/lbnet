@@ -76,7 +76,7 @@ function eb_banner($loccd, $cache_time=1) {
 				if ($item['bn_link'] != '' && $item['bn_link'] != 'nolink') {
 					$tocken = $eb->encrypt_md5($bn_no . "||" . $_SERVER['REMOTE_ADDR'] . "||" . $item['bn_link']);
 					if ($bn_no == 7) {
-						$result = $prefix.'<a id="banner_'.$bn_no.'" href="'.G5_BBS_URL.'/banner.php?tocken='.$tocken.'" target="'.$item['bn_target'].'"><img class="img-responsive full-width" src="https://i.imgur.com/FAlQXsm.jpg" align="absmiddle"></a><div style="clear:both;display:block;overflow:hidden"><a style="display:block;float:left;width:50%" href="/bbs/board.php?bo_table=free2&wr_id=445427"><img src="https://i.imgur.com/ZQsjPj1.png" style="max-width:100%" alt="레볼루션 x 톰빌리의 메시지 보기"></a><a style="display:block;float:left;width:50%" href="'.G5_BBS_URL.'/banner.php?tocken='.$tocken.'" target="'.$item['bn_target'].'"><img src="https://i.imgur.com/dLMLvfL.png" style="max-width:100%" alt="지금 참여하기"></a></div>'.$sufix;
+						$result = $prefix.'<a id="banner_'.$bn_no.'" href="'.G5_BBS_URL.'/banner.php?tocken='.$tocken.'" target="'.$item['bn_target'].'">'.$item['tag_img'].'</a><div style="clear:both;display:block;overflow:hidden"><a style="display:block;float:left;width:50%" href="/bbs/board.php?bo_table=free2&wr_id=445427"><img src="https://i.imgur.com/ZQsjPj1.png" style="max-width:100%" alt="레볼루션 x 톰빌리의 메시지 보기"></a><a style="display:block;float:left;width:50%" href="'.G5_BBS_URL.'/banner.php?tocken='.$tocken.'" target="'.$item['bn_target'].'"><img src="https://i.imgur.com/dLMLvfL.png" style="max-width:100%" alt="지금 참여하기"></a></div>'.$sufix;
 					} else {
 						$result = $prefix.'<a id="banner_'.$bn_no.'" href="'.G5_BBS_URL.'/banner.php?tocken='.$tocken.'" target="'.$item['bn_target'].'">'.$item['tag_img'].'</a>'.$sufix;
 					}
