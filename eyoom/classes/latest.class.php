@@ -489,7 +489,7 @@ class latest extends eyoom
 			$where .= $opt['where'];
 			if ($skin == 'basic_lb_ad') {
 				$where .= " and wr_id = wr_parent and wr_2 != ''";
-				$orderby = $opt['best']=='y'? " wr_2 desc ":"";
+				$orderby = $opt['best']=='y'? " wr_2 desc ":" wr_last desc";
 			} else {
 				$where .= " and wr_id = wr_parent";
 				$orderby = $opt['best']=='y'? " wr_hit desc ":"";

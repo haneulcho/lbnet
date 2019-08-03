@@ -386,7 +386,8 @@ if ($w == '' || $w == 'r') {
                      wr_7 = '{$wr_7}',
                      wr_8 = '{$wr_8}',
                      wr_9 = '{$wr_9}',
-                     wr_10= '{$wr_10}'
+                     wr_10= '{$wr_10}',
+                     wr_last = '".G5_TIME_YMDHIS."'
                      {$sql_ip}
                      {$sql_password}
               where wr_id = '{$wr['wr_id']}' ";
