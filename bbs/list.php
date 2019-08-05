@@ -33,23 +33,32 @@ if ($sop != 'and' && $sop != 'or')
 
 // 분류 선택 또는 검색어가 있다면
 $stx = trim($stx);
-if ($sca || $stx) {
-    if ($is_member && $is_admin == 'super') {
-      $sql_search = get_sql_search($sca, $sfl, $stx, $sop);
-    } else if ($is_member) {
-      // 회원은 검색 분류에 아이디, 닉네임 사용할 수 없게 외부에서 쿼리날리기 차단
-      if ((strpos(trim($sfl), 'id') !== false || strpos(trim($sfl), 'name') !== false)) {
-        alert('잘못된 접근을 통한 정보 탈취는 불법입니다. \n3회 이상 시도시 법적 처벌을 받을 수 있습니다!', G5_URL);
-        $sql_search='';
-        $total_count = $board['bo_count_write'];
-      } else {
-        $sql_search = get_sql_search($sca, $sfl, $stx, $sop);
-      }
-    } else {
-      alert('잘못된 접근을 통한 정보 탈취는 불법입니다. \n3회 이상 시도시 법적 처벌을 받을 수 있습니다!', G5_URL);
-      $sql_search='';
-      $total_count = $board['bo_count_write'];
+
+// 셀프소개방일 경우 기본 정보로 검색 필드 수정
+if ($bo_table == 'love' && ($area || $type || $age)) {
+    $str = "wr_is_comment = '0' and ";
+    $field = [['wr_area', $area], ['wr_type', $type], ['wr_age', $age]];
+
+    for ($k = 0; $k < count($field); $k++) {
+        if ($field[$k][1]) {
+            $search_text = clean_xss_tags($field[$k][1]);
+            $search_text = strip_tags($search_text);
+            $search_text = trim(stripslashes($search_text));
+            $search_text = sql_real_escape_string($search_text);
+
+            if ($field[$k - 2][1] && !$field[$k - 1][1] && $k == count($field) - 1) {
+                $str .= ' and ';
+            }
+            $str .= $field[$k][0]." = '{$search_text}'";
+            $qstr .= '&amp;'.str_replace('wr_', '', $field[$k][0]).'='.urlencode($field[$k][1]);
+            if ($field[$k + 1][1]) {
+                $str .= ' and ';
+            }
+        }
     }
+
+    $total_count = $board['bo_count_write'];
+    $sql_search = $str;
 
     // 가장 작은 번호를 얻어서 변수에 저장 (하단의 페이징에서 사용)
     $sql = " select MIN(wr_num) as min_wr_num from {$write_table} ";
@@ -59,19 +68,50 @@ if ($sca || $stx) {
     if (!$spt) $spt = $min_spt;
 
     if (!empty($sql_search)) {
-      $sql_search .= " and (wr_num between {$spt} and ({$spt} + {$config['cf_search_part']})) ";
-
-      // 원글만 얻는다. (코멘트의 내용도 검색하기 위함)
-      // 라엘님 제안 코드로 대체 http://sir.kr/g5_bug/2922
-      $sql = " SELECT COUNT(DISTINCT `wr_parent`) AS `cnt` FROM {$write_table} WHERE {$sql_search} ";
-      $row = sql_fetch($sql);
-      $total_count = $row['cnt'];
-      /*
-      $sql = " select distinct wr_parent from {$write_table} where {$sql_search} ";
-      $result = sql_query($sql);
-      $total_count = sql_num_rows($result);
-      */
+        $sql_search .= " and (wr_num between {$spt} and ({$spt} + {$config['cf_search_part']})) ";
+        $sql = " SELECT COUNT(DISTINCT `wr_parent`) AS `cnt` FROM {$write_table} WHERE {$sql_search} ";
+        $row = sql_fetch($sql);
+        $total_count = $row['cnt'];
     }
+} else if ($sca || $stx) {
+    if ($is_member && $is_admin == 'super') {
+        $sql_search = get_sql_search($sca, $sfl, $stx, $sop);
+      } else if ($is_member) {
+        // 회원은 검색 분류에 아이디, 닉네임 사용할 수 없게 외부에서 쿼리날리기 차단
+        if ((strpos(trim($sfl), 'id') !== false || strpos(trim($sfl), 'name') !== false)) {
+          alert('잘못된 접근을 통한 정보 탈취는 불법입니다. \n3회 이상 시도시 법적 처벌을 받을 수 있습니다!', G5_URL);
+          $sql_search='';
+          $total_count = $board['bo_count_write'];
+        } else {
+          $sql_search = get_sql_search($sca, $sfl, $stx, $sop);
+        }
+      } else {
+        alert('잘못된 접근을 통한 정보 탈취는 불법입니다. \n3회 이상 시도시 법적 처벌을 받을 수 있습니다!', G5_URL);
+        $sql_search='';
+        $total_count = $board['bo_count_write'];
+      }
+  
+      // 가장 작은 번호를 얻어서 변수에 저장 (하단의 페이징에서 사용)
+      $sql = " select MIN(wr_num) as min_wr_num from {$write_table} ";
+      $row = sql_fetch($sql);
+      $min_spt = (int)$row['min_wr_num'];
+  
+      if (!$spt) $spt = $min_spt;
+  
+      if (!empty($sql_search)) {
+        $sql_search .= " and (wr_num between {$spt} and ({$spt} + {$config['cf_search_part']})) ";
+  
+        // 원글만 얻는다. (코멘트의 내용도 검색하기 위함)
+        // 라엘님 제안 코드로 대체 http://sir.kr/g5_bug/2922
+        $sql = " SELECT COUNT(DISTINCT `wr_parent`) AS `cnt` FROM {$write_table} WHERE {$sql_search} ";
+        $row = sql_fetch($sql);
+        $total_count = $row['cnt'];
+        /*
+        $sql = " select distinct wr_parent from {$write_table} where {$sql_search} ";
+        $result = sql_query($sql);
+        $total_count = sql_num_rows($result);
+        */
+      }
 } else {
     $sql_search = "";
 
@@ -179,7 +219,8 @@ if ($sst) {
     $sql_order = " order by {$sst} {$sod} ";
 }
 
-if ($sca || $stx) {
+// 셀프소개방일 경우 기본 정보로 검색 필드 수정
+if ($sca || $stx || ($bo_table == 'love' && ($area || $type || $age))) {
     $sql = " select distinct wr_parent from {$write_table} where {$sql_search} {$sql_order} limit {$from_record}, $page_rows ";
 } else {
     $sql = " select * from {$write_table} where wr_is_comment = 0 ";
@@ -196,8 +237,8 @@ if($page_rows > 0) {
 
     while ($row = sql_fetch_array($result))
     {
-        // 검색일 경우 wr_id만 얻었으므로 다시 한행을 얻는다
-        if ($sca || $stx)
+        // 셀프소개방 포함 검색일 경우 wr_id만 얻었으므로 다시 한행을 얻는다
+        if ($sca || $stx || ($bo_table == 'love' && ($area || $type || $age)))
             $row = sql_fetch(" select * from {$write_table} where wr_id = '{$row['wr_parent']}' ");
 
         $list[$i] = get_list($row, $board, $board_skin_url, G5_IS_MOBILE ? $board['bo_mobile_subject_len'] : $board['bo_subject_len']);
@@ -218,7 +259,8 @@ $write_pages = get_paging(G5_IS_MOBILE ? $config['cf_mobile_pages'] : $config['c
 $list_href = '';
 $prev_part_href = '';
 $next_part_href = '';
-if ($sca || $stx) {
+// 셀프소개방 포함 검색일 경우 글보기, 이전 검색 및 다음 검색 링크 새롭게 설정
+if ($sca || $stx || ($bo_table == 'love' && ($area || $type || $age))) {
     $list_href = './board.php?bo_table='.$bo_table;
 
     $patterns = array('#&amp;page=[0-9]*#', '#&amp;spt=[0-9\-]*#');

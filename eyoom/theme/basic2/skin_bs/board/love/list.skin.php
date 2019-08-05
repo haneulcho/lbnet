@@ -5,11 +5,100 @@ include_once(EYOOM_FUNCTION_PATH.'/eb_paging.php');
 
 <div class="board-area">
 <div class="board-list">
-	<!--{* 게시판 페이지 정보 및 버튼 시작 *}-->
-	<div class="board-info margin-bottom-10">
-		<div class="clearfix"></div>
+	<!--{* 게시판 카테고리 시작 *}-->
+	<?php if ($is_category) { ?>
+	<div class="eyoom-form">
+	<fieldset class="lbbox" style="background-color:#f8f8f8;margin-bottom:15px">
+		<h3><i class="fa fa-search"></i><strong> 기본정보로 검색</strong></h3>
+		<div class="listCategory">
+			<dl>
+				<dt>지역</dt>
+				<dd>
+					<label class="select">
+						<select id="wr_area" name="wr_area" class="form-control c-select">
+							<option value="">지역을 선택하세요.</option>
+							<?php
+								$area2 = array('서울', '인천/경기', '대전/충청', '광주/전라', '대구/경북', '부산/경남', '강원/제주', '해외');
+								for($i = 0; $i < count($area2); $i++) {
+							?>
+							<option value="<?php echo $area2[$i]; ?>"<?php if ($area2[$i] == $area) { echo ' selected'; } ?>><?php echo $area2[$i]; ?></option>
+							<?php } ?>
+						</select>
+						<i></i>
+					</label>
+				</dd>
+				<dt>성향</dt>
+				<dd>
+					<label class="select">
+					<select id="wr_type" name="wr_type" class="form-control c-select">
+						<option value="">성향을 선택하세요.</option>
+						<?php
+							$type2 = array('팸', '부치', '전천', '무성향');
+							for($i = 0; $i < count($type2); $i++) {
+						?>
+						<option value="<?php echo $type2[$i]; ?>"<?php if ($type2[$i] == $type) { echo ' selected'; } ?>><?php echo $type2[$i]; ?></option>
+						<?php } ?>
+					</select>
+						<i></i>
+					</label>
+				</dd>
+				<dt>나이</dt>
+				<dd>
+					<label class="select">
+					<select id="wr_age" name="wr_age" class="form-control c-select">
+						<option value="">나이를 선택하세요.</option>
+						<?php
+							$age2 = array('20~24', '25~29', '30~34', '35 이상');
+							for($i = 0; $i < count($age2); $i++) {
+						?>
+						<option value="<?php echo $age2[$i]; ?>"<?php if ($age2[$i] == $age) { echo ' selected'; } ?>><?php echo $age2[$i]; ?></option>
+						<?php } ?>
+					</select>
+						<i></i>
+					</label>
+				</dd>
+			</dl>
+			<div class="lbsubmit">
+				<a id="btn_submitCategory" href="#" class="btn-e btn-e-lg btn-e-yellow margin-top-m-2"><i class="fa fa-paper-plane" aria-hidden="true"></i> 검색하기</a>
+			</div>
+		</div>
+	</fieldset>
 	</div>
-	<!--{* 게시판 페이지 정보 및 버튼 끝 *}-->
+	<style>
+	.listCategory {position:relative}
+	.listCategory dl {overflow:hidden}
+	.listCategory dt, .listCategory dd {float:left}
+	.listCategory dt {margin-right:8px;line-height:32px}
+	.listCategory dd {width:170px;margin-right:12px;line-height:30px}
+	.listCategory dd select {height:32px !important}
+	.listCategory .lbsubmit {width:auto;height:32px}
+	@media screen and (max-width:1199px) {
+		.listCategory dt {clear:both;line-height:20px}
+		.listCategory dd {width:100%;margin-bottom:8px}
+		.listCategory dd:last-child {margin-bottom:3px}
+		.listCategory .lbsubmit {position:relative;float:right;margin-top:6px}
+		.eyoom-form fieldset.lbbox {padding:15px 13px 10px}
+	}
+	</style>
+	<script>
+		$(document).on('click', '#btn_submitCategory', function (e) {
+			e.preventDefault();
+			if ($('#wr_area').val() || $('#wr_type').val() || $('#wr_age').val()) {
+				var str = '';
+				str += ($('#wr_area').val()) ? '&area=' + $('#wr_area').val() : '';
+				str += ($('#wr_type').val()) ? '&type=' + $('#wr_type').val() : '';
+				str += ($('#wr_age').val()) ? '&age=' + $('#wr_age').val() : '';
+
+				var url = '<?php echo $category_href ?>' + encodeURI(str);
+				$(location).attr('href', url);
+			} else {
+				alert('1개 이상의 분류를 반드시 선택해 주세요!');
+				$('#wr_area').focus();
+			}
+		});
+	</script>
+	<?php } ?>
+	<!--{* 게시판 카테고리 끝 *}-->
 
 	<?php if ($is_admin) { ?>
 	<form name="fboardlist" id="fboardlist" action="./board_list_update.php" onsubmit="return fboardlist_submit(this);" method="post" class="eyoom-form">
@@ -45,6 +134,7 @@ include_once(EYOOM_FUNCTION_PATH.'/eb_paging.php');
 				</div>
 			<?php } ?>
 			<a class="lblink<?php if ($is_admin) { ?> admin<?php } ?>" href="<?php echo $item["href"] ?>">
+				<?php if (!$item["is_notice"]) { ?><p style="line-height:15px;color:#09a7bb;padding-bottom:3px;margin-bottom:13px;border-bottom:1px solid #eee"><?php echo $item["wr_area"] ?> | <?php echo $item["wr_type"] ?> | <?php echo $item["wr_age"] ?></p><?php } ?>
 				<div class="lbtitle<?php if ($item["wr_comment"] > 10) { ?> lbhot<?php } elseif ($item["wr_comment"] > 30) { ?> lbbest<?php } ?>">
 					<?php if ($item["is_notice"]) { ?><i class="fa fa-smile-o"></i> <b><?php echo $item["subject"] ?></b><?php } else { ?><?php if ($item["icon_file"]) { ?><i class="fa fa-picture-o color-red"></i><?php } ?> <?php echo $item["subject"] ?><?php } ?><?php if ($item["icon_new"]) { ?><i class="fa fa-circle"></i>&nbsp;<?php } ?><?php if ($item["icon_secret"]) { ?><i class="fa fa-lock"></i>&nbsp;<?php } ?><?php if ($item["comment_cnt"]) { ?><span class="lbcomment"><i class="fa fa-comment-o"></i><?php echo number_format($item["wr_comment"]) ?></span><?php } ?>
 				</div>
@@ -66,9 +156,7 @@ include_once(EYOOM_FUNCTION_PATH.'/eb_paging.php');
 				</div>
 				<div class="lbdes">
 				<span class="lbnick"><i class="fa fa-user"></i><?php if ($item["is_mine"]) { ?><?php echo $item["wr_name"] ?><b class="color-red">*</b><?php } else { ?><?php echo $item["wr_name"] ?><?php } ?></span>
-				<span class="lbhit"><i class="fa fa-eye"></i><?php echo number_format($item["wr_hit"]) ?></span>
-				<?php if ($is_good) { ?><span class="lbup"><i class="fa fa-thumbs-up"></i><?php echo number_format($item["wr_good"]) ?></span><?php } ?>
-				<span class="lbtime"><i class="fa fa-clock-o"></i><?php if ($eyoom_board["bo_sel_date_type"] == '1') { ?><?php echo $eb->date_time('y-m-d H:i', $item["wr_datetime"]) ?><?php } elseif ($eyoom_board["bo_sel_date_type"] == '2') { ?><?php echo $eb->date_format('Y.m.d', $item["wr_datetime"]) ?><?php } ?>
+				<span class="lbhit"><i class="fa fa-eye"></i><?php echo number_format($item["wr_hit"]) ?> </span><span class="lbtime"><i class="fa fa-clock-o"></i><?php if ($eyoom_board["bo_sel_date_type"] == '1') { ?><?php echo $eb->date_time('y-m-d H:i', $item["wr_datetime"]) ?><?php } elseif ($eyoom_board["bo_sel_date_type"] == '2') { ?><?php echo $eb->date_format('Y.m.d', $item["wr_datetime"]) ?><?php } ?>
 				</span>
 				</div>
 				<?php } ?>

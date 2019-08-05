@@ -116,10 +116,10 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
 										<select name="wr_area" <?php if (!$is_admin) { ?>required <?php } ?>class="form-control c-select">
 											<option value="">지역을 선택하세요.</option>
 											<?php
-												$area = array('서울', '인천/경기', '대전/충청', '광주/전라', '대구/경북', '부산/경남', '강원/제주', '해외');
-												for($i = 0; $i < count($area); $i++) {
+												$area3 = array('서울', '인천/경기', '대전/충청', '광주/전라', '대구/경북', '부산/경남', '강원/제주', '해외');
+												for($i = 0; $i < count($area3); $i++) {
 											?>
-											<option value="<?php echo $area[$i]; ?>"><?php echo $area[$i]; ?></option>
+											<option value="<?php echo $area3[$i]; ?>"><?php echo $area3[$i]; ?></option>
 											<?php } ?>
 										</select>
 										<i></i>
@@ -131,10 +131,10 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
 									<select name="wr_type" <?php if (!$is_admin) { ?>required <?php } ?>class="form-control c-select">
 										<option value="">성향을 선택하세요.</option>
 										<?php
-											$type = array('팸', '부치', '전천', '무성향');
-											for($i = 0; $i < count($type); $i++) {
+											$type3 = array('팸', '부치', '전천', '무성향');
+											for($i = 0; $i < count($type3); $i++) {
 										?>
-										<option value="<?php echo $type[$i]; ?>"><?php echo $type[$i]; ?></option>
+										<option value="<?php echo $type3[$i]; ?>"><?php echo $type3[$i]; ?></option>
 										<?php } ?>
 									</select>
 										<i></i>
@@ -146,10 +146,10 @@ var char_max = parseInt(<?php echo $comment_max ?>); // 최대
 									<select name="wr_age" <?php if (!$is_admin) { ?>required <?php } ?>class="form-control c-select">
 										<option value="">나이를 선택하세요.</option>
 										<?php
-											$age = array('20~24', '25~29', '30~34', '35 이상');
-											for($i = 0; $i < count($age); $i++) {
+											$age3 = array('20~24', '25~29', '30~34', '35 이상');
+											for($i = 0; $i < count($age3); $i++) {
 										?>
-										<option value="<?php echo $age[$i]; ?>"><?php echo $age[$i]; ?></option>
+										<option value="<?php echo $age3[$i]; ?>"><?php echo $age3[$i]; ?></option>
 										<?php } ?>
 									</select>
 										<i></i>
