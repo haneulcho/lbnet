@@ -64,7 +64,12 @@ for ($i=0; $i<count($g5_search['tables']); $i++) {
 	$tmp_bo_table = $g5_search['tables'][$i];
 	$tmp_bo_subject = $g5_search['bo_subject'][$i];
 
-	$sql_union .= " select '{$tmp_bo_table}' as bo_table, '{$tmp_bo_subject}' as bo_subject, wr_id, wr_parent, wr_subject, wr_content, wr_comment, wr_good, mb_id, wr_name, wr_datetime, wr_1 from {$tmp_write_table} where {$sql_common} ";
+	if ($tmp_bo_table == 'love') {
+		$sql_union .= " select '{$tmp_bo_table}' as bo_table, '{$tmp_bo_subject}' as bo_subject, wr_id, wr_parent, wr_subject, wr_content, wr_comment, Null as wr_good, mb_id, wr_name, wr_datetime, wr_1 from {$tmp_write_table} where {$sql_common} ";
+	} else {
+		$sql_union .= " select '{$tmp_bo_table}' as bo_table, '{$tmp_bo_subject}' as bo_subject, wr_id, wr_parent, wr_subject, wr_content, wr_comment, wr_good, mb_id, wr_name, wr_datetime, wr_1 from {$tmp_write_table} where {$sql_common} ";
+	}
+
 	if ($i != count($g5_search['tables']) - 1) {
 		$sql_union .= " union all ";
 	} else {
