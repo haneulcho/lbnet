@@ -68,9 +68,9 @@ $(document).ready(function() {
 		<?php if ($i % 5 == 0) { // 전광판에 톰빌리 콜라보 공지사항 고정 ?>
 		<div class="ad_item">
 			<div class="item">
-				<a class="lblink" style="background-color:#f44454" href="/bbs/board.php?bo_table=free2&amp;wr_id=445427">
+				<a class="lblink" style="background-color:#f44454" href="/bbs/board.php?bo_table=free2&amp;wr_id=515729">
 					<div class="lbtitle txtonly" style="color:#fff;font-weight:bold">
-						<i class="fa fa-picture-o"></i> 레볼루션 생일 축하해! x 톰빌리 이벤트 안내💕
+						<i class="fa fa-picture-o"></i> 레볼루션에 전하는 톰빌리 수여니의 메시지 💕
 					</div>
 				</a>
 			</div>
